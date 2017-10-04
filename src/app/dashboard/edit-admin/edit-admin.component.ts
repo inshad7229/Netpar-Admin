@@ -6,6 +6,7 @@ import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@an
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { MdProgressBar} from '@angular/material';
 import {Admin} from './edit.model.component'
+import {StringResource} from '../../models/saredResources'
 import {AdminService} from './edit.service';
 import { NgxCroppieComponent } from 'ngx-croppie';
 import { CroppieOptions } from 'croppie';
@@ -30,6 +31,7 @@ export class EditAdminComponent implements OnInit {
     @ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
     complexForm: FormGroup;
     register: Admin = new Admin();
+    stringResource:StringResource=new  StringResource()
     imageData: any;
     newUploadFile: File = null;
     waitLoader: boolean;
