@@ -1,16 +1,27 @@
 export class StringResource {
 
 	language=[
+			{'language':"Hindi"},
+			{'language':"Marathi"},
+			{'language':"Assamese"},
+			{'language':"Bengali"},
+			{'language':"Dogri"},
+			{'language':"Gujarati"},
+			{'language':" Punjabi"},
+			{'language':"Bodo"},
+			{'language':"Kannada"},
+			{'language':"Kashmiri"},
+			{'language':"Urdu"},
+			{'language':"Telegu"},
+			{'language':"Konkani"},
+			{'language':"Malayalam"},
+			{'language':"Manipuri or Meithei"},
 			{'language':"English"},
-			{'language':"हिंदी"},
-			{'language':"मराठी"},
-			{'language':"കണ്ണാട്"},
-			{'language':"English5"},
-			{'language':"English6"},
-			{'language':"English7"},
-			{'language':"English8"},
-			{'language':"English9"},
-			{'language':"English10"},
-			{'language':"English11"}
+			{'language':"Nepali"},
+			{'language':"Oriya"},
+			{'language':"Sanskrit"},
+			{'language':"Santali"},
+			{'language':"Sindhi"},
+			{'language':"Tamil"}
 	      ]
 }

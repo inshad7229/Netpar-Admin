@@ -135,6 +135,39 @@ export class EditAdminComponent implements OnInit {
             'elementAnalytics': [null],
             'templateAnalytics': [null],
             'googleAnalytics': [null],
+             'language1':[null],
+              'firstName1':[null],
+              'lastName1':[null],
+              'language2':[null],
+              'firstName2':[null],
+              'lastName2':[null],
+              'language3':[null],
+              'firstName3':[null],
+              'lastName3':[null],
+              'language4':[null],
+              'firstName4':[null],
+              'lastName4':[null],
+              'language5':[null],
+              'firstName5':[null],
+              'lastName5':[null],
+              'language6':[null],
+              'firstName6':[null],
+              'lastName6':[null],
+              'language7':[null],
+              'firstName7':[null],
+              'lastName7':[null],
+              'language8':[null],
+              'firstName8':[null],
+              'lastName8':[null],
+              'language9':[null],
+              'firstName9':[null],
+              'lastName9':[null],
+              'language10':[null],
+              'firstName10':[null],
+              'lastName10':[null],
+              'language11':[null],
+              'firstName11':[null],
+              'lastName11':[null]
         })
         this.toastr.setRootViewContainerRef(vcr);
 
@@ -164,10 +197,12 @@ export class EditAdminComponent implements OnInit {
         }
     }
     onRegister() {
+        let languageArray=this.getLanguage()
         this.waitLoader = true;
         console.log(JSON.stringify(this.options))
         this.register.sectionName = this.options
         this.register.image = this.currentImage;
+        this.register.langDetails=languageArray;
         if (this.appProvider.current.adminPageFlag == "allEdit") {
             this.register.plain = window.btoa(this.register.password);
             this.adminService.onEditAdminProfile(this.register)
@@ -373,6 +408,207 @@ export class EditAdminComponent implements OnInit {
       removeAppend(){
         //this.showsecondary=!this.showsecondary    
       }
+     getResources1(){
+       let b= this.stringResource.language.filter(f=>
+              f.language !=this.register.language2
+           && f.language !=this.register.language3
+           && f.language !=this.register.language4
+           && f.language !=this.register.language5
+           && f.language !=this.register.language6
+           && f.language !=this.register.language7
+           && f.language !=this.register.language8
+           && f.language !=this.register.language10
+           && f.language !=this.register.language11
+           )
+       return b
+    }
+    getResources2(){
+       let b= this.stringResource.language.filter(f=>
+              f.language !=this.register.language1
+           && f.language !=this.register.language3
+           && f.language !=this.register.language4
+           && f.language !=this.register.language5
+           && f.language !=this.register.language6
+           && f.language !=this.register.language7
+           && f.language !=this.register.language8
+           && f.language !=this.register.language10
+           && f.language !=this.register.language11
+           )
+       return b
+    }
+     getResources3(){
+       let b= this.stringResource.language.filter(f=>
+             f.language !=this.register.language1
+           && f.language !=this.register.language2
+           && f.language !=this.register.language4
+           && f.language !=this.register.language5
+           && f.language !=this.register.language6
+           && f.language !=this.register.language7
+           && f.language !=this.register.language8
+           && f.language !=this.register.language10
+           && f.language !=this.register.language11
+           )
+       return b
+    }
+     getResources4(){
+       let b= this.stringResource.language.filter(f=>
+             f.language !=this.register.language1
+           && f.language !=this.register.language2 
+           && f.language !=this.register.language3
+           && f.language !=this.register.language5
+           && f.language !=this.register.language6
+           && f.language !=this.register.language7
+           && f.language !=this.register.language8
+           && f.language !=this.register.language10
+           && f.language !=this.register.language11
+           )
+       return b
+    }
+     getResources5(){
+       let b= this.stringResource.language.filter(f=>
+              f.language !=this.register.language1
+           && f.language !=this.register.language2 
+           && f.language !=this.register.language3
+           && f.language !=this.register.language4
+           && f.language !=this.register.language6
+           && f.language !=this.register.language7
+           && f.language !=this.register.language8
+           && f.language !=this.register.language10
+           && f.language !=this.register.language11
+        )
+       return b
+    }
+     getResources6(){
+       let b= this.stringResource.language.filter(f=>
+              f.language !=this.register.language1
+           && f.language !=this.register.language2 
+           && f.language !=this.register.language3
+           && f.language !=this.register.language4
+           && f.language !=this.register.language5
+           && f.language !=this.register.language7
+           && f.language !=this.register.language8
+           && f.language !=this.register.language10
+           && f.language !=this.register.language11
 
+       )
+       return b
+    }
+     getResources7(){
+       let b= this.stringResource.language.filter(f=>
+              f.language !=this.register.language1
+           && f.language !=this.register.language2 
+           && f.language !=this.register.language3
+           && f.language !=this.register.language4
+           && f.language !=this.register.language5
+           && f.language !=this.register.language6
+           && f.language !=this.register.language8
+           && f.language !=this.register.language10
+           && f.language !=this.register.language11
+       )
+       return b
+    }
+     getResources8(){
+       let b= this.stringResource.language.filter(f=>
+             f.language !=this.register.language1
+           && f.language !=this.register.language2 
+           && f.language !=this.register.language3
+           && f.language !=this.register.language4
+           && f.language !=this.register.language5
+           && f.language !=this.register.language6
+           && f.language !=this.register.language7
+           && f.language !=this.register.language10
+           && f.language !=this.register.language11
+       )
+       return b
+    }
+     getResources9(){
+       let b= this.stringResource.language.filter(f=>
+           f.language !=this.register.language1
+           && f.language !=this.register.language2 
+           && f.language !=this.register.language3
+           && f.language !=this.register.language4
+           && f.language !=this.register.language5
+           && f.language !=this.register.language6
+           && f.language !=this.register.language7
+           && f.language !=this.register.language8
+           && f.language !=this.register.language10
+           && f.language !=this.register.language11
+       )
+       return b
+    }
+     getResources10(){
+       let b= this.stringResource.language.filter(f=>
+           f.language !=this.register.language1
+           && f.language !=this.register.language2 
+           && f.language !=this.register.language3
+           && f.language !=this.register.language4
+           && f.language !=this.register.language5
+           && f.language !=this.register.language6
+           && f.language !=this.register.language7
+           && f.language !=this.register.language8
+           && f.language !=this.register.language9
+           && f.language !=this.register.language11
+
+       )
+       return b
+    }
+     getResources11(){
+       let b= this.stringResource.language.filter(f=>
+           f.language !=this.register.language1
+           && f.language !=this.register.language2 
+           && f.language !=this.register.language3
+           && f.language !=this.register.language4
+           && f.language !=this.register.language5
+           && f.language !=this.register.language6
+           && f.language !=this.register.language7
+           && f.language !=this.register.language8
+           && f.language !=this.register.language9
+           && f.language !=this.register.language10
+
+       )
+       return b
+    }
+        getLanguage(){
+            let d=[];
+               if (this.register.language1 ||this.register.firstName1 || this.register.lastName1) {
+                    d.push({language:this.register.language1,firstName:this.register.firstName1,lastName:this.register.lastName1})
+                 }
+                if (this.register.language2 ||this.register.firstName2 || this.register.lastName2) {
+ 
+                    d.push({language:this.register.language2,firstName:this.register.firstName2,lastName:this.register.lastName2})
+                }if (this.register.language3 ||this.register.firstName3 || this.register.lastName3) {
+ 
+                      d.push({language:this.register.language3,firstName:this.register.firstName3,lastName:this.register.lastName3})
+                }if (this.register.language4 ||this.register.firstName4 || this.register.lastName4) {
+ 
+                       d.push({language:this.register.language4,firstName:this.register.firstName4,lastName:this.register.lastName4})
+                }if (this.register.language5 ||this.register.firstName5 || this.register.lastName5) {
+ 
+                        d.push({language:this.register.language5,firstName:this.register.firstName5,lastName:this.register.lastName5})
+                }if (this.register.language6 ||this.register.firstName6 || this.register.lastName6) {
+ 
+                         d.push({language:this.register.language6,firstName:this.register.firstName6,lastName:this.register.lastName6})
+                }
+                if (this.register.language7 ||this.register.firstName7 || this.register.lastName7) {
+ 
+                          d.push({language:this.register.language7,firstName:this.register.firstName7,lastName:this.register.lastName7})
+                }
+                if (this.register.language8 ||this.register.firstName8 || this.register.lastName8) {
+ 
+                           d.push({language:this.register.language8,firstName:this.register.firstName8,lastName:this.register.lastName8})
+                }
+                if (this.register.language9 ||this.register.firstName9 || this.register.lastName9) {
+                            d.push({language:this.register.language9,firstName:this.register.firstName9,lastName:this.register.lastName9})
+ 
+                }
+                if (this.register.language10 ||this.register.firstName10 || this.register.lastName10) {
+ 
+                             d.push({language:this.register.language10,firstName:this.register.firstName10,lastName:this.register.lastName10})
+                }if (this.register.language11 ||this.register.firstName11 || this.register.lastName11) {
+ 
+                           d.push({language:this.register.language11,firstName:this.register.firstName11,lastName:this.register.lastName11})
+                }
+        return d
+        }
 }
 
