@@ -20,9 +20,7 @@
       "prefix": "app",
       "styles": [
         "styles.scss",
-         "../node_modules/croppie/croppie.css",
-          "./assets/sass/form-builder.scss",
-          "./assets/sass/form-render.scss"
+         "../node_modules/croppie/croppie.css"
       ],
       "scripts": [
         "../node_modules/jquery-ui-sortable/jquery-ui.min.js"

@@ -13,13 +13,13 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.2.4",
-    "@angular/cdk": "github:angular/cdk-builds",
+    "@angular/cdk": "^2.0.0-beta.10",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",
     "@angular/core": "^4.2.4",
     "@angular/forms": "^4.2.4",
     "@angular/http": "^4.2.4",
-    "@angular/material": "github:angular/material2-builds",
+    "@angular/material": "^2.0.0-beta.10",
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
@@ -32,6 +32,7 @@
     "mi18n": "^0.3.4",
     "ng2-dnd": "^4.2.0",
     "ng2-toastr": "^4.1.2",
+    "ngx-croppie": "^0.1.2",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },
