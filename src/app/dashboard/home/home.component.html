@@ -1,0 +1,249 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+
+    <div class="main-panel">
+        <app-navbar></app-navbar>
+
+        <div class="main-content">
+      
+   
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <md-progress-bar *ngIf="waitLoader" mode="indeterminate"></md-progress-bar>
+                        <div class="card" > 
+                            <div class="card-header card-header-icon" data-background-color="orange">
+                                <i class="material-icons">account_circle</i>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">View Administrator</h4>
+                                <div class="row">
+                                    <div class="dshbrd-table table-responsive">
+                                        <table class="table table-striped">
+                                            <thead class="text-danger">
+                                                <tr>
+                                                    <th class="text-left"> # </th>
+                                                    <th> Profile </th>
+                                                    <th> Name of administrator </th>
+                                                    <th> Function </th>
+                                                    <th> Email / ID Number </th>
+                                                    <th> Password </th>
+                                                    <th> Access </th>
+                                                    <th> Language </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-center">
+                                                <tr *ngFor="let admin Of adminData;let i =index">
+                                                    <td class="text-left">
+                                                       {{i+1}}.
+                                                    </td>
+                                                    <td >
+                                                        <img  [src]="admin.image" class="img-responsive profile-img"   />
+                                                    </td>
+                                                    <td class="td-icon">
+                                                        {{admin.firstName}} {{admin.lastName}}
+                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico" (click)="openDialog(admin)"> <i class="fa fa-trash"></i> </a>
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" (click)="editAdmin(admin,'allEdit')" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </td>
+                                                    <td>
+                                                        <div> Role: {{admin.role}} </div>
+                                                       
+                                                        <div class="cus-switch">
+                                                            <span *ngIf="admin.status==false">Enable</span>
+                                                            <span *ngIf="admin.status==true" >Disable</span>
+                                                            <label class="switch m-b-0">
+                                                                <input type="checkbox"  [(ngModel)]="admin.status"  (change)="onStatusChange(admin)" />
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>{{admin.email}}</div>
+                                                        <div>{{admin.contactNo}}</div>
+                                                    </td>
+                                                    <td class="td-icon">
+                                                    <div *ngIf="enablePasswordEdit!=i">
+                                                        
+                                                        {{palinPass(admin.plain)}}
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" (click)="editPassword(i)" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </div>
+                                                        
+                                                        <div class="input-group cus-input" *ngIf="enablePasswordEdit==i">
+                                                            <input type="text" class="form-control txtfield" placeholder="Update Password" [(ngModel)]="editPasswordModel">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-secondary btn-xs" type="button" (click)=onEditPassSend(admin,editPasswordModel)><i class="fa fa-check"></i></button>
+                                                            </span>
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-danger btn-xs" type="button" (click)="hideEditText()">
+                                                                    <i class="material-icons">close</i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+
+                                                    </td>
+                                                    <td>
+                                                        <div *ngFor="let section of admin.sectionName"> 
+                                                            <span *ngIf="section.checked">-{{section.name}}</span>
+                                                         </div>
+                                                       
+                                                    </td>
+                                                     <td> <a class="btn btn-warning" (click)="openDialogLanguage()">View</a> </td>
+                                                </tr>
+                                                <!-- <tr>
+                                                    <td class="text-left">
+                                                        2.
+                                                    </td>
+                                                    <td>
+                                                        <img src="assets/img/avatar-2.png" class="img-responsive profile-img" />
+                                                    </td>
+                                                    <td class="td-icon">
+                                                        Ashami shah
+                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </td>
+                                                    <td>
+                                                        <div> Role: Section Administrator </div>
+                                                                                                       <div class="cus-switch">
+                                                            Enable
+                                                            <label class="switch m-b-0">
+                                                                <input type="checkbox" />
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div> ashima@netpar.co </div>
+                                                        <div> 9874562310</div>
+                                                    </td>
+                                                    <td class="td-icon">
+                                                        ashima@netpar.co
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </td>
+                                                    <td>
+                                                        <div> - Jobs </div>
+                                                        <div> - Loans </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        3.
+                                                    </td>
+                                                    <td>
+                                                        <img src="assets/img/avatar-2.png" class="img-responsive profile-img" />
+                                                    </td>
+                                                    <td class="td-icon">
+                                                        Ashami shah
+                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </td>
+                                                    <td>
+                                                        <div> Role: Section Administrator </div>
+                                                                                                            <div class="cus-switch">
+                                                            Enable
+                                                            <label class="switch m-b-0">
+                                                                <input type="checkbox" />
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div> ashima@netpar.co </div>
+                                                        <div> 9874562310</div>
+                                                    </td>
+                                                    <td class="td-icon">
+                                                        ashima@netpar.co
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </td>
+                                                    <td>
+                                                        <div> - Jobs </div>
+                                                        <div> - Loans </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        4.
+                                                    </td>
+                                                    <td>
+                                                        <img src="assets/img/avatar-2.png" class="img-responsive profile-img" />
+                                                    </td>
+                                                    <td class="td-icon">
+                                                        Ashami shah
+                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </td>
+                                                    <td>
+                                                        <div> Role: Section Administrator </div>
+                                                       
+                                                        <div class="cus-switch">
+                                                            Enable
+                                                            <label class="switch m-b-0">
+                                                                <input type="checkbox" />
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div> ashima@netpar.co </div>
+                                                        <div> 9874562310</div>
+                                                    </td>
+                                                    <td class="td-icon">
+                                                        ashima@netpar.co
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </td>
+                                                    <td>
+                                                        <div> - Jobs </div>
+                                                        <div> - Loans </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        5.
+                                                    </td>
+                                                    <td>
+                                                        <img src="assets/img/avatar-2.png" class="img-responsive profile-img" />
+                                                    </td>
+                                                    <td class="td-icon">
+                                                        Ashami shah
+                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </td>
+                                                    <td>
+                                                        <div> Role: Section Administrator </div>
+                                                       
+                                                        <div class="cus-switch">
+                                                            Enable
+                                                            <label class="switch m-b-0">
+                                                                <input type="checkbox" />
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div> ashima@netpar.co </div>
+                                                        <div> 9874562310</div>
+                                                    </td>
+                                                    <td class="td-icon">
+                                                        ashima@netpar.co
+                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                    </td>
+                                                    <td>
+                                                        <div> - Jobs </div>
+                                                        <div> - Loans </div>
+                                                    </td>
+                                                </tr>  -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

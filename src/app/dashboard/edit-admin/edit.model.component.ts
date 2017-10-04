@@ -1,0 +1,41 @@
+
+export class Admin {
+	  _id:string;
+      image:any;
+      firstName:string;
+      lastName:string;
+      email:string;
+      alternativeEmail:string;
+      password:string;
+      contactNo:string;
+      role:string;
+      sectionName:any;
+      administratorManagement:boolean;
+      viewEditAdministrator:boolean;
+      addAdministrator:boolean;
+      templateManagement:boolean;
+      sectionTemplate:boolean;
+      categoryTemplate:boolean;
+      listingView :boolean;
+      homepageTemplate:boolean;
+      sectionManagement:boolean;
+      addSection:any;
+      addcategory:any;
+      addSubcategory:any;
+      viewEditSection:any;
+      contentManagement:boolean
+	addContentManagement:boolean;
+	manageContentItem:boolean;
+	commentManagement:boolean;
+      userContributionManagement:boolean;
+      homepageManagement:boolean;
+      userManagement:boolean;
+      sectionAnalytics:boolean;
+      articleAnalytics:boolean;
+      elementAnalytics:boolean;
+      templateAnalytics:boolean;
+      googleAnalytics:boolean;
+      plain:string;
+      status:boolean;
+      delstatus:string;
+}

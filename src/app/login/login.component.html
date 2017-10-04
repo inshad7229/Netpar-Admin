@@ -1,0 +1,74 @@
+<section class="login-sec">
+    <div class="table-divvh">
+        <div class="table-cell-div">
+            <div class="container">
+                <div class="login-form">
+                    <div class="login-panel">
+                        
+                        <h3 class="text-center">Netpar Administrator Login</h3>
+
+                        <div class="loginas-sec">
+                            <form class="example-form" [formGroup]="complexForm">
+
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <md-select placeholder="Login as" [formControl]="complexForm.controls['loginAs']" [(ngModel)]="loginModel.role" >
+                                        <md-option value="superAdmin" selected> Super Administrator </md-option>
+                                        <md-option value="sectionAdministrator"> section Administrator </md-option>
+                                        <md-option value="contentWriter"> Content Writer </md-option>
+                                        <md-option value="businessuser"> Business user </md-option>
+                                    </md-select>
+                                     <md-error *ngIf="complexForm.controls['loginAs'].hasError('required')">
+                                              Login As is <strong>required</strong>
+                                    </md-error>
+                                </div>
+                                    
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <md-form-field>
+                                        <input mdInput placeholder="Email" type="email" [formControl]="complexForm.controls['email'] " [(ngModel)]="loginModel.email">
+                                        <md-error *ngIf="complexForm.controls['email'].hasError('pattern')">
+                                              Please enter a valid email address
+                                        </md-error>
+                                        <md-error *ngIf="complexForm.controls['email'].hasError('required')">
+                                              Email is <strong>required</strong>
+                                        </md-error>
+                                    </md-form-field>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <md-form-field>
+                                        <input mdInput placeholder="Password" type="password"  [formControl]="complexForm.controls['password']" [(ngModel)]="loginModel.password" >
+                                         <md-error *ngIf="complexForm.controls['password'].hasError('required')">
+                                             Password is <strong>required</strong>
+                                        </md-error>
+                                    </md-form-field>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <md-checkbox [formControl]="complexForm.controls['remember']" [(ngModel)]="loginModel.remember" >Remember Me</md-checkbox>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <button (click)="onLogIn()" class="btn custom-btn" [disabled]="buttonStatus ||!complexForm.valid"> Login to Netpar </button>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
+                                    <a routerLink="/home"> Forgot Password? </a>
+                                </div>
+                            </form>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    
+
+    $('.label-floating .form-control').on('focus',function(){
+        $(this).closest('.label-floating').addClass('is-focused');
+    });
+    $('.label-floating .form-control').on('blur',function(){
+        $(this).closest('.label-floating').removeClass('is-focused');
+    });
+
+</script>

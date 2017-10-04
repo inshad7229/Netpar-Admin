@@ -1,0 +1,279 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+
+    <div class="main-panel">
+        <app-navbar></app-navbar>
+        <div class="main-content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                  <form class="example-form" [formGroup]="addCategoryForm">
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card" > 
+                            <div class="card-header card-header-icon" data-background-color="orange">
+                                <i class="material-icons">edit</i>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">Add Category</h4>
+                                <div class="cus-form">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12" >
+	                                    <md-select placeholder="Select Section *" [formControl]="addCategoryForm.controls['sectionName']" name="sectionName" [(ngModel)]="addCategoryRequest.sectionId">
+	                                        <md-option  *ngFor="let section of sections"  [value]="section._id" > {{section.sectionName}}</md-option>
+	                                       <!--  <md-option value="2"> Section2 </md-option>
+	                                        <md-option value="3"> Section3 </md-option>
+	                                        <md-option value="4"> Section4 </md-option> -->
+	                                    </md-select>
+                                         <md-error  *ngIf="addCategoryForm.controls['sectionName'].hasError('required') && addCategoryForm.controls['sectionName'].touched">
+                                                       Name of Category is <strong>required</strong>
+                                            </md-error>
+	                                </div>
+
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <md-form-field>
+                                            <input mdInput placeholder="Name of Category *" type="text" [formControl]="addCategoryForm.controls['categoryName']" name="categoryName" [(ngModel)]="addCategoryRequest.categoryName">
+                                             <md-error  *ngIf="addCategoryForm.controls['categoryName'].hasError('required') && addCategoryForm.controls['categoryName'].touched">
+                                                       Name of Category is <strong>required</strong>
+                                            </md-error>
+                                            <md-error  *ngIf="addCategoryForm.controls['categoryName'].hasError('pattern')">
+                                                       only alphabets are acceptable 
+                                            </md-error>
+                                            <md-error  *ngIf="addCategoryForm.controls['categoryName'].hasError('maxlength')">
+                                                       max length is 30
+                                            </md-error> 
+                                        </md-form-field>
+                                    </div>
+                                    
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <legend>Category Display Photo:</legend>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12 text-center">
+                                            <p> Thumbnail Picture </p>
+                                            <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                                                 <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
+                                                <div class="fileinput-new thumbnail">
+                                                    <img alt="..."  [src]="imageToDisplayThumbnail">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists" style="display:none;">
+                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieThumbnail(myForm)">
+                                                    Save
+                                                    <div class="ripple-container"></div>
+                                                    </span>    
+                                                    <span class="btn btn-danger btn-round file_remove" data-dismiss="modal" (click)="cancelCroppieEditThumbnail()">
+                                                        <i class="fa fa-times"></i> Cancel
+                                                        <div class="ripple-container"></div>
+                                                    </span>
+                                                </div>
+                                                <span class="btn custom-btn btn-round btn-file fileinput-noexists">
+                                                    <span class="fileinput-new">Change</span>
+                                                    <input type="file" class="file-type" id="fileupload" #imageUploadThumbnail (change)="imageUploadEventThumbnail($event)" accept="image/gif, image/jpeg, image/png" />
+                                                    <div class="ripple-container"></div>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12 text-center">
+                                            <p> Horizontal Picture </p>
+                                            <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                                                 <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
+                                                <div class="fileinput-new thumbnail">
+                                                    <img alt="..."  [src]="imageToDisplayHorigontal">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists" style="display:none;">
+                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieHorigontal(myForm)">
+                                                    Save
+                                                    <div class="ripple-container"></div>
+                                                    </span>    
+                                                    <span class="btn btn-danger btn-round file_remove" data-dismiss="modal" (click)="cancelCroppieEditHorigontal()">
+                                                        <i class="fa fa-times"></i> Cancel
+                                                        <div class="ripple-container"></div>
+                                                    </span>
+                                                </div>
+                                                <span class="btn custom-btn btn-round btn-file fileinput-noexists">
+                                                    <span class="fileinput-new">Change</span>
+                                                    <input type="file" class="file-type" id="fileupload" #imageUploadHorigontal (change)="imageUploadEventHorigontal($event)" accept="image/gif, image/jpeg, image/png" />
+                                                    <div class="ripple-container"></div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card" > 
+                            <div class="card-header card-header-icon" data-background-color="orange">
+                                <i class="material-icons">edit</i>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">Template and View Settings</h4>
+                                <div class="cus-form">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <legend>Category View Template Applicable *:</legend>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <md-radio-group    [formControl]="addCategoryForm.controls['categoryView']" name="categoryView" [(ngModel)]="addCategoryRequest.categoryView">
+                                                <md-radio-button name="yes1" value="yes" class="col-md-2 col-sm-2 col-xs-12" >Yes</md-radio-button>
+                                                <md-radio-button name="no1"  value="no" class="col-md-2 col-sm-2 col-xs-12">No</md-radio-button>
+                                            </md-radio-group>
+                                             <md-error  *ngIf="addCategoryForm.controls['categoryView'].hasError('required') && addCategoryForm.controls['categoryView'].touched">
+                                                       Category View Template Applicable is <strong>required</strong>
+                                            </md-error>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+	                                    <md-select placeholder="Choose Category Template Format" [formControl]="addCategoryForm.controls['categoryFormat']" name="categoryFormat" [(ngModel)]="addCategoryRequest.categoryFormat">
+	                                        <md-option value="1"> Template1 </md-option>
+	                                        <md-option value="2"> Template2 </md-option>
+	                                        <md-option value="3"> Template3 </md-option>
+	                                        <md-option value="4"> Template4 </md-option>
+	                                    </md-select>
+	                                </div>
+
+	                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <legend>Subcategory View Applicable *:</legend>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                             <md-radio-group    [formControl]="addCategoryForm.controls['subCategoryView']" name="subCategoryView" [(ngModel)]="addCategoryRequest.subCategoryView">
+                                                <md-radio-button name="yes2"  value="yes" class="col-md-2 col-sm-2 col-xs-12">Yes</md-radio-button>
+                                                <md-radio-button name="no2"  value="no" class="col-md-2 col-sm-2 col-xs-12">No</md-radio-button>
+                                            </md-radio-group>
+                                            <md-error  *ngIf="addCategoryForm.controls['subCategoryView'].hasError('required') && addCategoryForm.controls['subCategoryView'].touched">
+                                                       Subcategory View Applicable is <strong>required</strong>
+                                           </md-error>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <legend>Listing View Applicable *:</legend>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                             <md-radio-group    [formControl]="addCategoryForm.controls['listView']" name="listView" [(ngModel)]="addCategoryRequest.listView">
+                                                <md-radio-button name="yes3"  value="yes" class="col-md-2 col-sm-2 col-xs-12">Yes</md-radio-button>
+                                                <md-radio-button name="no3"  value="no" class="col-md-2 col-sm-2 col-xs-12">No</md-radio-button>
+                                            </md-radio-group>
+                                             <md-error  *ngIf="addCategoryForm.controls['listView'].hasError('required') && addCategoryForm.controls['listView'].touched">
+                                                      Listing View Applicable is <strong>required</strong>
+                                           </md-error>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+	                                    <md-select placeholder="Choose Listing View Template" [formControl]="addCategoryForm.controls['listViewFormat']" name="listViewFormat" [(ngModel)]="addCategoryRequest.listViewFormat">
+	                                        <md-option value="1"> Template1 </md-option>
+	                                        <md-option value="2"> Template2 </md-option>
+	                                        <md-option value="3"> Template3 </md-option>
+	                                        <md-option value="4"> Template4 </md-option>
+	                                    </md-select>
+	                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card" > 
+                            <div class="card-header card-header-icon" data-background-color="orange">
+                                <i class="material-icons">edit</i>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">User Contribution Form</h4>
+                                <div class="cus-form">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <legend>User Contribution Form Applicable *:</legend>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                             <md-radio-group    [formControl]="addCategoryForm.controls['contributionForm']" name="contributionForm" [(ngModel)]="addCategoryRequest.contributionForm">
+                                                <md-radio-button name="yes4"  value="yes" class="col-md-2 col-sm-2 col-xs-12">Yes</md-radio-button>
+                                                <md-radio-button name="no4"  value="no" class="col-md-2 col-sm-2 col-xs-12">No</md-radio-button>
+                                            </md-radio-group>.
+                                             <md-error  *ngIf="addCategoryForm.controls['contributionForm'].hasError('required') && addCategoryForm.controls['contributionForm'].touched">
+                                                       User Contribution Form Applicable is <strong>required</strong>
+                                           </md-error>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <md-form-field>
+                                            <input mdInput placeholder="Title of Form" type="text" [formControl]="addCategoryForm.controls['titleForm']" name="titleForm" [(ngModel)]="addCategoryRequest.titleForm">
+                                        </md-form-field>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <md-form-field>
+                                            <textarea mdInput placeholder="Guide Text of Form" rows="5" md-select-on-focus [formControl]="addCategoryForm.controls['guildTextForForm']" name="guildTextForForm" [(ngModel)]="addCategoryRequest.guildTextForForm"></textarea>
+                                        </md-form-field>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <md-form-field>
+                                            <textarea mdInput placeholder="Guide Text for Media of Form" rows="5" md-select-on-focus [formControl]="addCategoryForm.controls['guildTextForMedia']" name="guildTextForMedia" [(ngModel)]="addCategoryRequest.guildTextForMedia"></textarea>
+                                        </md-form-field>
+                                    </div>
+
+
+                                
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card" > 
+                            <div class="card-header card-header-icon" data-background-color="orange">
+                                <i class="material-icons">edit</i>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">Engagement Settings</h4>
+                                <div class="cus-form">
+
+                                    
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <legend>User Engagement Buttons:</legend>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <md-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['userEngBtnLike']" name="userEngBtnLike" [(ngModel)]="addCategoryRequest.userEngBtnLike">Like</md-checkbox>
+                                            <md-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['userEngBtnShare']" name="userEngBtnShare" [(ngModel)]="addCategoryRequest.userEngBtnShare">Share</md-checkbox>
+                                            <md-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['userEngBtnComment']" name="userEngBtnComment" [(ngModel)]="addCategoryRequest.userEngBtnComment">Comment</md-checkbox>
+                                            <md-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['userEngBtnSave']" name="userEngBtnSave" [(ngModel)]="addCategoryRequest.userEngBtnSave">Save</md-checkbox>
+                                            <md-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['userEngBtnDownload']" name="userEngBtnDownload" [(ngModel)]="addCategoryRequest.userEngBtnDownload">Download</md-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <legend> Call to Action Buttons:</legend>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <md-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnApply']" name="callToActBtnApply" [(ngModel)]="addCategoryRequest.callToActBtnApply">Apply</md-checkbox>
+                                            <md-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnCallMe']" name="callToActBtnCallMe" [(ngModel)]="addCategoryRequest.callToActBtnCallMe">Call Me Back</md-checkbox>
+                                            <md-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnInterested']" name="callToActBtnInterested" [(ngModel)]="addCategoryRequest.callToActBtnInterested">I'm Interested</md-checkbox>
+                                            <md-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnCall']" name="callToActBtnCall" [(ngModel)]="addCategoryRequest.callToActBtnCall">Call</md-checkbox>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <button class="btn custom-btn" (click)="onAddCategory()" [disabled]="!addCategoryForm.valid"> Submit </button>
+                    </div>
+
+                   </form>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

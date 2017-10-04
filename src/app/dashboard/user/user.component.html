@@ -1,0 +1,414 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+
+    <div class="main-panel">
+        <app-navbar></app-navbar>
+        <div class="main-content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        
+                        <div class="card m-t-0">
+                            <div class="card-content">
+                                <div class="select-head">
+                                    <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
+                                </div>
+                                <ul class="slctd-fltrli" type="none">
+                                    <li> District <span> <i class="fa fa-times"></i> </span> </li>
+                                    <li> Unverified mobile numbers <span> <i class="fa fa-times"></i> </span> </li>
+                                    <li> Active user <span> <i class="fa fa-times"></i> </span> </li>
+                                    <li> Male <span> <i class="fa fa-times"></i> </span> </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card" > 
+                            <div class="card-header card-header-icon" data-background-color="orange">
+                                <i class="material-icons">person</i>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">User Management</h4>
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <md-select placeholder="Items per page">
+                                                <md-option value="1"> 25 </md-option>
+                                                <md-option value="2"> 50 </md-option>
+                                                <md-option value="3"> 100 </md-option>
+                                                <md-option value="4"> 200 </md-option>
+                                                <md-option value="4"> All </md-option>
+                                            </md-select>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <md-select placeholder="Time Range">
+                                                <md-option value="1"> 7d </md-option>
+                                                <md-option value="2"> 15d </md-option>
+                                                <md-option value="3"> 1m </md-option>
+                                                <md-option value="4"> 3m </md-option>
+                                                <md-option value="4"> 6m </md-option>
+                                                <md-option value="4"> 1y </md-option>
+                                                <md-option value="4"> all </md-option>
+                                            </md-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-lr-15 pull-right">
+	                                	<div class="dropdown right chck">
+                                            <a href="javascript:;" class="cusdropdown-toggle btn btn-success">
+                                                <i class="material-icons">tune</i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+												<li> <a> <md-checkbox value="1"> Time spent             </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="2"> Avg time spent/day     </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="3"> Avg time Spent/session </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="4"> Page views             </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="5"> Avg Page views/session </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="6"> Number of sesions      </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="7"> Last seen online       </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="8"> Number of comments     </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="9"> Number of likes        </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="10"> Number of saves       </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="11"> Number of downloads   </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="12"> Number of invites     </md-checkbox> </a> </li>
+												<li> <a> <md-checkbox value="13"> Number of coversions  </md-checkbox> </a> </li>
+                                            </ul>
+                                        </div>
+	                                </div>
+	                            </div>
+
+                                <div class="row">
+	                                <div class="dshbrd-table table-responsive">
+	                                	<table class="table table-striped user-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+	                                        <thead class="text-danger">
+		                                        <tr>
+		                                            <th> Platform User Profile </th>
+		                                            <th colspan="7"> Platform Interaction </th>
+		                                            <th colspan="5"> User Engagement </th>
+		                                            <th colspan="2"> Call To Action </th>
+		                                            <th> Influencer </th>
+		                                            <th> Referral Code </th>
+		                                        </tr>
+		                                        <tr>
+                                                    <th> </th>
+                                                    <th><mfDefaultSorter by="session"> No of Sessions</mfDefaultSorter> </th>
+                                                    <th><mfDefaultSorter by="time"> Total Time Spent</mfDefaultSorter> </th>
+                                                    <th><mfDefaultSorter by="avgs"> Avg Time Spent/Session</mfDefaultSorter> </th>
+                                                    <th><mfDefaultSorter by="avgd"> Avg Time Spent/Day</mfDefaultSorter> </th>
+                                                    <th><mfDefaultSorter by="page"> Page Views</mfDefaultSorter> </th>
+                                                    <th><mfDefaultSorter by="avgp"> Avg Page Views/Session</mfDefaultSorter> </th>
+                                                    <th><mfDefaultSorter by="online"> Last Online</mfDefaultSorter> </th>
+                                                    <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Like" class="tltip_ico">
+                                                            <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Share" class="tltip_ico">
+                                                            <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Comment" class="tltip_ico">
+                                                            <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Save" class="tltip_ico">
+                                                            <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Download" class="tltip_ico">
+                                                            <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Submission" class="tltip_ico">
+                                                            <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Publications" class="tltip_ico">
+                                                            <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+
+                                                    <!-- <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Submission" class="tltip_ico">
+                                                            <mfDefaultSorter by="phone"> <i class="fa fa-external-link-square"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Publications" class="tltip_ico">
+                                                            <mfDefaultSorter by="volume"> <i class="fa fa-file-text"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th> -->
+                                                    <th></th>
+                                                    <th></th>
+
+                                                </tr>
+		                                    </thead>
+		                                    <tbody>
+		                                        <tr>
+		                                            <td class="text-left">
+                                                        <div class="cont-img dp">
+                                                            <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                            <div class="text-switch text-center">
+                                                                <span>Enable </span>
+                                                                <span class="cus-switch">
+                                                                    <label class="switch m-b-0">
+                                                                        <input type="checkbox" />
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-box cont-dtl">
+                                                            <p> Jay Sinha </p>
+                                                            <p> MH | Raigad | Panvel </p>
+                                                            <p class="text-success"> 9874563210 </p>
+                                                        </div>
+                                                    </td>
+		                                            <td> 56 </td>
+		                                            <td> 250 Hours 30 Min </td>
+		                                            <td> 250 Hours 30 Min </td>
+                                                    <td> 250 Hours 30 Min </td>
+		                                            <td> 44 </td>
+		                                            <td> 125 </td>
+		                                            <td class="width10px"> <p> 10:00 AM </p> <p> 18-08-2017 </p> </td>
+		                                            <td> 40 </td>
+		                                            <td> 150 </td>
+		                                            <td> 80 </td>
+		                                            <td> 50 </td>
+		                                            <td> 50 </td>
+		                                            <td> 68 </td>
+		                                            <td> 75 </td>
+		                                            <td> 
+                                                    	<div class="cus-switch user">
+                                                            <span>Enable</span>
+                                                            <label class="switch m-b-0">
+                                                                <input type="checkbox" />
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <a routerLink="/user" (click)="openDialog()"> View </a>
+                                                    </td>
+                                                    <td class="media-box width20">
+                                                    	<p> Referral code: UNXHIS0 </p>
+                                                        <p> No. of invites: 4 </p>
+                                                        <p> No. of conversation: 3 </p>
+                                                    </td>
+
+		                                        </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        <div class="cont-img dp">
+                                                            <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                            <div class="text-switch text-center">
+                                                                <span>Enable </span>
+                                                                <span class="cus-switch">
+                                                                    <label class="switch m-b-0">
+                                                                        <input type="checkbox" />
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-box cont-dtl">
+                                                            <p> Jay Sinha </p>
+                                                            <p> MH | Raigad | Panvel </p>
+                                                            <p class="text-danger">9874563210 </p>
+                                                        </div>
+                                                    </td>
+                                                    <td> 56 </td>
+                                                    <td> 250 Hours 30 Min </td>
+                                                    <td> 250 Hours 30 Min </td>
+                                                    <td> 250 Hours 30 Min </td>
+                                                    <td> 44 </td>
+                                                    <td> 125 </td>
+                                                    <td class="width10px"> <p> 10:00 AM </p> <p> 18-08-2017 </p> </td>
+                                                    <td> 40 </td>
+                                                    <td> 150 </td>
+                                                    <td> 80 </td>
+                                                    <td> 50 </td>
+                                                    <td> 50 </td>
+                                                    <td> 68 </td>
+                                                    <td> 75 </td>
+                                                    <td> 
+                                                        <div class="cus-switch user">
+                                                            <span>Enable</span>
+                                                            <label class="switch m-b-0">
+                                                                <input type="checkbox" />
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <a routerLink="/user" (click)="openDialog()"> View </a>
+                                                    </td>
+                                                    <td class="media-box width20">
+                                                        <p> Referral code: UNXHIS0 </p>
+                                                        <p> No. of invites: 4 </p>
+                                                        <p> No. of conversation: 3 </p>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        <div class="cont-img dp">
+                                                            <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                            <div class="text-switch text-center">
+                                                                <span>Enable </span>
+                                                                <span class="cus-switch">
+                                                                    <label class="switch m-b-0">
+                                                                        <input type="checkbox" />
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-box cont-dtl">
+                                                            <p> Jay Sinha </p>
+                                                            <p> MH | Raigad | Panvel </p>
+                                                            <p class="text-danger"> 9874563210 </p>
+                                                        </div>
+                                                    </td>
+                                                    <td> 56 </td>
+                                                    <td> 250 Hours 30 Min </td>
+                                                    <td> 250 Hours 30 Min </td>
+                                                    <td> 250 Hours 30 Min </td>
+                                                    <td> 44 </td>
+                                                    <td> 125 </td>
+                                                    <td class="width10px"> <p> 10:00 AM </p> <p> 18-08-2017 </p> </td>
+                                                    <td> 40 </td>
+                                                    <td> 150 </td>
+                                                    <td> 80 </td>
+                                                    <td> 50 </td>
+                                                    <td> 50 </td>
+                                                    <td> 68 </td>
+                                                    <td> 75 </td>
+                                                    <td> 
+                                                        <div class="cus-switch user">
+                                                            <span>Enable</span>
+                                                            <label class="switch m-b-0">
+                                                                <input type="checkbox" />
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <a routerLink="/user" (click)="openDialog()"> View </a>
+                                                    </td>
+                                                    <td class="media-box width20">
+                                                        <p> Referral code: UNXHIS0 </p>
+                                                        <p> No. of invites: 4 </p>
+                                                        <p> No. of conversation: 3 </p>
+                                                    </td>
+
+                                                </tr>
+
+		                                    </tbody>
+		                                    <tfoot>
+	                                            <tr>
+	                                                <td colspan="14">
+	                                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+	                                                </td>
+	                                            </tr>
+                                            </tfoot>
+	                                    </table>
+	                                </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+
+    <div class="fixed-plugin">
+	    <div class="filter-plugin">
+	        <a href="javascript:void(0);">
+	            <i class="material-icons">sort</i>
+	        </a>
+	        <ul class="sidebar-filter" type="none">
+	        	<div class="left-content">
+	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> State</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>State1</md-checkbox></li>
+                                <li><md-checkbox>State2</md-checkbox></li>
+                                <li><md-checkbox>State3</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> District</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>District1</md-checkbox></li>
+                                <li><md-checkbox>District2</md-checkbox></li>
+                                <li><md-checkbox>District3</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Block</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Block1</md-checkbox></li>
+                                <li><md-checkbox>Block2</md-checkbox></li>
+                                <li><md-checkbox>Block3</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Unverified mobile number</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Active user</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Hyper active</md-checkbox></li>
+                                <li><md-checkbox>Moderatley active</md-checkbox></li>
+                                <li><md-checkbox>active</md-checkbox></li>
+                                <li><md-checkbox>Inactive</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Gender</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Male</md-checkbox></li>
+                                <li><md-checkbox>Female</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> User</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Influencers</md-checkbox></li>
+                                <li><md-checkbox>Verified</md-checkbox></li>
+                                <li><md-checkbox>Unverified</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btns-filter">
+                        <a class="btn custom-btn">Apply Filter </a>
+                    </div>
+
+                </div>
+	        </ul>
+	    </div>
+	</div>
+
+</div>

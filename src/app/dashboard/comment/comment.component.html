@@ -1,0 +1,222 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+
+    <div class="main-panel">
+        <app-navbar></app-navbar>
+        <div class="main-content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                    	<div class="card m-t-0">
+                    		<div class="card-content">
+	                            <div class="select-head">
+	                                <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
+	                            </div>
+	                            <ul class="slctd-fltrli" type="none">
+	                                <li> Deleted <span> <i class="fa fa-times"></i> </span> </li>
+	                                <li> Jobs <span> <i class="fa fa-times"></i> </span> </li>
+	                                <li> News <span> <i class="fa fa-times"></i> </span> </li>
+	                                <li> Cricket <span> <i class="fa fa-times"></i> </span> </li>
+	                            </ul>
+                          	</div>
+                        </div>
+                        <div class="card" > 
+                            <div class="card-header card-header-icon" data-background-color="orange">
+                                <i class="material-icons">description</i>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">Comment Management</h4>
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-7 col-xs-12">
+                                        <a class="btn btn-round btn-md btn-disabled btn-warning" (click)="openDialog()">Reviewed</a>
+                                        <!-- <a class="btn btn-round btn-md btn-disabled btn-success" (click)="openDialog()"> Filter</a> -->
+                                    </div>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <md-select placeholder="Items Per Page">
+                                                <md-option value="1"> 25 </md-option>
+                                                <md-option value="2"> 50 </md-option>
+                                                <md-option value="3"> 100 </md-option>
+                                                <md-option value="4"> 200 </md-option>
+                                                <md-option value="4"> All </md-option>
+                                            </md-select>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <md-select placeholder="Time Range">
+                                                <md-option value="1"> 7d </md-option>
+                                                <md-option value="2"> 15d </md-option>
+                                                <md-option value="3"> 1m </md-option>
+                                                <md-option value="4"> 3m </md-option>
+                                                <md-option value="4"> 6m </md-option>
+                                                <md-option value="4"> 1y </md-option>
+                                                <md-option value="4"> All </md-option>
+                                            </md-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="dshbrd-table table-responsive">
+                                        <table class="table table-striped">    
+                                            <thead class="text-danger">
+                                                <tr>
+                                                    <th>  </th>
+                                                    <th class="maxWidth200"> Content  Item</th>
+                                                    <th> Name </th>
+                                                    <th class="maxWidth200"> Comment </th>
+                                                    <th> Date &amp; Time </th>
+                                                    <th> Action </th>
+                                                </tr>                                                
+                                            </thead>
+                                            <tbody class="td-icon">
+                                                <tr>
+                                                    <td>
+                                                        <md-checkbox></md-checkbox>
+                                                    </td>
+                                                    <td class="text-left maxWidth200 vertical-top">
+                                                        <p>Headline: Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </p>
+                                                        <div class=""> 
+                                                            <a href="javascript:;">
+                                                                News | <span class="dark_ylw">Sports News</span>
+                                                            </a>
+                                                        </div>
+                                                        <p> <strong> Status: </strong> Reviewd </p>
+                                                    </td>
+                                                    <td> John Mayer </td>
+                                                    <td class="text-left maxWidth200 vertical-top"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                                                    <td class="vertical-top"> <p> 08:35</p> <p> 18/07/2016 </p> </td>
+                                                    <td><a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a> </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <md-checkbox></md-checkbox>
+                                                    </td>
+                                                    <td class="text-left maxWidth200 vertical-top">
+                                                        <p>Headline: Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </p>
+                                                        <div class=""> 
+                                                            <a href="javascript:;">
+                                                                News | <span class="dark_ylw">Sports News</span>
+                                                            </a>
+                                                        </div>
+                                                        <p> <strong> Status: </strong> Reviewd </p>
+                                                    </td>
+                                                    <td> John Mayer </td>
+                                                    <td class="text-left maxWidth200 vertical-top"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                                                    <td class="vertical-top"> <p> 08:35</p> <p> 18/07/2016 </p> </td>
+                                                    <td><a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a> </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <md-checkbox></md-checkbox>
+                                                    </td>
+                                                    <td class="text-left maxWidth200 vertical-top">
+                                                        <p>Headline: Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </p>
+                                                        <div class=""> 
+                                                            <a href="javascript:;">
+                                                                News | <span class="dark_ylw">Sports News</span>
+                                                            </a>
+                                                        </div>
+                                                        <p> <strong> Status: </strong> Reviewd </p>
+                                                    </td>
+                                                    <td> John Mayer </td>
+                                                    <td class="text-left maxWidth200 vertical-top"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                                                    <td class="vertical-top"> <p> 08:35</p> <p> 18/07/2016 </p> </td>
+                                                    <td><a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a> </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <md-checkbox></md-checkbox>
+                                                    </td>
+                                                    <td class="text-left maxWidth200 vertical-top">
+                                                        <p>Headline: Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </p>
+                                                        <div class=""> 
+                                                            <a href="javascript:;">
+                                                                News | <span class="dark_ylw">Sports News</span>
+                                                            </a>
+                                                        </div>
+                                                        <p> <strong> Status: </strong> Reviewd </p>
+                                                    </td>
+                                                    <td> John Mayer </td>
+                                                    <td class="text-left maxWidth200 vertical-top"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                                                    <td class="vertical-top"> <p> 08:35</p> <p> 18/07/2016 </p> </td>
+                                                    <td><a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a> </td>
+
+                                                </tr>
+                                                
+                                            </tbody>
+                                            
+                                        </table>
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <app-footer></app-footer>
+    </div>
+    <div class="fixed-plugin">
+	    <div class="filter-plugin">
+	        <a href="javascript:void(0);">
+	            <i class="material-icons">sort</i>
+	        </a>
+	        <ul class="sidebar-filter" type="none">
+	        	<div class="left-content">
+	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Status</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Reviewed</md-checkbox></li>
+                                <li><md-checkbox>Deleted</md-checkbox></li>
+                                <li><md-checkbox>Need to reviewed</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Section</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>News</md-checkbox></li>
+                                <li><md-checkbox>Jobs</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Category </h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Sport News</md-checkbox></li>
+                                <li><md-checkbox>Technology News</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Sub-category </h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Cricket</md-checkbox></li>
+                                <li><md-checkbox>Football</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btns-filter">
+                         <a class="btn custom-btn">Apply Filter </a>
+                                    
+                     </div>
+                </div>
+	        </ul>
+	    </div>
+	</div>
+
+</div>
