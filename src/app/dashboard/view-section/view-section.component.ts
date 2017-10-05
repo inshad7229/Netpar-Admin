@@ -29,13 +29,16 @@ declare var $ :any;
 export class ViewSectionComponent implements OnInit {
     waitLoader:boolean;
     sectiondata=[];
+    flag;
+    statusData:any
     constructor(private dialog: MdDialog,
-         private router: Router,
-        private fb: FormBuilder,
-        vcr: ViewContainerRef,
-        public toastr: ToastsManager,
-        private http: Http,
-        private sectionService:SectionService) { }
+                private router: Router,
+                private fb: FormBuilder,
+                vcr: ViewContainerRef,
+                public toastr: ToastsManager,
+                private http: Http,
+                private sectionService:SectionService,
+                private appProvider: AppProvider) { }
 
     ngOnInit() {
         $('.filter-plugin > a').on('click',function(){
@@ -46,6 +49,7 @@ export class ViewSectionComponent implements OnInit {
             $(this).closest('.filter-plugin').removeClass('open');
         });
         $('.cusdropdown-toggle').on('click',function(){
+            alert('hy');
             $(this).closest('.dropdown').toggleClass('open');
         })
         $(window).on('click',function(e){
@@ -53,7 +57,7 @@ export class ViewSectionComponent implements OnInit {
             var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
             console.log($trigger);
             if($trigger !== e.target && !$trigger.has(e.target).length){
-                $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
+              $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
             }
         });
          this.sectionService.onGetSectionData()
@@ -93,6 +97,36 @@ export class ViewSectionComponent implements OnInit {
                 },error=>{
                   
                 })
+    }
+    openDiv(e,flag,data){
+      $('.dropdown').removeClass('open');
+      this.flag=flag;
+      if (this.flag=='section') {
+        let id 
+          if (data.sectionId) {
+               id=data.sectionId
+          }else{
+               id=data._id
+          }
+          this.getSectionData(id,e)
+      }
+      else if (this.flag=='category') {
+        let id 
+          if ( data.categoryId) {
+               id=data.categoryId
+          }else{
+               id=data._id
+          }
+        this.getCategoryData(id,e)
+      }
+      else if (this.flag=='subCategory') {
+        let id=data._id
+        this.getSubCategoryData(id,e)
+
+      }
+       console.log(JSON.stringify(this.flag))
+      
+      console.log(JSON.stringify(data))
     }
     openDialog(): void {
         let dialogRef = this.dialog.open(DialogComponent, {
@@ -137,4 +171,145 @@ export class ViewSectionComponent implements OnInit {
           return true; 
       }
   }
+editSection(data){
+  this.appProvider.current.actionFlag="editSection"
+  if (data.sectionId) {
+     this.appProvider.current.currentId=data.sectionId
+  }else{
+    this.appProvider.current.currentId=data._id
+  }
+  console.log('section'+JSON.stringify(data))
+   this.router.navigate(['/add-section'], {
+            skipLocationChange: true
+        });
+}
+deleteSection(data){
+  if (data.sectionId) {
+     this.appProvider.current.currentId=data.sectionId
+  }else{
+    this.appProvider.current.currentId=data._id
+  }
+  console.log('section'+JSON.stringify(data))
+}
+enableDisableSection(data){
+
+  if (data.sectionId) {
+     this.appProvider.current.currentId=data.sectionId
+  }else{
+    this.appProvider.current.currentId=data._id
+  }
+   console.log('section'+JSON.stringify(data))
+}
+publishUnpublishSection(data){
+ 
+  if (data.sectionId) {
+     this.appProvider.current.currentId=data.sectionId
+  }else{
+    this.appProvider.current.currentId=data._id
+  }
+   console.log('section'+JSON.stringify(data))
+}
+editCategory(data){
+ this.appProvider.current.actionFlag="editCategory"
+  if (data.categoryId) {
+     this.appProvider.current.currentId=data.categoryId
+  }else{
+    this.appProvider.current.currentId=data._id
+  }
+   console.log('Category'+JSON.stringify(data))
+   this.router.navigate(['/add-category'], {
+            skipLocationChange: true
+    });
+}
+deleteCategory(data){
+  
+  if (data.categoryId) {
+     this.appProvider.current.currentId=data.categoryId
+  }else{
+    this.appProvider.current.currentId=data._id
+  }
+   console.log('Category'+JSON.stringify(data))
+}
+enableDisableCategory(data){
+  
+  if (data.categoryId) {
+     this.appProvider.current.currentId=data.categoryId
+  }else{
+    this.appProvider.current.currentId=data._id
+  }
+   console.log('Category'+JSON.stringify(data))
+}
+publishUnpublishCategory(data){
+  
+  if (data.categoryId) {
+     this.appProvider.current.currentId=data.categoryId
+  }else{
+    this.appProvider.current.currentId=data._id
+  }
+   console.log('Category'+JSON.stringify(data))
+}
+editSubCategory(data){
+  this.appProvider.current.actionFlag="editSubCategory"
+   this.appProvider.current.currentId=data._id;
+     console.log('SubCategory'+JSON.stringify(data))
+  this.router.navigate(['/add-subcategory'], {
+            skipLocationChange: true
+  });
+}
+deeSubCategory(data){
+    this.appProvider.current.currentId=data._id;
+  console.log('SubCategory'+JSON.stringify(data))
+}
+enableDisableSubCategory(data){
+    this.appProvider.current.currentId=data._id;
+  console.log('SubCategory'+JSON.stringify(data))
+}
+publishUnpublishSubCategory(data){
+    this.appProvider.current.currentId=data._id;
+  console.log('SubCategory'+JSON.stringify(data))
+}
+getSectionData(id,e){
+    this.sectionService.onGetSingleSectionData(id)
+        .subscribe(data => {
+                    this.waitLoader = false;
+                    if (data.success == false) {                        
+                        this.toastr.error('Add Section  failed Please try again', 'Error !!. ', {
+                            toastLife: 3000,
+                            showCloseButton: true
+                        });
+                    }
+                    else if (data.success == true) {
+                     this.statusData=data.response[0];
+                     $(e).closest('.dropdown').toggleClass('open');
+                      
+                    }                 
+                },error=>{
+                  
+                })
+}
+
+getCategoryData(id,e){
+   this.sectionService.onGetSingleSCategoryData(id)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.statusData=data.response[0]
+                        $(e).closest('.dropdown').toggleClass('open');
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+}
+getSubCategoryData(id,e){
+            this.sectionService.onGetSingleSubCategoryData(id)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.statusData=data.response[0]
+                        $(e).closest('.dropdown').toggleClass('open');
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+
+}
+
 }

@@ -48,48 +48,48 @@
                                                     <th> </th>
                                                     <th> </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Like" class="tltip_ico">
-                                                            <mfDefaultSorter by="thumb"> <i class="fa fa-thumbs-up"></i> </mfDefaultSorter> 
+                                                        <a mdTooltipPosition="above" mdTooltip="Kadak" class="tltip_ico">
+                                                            <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Share" class="tltip_ico">
-                                                            <mfDefaultSorter by="share"> <i class="fa fa-share"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Comment" class="tltip_ico">
-                                                            <mfDefaultSorter by="comment"> <i class="fa fa-comment"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Save" class="tltip_ico">
-                                                            <mfDefaultSorter by="square"> <i class="fa fa-check-square"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Download" class="tltip_ico">
-                                                            <mfDefaultSorter by="download"> <i class="fa fa-cloud-download"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Apply" class="tltip_ico">
-                                                            <mfDefaultSorter by="text"> <i class="fa fa-file-text"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Call" class="tltip_ico">
-                                                            <mfDefaultSorter by="phone"> <i class="fa fa-phone-square"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Call Me Back" class="tltip_ico">
-                                                            <mfDefaultSorter by="volume"> <i class="fa fa-volume-control-phone"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="I'm Interested" class="tltip_ico">
-                                                            <mfDefaultSorter by="check"> <i class="fa fa-check-square-o"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>  </th>
@@ -100,23 +100,23 @@
 		                                        <tr *ngFor="let data of sectiondata;let i=index">
 		                                            <td class="text-left">
 		                                                <div class="dropdown" *ngIf="data.sectionName">
-		                                                    <a *ngIf="showSectionName(data.sectionName,i)==true " href="javascript:;" class="cusdropdown-toggle">
+		                                                    <a *ngIf="showSectionName(data.sectionName,i)==true "  class="cusdropdown-toggle" #event (click)="openDiv(event,'section',data)">
 		                                                        {{data.sectionName}} <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
+		                                                        <li (click)="editSection(data)"> <a href="javascript:void(0);"> <span class="pull-left" >Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
+		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left" (click)="deleteSection(data)">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
 		                                                        <li>
 		                                                            <a href="javascript:void(0);">
 		                                                            	<span class="pull-left">Enable</span>                           
-		                                                                <span class="pull-right">
+		                                                                <span class="pull-right" >
 		                                                                    <div class="cus-switch">
 		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                            <input type="checkbox" (change)="enableDisableSection(data)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -130,7 +130,7 @@
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
 		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                            <input type="checkbox" (change)="publishUnpublishSection(data)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -143,14 +143,14 @@
 		                                            </td>
 		                                            <td class="text-left">
 		                                                <div class="dropdown" *ngIf="data.categoryName">
-		                                                    <a  *ngIf="showCategoryName(data.categoryName,i)==true" href="javascript:;" class="cusdropdown-toggle">
+		                                                    <a  *ngIf="showCategoryName(data.categoryName,i)==true"  class="cusdropdown-toggle"  #event (click)="openDiv(event,'category')">
 		                                                         {{data.sectionName}} | <span class="dark_ylw"> {{data.categoryName}}  {{data.sectionName}}</span> <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
+		                                                        <li (click)="editCategory(data)"> <a href="javascript:void(0);"> <span class="pull-left" >Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
+		                                                        <li (click)="deleteCategory(data)"> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
 		                                                        <li>
@@ -159,7 +159,7 @@
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
 		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                            <input type="checkbox" (change)="enableDisableCategory(data)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -173,7 +173,7 @@
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
 		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                            <input type="checkbox" (click)="publishUnpublishCategory(data)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -186,14 +186,14 @@
 		                                            </td>
 		                                            <td class="text-left">
 		                                                <div class="dropdown" *ngIf="data.subCategoryName">
-		                                                    <a   href="javascript:;" class="cusdropdown-toggle">
-		                                                        {{data.categoryName}}  {{data.sectionName}} |<span class="dark_ylw"> {{data.subCategoryName}} </span> <i class="fa fa-cog"></i>
+		                                                    <a   class="cusdropdown-toggle" #event (click)="openDiv(event,'subCategory')">
+		                                                        {{data.categoryName}}  {{data.sectionName}} |<span class="dark_ylw"  > {{data.subCategoryName}} </span> <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
+		                                                        <li (click)="editSubCategory(data)"> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
+		                                                        <li (click)="deleteSubCategory(data)"> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
 		                                                        <li>
@@ -202,7 +202,7 @@
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
 		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                            <input type="checkbox"  (change)="enableDisableSubCategory(data)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -216,7 +216,7 @@
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
 		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                            <input type="checkbox"  (change)="publishUnpublishSubCategory(data)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>

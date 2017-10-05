@@ -99,6 +99,10 @@ goToAddCategory(){
 goToAddSubcategory(){
   this.appProvider.current.SubcategoryFlag='foradd'
 }
+
+onAction(){
+  this.appProvider.current.actionFlag='menu'
+}
   /*ngOnInit() {
       System.import('../../assets/js/sidebar-moving-tab.js');
         this.menuItems = ROUTES.filter(menuItem => menuItem);

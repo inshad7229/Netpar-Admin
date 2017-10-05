@@ -9,6 +9,9 @@ import { NgxCroppieComponent } from 'ngx-croppie';
 import { CroppieOptions } from 'croppie';
 import { AddCategoryRequest} from '../../models/section.modal'
 import {SectionService} from '../../providers/section.service'
+import {StringResource} from '../../models/saredResources'
+import {AppProvider} from '../../providers/app.provider'
+import {Observable} from "rxjs";
 declare var jquery:any;
 declare var $ :any;
 
@@ -29,6 +32,7 @@ export class AddCategoryComponent implements OnInit {
     waitLoader:boolean;
     sections:any;
     addCategoryRequest:AddCategoryRequest=new AddCategoryRequest()
+    stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -84,7 +88,8 @@ export class AddCategoryComponent implements OnInit {
         vcr: ViewContainerRef,
         public toastr: ToastsManager,
         private http: Http,
-        private sectionService:SectionService
+        private sectionService:SectionService,
+        private appProvider: AppProvider
       ) {   
 
             this.addCategoryForm = fb.group({
@@ -107,7 +112,8 @@ export class AddCategoryComponent implements OnInit {
                 'callToActBtnApply':[null],
                 'callToActBtnCallMe':[null],
                 'callToActBtnInterested':[null],
-                'callToActBtnCall':[null]
+                'callToActBtnCall':[null],
+                'language':[null]
             
         })
         this.toastr.setRootViewContainerRef(vcr);
@@ -128,26 +134,16 @@ export class AddCategoryComponent implements OnInit {
 		    $(this).closest('.fileinput-exists').hide();
 		    $(this).closest('.fileinput').find('.fileinput-noexists').show();
 		});
-         this.sectionService.onGetSection()
-                .subscribe(data => {
-                    this.waitLoader = false;
-                    this.sections=data;
-                    // if (data.success == false) {
 
-                    //     this.toastr.error("Section Name can't find ", 'Section Name . ', {
-                    //         toastLife: 3000,
-                    //         showCloseButton: true
-                    //     });
-                    // }
-                    // else if (data.success == true) {
-                    //     this.sections=data;
-                    //     //this.router.navigate(['/home'],{ skipLocationChange: true });
-                    // }
-                    console.log(JSON.stringify(data))
-                },error=>{
-                    alert(error)
-                })
+        if (this.appProvider.current.actionFlag=='editCategory') {
+            this.getSectionList()
+            this.getCategoryData()
+        }else{
+           this.getSectionList()     
+        }
+ 
         
+       
   	}
   	newImageResultFromCroppieHorigontal(img: string) {
         this.croppieImageHorigontal = img;
@@ -218,8 +214,32 @@ export class AddCategoryComponent implements OnInit {
         fr.readAsDataURL(file);
     }
      onAddCategory(){
-          let date=new Date().toISOString()
-          console.log(date.split('T')[0])
+      if (this.addCategoryRequest._id) {
+                 let localsection=this.sections.filter(arg=>arg._id==this.addCategoryRequest.sectionId)
+                 this.addCategoryRequest.sectionName=localsection[0].sectionName;
+                 this.addCategoryRequest.thumbnailImage=this.currentImageThumbnail;
+                 this.addCategoryRequest.horigontalImage=this.currentImageHorigontal;
+                 this.sectionService.onEditCategory(this.addCategoryRequest)
+                        .subscribe(data => {
+                            this.waitLoader = false;
+                            if (data.success == false) {
+
+                                this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                            }
+                            console.log(JSON.stringify(data))
+                        },error=>{
+                            alert(error)
+                        }) 
+   }else{
+         let date=new Date().toISOString()
+         console.log(date.split('T')[0])
          let localsection=this.sections.filter(arg=>arg._id==this.addCategoryRequest.sectionId)
          this.addCategoryRequest.sectionName=localsection[0].sectionName;
          this.addCategoryRequest.thumbnailImage=this.currentImageThumbnail;
@@ -236,12 +256,32 @@ export class AddCategoryComponent implements OnInit {
                     }
                     else if (data.success == true) {
                       
-                        //this.router.navigate(['/home'],{ skipLocationChange: true });
+                        this.router.navigate(['/view-section'],{ skipLocationChange: true });
                     }
                     console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
                 })
+     }
+         
         }
-
+  getSectionList(){
+         this.sectionService.onGetSection()
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.sections=data;
+                },error=>{
+                    alert(error)
+                })
+  }
+  getCategoryData(){
+            this.sectionService.onGetSingleSCategoryData(this.appProvider.current.currentId)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.addCategoryRequest=data.response[0]
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+  }
 }
