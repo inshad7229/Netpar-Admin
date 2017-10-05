@@ -240,6 +240,12 @@ export class AddSectionComponent implements OnInit {
      this.addSectionModel.createdDate=date.split('T')[0];
      this.addSectionModel.thumbnailImage=this.currentImageThumbnail;
      this.addSectionModel.horigontalImage=this.currentImageHorigontal;
+     this.addSectionModel.status=true;
+     this.addSectionModel.publishStatus=false;
+     this.addSectionModel.deleteStatus=false;
+     this.addSectionModel.updatedDate='NA';
+     this.addSectionModel.enableDisableDate='NA';
+     this.addSectionModel.publishUnbuplishDate='NA'
       this.sectionService.onAddSection(this.addSectionModel)
                 .subscribe(data => {
                     this.waitLoader = false;

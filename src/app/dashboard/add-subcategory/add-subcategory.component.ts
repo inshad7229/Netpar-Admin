@@ -254,6 +254,12 @@ export class AddSubcategoryComponent implements OnInit {
          this.addSubCategoryRequest.categoryName=localcategory[0].categoryName;
          this.addSubCategoryRequest.thumbnailImage=this.currentImageThumbnail;
          this.addSubCategoryRequest.horigontalImage=this.currentImageHorigontal;
+         this.addSubCategoryRequest.status=true;
+         this.addSubCategoryRequest.publishStatus=false;
+         this.addSubCategoryRequest.deleteStatus=false;
+         this.addSubCategoryRequest.updatedDate='NA';
+         this.addSubCategoryRequest.enableDisableDate='NA';
+         this.addSubCategoryRequest.publishUnbuplishDate='NA'
          this.sectionService.onAddSubcategory(this.addSubCategoryRequest)
                 .subscribe(data => {
                     this.waitLoader = false;

@@ -143,7 +143,7 @@
 		                                            </td>
 		                                            <td class="text-left">
 		                                                <div class="dropdown" *ngIf="data.categoryName">
-		                                                    <a  *ngIf="showCategoryName(data.categoryName,i)==true"  class="cusdropdown-toggle"  #event (click)="openDiv(event,'category')">
+		                                                    <a  *ngIf="showCategoryName(data.categoryName,i)==true"  class="cusdropdown-toggle"  #event (click)="openDiv(event, 'category', data)">
 		                                                         {{data.sectionName}} | <span class="dark_ylw"> {{data.categoryName}}  {{data.sectionName}}</span> <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
@@ -186,7 +186,7 @@
 		                                            </td>
 		                                            <td class="text-left">
 		                                                <div class="dropdown" *ngIf="data.subCategoryName">
-		                                                    <a   class="cusdropdown-toggle" #event (click)="openDiv(event,'subCategory')">
+		                                                    <a   class="cusdropdown-toggle" #event (click)="openDiv(event,'subCategory', data)">
 		                                                        {{data.categoryName}}  {{data.sectionName}} |<span class="dark_ylw"  > {{data.subCategoryName}} </span> <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
