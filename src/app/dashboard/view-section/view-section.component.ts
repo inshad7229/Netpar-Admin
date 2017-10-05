@@ -32,7 +32,8 @@ export class ViewSectionComponent implements OnInit {
     waitLoader: boolean;
     sectiondata = [];
     flag;
-    statusData: any
+    statusData: any;
+    sections;
     constructor(private dialog: MdDialog,
         private router: Router,
         private fb: FormBuilder,
@@ -63,6 +64,7 @@ export class ViewSectionComponent implements OnInit {
             }
         });
         this.getSectionViewData()
+        this.getSectionList()
     }
     getSectionViewData() {
         this.sectiondata = []
@@ -187,14 +189,31 @@ export class ViewSectionComponent implements OnInit {
         });
     }
     deleteSection(data) {
-        if (data.sectionId) {
-            this.appProvider.current.currentId = data.sectionId
-        } else {
-            this.appProvider.current.currentId = data._id
-        }
-        console.log('section' + JSON.stringify(data))
+        let date=new Date().toISOString();
+         data.deleteStatus=true;
+        this.sectionService.onDeleteSection(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
     }
     enableDisableSection(data) {
+         let date=new Date().toISOString();
+         data.enableDisableDate=date;
         this.sectionService.onEnableDisableSection(data)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -216,6 +235,8 @@ export class ViewSectionComponent implements OnInit {
             })
     }
     publishUnpublishSection(data) {
+        let date=new Date().toISOString();
+         data.publishUnbuplishDate=date;
         this.sectionService.onPublishUnpublishSection(data)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -249,16 +270,31 @@ export class ViewSectionComponent implements OnInit {
         });
     }
     deleteCategory(data) {
+         let date=new Date().toISOString();
+         data.deleteStatus=true;
+        this.sectionService.onDeleteCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
 
-        if (data.categoryId) {
-            this.appProvider.current.currentId = data.categoryId
-        } else {
-            this.appProvider.current.currentId = data._id
-        }
-        console.log('Category' + JSON.stringify(data))
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
     }
     enableDisableCategory(data) {
-
+        let date=new Date().toISOString();
+         data.enableDisableDate=date;
         this.sectionService.onEnableDisableCategory(data)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -281,6 +317,8 @@ export class ViewSectionComponent implements OnInit {
 
     }
     publishUnpublishCategory(data) {
+         let date=new Date().toISOString();
+         data.publishUnbuplishDate=date;
         this.sectionService.onPublishUnpublishCategory(data)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -310,10 +348,31 @@ export class ViewSectionComponent implements OnInit {
         });
     }
     deleteSubCategory(data) {
-        this.appProvider.current.currentId = data._id;
-        console.log('SubCategory' + JSON.stringify(data))
+        let date=new Date().toISOString();
+         data.deleteStatus=true;
+        this.sectionService.onDeleteSubCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
     }
     enableDisableSubCategory(data) {
+        let date=new Date().toISOString();
+         data.enableDisableDate=date;
         this.sectionService.onEnableDisableSubCategory(data)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -335,6 +394,8 @@ export class ViewSectionComponent implements OnInit {
             })
     }
     publishUnpublishSubCategory(data) {
+         let date=new Date().toISOString();
+         data.publishUnbuplishDate=date;
         this.sectionService.onPublishUnpublishSubCategory(data)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -397,6 +458,14 @@ export class ViewSectionComponent implements OnInit {
             })
 
     }
-
+     getSectionList(){
+         this.sectionService.onGetSection()
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.sections=data;
+                },error=>{
+                    alert(error)
+                })
+  }
 }
 
