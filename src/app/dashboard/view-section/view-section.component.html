@@ -104,10 +104,10 @@
 		                                                        {{data.sectionName}} <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
-		                                                        <li (click)="editSection(data)"> <a href="javascript:void(0);"> <span class="pull-left" >Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
+		                                                        <li (click)="editSection(statusData)"> <a href="javascript:void(0);"> <span class="pull-left" >Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left" (click)="deleteSection(data)">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
+		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left" (click)="deleteSection(statusData)">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
 		                                                        <li>
@@ -115,8 +115,8 @@
 		                                                            	<span class="pull-left">Enable</span>                           
 		                                                                <span class="pull-right" >
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" (change)="enableDisableSection(data)" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox" [(ngModel)]="statusData.status" (change)="enableDisableSection(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -129,8 +129,8 @@
 		                                                            	<span class="pull-left">Publish</span>                          
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" (change)="publishUnpublishSection(data)" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox" [(ngModel)]="statusData.publishStatus" (change)="publishUnpublishSection(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -147,10 +147,10 @@
 		                                                         {{data.sectionName}} | <span class="dark_ylw"> {{data.categoryName}}  {{data.sectionName}}</span> <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
-		                                                        <li (click)="editCategory(data)"> <a href="javascript:void(0);"> <span class="pull-left" >Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
+		                                                        <li (click)="editCategory(statusData)"> <a href="javascript:void(0);"> <span class="pull-left" >Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
-		                                                        <li (click)="deleteCategory(data)"> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
+		                                                        <li (click)="deleteCategory(statusData)"> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
 		                                                        <li>
@@ -158,8 +158,8 @@
 		                                                            	<span class="pull-left">Enable</span>                           
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" (change)="enableDisableCategory(data)" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox"  [(ngModel)]="statusData.status"  (change)="enableDisableCategory(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -172,8 +172,8 @@
 		                                                            	<span class="pull-left">Publish</span>                          
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" (click)="publishUnpublishCategory(data)" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox"  [(ngModel)]="statusData.publishStatus" (change)="publishUnpublishCategory(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -190,10 +190,10 @@
 		                                                        {{data.categoryName}}  {{data.sectionName}} |<span class="dark_ylw"  > {{data.subCategoryName}} </span> <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
-		                                                        <li (click)="editSubCategory(data)"> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
+		                                                        <li (click)="editSubCategory(statusData)"> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
-		                                                        <li (click)="deleteSubCategory(data)"> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
+		                                                        <li (click)="deleteSubCategory(statusData)"> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
 		                                                        <li>
@@ -201,8 +201,8 @@
 		                                                            	<span class="pull-left">Enable</span>                           
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox"  (change)="enableDisableSubCategory(data)" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox"  [(ngModel)]="statusData.status"  (change)="enableDisableSubCategory(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -215,8 +215,8 @@
 		                                                            	<span class="pull-left">Publish</span>                          
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox"  (change)="publishUnpublishSubCategory(data)" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox"  [(ngModel)]="statusData.publishStatus"  (change)="publishUnpublishSubCategory(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>

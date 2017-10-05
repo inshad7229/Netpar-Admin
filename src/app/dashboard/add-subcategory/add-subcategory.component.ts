@@ -257,9 +257,9 @@ export class AddSubcategoryComponent implements OnInit {
          this.addSubCategoryRequest.status=true;
          this.addSubCategoryRequest.publishStatus=false;
          this.addSubCategoryRequest.deleteStatus=false;
-         this.addSubCategoryRequest.updatedDate='NA';
-         this.addSubCategoryRequest.enableDisableDate='NA';
-         this.addSubCategoryRequest.publishUnbuplishDate='NA'
+         this.addSubCategoryRequest.updatedDate=null;
+         this.addSubCategoryRequest.enableDisableDate=null;
+         this.addSubCategoryRequest.publishUnbuplishDate=null
          this.sectionService.onAddSubcategory(this.addSubCategoryRequest)
                 .subscribe(data => {
                     this.waitLoader = false;

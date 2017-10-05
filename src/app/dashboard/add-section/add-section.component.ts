@@ -243,9 +243,9 @@ export class AddSectionComponent implements OnInit {
      this.addSectionModel.status=true;
      this.addSectionModel.publishStatus=false;
      this.addSectionModel.deleteStatus=false;
-     this.addSectionModel.updatedDate='NA';
-     this.addSectionModel.enableDisableDate='NA';
-     this.addSectionModel.publishUnbuplishDate='NA'
+     this.addSectionModel.updatedDate=null;
+     this.addSectionModel.enableDisableDate=null;
+     this.addSectionModel.publishUnbuplishDate=null;
       this.sectionService.onAddSection(this.addSectionModel)
                 .subscribe(data => {
                     this.waitLoader = false;
