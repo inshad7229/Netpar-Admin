@@ -30,12 +30,69 @@
                             <div class="card-content">
                                 <h4 class="card-title">Homepage Management</h4>
                                 <div class="row">
-                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <div class="col-md-7 col-sm-7 col-xs-12"></div>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <md-select placeholder="Choose State">
+                                                <md-option value="1"> State1 </md-option>
+                                                <md-option value="2"> State2 </md-option>
+                                                <md-option value="3"> State3 </md-option>
+                                                <md-option value="4"> State4 </md-option>
+                                                <md-option value="5"> State5 </md-option>
+                                                <md-option value="6"> State6 </md-option>
+                                                <md-option value="7"> State7 </md-option>
+                                                <md-option value="8"> State8 </md-option>
+                                                <md-option value="9"> State9 </md-option>
+                                                <md-option value="10"> State10 </md-option>
+                                                <md-option value="11"> State11 </md-option>
+                                                <md-option value="12"> State12 </md-option>
+                                                <md-option value="13"> State13 </md-option>
+                                                <md-option value="14"> State14 </md-option>
+                                                <md-option value="15"> State15 </md-option>
+                                                <md-option value="16"> State16 </md-option>
+                                                <md-option value="17"> State17 </md-option>
+                                                <md-option value="18"> State18 </md-option>
+                                                <md-option value="19"> State19 </md-option>
+                                                <md-option value="20"> State20 </md-option>
+                                                <md-option value="21"> State21 </md-option>
+                                                <md-option value="22"> State22 </md-option>
+                                            </md-select>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <md-select placeholder="Choose Language">
+                                                <md-option value="1">  Hindi </md-option>
+                                                <md-option value="2">  Marathi </md-option>
+                                                <md-option value="3">  Assamese </md-option>
+                                                <md-option value="4">  Bengali </md-option>
+                                                <md-option value="5">  Dogri </md-option>
+                                                <md-option value="6">  Gujarati </md-option>
+                                                <md-option value="7">  Punjabi </md-option>
+                                                <md-option value="8">  Bodo </md-option>
+                                                <md-option value="9">  Kannada </md-option>
+                                                <md-option value="10"> Kashmiri </md-option>
+                                                <md-option value="11"> Urdu </md-option>
+                                                <md-option value="12"> Telegu </md-option>
+                                                <md-option value="13"> Konkani </md-option>
+                                                <md-option value="14"> Malayalam </md-option>
+                                                <md-option value="15"> Manipuri or Meithei </md-option>
+                                                <md-option value="16"> English </md-option>
+                                                <md-option value="17"> Nepali </md-option>
+                                                <md-option value="18"> Oriya </md-option>
+                                                <md-option value="19"> Sanskrit </md-option>
+                                                <md-option value="20"> Santali </md-option>
+                                                <md-option value="21"> Sindhi </md-option>
+                                                <md-option value="22"> Tamil </md-option>
+                                            </md-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row homepage-btns">
+                                    <div class="col-md-7 col-sm-7 col-xs-12">
                                     	<a class="btn btn-round btn-md btn-disabled btn-warning" (click)="openDialog()">Prioritise of homepage</a>
                                     	<a class="btn btn-round btn-md btn-disabled btn-success" (click)="openDialog()">Prioritise of category</a>
                                     	<a class="btn btn-round btn-md btn-disabled btn-danger">Remove from shortlist</a>
                                     </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <md-select placeholder="Items per page">
                                                 <md-option value="1"> 25 </md-option>
@@ -52,6 +109,7 @@
                                                 <md-option value="3"> 1m </md-option>
                                                 <md-option value="4"> 3m </md-option>
                                                 <md-option value="4"> 6m </md-option>
+                                                <md-option value="5"> All </md-option>
                                             </md-select>
                                         </div>
                                     </div>
@@ -75,7 +133,7 @@
                                                     <th> </th>
                                                     <th> </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Like" class="tltip_ico">
+                                                        <a mdTooltipPosition="above" mdTooltip="Kadak" class="tltip_ico">
                                                             <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
@@ -192,6 +250,7 @@
 	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
                     <div class="wrapFilter-ul">
                         <div class="wrapFilter-div">
+                            <h5 class="filter-heading"> Status</h5>
                             <ul class="filters-ul" type="none">
                                 <li><md-checkbox>Shortlist content</md-checkbox></li>
                                 <li><md-checkbox>Active priority content</md-checkbox></li>
@@ -200,6 +259,19 @@
                             </ul>
                         </div>
                     </div>
+                    
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Select Language</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Language1</md-checkbox></li>
+                                <li><md-checkbox>Language2</md-checkbox></li>
+                                <li><md-checkbox>Language3</md-checkbox></li>
+                                <li><md-checkbox>Language4</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> Section</h5>
                         <div class="wrapFilter-div">
@@ -224,6 +296,17 @@
                             <ul class="filters-ul" type="none">
                                 <li><md-checkbox>Cricket</md-checkbox></li>
                                 <li><md-checkbox>Football</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Status</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Draft</md-checkbox></li>
+                                <li><md-checkbox>Rejected</md-checkbox></li>
+                                <li><md-checkbox>Revision</md-checkbox></li>
+                                <li><md-checkbox>Scheduled</md-checkbox></li>
                             </ul>
                         </div>
                     </div>

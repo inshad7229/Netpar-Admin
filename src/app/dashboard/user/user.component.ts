@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DataTableModule} from "angular2-datatable";
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 
 declare var jquery:any;
 declare var $ :any;
@@ -22,6 +23,16 @@ export class UserComponent implements OnInit {
       
         });
     }
+
+    openDialog2(): void {
+        let dialogRef = this.dialog.open(FilterDialogComponent, {
+            width: '800px',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+      
+        });
+    }
+
 
     ngOnInit() {
 		$('.filter-plugin > a').on('click',function(){

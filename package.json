@@ -25,6 +25,7 @@
     "@angular/router": "^4.2.4",
     "angular2-datatable": "^0.6.0",
     "angular2-useful-swiper": "^5.0.0",
+    "angular4-color-picker": "^1.4.2",
     "babel-regenerator-runtime": "^6.5.0",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",

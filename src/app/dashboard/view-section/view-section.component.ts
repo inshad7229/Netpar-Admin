@@ -38,6 +38,8 @@ export class ViewSectionComponent implements OnInit {
     filterModel=[];
     filterData:any;
     sectionDatabackup:any
+    filterSectionList=[];
+    finalFilterSectionList:any;
     constructor(private dialog: MdDialog,
         private router: Router,
         private fb: FormBuilder,
@@ -482,9 +484,10 @@ export class ViewSectionComponent implements OnInit {
       console.log(JSON.stringify(this.filterModel))
       if (this.filterModel.length>0) {
         this.sectiondata=this.filterModel
-          // code...
+         this.finalFilterSectionList=this.filterSectionList
       }else{
-         this.sectiondata=this.forFilterData 
+         this.sectiondata=this.forFilterData;
+         this.finalFilterSectionList=[]; 
       }
 
      }
@@ -494,19 +497,33 @@ export class ViewSectionComponent implements OnInit {
             if (sec.check==true) {
               this.filterData=this.forFilterData.filter(f=>f.sectionName==sec.sectionName)
               this.filterModel.push(this.filterData[0])
+              this.filterSectionList.push(sec)
               console.log('if')
               console.log(JSON.stringify(this.filterModel))   
             }
             else {
               console.log('elsef')
-             this.filterModel= this.filterModel.filter(f=>f.sectionName!=sec.sectionName)  
+             this.filterModel= this.filterModel.filter(f=>f.sectionName!=sec.sectionName)
+             this.filterSectionList=this.filterSectionList.filter(f=>f.sectionName!=sec.sectionName)  
             console.log(JSON.stringify(this.filterModel))   
             }
          }
      }
      clearAll(){
          this.sectiondata=this.forFilterData
-         this.sections=this.sectionDatabackup 
+         // this.sections=this.sectionDatabackup 
+         for (let i = 0; i<=this.sections.length; i++) {
+              this.sections[i].check=false;
+         }
+     }
+     clearOneFilter(sec){
+       this.finalFilterSectionList= this.finalFilterSectionList.filter(f=>f.sectionName!=sec.sectionName)
+        for (let i = 0; i<=this.sections.length; i++) {
+              
+            if (this.sections[i].sectionName==sec.sectionName) {
+                this.sections[i].check=false;
+              }
+         }
      }
 }
 

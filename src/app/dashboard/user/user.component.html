@@ -32,7 +32,7 @@
                             <div class="card-content">
                                 <h4 class="card-title">User Management</h4>
                                 <div class="row">
-                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <div class="col-md-5 col-sm-5 col-xs-12 p-0">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <md-select placeholder="Items per page">
                                                 <md-option value="1"> 25 </md-option>
@@ -53,6 +53,23 @@
                                                 <md-option value="4"> all </md-option>
                                             </md-select>
                                         </div>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7 col-xs-12 p-0">
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <md-select placeholder="State" multiple>
+                                                <md-option value="1"> State1 </md-option>
+                                                <md-option value="2"> State2 </md-option>
+                                                <md-option value="3"> State3 </md-option>
+                                                <md-option value="4"> State4 </md-option>
+                                                <md-option value="4"> State5 </md-option>
+                                            </md-select>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <button class="btn btn-success" (click)="openDialog2()"> District + </button>
+                                        </div>
+                                        <!-- <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <button class="btn btn-success" (click)="openDialog2()"> Block + </button>
+                                        </div> -->
                                     </div>
 
                                     <div class="p-lr-15 pull-right">
@@ -87,7 +104,7 @@
 		                                            <th> Platform User Profile </th>
 		                                            <th colspan="7"> Platform Interaction </th>
 		                                            <th colspan="5"> User Engagement </th>
-		                                            <th colspan="2"> Call To Action </th>
+		                                            <th colspan="4"> Call To Action </th>
 		                                            <th> Influencer </th>
 		                                            <th> Referral Code </th>
 		                                        </tr>
@@ -131,21 +148,21 @@
                                                         </a>
                                                     </th>
                                                     <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Call" class="tltip_ico">
+                                                            <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a mdTooltipPosition="above" mdTooltip="Call Me Back" class="tltip_ico">
+                                                            <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Publications" class="tltip_ico">
                                                             <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
 
-                                                    <!-- <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Submission" class="tltip_ico">
-                                                            <mfDefaultSorter by="phone"> <i class="fa fa-external-link-square"></i> </mfDefaultSorter> 
-                                                        </a>
-                                                    </th>
-                                                    <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Publications" class="tltip_ico">
-                                                            <mfDefaultSorter by="volume"> <i class="fa fa-file-text"></i> </mfDefaultSorter> 
-                                                        </a>
-                                                    </th> -->
                                                     <th></th>
                                                     <th></th>
 
@@ -185,6 +202,8 @@
 		                                            <td> 50 </td>
 		                                            <td> 50 </td>
 		                                            <td> 68 </td>
+                                                    <td> 40 </td>
+                                                    <td> 150 </td>
 		                                            <td> 75 </td>
 		                                            <td> 
                                                     	<div class="cus-switch user">
@@ -236,6 +255,8 @@
                                                     <td> 50 </td>
                                                     <td> 50 </td>
                                                     <td> 68 </td>
+                                                    <td> 40 </td>
+                                                    <td> 150 </td>
                                                     <td> 75 </td>
                                                     <td> 
                                                         <div class="cus-switch user">
@@ -286,6 +307,8 @@
                                                     <td> 80 </td>
                                                     <td> 50 </td>
                                                     <td> 50 </td>
+                                                    <td> 40 </td>
+                                                    <td> 150 </td>
                                                     <td> 68 </td>
                                                     <td> 75 </td>
                                                     <td> 
@@ -335,6 +358,30 @@
 	        <ul class="sidebar-filter" type="none">
 	        	<div class="left-content">
 	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
+                    <!-- <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Select State</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>State1</md-checkbox></li>
+                                <li><md-checkbox>State2</md-checkbox></li>
+                                <li><md-checkbox>State3</md-checkbox></li>
+                                <li><md-checkbox>State4</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div> -->
+
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Select Language</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><md-checkbox>Language1</md-checkbox></li>
+                                <li><md-checkbox>Language2</md-checkbox></li>
+                                <li><md-checkbox>Language3</md-checkbox></li>
+                                <li><md-checkbox>Language4</md-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> State</h5>
                         <div class="wrapFilter-div">
@@ -342,6 +389,7 @@
                                 <li><md-checkbox>State1</md-checkbox></li>
                                 <li><md-checkbox>State2</md-checkbox></li>
                                 <li><md-checkbox>State3</md-checkbox></li>
+                                <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
                             </ul>
                         </div>
                     </div>
@@ -352,6 +400,7 @@
                                 <li><md-checkbox>District1</md-checkbox></li>
                                 <li><md-checkbox>District2</md-checkbox></li>
                                 <li><md-checkbox>District3</md-checkbox></li>
+                                <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
                             </ul>
                         </div>
                     </div>
@@ -362,6 +411,7 @@
                                 <li><md-checkbox>Block1</md-checkbox></li>
                                 <li><md-checkbox>Block2</md-checkbox></li>
                                 <li><md-checkbox>Block3</md-checkbox></li>
+                                <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
                             </ul>
                         </div>
                     </div>

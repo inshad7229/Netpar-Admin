@@ -15,9 +15,9 @@
 	                            <div class="select-head">
 	                                <span class="hed"> Selected filter </span> | <span class="clar-filter" (click)=clearAll()> Clear Filter </span>
 	                            </div>
-	                            <ul class="slctd-fltrli" type="none">
-	                                <li> News <span> <i class="fa fa-times"></i> </span> </li>
-	                                <li> Jobs <span> <i class="fa fa-times"></i> </span> </li>
+	                            <ul class="slctd-fltrli" type="none" *ngIf="finalFilterSectionList">
+	                                <li *ngFor="let filterSec of finalFilterSectionList">{{filterSec.sectionName}}<span  (click)="clearOneFilter(filterSec)"> <i class="fa fa-times"></i> </span> </li>
+	                               <!--  <li> Jobs <span> <i class="fa fa-times"></i> </span> </li> -->
 	                               <!--  <li> News <span> <i class="fa fa-times"></i> </span> </li>
 	                                <li> Revision <span> <i class="fa fa-times"></i> </span> </li> -->
 	                            </ul>

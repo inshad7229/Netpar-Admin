@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { NgxCroppieModule } from 'ngx-croppie';
 import {DndModule} from 'ng2-dnd';
 import { SwiperModule } from 'angular2-useful-swiper';
+import {ColorPickerModule} from 'angular4-color-picker';
 
 
 
@@ -72,6 +73,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         DataTableModule,
         SwiperModule,
         MdListModule,
+        ColorPickerModule,
         DndModule.forRoot(),
 
     ],
