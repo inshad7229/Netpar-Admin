@@ -120,9 +120,10 @@ export class HomeComponent implements OnInit {
   hideEditText(){
    this.enablePasswordEdit=-1; 
   }
-  openDialogLanguage(): void {
+  openDialogLanguage(lang): void {
         let dialogRef = this.dialog.open(LanguageDialogComponent, {
             width: '400px',
+            data:{lang:lang},
         });
         dialogRef.afterClosed().subscribe(result => {
       

@@ -20,6 +20,14 @@
                             <div class="card-content">
                                 <h4 class="card-title">Add Subcategory</h4>
                                 <div class="cus-form">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12 abc">
+                                       <md-select placeholder="Select Language" [formControl]="addSubCategoryForm.controls['language']" name="language" [(ngModel)]="addSubCategoryRequest.language">
+                                            <md-option  *ngFor="let lang of stringResource.language" [value]="lang.language">{{lang.language}}</md-option>
+                                           <!--  <md-option value="2"> Language2 </md-option>
+                                            <md-option value="3"> Language3 </md-option>
+                                            <md-option value="4"> Language4 </md-option> -->
+                                        </md-select>
+                                    </div>
                                 	<div class="form-group col-md-12 col-sm-12 col-xs-12">
 	                                    <md-select placeholder="Select Section *" [formControl]="addSubCategoryForm.controls['sectionName']" name="sectionName" [(ngModel)]="addSubCategoryRequest.sectionId" (change)="getCategory()">
 	                                         <md-option  *ngFor="let section of sections"  [value]="section._id" > {{section.sectionName}}</md-option>

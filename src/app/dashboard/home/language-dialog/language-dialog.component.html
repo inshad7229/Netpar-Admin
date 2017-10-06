@@ -3,12 +3,12 @@
 </div>
 <div class="modal-body">
     <md-list>
-		<md-list-item> Marathi </md-list-item>
-		<md-list-item> Hindi </md-list-item>
+		<md-list-item *ngFor="let lang Of language">{{lang.language}} </md-list-item>
+		<!-- <md-list-item> Hindi </md-list-item>
 		<md-list-item> Punjabi </md-list-item>
 		<md-list-item> Gujrati </md-list-item>
 		<md-list-item> Telugu </md-list-item>
-		<md-list-item> English </md-list-item>
+		<md-list-item> English </md-list-item> -->
 
 	</md-list>
 </div>

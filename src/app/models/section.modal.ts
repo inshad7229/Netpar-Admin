@@ -13,6 +13,8 @@ export class AddSectionRequest {
 	 updatedDate:string;
 	 enableDisableDate:string;
 	 publishUnbuplishDate:string;
+	 language:string;
+	 orderNo:number;
 
 }
 
@@ -48,6 +50,7 @@ export class AddCategoryRequest {
 	updatedDate:string;
 	enableDisableDate:string;
 	publishUnbuplishDate:string;
+	language:string;
 
 }
 
@@ -78,5 +81,6 @@ export class AddSubCategoryRequest {
 	updatedDate:string;
 	enableDisableDate:string;
 	publishUnbuplishDate:string;
+	language:string;
 
 }

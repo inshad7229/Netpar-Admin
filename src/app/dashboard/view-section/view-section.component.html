@@ -13,7 +13,7 @@
                     	<div class="card m-t-0">
                     		<div class="card-content">
 	                            <div class="select-head">
-	                                <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
+	                                <span class="hed"> Selected filter </span> | <span class="clar-filter" (click)=clearAll()> Clear Filter </span>
 	                            </div>
 	                            <ul class="slctd-fltrli" type="none">
 	                                <li> News <span> <i class="fa fa-times"></i> </span> </li>
@@ -48,48 +48,48 @@
                                                     <th> </th>
                                                     <th> </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Like" class="tltip_ico">
-                                                            <mfDefaultSorter by="thumb"> <i class="fa fa-thumbs-up"></i> </mfDefaultSorter> 
+                                                        <a mdTooltipPosition="above" mdTooltip="Kadak" class="tltip_ico">
+                                                            <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Share" class="tltip_ico">
-                                                            <mfDefaultSorter by="share"> <i class="fa fa-share"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Comment" class="tltip_ico">
-                                                            <mfDefaultSorter by="comment"> <i class="fa fa-comment"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Save" class="tltip_ico">
-                                                            <mfDefaultSorter by="square"> <i class="fa fa-check-square"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Download" class="tltip_ico">
-                                                            <mfDefaultSorter by="download"> <i class="fa fa-cloud-download"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Apply" class="tltip_ico">
-                                                            <mfDefaultSorter by="text"> <i class="fa fa-file-text"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Call" class="tltip_ico">
-                                                            <mfDefaultSorter by="phone"> <i class="fa fa-phone-square"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="Call Me Back" class="tltip_ico">
-                                                            <mfDefaultSorter by="volume"> <i class="fa fa-volume-control-phone"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a mdTooltipPosition="above" mdTooltip="I'm Interested" class="tltip_ico">
-                                                            <mfDefaultSorter by="check"> <i class="fa fa-check-square-o"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>  </th>
@@ -100,23 +100,23 @@
 		                                        <tr *ngFor="let data of sectiondata;let i=index">
 		                                            <td class="text-left">
 		                                                <div class="dropdown" *ngIf="data.sectionName">
-		                                                    <a *ngIf="showSectionName(data.sectionName,i)==true " href="javascript:;" class="cusdropdown-toggle">
+		                                                    <a *ngIf="showSectionName(data.sectionName,i)==true "  class="cusdropdown-toggle" #event (click)="openDiv(event,'section',data)">
 		                                                        {{data.sectionName}} <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
+		                                                        <li (click)="editSection(statusData)"> <a href="javascript:void(0);"> <span class="pull-left" >Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
+		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left" (click)="deleteSection(statusData)">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
 		                                                        <li>
 		                                                            <a href="javascript:void(0);">
 		                                                            	<span class="pull-left">Enable</span>                           
-		                                                                <span class="pull-right">
+		                                                                <span class="pull-right" >
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox" [(ngModel)]="statusData.status" (change)="enableDisableSection(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -129,8 +129,8 @@
 		                                                            	<span class="pull-left">Publish</span>                          
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox" [(ngModel)]="statusData.publishStatus" (change)="publishUnpublishSection(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -143,14 +143,14 @@
 		                                            </td>
 		                                            <td class="text-left">
 		                                                <div class="dropdown" *ngIf="data.categoryName">
-		                                                    <a  *ngIf="showCategoryName(data.categoryName,i)==true" href="javascript:;" class="cusdropdown-toggle">
+		                                                    <a  *ngIf="showCategoryName(data.categoryName,i)==true"  class="cusdropdown-toggle"  #event (click)="openDiv(event, 'category', data)">
 		                                                         {{data.sectionName}} | <span class="dark_ylw"> {{data.categoryName}}  {{data.sectionName}}</span> <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
+		                                                        <li (click)="editCategory(statusData)"> <a href="javascript:void(0);"> <span class="pull-left" >Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
+		                                                        <li (click)="deleteCategory(statusData)"> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
 		                                                        <li>
@@ -158,8 +158,8 @@
 		                                                            	<span class="pull-left">Enable</span>                           
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox"  [(ngModel)]="statusData.status"  (change)="enableDisableCategory(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -172,8 +172,8 @@
 		                                                            	<span class="pull-left">Publish</span>                          
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox"  [(ngModel)]="statusData.publishStatus" (change)="publishUnpublishCategory(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -186,14 +186,14 @@
 		                                            </td>
 		                                            <td class="text-left">
 		                                                <div class="dropdown" *ngIf="data.subCategoryName">
-		                                                    <a   href="javascript:;" class="cusdropdown-toggle">
-		                                                        {{data.categoryName}}  {{data.sectionName}} |<span class="dark_ylw"> {{data.subCategoryName}} </span> <i class="fa fa-cog"></i>
+		                                                    <a   class="cusdropdown-toggle" #event (click)="openDiv(event,'subCategory', data)">
+		                                                        {{data.categoryName}}  {{data.sectionName}} |<span class="dark_ylw"  > {{data.subCategoryName}} </span> <i class="fa fa-cog"></i>
 		                                                    </a>
 		                                                    <ul class="dropdown-menu">
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
+		                                                        <li (click)="editSubCategory(statusData)"> <a href="javascript:void(0);"> <span class="pull-left">Edit</span> <span class="pull-right"> <i class="fa fa-edit"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
-		                                                        <li> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
+		                                                        <li (click)="deleteSubCategory(statusData)"> <a href="javascript:void(0);"> <span class="pull-left">Delete</span> <span class="pull-right"> <i class="fa fa-trash"></i> </span>
 		                                                        <div class="clearfix"></div>
 		                                                        </a> </li>
 		                                                        <li>
@@ -201,8 +201,8 @@
 		                                                            	<span class="pull-left">Enable</span>                           
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox"  [(ngModel)]="statusData.status"  (change)="enableDisableSubCategory(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -215,8 +215,8 @@
 		                                                            	<span class="pull-left">Publish</span>                          
 		                                                                <span class="pull-right">
 		                                                                    <div class="cus-switch">
-		                                                                        <label class="switch m-b-0">
-		                                                                            <input type="checkbox" />
+		                                                                        <label *ngIf="statusData" class="switch m-b-0">
+		                                                                            <input type="checkbox"  [(ngModel)]="statusData.publishStatus"  (change)="publishUnpublishSubCategory(statusData)" />
 		                                                                            <span class="slider round"></span>
 		                                                                        </label>
 		                                                                    </div>
@@ -228,37 +228,37 @@
 		                                                </div>
 		                                            </td>
 		                                            <td>
-		                                                
+		                                                <a *ngIf="data.userEngBtnLike"> <i class="fa fa-check"></i> </a> 
 		                                            </td>
 		                                            <td>
-		                                                <a> <i class="fa fa-check"></i> </a>
+		                                                <a *ngIf="data.userEngBtnShare"> <i class="fa fa-check"></i> </a>
 		                                            </td>
 		                                            <td>
-		                                                <a> <i class="fa fa-check"></i> </a>
+		                                                <a *ngIf="data.userEngBtnComment"> <i class="fa fa-check"></i> </a>
 		                                            </td>
 		                                            <td>
-		                                                <a> <i class="fa fa-check"></i> </a>
+		                                                <a *ngIf="data.userEngBtnSave"> <i class="fa fa-check"></i> </a>
 		                                            </td>
 		                                            <td>
-		                                                
+		                                                <a *ngIf="data.userEngBtnDownload"> <i class="fa fa-check"></i> </a>
 		                                            </td>
 		                                            <td>
-		                                                <a> <i class="fa fa-check"></i> </a>
+		                                                <a *ngIf="data.callToActBtnApply"> <i class="fa fa-check"></i> </a>
 		                                            </td>
 		                                            <td>
-		                                                <a> <i class="fa fa-check"></i> </a>
+		                                                <a *ngIf="data.callToActBtnCallMe"> <i class="fa fa-check"></i> </a>
 		                                            </td>
 		                                            <td>
-		                                                <a> <i class="fa fa-check"></i> </a>
+		                                                <a *ngIf="data.callToActBtnInterested"> <i class="fa fa-check"></i> </a>
 		                                            </td>
 		                                            <td>
-		                                                <a> <i class="fa fa-check"></i> </a>
+		                                                <a *ngIf="data.callToActBtnCall"> <i class="fa fa-check"></i> </a>
 		                                            </td>  
 		                                            <td>
-		                                                Active
+		                                               <span *ngIf="data.contributionForm=='Yes' || data.contributionForm=='yes'"> Active</span>
 		                                            </td>
 		                                            <td>
-		                                                <a class="btn btn-warning" (click)="openDialog()">View Admins </a>
+		                                                <a class="btn btn-warning" (click)="openDialog(data)">View Admins </a>
 		                                            </td>
 
 		                                        </tr>
@@ -671,10 +671,9 @@
                         <h5 class="filter-heading"> Section</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>News</md-checkbox></li>
-                                <li><md-checkbox>Jobs</md-checkbox></li>
+                                <li *ngFor="let sec of sections"><md-checkbox [(ngModel)]="sec.check" (change)="onChangefilter(sec)">{{sec.sectionName}}</md-checkbox></li>
                                 <div class="btns-filter">
-				                    <a class="btn custom-btn">Apply Filter </a>
+				                    <a class="btn custom-btn" (click)="applyFilter(sections)">Apply Filter </a>
 				                	
 				                </div>
                             </ul>

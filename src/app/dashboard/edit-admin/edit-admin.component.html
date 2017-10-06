@@ -141,21 +141,21 @@
                                             </md-select>
                                         </div> -->
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language1']" [(ngModel)]="register.language1" name="language1">
+                                                <md-option *ngFor="let lang of getResources1()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName1']" [(ngModel)]="register.firstName1" name="firstName1">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName1']" [(ngModel)]="register.lastName1" name="lastName1">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -169,21 +169,21 @@
                                             </md-select>
                                         </div> -->
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language2']" [(ngModel)]="register.language2" name="language2">
+                                                <md-option *ngFor="let lang of getResources2()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName2']" [(ngModel)]="register.firstName2" name="firstName2">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName2']" [(ngModel)]="register.lastName2" name="lastName2">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -197,21 +197,21 @@
                                             </md-select>
                                         </div> -->
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language3']" [(ngModel)]="register.language3" name="language1">
+                                                <md-option *ngFor="let lang of getResources3()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName3']" [(ngModel)]="register.firstName3" name="firstName3">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName3']" [(ngModel)]="register.lastName3" name="lastName3">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -224,22 +224,22 @@
                                                 <md-option value="4"> State4 </md-option>
                                             </md-select>
                                         </div> -->
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language4']" [(ngModel)]="register.language4" name="language4">
+                                                <md-option *ngFor="let lang of getResources4()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName4']" [(ngModel)]="register.firstName4" name="firstName4">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName4']" [(ngModel)]="register.lastName4" name="lastName4">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -252,22 +252,22 @@
                                                 <md-option value="4"> State4 </md-option>
                                             </md-select>
                                         </div> -->
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language5']" [(ngModel)]="register.language5" name="language5">
+                                                <md-option *ngFor="let lang of getResources5()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName5']" [(ngModel)]="register.firstName5" name="firstName1">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName5']" [(ngModel)]="register.lastName5" name="lastName5">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -280,22 +280,22 @@
                                                 <md-option value="4"> State4 </md-option>
                                             </md-select>
                                         </div> -->
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language6']" [(ngModel)]="register.language6" name="language6">
+                                                <md-option *ngFor="let lang of getResources6()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName6']" [(ngModel)]="register.firstName6" name="firstName6">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName6']" [(ngModel)]="register.lastName6" name="lastName6">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -308,22 +308,22 @@
                                                 <md-option value="4"> State4 </md-option>
                                             </md-select>
                                         </div> -->
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                       <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language7']" [(ngModel)]="register.language7" name="language7">
+                                                <md-option *ngFor="let lang of getResources7()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName7']" [(ngModel)]="register.firstName7" name="firstName7">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName7']" [(ngModel)]="register.lastName7" name="lastName7">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -336,22 +336,22 @@
                                                 <md-option value="4"> State4 </md-option>
                                             </md-select>
                                         </div> -->
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                       <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language8']" [(ngModel)]="register.language8" name="language8">
+                                                <md-option *ngFor="let lang of getResources8()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName8']" [(ngModel)]="register.firstName8" name="firstName8">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName8']" [(ngModel)]="register.lastName8" name="lastName8">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -365,21 +365,21 @@
                                             </md-select>
                                         </div> -->
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language9']" [(ngModel)]="register.language9" name="language9">
+                                                <md-option *ngFor="let lang of getResources9()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName9']" [(ngModel)]="register.firstName9" name="firstName9">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName9']" [(ngModel)]="register.lastName9" name="lastName9">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -392,22 +392,22 @@
                                                 <md-option value="4"> State4 </md-option>
                                             </md-select>
                                         </div> -->
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language10']" [(ngModel)]="register.language10" name="language10">
+                                                <md-option *ngFor="let lang of getResources10()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName10']" [(ngModel)]="register.firstName10" name="firstName10">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName10']" [(ngModel)]="register.lastName10" name="lastName10">
                                             </md-form-field>
                                         </div>
                                     </div>
@@ -421,21 +421,21 @@
                                             </md-select>
                                         </div> -->
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                            <md-select placeholder="Select Language" [formControl]="complexForm.controls['language11']" [(ngModel)]="register.language11" name="language11">
+                                                <md-option *ngFor="let lang of getResources11()" [value]="lang.language" >{{lang.language}}</md-option>
+                                               <!--  <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="First Name" type="text">
+                                                <input mdInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName11']" [(ngModel)]="register.firstName11" name="firstName11">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Last Name" type="text">
+                                                <input mdInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName11']" [(ngModel)]="register.lastName11" name="lastName11">
                                             </md-form-field>
                                         </div>
                                     </div>
