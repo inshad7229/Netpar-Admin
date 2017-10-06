@@ -34,6 +34,10 @@ export class ViewSectionComponent implements OnInit {
     flag;
     statusData: any;
     sections;
+    forFilterData=[]
+    filterModel=[];
+    filterData:any;
+    sectionDatabackup:any
     constructor(private dialog: MdDialog,
         private router: Router,
         private fb: FormBuilder,
@@ -87,16 +91,21 @@ export class ViewSectionComponent implements OnInit {
                                 if (obj2.section_subcategories.length > 0) {
                                     for (let k = 0; k < obj2.section_subcategories.length; k++) {
                                         var obj3 = obj2.section_subcategories[k]
+                                        obj3.contributionForm=obj2.contributionForm;
                                         this.sectiondata.push(obj3)
+                                        this.forFilterData.push(obj3)
                                     }
                                 } else {
 
                                     this.sectiondata.push(obj2)
+                                    this.forFilterData.push(obj2)
                                 }
 
                             }
                         } else {
                             this.sectiondata.push(obj)
+                            this.forFilterData.push(obj)
+
                         }
                     }
                     console.log(JSON.stringify(this.sectiondata))
@@ -133,7 +142,8 @@ export class ViewSectionComponent implements OnInit {
 
         console.log(JSON.stringify(data))
     }
-    openDialog(): void {
+    openDialog(data): void {
+      this.appProvider.current.currentSectionName=data.sectionName;
         let dialogRef = this.dialog.open(DialogComponent, {
             width: '400px',
         });
@@ -463,9 +473,40 @@ export class ViewSectionComponent implements OnInit {
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.sections=data;
+                    this.sectionDatabackup=data
                 },error=>{
                     alert(error)
                 })
-  }
+     }
+     applyFilter(data){
+      console.log(JSON.stringify(this.filterModel))
+      if (this.filterModel.length>0) {
+        this.sectiondata=this.filterModel
+          // code...
+      }else{
+         this.sectiondata=this.forFilterData 
+      }
+
+     }
+     onChangefilter(sec){
+         if (sec) {
+             console.log(JSON.stringify(sec))
+            if (sec.check==true) {
+              this.filterData=this.forFilterData.filter(f=>f.sectionName==sec.sectionName)
+              this.filterModel.push(this.filterData[0])
+              console.log('if')
+              console.log(JSON.stringify(this.filterModel))   
+            }
+            else {
+              console.log('elsef')
+             this.filterModel= this.filterModel.filter(f=>f.sectionName!=sec.sectionName)  
+            console.log(JSON.stringify(this.filterModel))   
+            }
+         }
+     }
+     clearAll(){
+         this.sectiondata=this.forFilterData
+         this.sections=this.sectionDatabackup 
+     }
 }
 

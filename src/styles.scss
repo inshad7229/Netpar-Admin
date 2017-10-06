@@ -328,6 +328,30 @@ ul{
   background:url('./assets/img/mask_bg.png');
   z-index: -1;
 }
+.flex{
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+}
+.flex-items.brd-r {
+  border-right: 3px solid #ffcc00;
+  margin-right: 40px;
+}
+
+.flex-items{
+  flex: 1;
+  align-self: center;
+}
+.login-logo {
+  width: 100%;
+  float: left;
+  text-align: center;
+}
+.login-logo img {
+  width: 230px;
+  display: inline-block;
+}
 
 .login-form{
   width: 100%;
@@ -341,6 +365,17 @@ ul{
   background-color: rgba(255,255,255,0.85);
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
   border: 5px solid #ffcc00;
+  max-width: 450px;
+  position: relative;
+}
+.login-panel::after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: -20%;
+  bottom: 0;
+  width: 2px;
+  background-color: #ffcc00;
 }
 .loginas-sec {
   float: left;
@@ -590,7 +625,7 @@ ul{
   right: 0;
   width: 64px;
   background: rgba(156, 39, 176, 0.8);
-  z-index: 1031;
+  z-index: 999;
   border-radius: 8px 0 0 8px;
   text-align: center;
 }
@@ -836,7 +871,10 @@ label{
   width: 31%;
 }
 .user-cont-table table td.td-wdth25{
-  width: 25%;
+  width: 22%;
+}
+.user-cont-table table td.td-wdth9{
+  width: 9%;
 }
 .user-cont-table table td .cont-dtl p{
   margin: 0;
@@ -999,7 +1037,10 @@ table tbody tr td.vertical-top{
 .template-table tbody tr td.td-wdth35{
   width: 35%;
 }
-
+.templt-img{
+  float: none;
+  display: inline-block;
+}
 .templt-img img{
   box-shadow: 0 0 24px 0 rgba(0,0,0,0.2);
   border-radius: 10px;
@@ -1188,9 +1229,60 @@ table tbody td.width170px{
   font-size: 16px;
 }
 
+
 .mat-progress-bar-buffer {
-  background-color: #fffae4;
+ background-color: #fffae4;
 }
 .mat-progress-bar-fill::after {
-  background-color: #fecd08;
+ background-color: #fecd08;
+}
+
+
+.state-ul {
+  padding: 0;
+  margin: 0;
+  height: 365px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -ms-flex-line-pack: start;
+  align-content: flex-start;
+  white-space: nowrap;
+}
+
+.state-ul li {
+  margin: 0 10px 8px 0;
+  font-size: 14px;
+  padding-left: 10px;
+  color: #000;
+  min-width: 130px;
+  font-weight: 600; 
+}
+.state-ul li.li .mat-checkbox-label {
+  font-weight: 600;
+}
+.state-ul li.sub-li {
+  padding-left: 20px;
+}
+
+.state-ulTitle {
+  margin-bottom: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #282c3f
 }

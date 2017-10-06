@@ -8,6 +8,7 @@ export class Current {
     SubcategoryFlag:any;
     currentId:any;
     actionFlag:any;
+    currentSectionName:any;
 
     constructor(public leadsFilter?: string) {
     }

@@ -10,7 +10,10 @@ import {StringResource} from '../../models/saredResources'
 import {AdminService} from './edit.service';
 import { NgxCroppieComponent } from 'ngx-croppie';
 import { CroppieOptions } from 'croppie';
-import {AppProvider} from '../../providers/app.provider'
+import {AppProvider} from '../../providers/app.provider';
+import {SectionService} from '../../providers/section.service'
+
+
 
 declare var jquery:any;
 declare var $ :any;
@@ -23,7 +26,7 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
     selector: 'app-edit-admin',
     templateUrl: './edit-admin.component.html',
     styleUrls: ['./edit-admin.component.scss'],
-    providers: [FormControlDirective, AdminService],
+    providers: [FormControlDirective, AdminService,SectionService],
 
 
 })
@@ -42,21 +45,22 @@ export class EditAdminComponent implements OnInit {
     data: any;
     disable: boolean;
     localImage: any
-    options = [{
-            name: 'Jobs',
-            value: 'Jobs',
-            checked: false
-        },
-        {
-            name: 'Loan',
-            value: 'Loan',
-            checked: false
-        },
-        {
-            name: 'News',
-            value: 'News',
-            checked: false
-        }
+    options = [
+    //{
+    //         name: 'Jobs',
+    //         value: 'Jobs',
+    //         checked: false
+    //     },
+    //     {
+    //         name: 'Loan',
+    //         value: 'Loan',
+    //         checked: false
+    //     },
+    //     {
+    //         name: 'News',
+    //         value: 'News',
+    //         checked: false
+    //     }
     ]
     widthPx = '300';
     heightPx = '300';
@@ -64,6 +68,7 @@ export class EditAdminComponent implements OnInit {
     currentImage: string;
     croppieImage: string;
     showsecondary:number=0;
+    sections
 
     public get imageToDisplay() {
         if (this.currentImage) {
@@ -98,6 +103,7 @@ export class EditAdminComponent implements OnInit {
         private adminService: AdminService,
         private http: Http,
         private appProvider: AppProvider,
+        private sectionService:SectionService
 
     ) {
         this.complexForm = fb.group({
@@ -188,7 +194,7 @@ export class EditAdminComponent implements OnInit {
             $(this).closest('.fileinput-exists').hide();
             $(this).closest('.fileinput').find('.fileinput-noexists').show();
         });
-
+        this.getSectionList()
         if (this.appProvider.current.adminPageFlag == "allEdit") {
             this.register = this.appProvider.current.adminData;
             this.options = this.appProvider.current.adminData.sectionName;
@@ -610,5 +616,24 @@ export class EditAdminComponent implements OnInit {
                 }
         return d
         }
+             getSectionList(){
+         this.sectionService.onGetSection()
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.sections=data;
+                    for (let  i =0 ; i<this.sections.length; i++) {
+                       var obj=this.sections[i]
+                       // var obj2=[]
+                       //     obj2['_id']=obj._id;
+                       //     obj2['name']=obj.sectionName;
+                       //     obj2['value']=obj.sectionName;
+                       //     obj2['checked']=false;
+                       this.options.push({_id:obj._id,name:obj.sectionName,value:obj.sectionName,checked:false})
+                     console.log(JSON.stringify(this.options))
+                    }
+                },error=>{
+                    alert(error)
+                })
+     }
 }
 

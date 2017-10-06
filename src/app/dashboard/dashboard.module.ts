@@ -5,6 +5,7 @@ import { MdTooltipModule, MdTableModule, MdPaginator ,
          MdNativeDateModule,MdCheckboxModule,MdProgressSpinnerModule,
          MdSelectModule,MdRadioModule,MdInputModule
        } from '@angular/material';
+import {MdListModule} from '@angular/material';
 import {DataTableModule} from "angular2-datatable";
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface}  from 'ngx-perfect-scrollbar';
@@ -70,6 +71,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         NgxCroppieModule,
         DataTableModule,
         SwiperModule,
+        MdListModule,
         DndModule.forRoot(),
 
     ],
