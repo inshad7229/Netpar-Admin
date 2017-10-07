@@ -14,7 +14,7 @@ export class LanguageDialogComponent implements OnInit {
 
   ngOnInit() {
     this.language=this.data.lang;
-  	alert(JSON.stringify( this.language))
+  	//alert(JSON.stringify( this.language))
   }
 
   onClosed(){

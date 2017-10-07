@@ -20,11 +20,11 @@ export class AddContentComponent implements OnInit {
 	currentIndex:any;
 	rightPan:any;
 	showRightpan:boolean=false;
+	googleFromdata:any
 	private color: string = "#FFFFFF";
 	constructor(private dialog: MdDialog, private cpService: ColorPickerService) { 
 		this.rightPan={ }
-
-
+		this.googleFromdata={ }
 	}
     openDialog(): void {
         let dialogRef = this.dialog.open(DragDropComponent, {
@@ -46,7 +46,7 @@ export class AddContentComponent implements OnInit {
 
 
     addText(){
-    	 
+    	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block',text:'Dummy Text'}) 
     }
 	addImage(){
         this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block'})
@@ -67,7 +67,8 @@ export class AddContentComponent implements OnInit {
         this.listOne.push({tag:"button",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block'})
 	}
 	addForm(){
-		this.listOne.push({tag:"form", formURL:'Link of google form'})
+		this.googleFromdata.tag="form"; 
+		// this.googleFromdata.url='null';
 	}
 	addCall(){
 
@@ -85,8 +86,11 @@ export class AddContentComponent implements OnInit {
       //alert(index)
       this.showRightpan=true;
       this.currentIndex=index;
-      //this.rightPan=item
-      //this.rightPan.placeHolder=item.url;
+      this.rightPan=item
+      this.rightPan.placeHolder=item.url;
+	}
+	onTextChange(){
+		this.listOne[this.currentIndex].text=this.rightPan.text;
 	}
 	onAligmentChange(flag){
      this.listOne[this.currentIndex].aligment=flag;
@@ -131,6 +135,17 @@ export class AddContentComponent implements OnInit {
 	oncolor(color){
 	    this.listOne[this.currentIndex].backgroundColor=color	
 	}
+	deleteFromArray(index){
+		let a=this.listOne.splice(index,1)
+		console.log(JSON.stringify(a))
+	}
+
+	 itemDragged(i){
+    console.log('mousedown',i)
+   }
+itemSwapped(i){
+ console.log('mouseUp',i)
+}
 	/*demo:any
   	
 	transferData: Object = {id: 1, msg: 'Hello'};

@@ -33,6 +33,12 @@
 			                            		<label> Name </label>
 			                            		<p *ngIf="appProvider.current.loginData">{{appProvider.current.loginData.firstName}}  {{appProvider.current.loginData.lastName}}</p>
 		                            		</div>
+		                            		<div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="appProvider.current.loginData">
+			                            		<label> Language Active </label>
+			                            		<p><span *ngFor="let lang of appProvider.current.loginData.langDetails"> {{lang.language}}</span></p>
+			                            		
+		                            		</div>
+
 		                            		<div class="form-group col-md-12 col-sm-12 col-xs-12">
 			                            		<label> Role </label>
 			                            		<p *ngIf="appProvider.current.loginData">{{adminRole(appProvider.current.loginData.role)}} </p>

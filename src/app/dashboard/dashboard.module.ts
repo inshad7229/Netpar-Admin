@@ -47,6 +47,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { UserDialogComponent } from './user/user-dialog/user-dialog.component';
 import { LanguageDialogComponent } from './home/language-dialog/language-dialog.component';
+import { SuggestArticleDialogComponent } from './add-content/suggest-article-dialog/suggest-article-dialog.component';
+import { DragDropComponent } from './add-content/drag-drop/drag-drop.component';
 
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -102,12 +104,14 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
              SectionAnalyticsComponent,
              ArticleAnalyticsComponent,
              ElementAnalyticsComponent,
-              UserDialogComponent,
-              LanguageDialogComponent
+              UserDialogComponent,           
+             SuggestArticleDialogComponent,
+              LanguageDialogComponent,
+              DragDropComponent
 
            ],
 
-entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent ],
+entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent ],
 })
 
 export class DashboardModule{

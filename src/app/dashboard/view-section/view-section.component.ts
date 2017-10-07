@@ -511,6 +511,10 @@ export class ViewSectionComponent implements OnInit {
      }
      clearAll(){
          this.sectiondata=this.forFilterData
+          this.finalFilterSectionList=[];
+          this.filterSectionList=[];
+          this.filterData=[]
+          this.filterModel=[]
          // this.sections=this.sectionDatabackup 
          for (let i = 0; i<this.sections.length; i++) {
               this.sections[i].check=false;
@@ -524,13 +528,16 @@ export class ViewSectionComponent implements OnInit {
                   }
            } 
            this.finalFilterSectionList= this.finalFilterSectionList.filter(f=>f.sectionName!=sec.sectionName)
+           this.filterSectionList= this.filterSectionList.filter(f=>f.sectionName!=sec.sectionName)
            console.log('hy'+JSON.stringify(this.finalFilterSectionList))
            if (this.finalFilterSectionList.length>0) {
                 this.sectiondata=this.sectiondata.filter(f=>f.sectionName!=sec.sectionName)
+                this.filterModel=this.filterModel.filter(f=>f.sectionName!=sec.sectionName)
             }else{
               this.sectiondata=this.forFilterData;
               this.filterSectionList=[]
-              this.filterModel=[]  
+              this.filterModel=[] 
+               this.finalFilterSectionList=[]; 
             }
           
          }
