@@ -499,31 +499,48 @@ export class ViewSectionComponent implements OnInit {
               this.filterModel.push(this.filterData[0])
               this.filterSectionList.push(sec)
               console.log('if')
-              console.log(JSON.stringify(this.filterModel))   
+              console.log(JSON.stringify(this.filterSectionList))   
             }
             else {
               console.log('elsef')
              this.filterModel= this.filterModel.filter(f=>f.sectionName!=sec.sectionName)
              this.filterSectionList=this.filterSectionList.filter(f=>f.sectionName!=sec.sectionName)  
-            console.log(JSON.stringify(this.filterModel))   
+            console.log(JSON.stringify(this.filterSectionList))   
             }
          }
      }
      clearAll(){
          this.sectiondata=this.forFilterData
          // this.sections=this.sectionDatabackup 
-         for (let i = 0; i<=this.sections.length; i++) {
+         for (let i = 0; i<this.sections.length; i++) {
               this.sections[i].check=false;
          }
      }
      clearOneFilter(sec){
-       this.finalFilterSectionList= this.finalFilterSectionList.filter(f=>f.sectionName!=sec.sectionName)
-        for (let i = 0; i<=this.sections.length; i++) {
-              
-            if (this.sections[i].sectionName==sec.sectionName) {
-                this.sections[i].check=false;
-              }
+         if (sec) {
+              for (let i = 0; i<this.sections.length; i++) {
+                if (this.sections[i].sectionName==sec.sectionName) {
+                    this.sections[i].check=false;
+                  }
+           } 
+           this.finalFilterSectionList= this.finalFilterSectionList.filter(f=>f.sectionName!=sec.sectionName)
+           console.log('hy'+JSON.stringify(this.finalFilterSectionList))
+           if (this.finalFilterSectionList.length>0) {
+                this.sectiondata=this.sectiondata.filter(f=>f.sectionName!=sec.sectionName)
+            }else{
+              this.sectiondata=this.forFilterData;
+              this.filterSectionList=[]
+              this.filterModel=[]  
+            }
+          
          }
+        // for (let i = 0; i<=this.sections.length; i++) {
+              
+        //     if (this.sections[i].sectionName==sec.sectionName) {
+        //         this.sections[i].check=false;
+        //       }
+        //  }
+        
      }
 }
 
