@@ -21,6 +21,8 @@ export class AddContentComponent implements OnInit {
 	rightPan:any;
 	showRightpan:boolean=false;
 	googleFromdata:any
+	mouseDownIndex:number;
+	afterDragIndex:number;
 	private color: string = "#FFFFFF";
 	constructor(private dialog: MdDialog, private cpService: ColorPickerService) { 
 		this.rightPan={ }
@@ -141,11 +143,13 @@ export class AddContentComponent implements OnInit {
 	}
 
 	 itemDragged(i){
+	 this.mouseDownIndex=i;
     console.log('mousedown',i)
    }
-itemSwapped(i){
- console.log('mouseUp',i)
-}
+	itemSwapped(i){
+	 this.afterDragIndex=i;
+	 console.log('mouseUp',i)
+	}
 	/*demo:any
   	
 	transferData: Object = {id: 1, msg: 'Hello'};
