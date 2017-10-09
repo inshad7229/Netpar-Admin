@@ -27,30 +27,30 @@
                                             </md-select>
                                         </div>
 
-                                    	<div class="form-group col-md-4 col-sm-4 col-xs-12">
-		                                    <md-select placeholder="Select Section">
-		                                        <md-option value="1"> Section1 </md-option>
-		                                        <md-option value="2"> Section2 </md-option>
-		                                        <md-option value="3"> Section3 </md-option>
-		                                        <md-option value="4"> Section4 </md-option>
-		                                    </md-select>
-		                                </div>
-		                                <div class="form-group col-md-4 col-sm-4 col-xs-12">
-		                                    <md-select placeholder="Select Category">
-		                                        <md-option value="1"> Category1 </md-option>
-		                                        <md-option value="2"> Category2 </md-option>
-		                                        <md-option value="3"> Category3 </md-option>
-		                                        <md-option value="4"> Category4 </md-option>
-		                                    </md-select>
-		                                </div>
-		                                <div class="form-group col-md-4 col-sm-4 col-xs-12">
-		                                    <md-select placeholder="Select Sub-category">
-		                                        <md-option value="1"> Sub-category1 </md-option>
-		                                        <md-option value="2"> Sub-category2 </md-option>
-		                                        <md-option value="3"> Sub-category3 </md-option>
-		                                        <md-option value="4"> Sub-category4 </md-option>
-		                                    </md-select>
-		                                </div>
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                            <md-select placeholder="Select Section">
+                                                <md-option value="1"> Section1 </md-option>
+                                                <md-option value="2"> Section2 </md-option>
+                                                <md-option value="3"> Section3 </md-option>
+                                                <md-option value="4"> Section4 </md-option>
+                                            </md-select>
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                            <md-select placeholder="Select Category">
+                                                <md-option value="1"> Category1 </md-option>
+                                                <md-option value="2"> Category2 </md-option>
+                                                <md-option value="3"> Category3 </md-option>
+                                                <md-option value="4"> Category4 </md-option>
+                                            </md-select>
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                            <md-select placeholder="Select Sub-category">
+                                                <md-option value="1"> Sub-category1 </md-option>
+                                                <md-option value="2"> Sub-category2 </md-option>
+                                                <md-option value="3"> Sub-category3 </md-option>
+                                                <md-option value="4"> Sub-category4 </md-option>
+                                            </md-select>
+                                        </div>
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
@@ -63,24 +63,24 @@
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    		<input type="text" placeholder="Add tags" class="selectize txtselectize">
+                                            <input type="text" placeholder="Add tags" class="selectize txtselectize">
                                         </div>
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        	<md-form-field>
-											  	<input mdInput [mdDatepicker]="picker" placeholder="Date of creation" name="adc" disabled="" readonly="">
-											  	<md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-											  	<md-datepicker #picker></md-datepicker>
-											</md-form-field>
-										</div>
+                                            <md-form-field>
+                                                <input mdInput [mdDatepicker]="picker" placeholder="Date of creation" name="adc" disabled="" readonly="">
+                                                <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+                                                <md-datepicker #picker></md-datepicker>
+                                            </md-form-field>
+                                        </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-		                                    <md-select placeholder="Type of user">
+                                            <md-select placeholder="Type of user">
                                                 <md-option value="1"> Platform User </md-option>
-		                                        <md-option value="2"> Section Administrator </md-option>
+                                                <md-option value="2"> Section Administrator </md-option>
                                                 <md-option value="3"> Content Writer </md-option>
-		                                        <md-option value="4"> Business User </md-option>
-		                                    </md-select>
-		                                </div>  
+                                                <md-option value="4"> Business User </md-option>
+                                            </md-select>
+                                        </div>  
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
                                                 <input mdInput placeholder="Search user" type="text">
@@ -222,39 +222,39 @@
                                                                     <i class="material-icons">view_array</i>
                                                                     <span>Media Grid</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addApply()">
+                                                                <li data-type="apply" (click)="addApply('Apply')">
                                                                     <i class="icon-check"></i>
                                                                     <span>Apply</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addCall()">
+                                                                <li data-type="apply" (click)="addCall('Call')">
                                                                     <i class="icon-call"></i>
                                                                     <span>Call</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addCallMe()">
+                                                                <li data-type="apply" (click)="addCallMe('Call me back')">
                                                                     <i class="icon-callme"></i>
                                                                     <span>Call me back</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addIntrested()">
+                                                                <li data-type="apply" (click)="addIntrested('Im Interested')">
                                                                     <i class="icon-click"></i>
                                                                     <span>I'm Interested</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addlike()">
+                                                                <li data-type="apply" (click)="addlike('Kadak')">
                                                                     <i class="icon-okay"></i>
                                                                     <span>Kadak</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addshare()">
+                                                                <li data-type="apply" (click)="addshare('Share')">
                                                                     <i class="fa fa-share-alt"></i>
                                                                     <span>Share</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addcomment()">
+                                                                <li data-type="apply" (click)="addcomment('Comment')">
                                                                     <i class="icon-msg"></i>
                                                                     <span>Comment</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addsave()">
+                                                                <li data-type="apply" (click)="addsave('Save')">
                                                                     <i class="icon-badge"></i>
                                                                     <span>Save</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addownload()">
+                                                                <li data-type="apply" (click)="addownload('Download')">
                                                                     <i class="icon-donload"></i>
                                                                     <span>Download</span>
                                                                 </li>
@@ -280,22 +280,59 @@
                                                             <div class="email-container list-group" dnd-sortable-container [sortableData]="listOne">
                                                                <div *ngFor="let item of listOne; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i" (mousedown)="itemDragged(i)" (onDropSuccess)="itemSwapped(i)">
                                                                     <div class="builder-element" *ngIf="item.tag=='grid'">
+                                                                        <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody>
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
-                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnFirstGrid(audi01,video1)"
+                                                                                         
+                                                                                    >
+                                                                                       
+                                                                                        <audio #audi01 controls *ngIf="item.audiourl1!=null">
+                                                                                            <source [src]="item.audiourl1"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                        </audio>
+                                                                                        <video #video1 *ngIf="item.videourl1!=null "  id="my-video" controls preload="auto" width="80%" (click)="video(video1)">
+                                                                                            <source [src]="item.videourl1" type="video/mp4">
+                                                                                        </video>
+                                                                                         <img [src]="item.imgurl1" *ngIf="item.imgurl1!=null ">
+                                                                                         <img [src]="item.documenturl1" *ngIf="item.documenturl1!=null ">
+                                                                                     
                                                                                         
                                                                                     </td>
-                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnSecondGrid(audi02,video2)">
+                                                                                      
+                                                                                        <audio #audi02 controls *ngIf="item.audiourl2!=null">
+                                                                                            <source [src]="item.audiourl2"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                        </audio>
+                                                                                        <video #video2 *ngIf="item.videourl2!=null" #ref id="my-video" controls preload="auto" width="80%" >
+                                                                                            <source [src]="item.videourl2" type="video/mp4">
+                                                                                        </video>
+                                                                                         <img [src]="item.imgurl2" *ngIf="item.imgurl2!=null">
+                                                                                         <img [src]="item.documenturl2" *ngIf="item.documenturl2!=null">
+                                                                                     
                                                                                         
                                                                                     </td>
-                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnThirdGrid(audio3,video3)">
+                                                                                        
+                                                                                        <audio #audio3 controls *ngIf="item.audiourl3!=null">
+                                                                                            <source [src]="item.audiourl3"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                        </audio>
+                                                                                        <video #video3 *ngIf="item.videourl3!=null" #ref id="my-video" controls preload="auto" width="80%" >
+                                                                                            <source [src]="item.videourl3" type="video/mp4">
+                                                                                        </video>
+                                                                                         <img [src]="item.imgurl3" *ngIf="item.imgurl3!=null">
+                                                                                         <img [src]="item.documenturl3" *ngIf="item.documenturl3!=null">
                                                                                         
                                                                                     </td>
+                                                                                    
 
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
+                                                                        <figcaption>{{item.caption}}</figcaption>
                                                                         <div class="icons-actions">
                                                                             <i title="Move element" class="material-icons">drag_handle</i>
                                                                             <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
@@ -352,10 +389,10 @@
                                                                     <div class="builder-element" *ngIf="item.tag=='video'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody>
-                                                                                <tr (click)="onClickOnDragItem(i,item)">
+                                                                                <tr (click)="onClickOnDragItem(i,item,ref)">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <video id="my-video" controls preload="auto" width="80%" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
+                                                                                        <video #ref id="my-video" controls preload="auto" width="80%" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
                                                                                             <source [src]="item.url" type="video/mp4">
                                                                                         </video>
                                                                                         <figcaption>{{item.caption}}</figcaption>
@@ -371,14 +408,14 @@
                                                                     <div class="builder-element" *ngIf="item.tag=='audio'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody>
-                                                                                <tr (click)="onClickOnDragItem(i,item)">
+                                                                                <tr (click)="onClickOnDragItem(i,item,ref2)">
                                                                                     <td  [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <audio controls [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
+                                                                                        <audio #ref2 controls [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
                                                                                             <source [src]="item.url"  type="audio/mpeg" />
                                                                                             Your browser does not support the audio element.
                                                                                         </audio>
-                                                                                        <figcaption>{{item.caption}}</figcaption>
+                                                                                        <figcaption [ngStyle]="{textAlign:item.aligment}">{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -406,7 +443,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="builder-element" *ngIf="item.tag=='form'">
+                                                                    <!-- <div class="builder-element" *ngIf="item.tag=='form'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody>
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
@@ -420,18 +457,34 @@
                                                                             <i title="Move element" class="material-icons">drag_handle</i>
                                                                             <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
 
                                                                 </div>
 
                                                             </div>
                                                         </div>
+                                                        <div class="builder-element" >
+                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0"  align="center" data-type="text-block">
+                                                                            <tbody>
+                                                                                <tr >
+                                                                                    <td >
+                                                                                        <button type="button" class="btn custom-btn btn-round">Click  me</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray2()" >delete</i>
+                                                                        </div>
+                                                                    </div>
                                                     </div>
 
                                                     <div class="md-card" >
                                                         <div class="md-card-content">
                                                             <form action="#" *ngIf="showRightpan">
-                                                                 <div class="email-builder-element-edit-field">
+                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag!='grid'">
 
                                                                     <div class="block-properties">
                                                                         <div class="md-btn-group md-btn-group-justify">
@@ -444,7 +497,7 @@
 
                                                                 <div class="email-builder-element-edit-field">
 
-                                                                    <div class="block-properties">
+                                                                    <div class="block-properties" *ngIf="rightPan.tag!='grid'">
                                                                         <h3>Padding</h3>
                                                                         <div class="form-row padding-inputs">
                                                                             <md-form-field>
@@ -468,7 +521,7 @@
                                                                 </div>
 
 
-                                                                <div class="email-builder-element-edit-field">
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag!='grid'">
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
@@ -519,20 +572,6 @@
                                                                     </div>
 
                                                                 </div>
-
-                                                                <div class="email-builder-element-edit-field" *ngIf="googleFromdata.tag=='form'">
-
-                                                                    <div class="block-properties">
-                                                                        <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Form Link" type="text" name="form" [(ngModel)]="googleFromdata.url" (input)="onFormChange()">
-                                                                            </md-form-field>
-                                                                        </div>
-                                                                           
-                                                                    </div>
-
-                                                                </div>
-
                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
 
                                                                     <div class="block-properties">
@@ -553,7 +592,7 @@
 
                                                                 </div>
 
-                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image' || rightPan.tag=='video' || rightPan.tag=='audio' || rightPan.tag=='document' ">
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
@@ -578,7 +617,7 @@
 
                                                                 </div>
 
-                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image' || rightPan.tag=='video' || rightPan.tag=='audio' || rightPan.tag=='document' || rightPan.tag=='grid' ">
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
@@ -591,7 +630,7 @@
 
                                                                 </div>
                                                                 
-                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image' || rightPan.tag=='video' || rightPan.tag=='audio' || rightPan.tag=='document' || rightPan.tag=='grid' ">
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
@@ -603,8 +642,259 @@
                                                                     </div>
 
                                                                 </div>
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='grid' ">
 
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <md-form-field>
+                                                                                <input mdInput placeholder="Tags" type="text" name="tags" [(ngModel)]="rightPan.tags" (input)="ontagsChange()">
+                                                                            </md-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+                                                                  <div *ngIf="rightPan.activeIndex==1">
+                                                                        <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <div class="fileinput" data-provides="fileinput">
+                                                                                    <div class="fileinput-new thumbnail">
+                                                                                        <img alt="..." [src]="rightPan.placeholder1">
+                                                                                    </div>
+                                                                                    <span class="btn custom-btn btn-round btn-file">
+                                                                                        <span class="fileinput-new">Change</span>
+                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridOneIndexEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                        <div class="ripple-container"></div>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Image URL" type="text" name="gridimgurl1" [(ngModel)]="rightPan.imgurl1" (input)="onGridImgUrl1Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Video URL" type="text" name="gridvideourl1" [(ngModel)]="rightPan.videourl1" (input)="onGridVideoUrl1Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Audio URL" type="text" name="gridaudiourl1" [(ngModel)]="rightPan.audiourl1" (input)="onGridAudioUrl1Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Document URL" type="text" name="griddocumenturl1" [(ngModel)]="rightPan.documenturl1" (input)="onGridDocumentUrl1Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div *ngIf="rightPan.activeIndex==2">
+                                                                        <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <div class="fileinput" data-provides="fileinput">
+                                                                                    <div class="fileinput-new thumbnail">
+                                                                                        <img alt="..." [src]="rightPan.placeholder2">
+                                                                                    </div>
+                                                                                    <span class="btn custom-btn btn-round btn-file">
+                                                                                        <span class="fileinput-new">Change</span>
+                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridTwoIndexEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                        <div class="ripple-container"></div>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Image URL" type="text" name="gridimgurl2" [(ngModel)]="rightPan.imgurl2" (input)="onGridImgUrl2Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Video URL" type="text" name="gridvideourl2" [(ngModel)]="rightPan.videourl2" (input)="onGridVideoUrl2Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Audio URL" type="text" name="gridaudiourl2" [(ngModel)]="rightPan.audiourl2" (input)="onGridAudioUrl2Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Document URL" type="text" name="griddocumenturl2" [(ngModel)]="rightPan.documenturl2" (input)="onGridDocumentUrl2Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div *ngIf="rightPan.activeIndex==3">
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <div class="fileinput" data-provides="fileinput">
+                                                                                    <div class="fileinput-new thumbnail">
+                                                                                        <img alt="..." [src]="rightPan.placeholder3">
+                                                                                    </div>
+                                                                                    <span class="btn custom-btn btn-round btn-file">
+                                                                                        <span class="fileinput-new">Change</span>
+                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridThirdIndexEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                        <div class="ripple-container"></div>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Image URL" type="text" name="gridimgurl3" [(ngModel)]="rightPan.imgurl3" (input)="onGridImgUrl3Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Video URL" type="text" name="gridvideourl3" [(ngModel)]="rightPan.videourl3" (input)="onGridVideoUrl3Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Audio URL" type="text" name="gridaudiourl3" [(ngModel)]="rightPan.audiourl3" (input)="onGridAudioUrl3Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <md-form-field>
+                                                                                    <input mdInput placeholder="Document URL" type="text" name="griddocumenturl3" [(ngModel)]="rightPan.documenturl3" (input)="onGridDocumentUrl3Change()">
+                                                                                </md-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                
                                                             </form>
+                                                            <div class="email-builder-element-edit-field" *ngIf="googleFromdata.tag=='form'">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <md-form-field>
+                                                                                <input mdInput placeholder="Form Link" type="text" name="form" [(ngModel)]="googleFromdata.url" (input)="onFormUrlChange(googleFromdata.url)">
+                                                                            </md-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+                                                            <div *ngIf="callToActionButton.length>0">
+                                                                <div class="block-properties">
+                                                                    <div class="">
+                                                                        <p>Call to Action Buttons</p>
+                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let callbtn of callToActionButton;let i=index" (click)="removeCallButton(i)">{{callbtn.title}} 
+                                                                        <span class="badge" > <i class="fa fa-times"></i> </span></button>
+                                                                            
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="userEngaButton.length>0">
+                                                                <div class="block-properties">
+                                                                    <div class="">
+                                                                        <p>User Engagement Buttons</p>
+                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let userbtn of userEngaButton; let i=index" (click)="removeUerButton(i)">{{userbtn.title}}
+                                                                        <span class="badge" > <i class="fa fa-times"  ></i> </span></button>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -714,7 +1004,7 @@
                                        
 
                                         </div>
-                                        <iframe *ngIf="googleFromdata.url" [src]="googleFromdata.url" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+                                        <iframe *ngIf="googleFromdata.formURL" [src]="googleFromdata.formURL" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <legend>Add suggested articles:</legend>
@@ -729,13 +1019,13 @@
                                             <a class="btn btn-success m-0" (click)="openDialog2()" > Add Article + </a>
                                         </div>
                                         <!-- <div class="form-group col-md-4 col-sm-12 col-xs-12">
-		                                    <md-select placeholder="Select Section">
-		                                        <md-option value="1"> Section1 </md-option>
-		                                        <md-option value="2"> Section2 </md-option>
-		                                        <md-option value="3"> Section3 </md-option>
-		                                        <md-option value="4"> Section4 </md-option>
-		                                    </md-select>
-		                                </div>
+                                            <md-select placeholder="Select Section">
+                                                <md-option value="1"> Section1 </md-option>
+                                                <md-option value="2"> Section2 </md-option>
+                                                <md-option value="3"> Section3 </md-option>
+                                                <md-option value="4"> Section4 </md-option>
+                                            </md-select>
+                                        </div>
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <md-select placeholder="Select Category">
                                                 <md-option value="1"> Category1 </md-option>
@@ -754,7 +1044,7 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                            	<md-icon mdSuffix>mode_edit</md-icon>
+                                                <md-icon mdSuffix>mode_edit</md-icon>
                                                 <input mdInput placeholder="Search name of content item" type="text">
                                             </md-form-field>
                                         </div> -->
@@ -840,15 +1130,15 @@
                                                     <img alt="..." src="./assets/img/placeholder5.png">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists" style="display:none;">
-                                                	<span class="btn custom-btn btn-round btn-file">
-	                                                    Change
-	                                                    <input type="file" class="file-type" (click)="imagChange()" />
-	                                                    <div class="ripple-container"></div>
-	                                                </span>    
-	                                                <span class="btn btn-danger btn-round btn-file">
-	                                                	<i class="fa fa-times"></i> Remove
-	                                                	<div class="ripple-container"></div>
-	                                                </span>
+                                                    <span class="btn custom-btn btn-round btn-file">
+                                                        Change
+                                                        <input type="file" class="file-type" (click)="imagChange()" />
+                                                        <div class="ripple-container"></div>
+                                                    </span>    
+                                                    <span class="btn btn-danger btn-round btn-file">
+                                                        <i class="fa fa-times"></i> Remove
+                                                        <div class="ripple-container"></div>
+                                                    </span>
                                                 </div>
                                                 <span class="btn custom-btn btn-round btn-file fileinput-noexists">
                                                     <span class="fileinput-new">Change</span>
@@ -865,15 +1155,15 @@
                                                     <img alt="..." src="./assets/img/placeholder5.png">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists" style="display:none;">
-                                                	<span class="btn custom-btn btn-round btn-file">
-	                                                    Change
-	                                                    <input type="file" class="file-type" (click)="imagChange()" />
-	                                                    <div class="ripple-container"></div>
-	                                                </span>    
-	                                                <span class="btn btn-danger btn-round btn-file">
-	                                                	<i class="fa fa-times"></i> Remove
-	                                                	<div class="ripple-container"></div>
-	                                                </span>
+                                                    <span class="btn custom-btn btn-round btn-file">
+                                                        Change
+                                                        <input type="file" class="file-type" (click)="imagChange()" />
+                                                        <div class="ripple-container"></div>
+                                                    </span>    
+                                                    <span class="btn btn-danger btn-round btn-file">
+                                                        <i class="fa fa-times"></i> Remove
+                                                        <div class="ripple-container"></div>
+                                                    </span>
                                                 </div>
                                                 <span class="btn custom-btn btn-round btn-file fileinput-noexists">
                                                     <span class="fileinput-new">Change</span>

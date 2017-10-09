@@ -257,3 +257,11 @@
     white-space: normal;
     width: 105px;
 }
+
+
+.btn:not(.btn-just-icon):not(.btn-fab) .fa, .navbar .navbar-nav > li > a.btn:not(.btn-just-icon):not(.btn-fab) .fa {
+  font-size: 12px;
+  margin-top: -2px;
+  position: relative;
+  top: 0;
+}

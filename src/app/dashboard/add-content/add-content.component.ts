@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 import {DndModule} from 'ng2-dnd';
 import {ColorPickerService} from 'angular4-color-picker';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
@@ -23,10 +24,16 @@ export class AddContentComponent implements OnInit {
 	googleFromdata:any
 	mouseDownIndex:number;
 	afterDragIndex:number;
+	gridAudioRef:any;
+	gridVideoRef:any;
+	userEngaButton=[];
+	callToActionButton=[];
+	ref
 	private color: string = "#FFFFFF";
-	constructor(private dialog: MdDialog, private cpService: ColorPickerService) { 
+	constructor(private dialog: MdDialog, private cpService: ColorPickerService,private sanitizer: DomSanitizer) { 
 		this.rightPan={ }
 		this.googleFromdata={ }
+
 	}
     openDialog(): void {
         let dialogRef = this.dialog.open(DragDropComponent, {
@@ -63,33 +70,83 @@ export class AddContentComponent implements OnInit {
 		this.listOne.push({tag:"document",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'110px',url:'./assets/img/JAVA.png',altTag:'file not found',title:'Title', caption:'File',aligment:'center', display:'inline-block'})
 	}
 	addGrid(){
-		this.listOne.push({tag:"grid",top:null,bottom:null,right:null,left:null})
-	}
-	addApply(){
-        this.listOne.push({tag:"button",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block'})
+		   this.listOne.push({tag:"grid",tags:'grid, grid',top:null,bottom:null,right:null,left:null,aligment:'center',title:'Title',caption:'File',activeIndex:null,
+		    placeholder1:'./assets/img/placeholder5.png' ,audiourl1:null,videourl1:null,imgurl1:'./assets/img/placeholder5.png',documenturl1:null,
+			placeholder2:'./assets/img/placeholder5.png' ,audiourl2:null,videourl2:null,imgurl2:'./assets/img/placeholder5.png',documenturl2:null,
+			placeholder3:'./assets/img/placeholder5.png' ,audiourl3:null,videourl3:null,imgurl3:'./assets/img/placeholder5.png',documenturl3:null,
+	})
 	}
 	addForm(){
 		this.googleFromdata.tag="form"; 
 		// this.googleFromdata.url='null';
 	}
-	addCall(){
 
-	}
-	addCallMe(){
 
-	}
-	addIntrested(){
 
+	addApply(flag){
+	
+		
+		if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+          this.callToActionButton.push({tag:'button',title:'Apply',status:true})
+		}
 	}
-    hello(){
-    	alert('her')
-    }
-	onClickOnDragItem(index,item){
+	addCall(flag){
+	   
+		if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+           this.callToActionButton.push({tag:'button',title:'Call',status:true})
+       }
+	}
+	addCallMe(flag){
+		
+		if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+            this.callToActionButton.push({tag:'button',title:'Call me back',status:true})
+           }
+	}
+	addIntrested(flag){
+      
+		if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+        this.callToActionButton.push({tag:'button',title:"Im Interested",status:true})
+       }
+	}
+	addlike(flag){
+		
+		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+           this.userEngaButton.push({tag:'button',title:"Kadak",status:true})
+       }
+	}
+	addshare(flag){
+		
+		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+          this.userEngaButton.push({tag:'button',title:"Share",status:true})
+        }
+	}
+	addcomment(flag){
+		
+		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+           this.userEngaButton.push({tag:'button',title:"Comment",status:true})
+       } 
+	}
+	addsave(flag){
+		
+		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+         this.userEngaButton.push({tag:'button',title:"Save",status:true})
+       }
+	}
+	addownload(flag){
+		
+		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+         this.userEngaButton.push({tag:'button',title:"'Download",status:true})
+      }
+	}
+	onClickOnDragItem(index,item,ref?){
       //alert(index)
       this.showRightpan=true;
       this.currentIndex=index;
       this.rightPan=item
       this.rightPan.placeHolder=item.url;
+      if(ref){
+      	this.ref=ref
+      }
 	}
 	onTextChange(){
 		this.listOne[this.currentIndex].text=this.rightPan.text;
@@ -115,12 +172,18 @@ export class AddContentComponent implements OnInit {
 	onWidthChange(){
       this.listOne[this.currentIndex].width=this.rightPan.width
 	}
-	onUrlChange(){
+	onUrlChange(ref?:any){
       this.listOne[this.currentIndex].url=this.rightPan.url
       this.listOne[this.currentIndex].placeHolder=this.rightPan.url
+  	  console.log(this.ref);
+      if ((this.listOne[this.currentIndex].tag=='video' || this.listOne[this.currentIndex].tag=='audio' ) && this.ref) {
+      	console.log(this.ref);
+      	this.ref.load();
+    	this.ref.play();
+      }
 	}
-	onFormChange(){
-      this.listOne[this.currentIndex].formURL=this.rightPan.formURL
+	onFormUrlChange(url){
+      this.googleFromdata.formURL=this.sanitizer.bypassSecurityTrustResourceUrl(url)
 	}
 	onaltTagChange(){
       this.listOne[this.currentIndex].altTag=this.rightPan.altTag
@@ -141,7 +204,62 @@ export class AddContentComponent implements OnInit {
 		let a=this.listOne.splice(index,1)
 		console.log(JSON.stringify(a))
 	}
+    OnFirstGrid(audio,video){
+      console.log(audio)
+      console.log(video)
+      if ( this.listOne[this.currentIndex]) {
+      	 this.listOne[this.currentIndex].activeIndex=1;
+      	if (this.listOne[this.currentIndex].imgurl1==null &&  this.listOne[this.currentIndex].audiourl1==null && this.listOne[this.currentIndex].videourl1==null && this.listOne[this.currentIndex].documenturl1==null) {
+	      	// code...
+	     
+	      this.listOne[this.currentIndex].placeholder1='./assets/img/placeholder5.png' ;
+	      this.listOne[this.currentIndex].imgurl1='./assets/img/placeholder5.png' ;
+	      this.listOne[this.currentIndex].audiourl1=null;
+	      this.listOne[this.currentIndex].videourl1=null;
+	      this.listOne[this.currentIndex].documenturl1=null;
+	      this.rightPan=this.listOne[this.currentIndex];
+	  }else{
+	  	 this.rightPan=this.listOne[this.currentIndex];
+	  }
+      }
+    }
+    OnSecondGrid(audio,video){
+    	console.log(audio)
+      console.log(video)
+     if ( this.listOne[this.currentIndex]) {
+	      this.listOne[this.currentIndex].activeIndex=2;
+	      if (this.listOne[this.currentIndex].imgurl2==null &&  this.listOne[this.currentIndex].audiourl2==null && this.listOne[this.currentIndex].videourl2==null && this.listOne[this.currentIndex].documenturl2==null) {
+	      	// code...
+		      this.listOne[this.currentIndex].placeholder2='./assets/img/placeholder5.png' ;
+		      this.listOne[this.currentIndex].imgurl2='./assets/img/placeholder5.png' ;
+		      this.listOne[this.currentIndex].audiourl2=null;
+		      this.listOne[this.currentIndex].videourl2=null;
+		      this.listOne[this.currentIndex].documenturl2=null;
+		      this.rightPan=this.listOne[this.currentIndex];
+	      }else{
+	      	 this.rightPan=this.listOne[this.currentIndex];
+	      }
+      }
+    }
+    OnThirdGrid(audio,video){
+    	console.log(audio)
+      console.log(video)
+      if (this.listOne[this.currentIndex]) {
 
+	      this.listOne[this.currentIndex].activeIndex=3;
+	       if (this.listOne[this.currentIndex].imgurl3==null &&  this.listOne[this.currentIndex].audiourl3==null && this.listOne[this.currentIndex].videourl3==null && this.listOne[this.currentIndex].documenturl3==null) {
+	      	// code...
+	      this.listOne[this.currentIndex].placeholder3='./assets/img/placeholder5.png' ;
+	      this.listOne[this.currentIndex].imgurl3='./assets/img/placeholder5.png' ;
+	      this.listOne[this.currentIndex].audiourl3=null;
+	      this.listOne[this.currentIndex].videourl3=null;
+	      this.listOne[this.currentIndex].documenturl3=null;
+	      this.rightPan=this.listOne[this.currentIndex];
+	  }else{
+	  	this.rightPan=this.listOne[this.currentIndex];
+	  }
+	  }
+    }
 	 itemDragged(i){
 	 this.mouseDownIndex=i;
     console.log('mousedown',i)
@@ -149,6 +267,182 @@ export class AddContentComponent implements OnInit {
 	itemSwapped(i){
 	 this.afterDragIndex=i;
 	 console.log('mouseUp',i)
+	}
+	ontagsChange(){
+		this.listOne[this.currentIndex].tags=this.rightPan.tags	
+	}
+	imageUploadForGridOneIndexEvent(evt: any) {
+        if (!evt.target) {
+            return;
+        }
+        if (!evt.target.files) {
+            return;
+        }
+        if (evt.target.files.length !== 1) {
+            return;
+        }
+        const file = evt.target.files[0];
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+            return;
+        }
+        const fr = new FileReader();
+        fr.onloadend = (loadEvent) => {
+            this.rightPan.imgurl1 = fr.result;
+            this.rightPan.placeholder1=fr.result;
+            this.listOne[this.currentIndex].imgurl1=fr.result;
+			this.listOne[this.currentIndex].audiourl1=null;
+			this.listOne[this.currentIndex].videourl1=null;
+			this.listOne[this.currentIndex].documenturl1=null;
+        };
+        fr.readAsDataURL(file);
+	}
+	onGridImgUrl1Change(){
+            this.listOne[this.currentIndex].imgurl1=this.rightPan.imgurl1;
+			this.listOne[this.currentIndex].audiourl1=null;
+			this.listOne[this.currentIndex].videourl1=null;
+			this.listOne[this.currentIndex].documenturl1=null;
+	}
+	onGridVideoUrl1Change(){
+
+            this.listOne[this.currentIndex].imgurl1=null;
+			this.listOne[this.currentIndex].audiourl1=null;
+			this.listOne[this.currentIndex].videourl1=this.rightPan.videourl1;
+			this.listOne[this.currentIndex].documenturl1=null;
+			// this.gridVideoRef.load();
+			// this.gridVideoRef.play();
+	}
+	onGridAudioUrl1Change(){
+		    this.listOne[this.currentIndex].imgurl1=null;
+			this.listOne[this.currentIndex].audiourl1=this.rightPan.audiourl1;
+			this.listOne[this.currentIndex].videourl1=null;
+			this.listOne[this.currentIndex].documenturl1=null;
+			// this.gridAudioRef.load();
+			// this.gridAudioRef.play();
+
+	}
+	onGridDocumentUrl1Change(){
+            this.listOne[this.currentIndex].imgurl1=null;
+			this.listOne[this.currentIndex].audiourl1=null;
+			this.listOne[this.currentIndex].videourl1=null;
+			this.listOne[this.currentIndex].documenturl1=this.rightPan.documenturl1;
+	}
+	imageUploadForGridTwoIndexEvent(evt: any) {
+        if (!evt.target) {
+            return;
+        }
+        if (!evt.target.files) {
+            return;
+        }
+        if (evt.target.files.length !== 1) {
+            return;
+        }
+        const file = evt.target.files[0];
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+            return;
+        }
+        const fr = new FileReader();
+        fr.onloadend = (loadEvent) => {
+            this.rightPan.imgurl2 = fr.result;
+            this.rightPan.placeholder2=fr.result;
+            this.listOne[this.currentIndex].imgurl2=fr.result;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+        };
+        fr.readAsDataURL(file);
+
+	}
+	onGridImgUrl2Change(){
+            this.listOne[this.currentIndex].imgurl2=this.rightPan.imgurl2;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+	}
+	onGridVideoUrl2Change(){
+            this.listOne[this.currentIndex].imgurl2=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=this.rightPan.videourl2;
+			this.listOne[this.currentIndex].documenturl2=null;
+			// this.gridVideoRef.load();
+			// this.gridVideoRef.play();
+	}
+	onGridAudioUrl2Change(){
+            this.listOne[this.currentIndex].imgurl2=null;
+			this.listOne[this.currentIndex].audiourl2=this.rightPan.audiourl2;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+			// this.gridAudioRef.load();
+			// this.gridAudioRef.play();
+	}
+	onGridDocumentUrl2Change(){
+             this.listOne[this.currentIndex].imgurl2=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=this.rightPan.documenturl2;
+	}
+	imageUploadForGridThirdIndexEvent(evt: any) {
+        if (!evt.target) {
+            return;
+        }
+        if (!evt.target.files) {
+            return;
+        }
+        if (evt.target.files.length !== 1) {
+            return;
+        }
+        const file = evt.target.files[0];
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+            return;
+        }
+        const fr = new FileReader();
+        fr.onloadend = (loadEvent) => {
+            this.rightPan.imgurl3 = fr.result;
+            this.rightPan.placeholder3=fr.result;
+            this.listOne[this.currentIndex].imgurl3=fr.result;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+        };
+        fr.readAsDataURL(file);
+
+	}
+	onGridImgUrl3Change(){
+            this.listOne[this.currentIndex].imgurl3=this.rightPan.imgurl3;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+	}
+	onGridVideoUrl3Change(){
+            this.listOne[this.currentIndex].imgurl3=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=this.rightPan.videourl2;
+			this.listOne[this.currentIndex].documenturl2=null;
+			// this.gridVideoRef.load();
+			// this.gridVideoRef.play();
+	}
+	onGridAudioUrl3Change(){
+            this.listOne[this.currentIndex].imgurl3=null;
+			this.listOne[this.currentIndex].audiourl2=this.rightPan.audiourl2;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+			// this.gridAudioRef.load();
+			// this.gridAudioRef.play();
+	}
+	onGridDocumentUrl3Change(){
+            this.listOne[this.currentIndex].imgurl3=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=this.rightPan.documenturl2;
+	}
+	removeCallButton(i){
+
+            this.callToActionButton.splice(i,1)
+	}
+    removeUerButton(i){
+            this.userEngaButton.splice(i,1)
+    }
+	video(video1){
+		console.log(video1)
 	}
 	/*demo:any
   	
