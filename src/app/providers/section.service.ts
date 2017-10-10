@@ -90,6 +90,24 @@ export class SectionService {
             return error;
         });
     }
+    onGetSubCategory(secid,catid):  Observable<any> {
+        let api =  ENV.mainApi+"getSubcategories";
+        let a={
+            sectionId:secid, 
+            categoryId:catid
+        }
+         let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(api,JSON.stringify(a), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
     onGetSectionData():  Observable<any> {
         let api =  ENV.mainApi+"joinsTest";
          let headers = new Headers({

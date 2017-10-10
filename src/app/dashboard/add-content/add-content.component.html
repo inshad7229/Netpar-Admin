@@ -17,87 +17,84 @@
                             <div class="card-content">
                                 <h4 class="card-title">Add Content</h4>
                                 <div class="cus-form">
-                                    <form class="example-form">
+                                    <form class="example-form" [formGroup]="addContentForm" >
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language">
-                                                <md-option value="1"> Language1 </md-option>
-                                                <md-option value="2"> Language2 </md-option>
+                                            <md-select placeholder="Select Language" name="language"   [formControl]="addContentForm.controls['language']" [(ngModel)]="addContentRequest.language">
+                                                <md-option  *ngFor="let lang of stringResource.language" [value]="lang.language">{{lang.language}}</md-option>
+                                                <!-- <md-option value="2"> Language2 </md-option>
                                                 <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option>
+                                                <md-option value="4"> Language4 </md-option> -->
                                             </md-select>
                                         </div>
 
                                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                                            <md-select placeholder="Select Section">
-                                                <md-option value="1"> Section1 </md-option>
-                                                <md-option value="2"> Section2 </md-option>
+                                            <md-select placeholder="Select Section" name="sectionId"   [formControl]="addContentForm.controls['sectionId']" [(ngModel)]="addContentRequest.sectionId" (change)="getCategory()">
+                                             <md-option  *ngFor="let section of sections"  [value]="section._id" > {{section.sectionName}}</md-option>
+                                                <!-- <md-option value="2"> Section2 </md-option>
                                                 <md-option value="3"> Section3 </md-option>
-                                                <md-option value="4"> Section4 </md-option>
+                                                <md-option value="4"> Section4 </md-option> -->
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                                            <md-select placeholder="Select Category">
-                                                <md-option value="1"> Category1 </md-option>
-                                                <md-option value="2"> Category2 </md-option>
-                                                <md-option value="3"> Category3 </md-option>
-                                                <md-option value="4"> Category4 </md-option>
+                                            <md-select placeholder="Select Category" name="categoryId"   [formControl]="addContentForm.controls['categoryId']" [(ngModel)]="addContentRequest.categoryId" (change)="getsubCategory()">
+                                                <md-option *ngFor="let category of categories"  [value]="category._id" > {{category.categoryName}}</md-option>
                                             </md-select>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                                            <md-select placeholder="Select Sub-category">
-                                                <md-option value="1"> Sub-category1 </md-option>
-                                                <md-option value="2"> Sub-category2 </md-option>
+                                            <md-select placeholder="Select Sub-category"  name="subCategoryId"   [formControl]="addContentForm.controls['subCategoryId']" [(ngModel)]="addContentRequest.subCategoryId" >
+                                                <md-option *ngFor="let  subcate of subCategory"  [value]="subcate._id" > {{subcate.subCategoryName}}</md-option>
+                                                <!-- <md-option value="2"> Sub-category2 </md-option>
                                                 <md-option value="3"> Sub-category3 </md-option>
-                                                <md-option value="4"> Sub-category4 </md-option>
+                                                <md-option value="4"> Sub-category4 </md-option> -->
                                             </md-select>
                                         </div>
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Add headline" type="text">
+                                                <input mdInput placeholder="Add headline" type="text" name="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Add tagline" type="text">
+                                                <input mdInput placeholder="Add tagline" type="text" name="tagline"   [formControl]="addContentForm.controls['tagline']" [(ngModel)]="addContentRequest.tagline">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <input type="text" placeholder="Add tags" class="selectize txtselectize">
+                                            <input type="text" placeholder="Add tags" class="selectize txtselectize" name="tags"   [formControl]="addContentForm.controls['tags']" [(ngModel)]="addContentRequest.tags">
                                         </div>
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput [mdDatepicker]="picker" placeholder="Date of creation" name="adc" disabled="" readonly="">
-                                                <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-                                                <md-datepicker #picker></md-datepicker>
+                                                <input mdInput [mdDatepicker]="picker" placeholder="Date of creation" name="adc"  readonly="true" [formControl]="addContentForm.controls['dateOfCreation']" [(ngModel)]="addContentRequest.dateOfCreation">
                                             </md-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Type of user">
-                                                <md-option value="1"> Platform User </md-option>
-                                                <md-option value="2"> Section Administrator </md-option>
-                                                <md-option value="3"> Content Writer </md-option>
-                                                <md-option value="4"> Business User </md-option>
+                                            <md-select placeholder="Type of user" name="typeOfUser"   [formControl]="addContentForm.controls['typeOfUser']" [(ngModel)]="addContentRequest.typeOfUser" (change)="getUserList(addContentRequest.typeOfUser)">
+                                                <md-option value="platformUser"> Platform User </md-option>
+                                                <md-option value="sectionAdministrator"> Section Administrator </md-option>
+                                                <md-option value="contentWriter"> Content Writer </md-option>
+                                                <md-option value="businessuser"> Business User </md-option>
                                             </md-select>
                                         </div>  
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <md-form-field>
-                                                <input mdInput placeholder="Search user" type="text">
+                                                <input mdInput placeholder="Search user" type="text" name="serchUser"   [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onsearchuser(searchUser)">
                                             </md-form-field>
                                         </div>
-                                                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                       <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="users-panel">
-                                                <div class="users-box" (click)="toggleHighlight(0)" [ngClass]="{'active': highlightedDiv === 0 }">
+                                                <div class="users-box" *ngFor="let user of localAdminList;let i=index" (click)="toggleHighlight(i)" [ngClass]="{'active': user.check=='active' }" >
                                                     <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                        <img *ngIf="user.image==' ' || !user.image" src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                        <img *ngIf="user.image" [src]="user.image" class="img-responsive" />
                                                     </div>
                                                     <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
+                                                        <p>{{user.firstName}}  {{user.lastName}}</p>
+                                                        <p *ngIf="addContentRequest.typeOfUser!='platformUser'">{{user.contactNo}}  </p>
+                                                        <p *ngIf="addContentRequest.typeOfUser=='platformUser'">{{user.mobileNumber}}  </p>
                                                     </div>
                                                 </div>
-                                                <div class="users-box" (click)="toggleHighlight(1)" [ngClass]="{'active': highlightedDiv === 1 }">
+                                                <!-- <div class="users-box" (click)="toggleHighlight(1)" [ngClass]="{'active': highlightedDiv === 1 }">
                                                     <div class="cont-img dp">
                                                         <img src="./assets/img/profile_user.jpg" class="img-responsive" />
                                                     </div>
@@ -186,7 +183,7 @@
                                                         <p> Jay Sinha </p>
                                                         <p> 9874563210 </p>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 
                                             </div>
                                         </div>
@@ -463,22 +460,6 @@
 
                                                             </div>
                                                         </div>
-                                                        <div class="builder-element" >
-                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0"  align="center" data-type="text-block">
-                                                                            <tbody>
-                                                                                <tr >
-                                                                                    <td >
-                                                                                        <button type="button" class="btn custom-btn btn-round">Click  me</button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-
-                                                                        <div class="icons-actions">
-                                                                            <i title="Move element" class="material-icons">drag_handle</i>
-                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray2()" >delete</i>
-                                                                        </div>
-                                                                    </div>
                                                     </div>
 
                                                     <div class="md-card" >
@@ -1011,8 +992,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <md-radio-button name="yes1" class="col-md-2 col-sm-2 col-xs-12">Yes</md-radio-button>
-                                                <md-radio-button name="yes1" class="col-md-2 col-sm-2 col-xs-12">No</md-radio-button>
+                                                <md-radio-group  name="suggestedArticle"  [formControl]="addContentForm.controls['suggestedArticle']" [(ngModel)]="addContentRequest.suggestedArticle" >
+                                                    <md-radio-button value="true" class="col-md-2 col-sm-2 col-xs-12">Yes</md-radio-button>
+                                                    <md-radio-button value="false" class="col-md-2 col-sm-2 col-xs-12">No</md-radio-button>
+                                                </md-radio-group>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -1124,50 +1107,50 @@
                                             <legend>Picture of Subcategory:</legend>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                            <p> Thumbnail Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                                                <p class="text-center"> Thumbnail Picture </p>
+                                                 <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
                                                 <div class="fileinput-new thumbnail">
-                                                    <img alt="..." src="./assets/img/placeholder5.png">
+                                                    <img alt="..."  [src]="imageToDisplayThumbnail">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists" style="display:none;">
-                                                    <span class="btn custom-btn btn-round btn-file">
-                                                        Change
-                                                        <input type="file" class="file-type" (click)="imagChange()" />
-                                                        <div class="ripple-container"></div>
+                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieThumbnail(myForm)">
+                                                    Save
+                                                    <div class="ripple-container"></div>
                                                     </span>    
-                                                    <span class="btn btn-danger btn-round btn-file">
-                                                        <i class="fa fa-times"></i> Remove
+                                                    <span class="btn btn-danger btn-round file_remove" data-dismiss="modal" (click)="cancelCroppieEditThumbnail()">
+                                                        <i class="fa fa-times"></i> Cancel
                                                         <div class="ripple-container"></div>
                                                     </span>
                                                 </div>
                                                 <span class="btn custom-btn btn-round btn-file fileinput-noexists">
                                                     <span class="fileinput-new">Change</span>
-                                                    <input type="file" class="file-type" (click)="imagChange()" />
+                                                    <input type="file" class="file-type" id="fileupload" #imageUploadThumbnail (change)="imageUploadEventThumbnail($event)" accept="image/gif, image/jpeg, image/png" />
                                                     <div class="ripple-container"></div>
                                                 </span>
                                             </div>
                                         </div>
 
                                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                            <p> Horizontal Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                                                <p class="text-center"> Horizontal Picture </p>
+                                                 <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
                                                 <div class="fileinput-new thumbnail">
-                                                    <img alt="..." src="./assets/img/placeholder5.png">
+                                                    <img alt="..."  [src]="imageToDisplayHorigontal">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists" style="display:none;">
-                                                    <span class="btn custom-btn btn-round btn-file">
-                                                        Change
-                                                        <input type="file" class="file-type" (click)="imagChange()" />
-                                                        <div class="ripple-container"></div>
+                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieHorigontal(myForm)">
+                                                    Save
+                                                    <div class="ripple-container"></div>
                                                     </span>    
-                                                    <span class="btn btn-danger btn-round btn-file">
-                                                        <i class="fa fa-times"></i> Remove
+                                                    <span class="btn btn-danger btn-round file_remove" data-dismiss="modal" (click)="cancelCroppieEditHorigontal()">
+                                                        <i class="fa fa-times"></i> Cancel
                                                         <div class="ripple-container"></div>
                                                     </span>
                                                 </div>
                                                 <span class="btn custom-btn btn-round btn-file fileinput-noexists">
                                                     <span class="fileinput-new">Change</span>
-                                                    <input type="file" class="file-type" (click)="imagChange()" />
+                                                    <input type="file" class="file-type" id="fileupload" #imageUploadHorigontal (change)="imageUploadEventHorigontal($event)" accept="image/gif, image/jpeg, image/png" />
                                                     <div class="ripple-container"></div>
                                                 </span>
                                             </div>
@@ -1204,18 +1187,18 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Homepage</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Category</md-checkbox>
+                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12" name="sortlistForHomepage" [formControl]="addContentForm.controls['sortlistForHomepage']" [(ngModel)]="addContentRequest.sortlistForHomepage" >Homepage</md-checkbox>
+                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12"  name="sortlistForCategory" [formControl]="addContentForm.controls['sortlistForCategory']" [(ngModel)]="addContentRequest.sortlistForCategory">Category</md-checkbox>
                                             </div>
                                         </div>
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <label> This content is applicable for: </label>
-                                            <md-select placeholder="Select State" multiple>
-                                                <md-option value="1"> State1 </md-option>
-                                                <md-option value="2"> State2 </md-option>
+                                            <md-select placeholder="Select State" multiple  name="applicableStateLists" [formControl]="addContentForm.controls['applicableStateLists']" [(ngModel)]="addContentRequest.applicableStateLists">
+                                                <md-option *ngFor="let state of stringResource.stateList" [value]="state.stateName"> {{state.stateName}}</md-option>
+                                                <!-- <md-option value="2"> State2 </md-option>
                                                 <md-option value="3"> State3 </md-option>
-                                                <md-option value="4"> State4 </md-option>
+                                                <md-option value="4"> State4 </md-option> -->
                                             </md-select>
                                         </div>
 
@@ -1229,11 +1212,13 @@
                                         </div>
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <a class="btn btn-warning" (click)="openDialog()"> Save as draft </a>
-                                            <a class="btn btn-success"> Submit for review </a>
-                                            <a class="btn btn-danger" (click)="openDialog()"> Publish </a>
-                                            <a class="btn btn-warning" (click)="openDialog()"> Publish later </a>
-                                            <a class="btn btn-success"> Send for revision </a>
+                                            <a class="btn btn-warning" (click)="openDialog('saveAsDraft')"> Save as draft </a>
+                                            <a class="btn btn-success" (click)="submitForReview('saveAsDraft')"> Submit for review </a>
+                                            <a class="btn btn-danger" (click)="openDialog('Publish')"> Publish </a>
+                                            <a class="btn btn-warning" (click)="openDialog('Publishlater')"> Publish later </a>
+                                            <a class="btn btn-success" (click)="submitForRevision
+
+                                            ('saveAsDraft')"> Send for revision </a>
                                             <a class="btn btn-danger"> Reject </a>
                                         </div>
                                     </form>

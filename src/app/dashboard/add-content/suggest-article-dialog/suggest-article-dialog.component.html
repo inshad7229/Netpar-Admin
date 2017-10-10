@@ -2,29 +2,32 @@
 	<h4 class="modal-title" >Suggested Articles <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
 </div>
 <div class="modal-body">
-    <div class="form-group col-md-4 col-sm-12 col-xs-12">
-        <md-select placeholder="Select Section">
-            <md-option value="1"> Section1 </md-option>
-            <md-option value="2"> Section2 </md-option>
+    <div class="form-group col-md-3 col-sm-6 col-xs-12">
+        <md-select placeholder="Select Section" [(ngModel)]="addContentRequest.sectionId" (change)="getCategory()">
+            <md-option  *ngFor="let section of sections"  [value]="section._id" > {{section.sectionName}}</md-option>
+            <!-- <md-option value="2"> Section2 </md-option>
             <md-option value="3"> Section3 </md-option>
-            <md-option value="4"> Section4 </md-option>
+            <md-option value="4"> Section4 </md-option> -->
         </md-select>
     </div>
-    <div class="form-group col-md-4 col-sm-12 col-xs-12">
-        <md-select placeholder="Select Category">
-            <md-option value="1"> Category1 </md-option>
-            <md-option value="2"> Category2 </md-option>
+    <div class="form-group col-md-3 col-sm-6 col-xs-12">
+        <md-select placeholder="Select Category" [(ngModel)]="addContentRequest.categoryId" (change)="getsubCategory()">
+            <md-option *ngFor="let category of categories"  [value]="category._id" > {{category.categoryName}}</md-option>
+           <!--  <md-option value="2"> Category2 </md-option>
             <md-option value="3"> Category3 </md-option>
-            <md-option value="4"> Category4 </md-option>
+            <md-option value="4"> Category4 </md-option> -->
         </md-select>
     </div>
-    <div class="form-group col-md-4 col-sm-12 col-xs-12">
-        <md-select placeholder="Select Sub-category">
-            <md-option value="1"> Sub-category1 </md-option>
-            <md-option value="2"> Sub-category2 </md-option>
+    <div class="form-group col-md-4 col-sm-6 col-xs-12">
+        <md-select placeholder="Select Sub-category" [(ngModel)]="addContentRequest.subCategoryId">
+            <md-option *ngFor="let  subcate of subCategories"  [value]="subcate._id" > {{subcate.subCategoryName}}</md-option>
+      <!--       <md-option value="2"> Sub-category2 </md-option>
             <md-option value="3"> Sub-category3 </md-option>
-            <md-option value="4"> Sub-category4 </md-option>
+            <md-option value="4"> Sub-category4 </md-option> -->
         </md-select>
+    </div>
+    <div class="form-group col-md-3 col-sm-6 col-xs-12">
+        <button class="btn custom-btn" (click)="getSuggestedArtical()"> Filter </button>
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <md-form-field>

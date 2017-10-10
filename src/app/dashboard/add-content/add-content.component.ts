@@ -1,10 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
+import { ToastsManager , Toast} from 'ng2-toastr';
+import { Router } from '@angular/router';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import {DndModule} from 'ng2-dnd';
 import {ColorPickerService} from 'angular4-color-picker';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { SuggestArticleDialogComponent } from './suggest-article-dialog/suggest-article-dialog.component';
+import { NgxCroppieComponent } from 'ngx-croppie';
+import { CroppieOptions } from 'croppie';
+import {SectionService} from '../../providers/section.service'
+import {StringResource} from '../../models/saredResources'
+import {AddContentRequest} from '../../models/content.modal'
+import {AppProvider} from '../../providers/app.provider'
+import {AdminService} from '../../providers/admin.service'
 
 declare var jQuery:any;
 declare var $ :any;
@@ -13,10 +25,12 @@ declare var $ :any;
 @Component({
   selector: 'app-add-content',
   templateUrl: './add-content.component.html',
-  styleUrls: ['./add-content.component.scss']
+  styleUrls: ['./add-content.component.scss'], 
+  providers:[FormControlDirective,SectionService,AdminService]
 })
 
 export class AddContentComponent implements OnInit {
+	@ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
 	listOne= [ ];
 	currentIndex:any;
 	rightPan:any;
@@ -29,15 +43,115 @@ export class AddContentComponent implements OnInit {
 	userEngaButton=[];
 	callToActionButton=[];
 	ref
+	addContentForm: FormGroup;
+	addContentRequest:AddContentRequest=new  AddContentRequest()
 	private color: string = "#FFFFFF";
-	constructor(private dialog: MdDialog, private cpService: ColorPickerService,private sanitizer: DomSanitizer) { 
+	widthPx = '300';
+    heightPx = '300';
+    imageUrl = '';
+    currentImageHorigontal: string;
+    croppieImageHorigontal: string;
+    waitLoader:boolean;
+    sections:any;
+    categories:any;
+    subCategory:any;
+    adminList:any;
+    localAdminList:any;
+    searchUser:any;
+    stringResource:StringResource=new  StringResource()
+    public get imageToDisplayHorigontal() {
+        if (this.currentImageHorigontal) {
+            return this.currentImageHorigontal;
+        }
+        if (this.imageUrl) {
+            return this.imageUrl;
+        }
+        return `http://placehold.it/${this.widthPx}x${this.heightPx}`;
+    }
+
+    public get croppieOptionsHorigontal(): CroppieOptions {
+        const opts: CroppieOptions = {};
+        opts.viewport = {
+            width: parseInt(this.widthPx, 10),
+            height: parseInt(this.heightPx, 10)
+        };
+        opts.boundary = {
+            width: parseInt(this.widthPx, 10),
+            height: parseInt(this.heightPx, 10)
+        };
+        opts.enforceBoundary = true;
+        return opts;
+    }
+    currentImageThumbnail: string;
+    croppieImageThumbnail: string;
+
+    public get imageToDisplayThumbnail() {
+        if (this.currentImageThumbnail) {
+            return this.currentImageThumbnail;
+        }
+        if (this.imageUrl) {
+            return this.imageUrl;
+        }
+        return `http://placehold.it/${this.widthPx}x${this.heightPx}`;
+    }
+
+    public get croppieOptionsThumbnail(): CroppieOptions {
+        const opts: CroppieOptions = {};
+        opts.viewport = {
+            width: parseInt(this.widthPx, 10),
+            height: parseInt(this.heightPx, 10)
+        };
+        opts.boundary = {
+            width: parseInt(this.widthPx, 10),
+            height: parseInt(this.heightPx, 10)
+        };
+        opts.enforceBoundary = true;
+        return opts;
+    }
+	constructor(private dialog: MdDialog, private cpService: ColorPickerService,
+		        private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
+		        vcr: ViewContainerRef,
+		        public toastr: ToastsManager,
+		        private http: Http,
+		        private sectionService:SectionService,
+		        private appProvider: AppProvider,
+		        private adminService:AdminService) { 
 		this.rightPan={ }
 		this.googleFromdata={ }
-
-	}
-    openDialog(): void {
+		this.addContentForm = fb.group({
+								'language':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'sectionId':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'sectionName':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'categoryName':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'categoryId':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'subCategoryName':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'subCategoryId':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'headline':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'tags':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'dateOfCreation':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'typeOfUser':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'serchUser':[null, Validators.compose([Validators.maxLength(30)])],
+								'userList':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'suggestedArticle':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'suggestedArticleList':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'thumbnailPicture':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'horizontalPicture':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'sortlistForHomepage':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'sortlistForCategory':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'applicableStateLists':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'googleForm':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
+								'googleFormUrl':[null, Validators.compose([Validators.required, Validators.maxLength(30)])]
+							})
+                 
+          }
+		
+    
+	
+    openDialog(flag): void {
         let dialogRef = this.dialog.open(DragDropComponent, {
             width: '400px',
+            data:{flag:flag}
         });
         dialogRef.afterClosed().subscribe(result => {
       
@@ -481,6 +595,23 @@ export class AddContentComponent implements OnInit {
 		$(document).on('click','.for_delete',function(){
 			$(this).closest('.li').remove();
 		});
+		 $('.file-type').on('change',function(e){
+		    // var tmppath = URL.createObjectURL(e.target.files[0]);
+		    // console.log($(this));
+		    // $(this).closest('.fileinput').find('img').attr('src',tmppath);
+		    $(this).closest('.fileinput-noexists').hide();
+		    $(this).closest('.fileinput-new').find('.fileinput-exists').show();
+		});
+
+		$('.file_remove').on('click',function(){
+		    // var a = $(this).closest('.fileinput').find('img').attr('src','./assets/img/placeholder5.png');
+		    // console.log(a);
+		    $(this).closest('.fileinput-exists').hide();
+		    $(this).closest('.fileinput').find('.fileinput-noexists').show();
+		});
+		this.getSectionList()
+		let date=new Date().toISOString()
+		this.addContentRequest.dateOfCreation=date.split('T')[0]
 	}
 
 	
@@ -536,4 +667,138 @@ export class AddContentComponent implements OnInit {
         };
         fr.readAsDataURL(file);
     }
+
+    newImageResultFromCroppieHorigontal(img: string) {
+        this.croppieImageHorigontal = img;
+        console.log(this.croppieImageHorigontal)
+    }
+
+    saveImageFromCroppieHorigontal() {
+        this.currentImageHorigontal = this.croppieImageHorigontal;
+    }
+
+    cancelCroppieEditHorigontal() {
+        this.croppieImageHorigontal = '';
+        this.currentImageHorigontal = ''
+    }
+
+    imageUploadEventHorigontal(evt: any) {
+        if (!evt.target) {
+            return;
+        }
+        if (!evt.target.files) {
+            return;
+        }
+        if (evt.target.files.length !== 1) {
+            return;
+        }
+        const file = evt.target.files[0];
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+            return;
+        }
+        const fr = new FileReader();
+        fr.onloadend = (loadEvent) => {
+            this.croppieImageHorigontal = fr.result;
+        };
+        fr.readAsDataURL(file);
+    }
+    newImageResultFromCroppieThumbnail(img: string) {
+        this.croppieImageThumbnail = img;
+        console.log(this.croppieImageThumbnail)
+    }
+
+    saveImageFromCroppieThumbnail() {
+        this.currentImageThumbnail = this.croppieImageThumbnail;
+    }
+
+    cancelCroppieEditThumbnail() {
+        this.croppieImageThumbnail = '';
+        this.currentImageThumbnail = ''
+    }
+
+    imageUploadEventThumbnail(evt: any) {
+        if (!evt.target) {
+            return;
+        }
+        if (!evt.target.files) {
+            return;
+        }
+        if (evt.target.files.length !== 1) {
+            return;
+        }
+        const file = evt.target.files[0];
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+            return;
+        }
+        const fr = new FileReader();
+        fr.onloadend = (loadEvent) => {
+            this.croppieImageThumbnail = fr.result;
+        };
+        fr.readAsDataURL(file);
+    }
+
+	 getSectionList(){
+	              this.sectionService.onGetSection()
+	            .subscribe(data => {
+	                this.waitLoader = false;
+	                this.sections=data;
+	            },error=>{
+	                alert(error)
+	            })
+	}
+	getCategory(){
+         this.sectionService.onGetCategory(this.addContentRequest.sectionId)
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.categories=data.response;
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+    }
+   getsubCategory(){
+   	this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.subCategory=data.response;
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+   }
+     getUserList(role:any){
+         this.adminService.onGetUserOnBasisOfROle(role)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.adminList=data.response
+                        this.localAdminList=data.response;
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+  }
+  onsearchuser(searchUser){
+      // alert(searchUser)
+      if (searchUser == '') {
+            this.localAdminList = this.adminList;
+            return;
+       }
+       let ev= searchUser
+       if (ev && ev.trim() != '') {
+        this.localAdminList = this.adminList.filter((value) => {
+            return (value.firstName.toUpperCase().indexOf(ev.toUpperCase()) > -1 || value.lastName.toUpperCase().indexOf(ev.toUpperCase()) > -1);
+          
+       })
+      }
+     
+
+  }
+  toggleHighlight(i){
+  	if (this.localAdminList[i].check=='active') {
+  		this.localAdminList[i].check='inactive';
+  	}else{
+
+  	  this.localAdminList[i].check='active';
+  	}
+  }
 }

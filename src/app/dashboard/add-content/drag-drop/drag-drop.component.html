@@ -6,21 +6,21 @@
     <div class="">
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
             <md-form-field>
-                <input mdInput [mdDatepicker]="picker" placeholder="Start Date">
+                <input mdInput [mdDatepicker]="picker" placeholder="Start Date" [(ngModel)]="date.start" (input)="checkStartDate()">
                 <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
                 <md-datepicker #picker></md-datepicker>
             </md-form-field>
         </div>
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
             <md-form-field>
-                <input mdInput [mdDatepicker]="picker1" placeholder="End Date">
+                <input mdInput [mdDatepicker]="picker1" placeholder="End Date" [(ngModel)]="date.end" (input)="checkEndDate()">
                 <md-datepicker-toggle mdSuffix [for]="picker1"></md-datepicker-toggle>
                 <md-datepicker #picker1></md-datepicker>
             </md-form-field>
         </div>
-
+        <p *ngIf="showMessage">start and end date can't be same !!!</p>
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-            
+             <button class="btn custom-btn" (click)="submit()"> Submit </button>
         </div>
 
         
