@@ -859,7 +859,7 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Form Link" type="text" name="form" [(ngModel)]="googleFromatata.url" (input)="onFormUrlChange(googleFromatata.url)">
+                                                                                <input matInput placeholder="Form Link" type="text" name="form" [(ngModel)]="googleFromatata.url" [ngModelOptions]="{standalone: true}" (input)="onFormUrlChange(googleFromatata.url)">
                                                                             </mat-form-field>
                                                                         </div>
                                                                            
@@ -1225,13 +1225,11 @@
 
                                         <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <a class="btn btn-warning" (click)="openDialog('saveAsDraft')"> Save as draft </a>
-                                            <a class="btn btn-success" (click)="submitForReview('saveAsDraft')"> Submit for review </a>
+                                            <a class="btn btn-success" (click)="submitForReview()"> Submit for review </a>
                                             <a class="btn btn-danger" (click)="openDialog('Publish')"> Publish </a>
                                             <a class="btn btn-warning" (click)="openDialog('Publishlater')"> Publish later </a>
-                                            <a class="btn btn-success" (click)="submitForRevision
-
-                                            ('saveAsDraft')"> Send for revision </a>
-                                            <a class="btn btn-danger"> Reject </a>
+                                            <a class="btn btn-success" (click)="submitForRevision()"> Send for revision </a>
+                                            <a class="btn btn-danger" (click)="reject()"> Reject </a>
                                         </div>
                                     </form>
                                 </div>

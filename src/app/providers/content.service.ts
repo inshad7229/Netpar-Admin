@@ -12,8 +12,8 @@ import  {ENV} from '../env'
 export class ContentService {
     constructor(private http: Http) {}
 
-    onAddSection(addSectionRequest:AddContentRequest): Observable <any> {
-        let api = ENV.mainApi + "addSection";
+    onAddSection(addContentRequest:AddContentRequest): Observable <any> {
+        let api = ENV.mainApi + "addContent";
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': localStorage['token']
@@ -21,7 +21,7 @@ export class ContentService {
         let options = new RequestOptions({
             headers: headers
         });
-        return this.http.post(api, JSON.stringify(addSectionRequest), options).map(response => {
+        return this.http.post(api, JSON.stringify(addContentRequest), options).map(response => {
             console.log("customer Info datais " + response);
             return response.json();
         }).catch(error => {
@@ -38,6 +38,22 @@ export class ContentService {
             headers: headers
         });
         return this.http.post(api, JSON.stringify(request), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
+    ongetContentList(): Observable <any> {
+        let api = ENV.mainApi + "listContent";
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({
+            headers: headers
+        });
+        return this.http.get(api, options).map(response => {
             console.log("customer Info datais " + response);
             return response.json();
         }).catch(error => {

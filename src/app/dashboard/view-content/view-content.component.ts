@@ -13,17 +13,21 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
+import {ContentService} from '../../providers/content.service'
 declare var jquery:any;
 declare var $ :any;
 
 @Component({
   selector: 'app-view-content',
   templateUrl: './view-content.component.html',
-  styleUrls: ['./view-content.component.scss']
+  styleUrls: ['./view-content.component.scss'],
+  providers:[ContentService]
 })
 export class ViewContentComponent implements OnInit {
-
-  	constructor(private dialog: MatDialog) { }
+    waitLoader
+    contentList
+  	constructor(private dialog: MatDialog,
+                private contentService:ContentService ) { }
     displayedColumns = ['userId', 'userName', 'progress', 'color'];
     exampleDatabase = new ExampleDatabase();
     dataSource:  ExampleDataSourceSort | null;
@@ -42,6 +46,7 @@ export class ViewContentComponent implements OnInit {
         });
         //this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator);
         this.dataSource = new ExampleDataSourceSort(this.exampleDatabase, this.sort);
+        this.getList()
     }
 
     openDialog(): void {
@@ -53,6 +58,17 @@ export class ViewContentComponent implements OnInit {
           
         });
     }
+    getList(){
+     this.contentService.ongetContentList()
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.contentList=data.response
+                        // this.localAdminList=data.response;
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+           })
+  }
 }
 
 /** Constants used to fill up our data base. */
@@ -100,6 +116,7 @@ export class ExampleDatabase {
       color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
     };
   }
+
 }
 
 export class ExampleDataSource extends DataSource<any> {
@@ -163,4 +180,5 @@ export class ExampleDataSourceSort extends DataSource<any> {
       return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
     });
   }
+
 }

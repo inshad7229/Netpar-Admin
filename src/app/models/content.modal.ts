@@ -43,6 +43,7 @@ export class AddContentRequest {
     applyCount:number;
     callCount:number;
     callMeBackCount:number;
+    pageView:number;
     imIntrestedCount:number;
     deleteStatus:boolean;
     googleForm:boolean;

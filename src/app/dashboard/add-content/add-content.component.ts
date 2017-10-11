@@ -17,6 +17,7 @@ import {StringResource} from '../../models/saredResources'
 import {AddContentRequest} from '../../models/content.modal'
 import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
+import {ContentService} from '../../providers/content.service'
 
 declare var jQuery:any;
 declare var $ :any;
@@ -26,7 +27,7 @@ declare var $ :any;
   selector: 'app-add-content',
   templateUrl: './add-content.component.html',
   styleUrls: ['./add-content.component.scss'], 
-  providers:[FormControlDirective,SectionService,AdminService]
+  providers:[FormControlDirective,SectionService,AdminService,ContentService]
 })
 
 export class AddContentComponent implements OnInit {
@@ -58,6 +59,7 @@ export class AddContentComponent implements OnInit {
     adminList:any;
     localAdminList:any;
     searchUser:any;
+    addedresponse:any;
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
@@ -115,7 +117,8 @@ export class AddContentComponent implements OnInit {
 		        private http: Http,
 		        private sectionService:SectionService,
 		        private appProvider: AppProvider,
-		        private adminService:AdminService) { 
+		        private adminService:AdminService,
+		        private contentService:ContentService) { 
 		this.rightPan={ }
 		this.googleFromatata={ }
 		this.addContentForm = fb.group({
@@ -148,24 +151,7 @@ export class AddContentComponent implements OnInit {
 		
     
 	
-    openDialog(flag): void {
-        let dialogRef = this.dialog.open(DragDropComponent, {
-            width: '400px',
-            data:{flag:flag}
-        });
-        dialogRef.afterClosed().subscribe(result => {
-      
-        });
-    }
 
-    openDialog2(): void {
-        let dialogRef = this.dialog.open(SuggestArticleDialogComponent, {
-            width: '800px',
-        });
-        dialogRef.afterClosed().subscribe(result => {
-      
-        });
-    }
 
 
     addText(){
@@ -801,4 +787,333 @@ export class AddContentComponent implements OnInit {
   	  this.localAdminList[i].check='active';
   	}
   }
+  openDialog(flag): void {
+        let dialogRef = this.dialog.open(DragDropComponent, {
+            width: '400px',
+            data:{flag:flag}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        	alert(JSON.stringify(result))
+        	if (result) {
+	        	if (result.flag=='saveAsDraft') {
+	        		 this.saveAsDraft(result)
+	        	}else if (result.flag=='Publish') {
+	        		this.publish(result)
+	        	}else if (result.flag=='Publishlater') {
+	        		this.publishLater(result)
+	        	}
+        	}
+      
+        });
+    }
+
+    openDialog2(): void {
+        let dialogRef = this.dialog.open(SuggestArticleDialogComponent, {
+            width: '800px',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+      
+        });
+    }
+    saveAsDraft(result){
+		   if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   this.addContentRequest.contentBody=this.listOne;
+		   this.addContentRequest.userList={}
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticle=false;
+           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.saveAsDraftStatus=true;
+           this.addContentRequest.startDateForDraft=result.startDate;
+           this.addContentRequest.endDateForDraft=result.endDate;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.startDateOfPublish=null;
+           this.addContentRequest.endDateOfpublish=null;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.startDateForPublishLater=null;
+           this.addContentRequest.endDateForPublish=null;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.likeCount=0;
+           this.addContentRequest.shareCount=0;
+           this.addContentRequest.commentCount=0;
+           this.addContentRequest.saveCount=0;
+           this.addContentRequest.downloadCount=0;
+           this.addContentRequest.applyCount=0;
+           this.addContentRequest.callCount=0;
+           this.addContentRequest.callMeBackCount=0;
+           this.addContentRequest.pageView=0;
+           this.addContentRequest.imIntrestedCount=0;
+           this.addContentRequest.deleteStatus=false;
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }
+    }
+    publish(result){
+    	if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   this.addContentRequest.contentBody=this.listOne;
+		   this.addContentRequest.userList={}
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticle=false;
+           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.startDateForDraft=null;
+           this.addContentRequest.endDateForDraft=null;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=true;
+           this.addContentRequest.startDateOfPublish=result.startDate;
+           this.addContentRequest.endDateOfpublish=result.endDate;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.startDateForPublishLater=null;
+           this.addContentRequest.endDateForPublish=null;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.likeCount=0;
+           this.addContentRequest.shareCount=0;
+           this.addContentRequest.commentCount=0;
+           this.addContentRequest.saveCount=0;
+           this.addContentRequest.downloadCount=0;
+           this.addContentRequest.applyCount=0;
+           this.addContentRequest.callCount=0;
+           this.addContentRequest.callMeBackCount=0;
+           this.addContentRequest.pageView=0;
+           this.addContentRequest.imIntrestedCount=0;
+           this.addContentRequest.deleteStatus=false;
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }
+           this.contentService.onAddSection(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.addedresponse=data.response
+                        // this.localAdminList=data.response;
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+           })
+    }
+    publishLater(result){
+    	if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   this.addContentRequest.contentBody=this.listOne;
+		   this.addContentRequest.userList={}
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticle=false;
+           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.startDateForDraft=null;
+           this.addContentRequest.endDateForDraft=null;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.startDateOfPublish=null;
+           this.addContentRequest.endDateOfpublish=null;
+           this.addContentRequest.publishLaterStatus=true;
+           this.addContentRequest.startDateForPublishLater=result.startDate;
+           this.addContentRequest.endDateForPublish=result.endDate;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.likeCount=0;
+           this.addContentRequest.shareCount=0;
+           this.addContentRequest.commentCount=0;
+           this.addContentRequest.saveCount=0;
+           this.addContentRequest.downloadCount=0;
+           this.addContentRequest.applyCount=0;
+           this.addContentRequest.callCount=0;
+           this.addContentRequest.callMeBackCount=0;
+           this.addContentRequest.pageView=0;
+           this.addContentRequest.imIntrestedCount=0;
+           this.addContentRequest.deleteStatus=false;
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }
+           this.contentService.onAddSection(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.addedresponse=data.response
+                        // this.localAdminList=data.response;
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+           })
+
+    }
+    submitForReview(){
+    	if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   this.addContentRequest.contentBody=this.listOne;
+		   this.addContentRequest.userList={}
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticle=false;
+           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.startDateForDraft=null;
+           this.addContentRequest.endDateForDraft=null;
+           this.addContentRequest.submitForreview=true;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.startDateOfPublish=null;
+           this.addContentRequest.endDateOfpublish=null;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.startDateForPublishLater=null;
+           this.addContentRequest.endDateForPublish=null;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.likeCount=0;
+           this.addContentRequest.shareCount=0;
+           this.addContentRequest.commentCount=0;
+           this.addContentRequest.saveCount=0;
+           this.addContentRequest.downloadCount=0;
+           this.addContentRequest.applyCount=0;
+           this.addContentRequest.callCount=0;
+           this.addContentRequest.callMeBackCount=0;
+           this.addContentRequest.pageView=0;
+           this.addContentRequest.imIntrestedCount=0;
+           this.addContentRequest.deleteStatus=false;
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }
+           this.contentService.onAddSection(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.addedresponse=data.response
+                        // this.localAdminList=data.response;
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+           })
+
+    }
+	submitForRevision(){
+		if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   this.addContentRequest.contentBody=this.listOne;
+		   this.addContentRequest.userList={}
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticle=false;
+           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.startDateForDraft=null;
+           this.addContentRequest.endDateForDraft=null;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.startDateOfPublish=null;
+           this.addContentRequest.endDateOfpublish=null;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.startDateForPublishLater=null;
+           this.addContentRequest.endDateForPublish=null;
+           this.addContentRequest.sendForRevisionStatus=true;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.likeCount=0;
+           this.addContentRequest.shareCount=0;
+           this.addContentRequest.commentCount=0;
+           this.addContentRequest.saveCount=0;
+           this.addContentRequest.downloadCount=0;
+           this.addContentRequest.applyCount=0;
+           this.addContentRequest.callCount=0;
+           this.addContentRequest.callMeBackCount=0;
+           this.addContentRequest.pageView=0;
+           this.addContentRequest.imIntrestedCount=0;
+           this.addContentRequest.deleteStatus=false;
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }
+           this.contentService.onAddSection(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.addedresponse=data.response
+                        // this.localAdminList=data.response;
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+           })
+
+	}
+	reject(){
+		if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   this.addContentRequest.contentBody=this.listOne;
+		   this.addContentRequest.userList={}
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticle=false;
+           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.startDateForDraft=null;
+           this.addContentRequest.endDateForDraft=null;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.startDateOfPublish=null;
+           this.addContentRequest.endDateOfpublish=null;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.startDateForPublishLater=null;
+           this.addContentRequest.endDateForPublish=null;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=true;
+           this.addContentRequest.likeCount=0;
+           this.addContentRequest.shareCount=0;
+           this.addContentRequest.commentCount=0;
+           this.addContentRequest.saveCount=0;
+           this.addContentRequest.downloadCount=0;
+           this.addContentRequest.applyCount=0;
+           this.addContentRequest.callCount=0;
+           this.addContentRequest.callMeBackCount=0;
+           this.addContentRequest.pageView=0;
+           this.addContentRequest.imIntrestedCount=0;
+           this.addContentRequest.deleteStatus=false;
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }
+           this.contentService.onAddSection(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.addedresponse=data.response
+                        // this.localAdminList=data.response;
+                    console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+           })
+
+	}
 }
