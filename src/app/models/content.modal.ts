@@ -16,7 +16,7 @@ export class AddContentRequest {
     contentBody:object;
     callToActionButton:object;
     userEngagementButton:object;
-    suggestedArticle:boolean;
+    suggestedArticle:any;
     suggestedArticleList:object;
     thumbnailPicture:string;
     horizontalPicture:string;

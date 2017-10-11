@@ -9,6 +9,7 @@ export class Current {
     currentId:any;
     actionFlag:any;
     currentSectionName:any;
+    currentContentData:any;
 
     constructor(public leadsFilter?: string) {
     }

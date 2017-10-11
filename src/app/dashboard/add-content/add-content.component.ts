@@ -120,6 +120,9 @@ export class AddContentComponent implements OnInit {
 		        private appProvider: AppProvider,
 		        private adminService:AdminService,
 		        private contentService:ContentService) { 
+		this.appProvider.current.loginData={
+			role:'sectionAdministrator'
+		}
 		this.rightPan={ }
 		this.googleFromatata={ }
 		this.addContentForm = fb.group({
@@ -150,7 +153,65 @@ export class AddContentComponent implements OnInit {
                  
           }
 		
-    
+    ngOnInit() {
+  		
+		$('.selectize').selectize({
+		    plugins: ['remove_button'],
+		    persist: false,
+		    createOnBlur: true,
+		    create: true
+		});
+
+		$(document).on('click','.for_edit',function(){
+			$(this).closest('.li').find('.to_edit').toggle('100');
+		})
+		$(document).on('click','.for_delete',function(){
+			$(this).closest('.li').remove();
+		});
+		 $('.file-type').on('change',function(e){
+		    // var tmppath = URL.createObjectURL(e.target.files[0]);
+		    // console.log($(this));
+		    // $(this).closest('.fileinput').find('img').attr('src',tmppath);
+		    $(this).closest('.fileinput-noexists').hide();
+		    $(this).closest('.fileinput-new').find('.fileinput-exists').show();
+		});
+
+		$('.file_remove').on('click',function(){
+		    // var a = $(this).closest('.fileinput').find('img').attr('src','./assets/img/placeholder5.png');
+		    // console.log(a);
+		    $(this).closest('.fileinput-exists').hide();
+		    $(this).closest('.fileinput').find('.fileinput-noexists').show();
+		});
+		if (this.appProvider.current.actionFlag=="editContent") {
+			
+			 console.log(JSON.stringify(this.appProvider.current.currentContentData))
+             this.addContentRequest=this.appProvider.current.currentContentData
+             if (this.addContentRequest.suggestedArticle==false) {
+             	this.addContentRequest.suggestedArticle='false'
+             }else if(this.addContentRequest.suggestedArticle==true){
+                this.addContentRequest.suggestedArticle='true'
+             }
+             this.listOne=this.appProvider.current.currentContentData.contentBody;
+             this.userEngaButton=this.appProvider.current.currentContentData.userEngagementButton;
+             this.callToActionButton=this.appProvider.current.currentContentData.callToActionButton;
+             this.croppieImageHorigontal=this.appProvider.current.currentContentData.horizontalPicture;
+             this.croppieImageThumbnail=this.appProvider.current.currentContentData.thumbnailPicture;
+             this.currentImageHorigontal=this.appProvider.current.currentContentData.horizontalPicture;
+             this.currentImageThumbnail=this.appProvider.current.currentContentData.thumbnailPicture;
+           if (this.appProvider.current.currentContentData.googleForm==true) {
+           	    this.googleFromatata.tag="form"
+           	    this.googleFromatata.url=this.appProvider.current.currentContentData.googleFormUrl
+           }
+			 this.getSectionList()
+			 this.getCategory()
+			 this.getsubCategory()
+	   }
+		else{
+           this.getSectionList()
+			let date=new Date().toISOString()
+			this.addContentRequest.dateOfCreation=date.split('T')[0]
+		}
+	}		
 	
 
 
@@ -567,39 +628,7 @@ export class AddContentComponent implements OnInit {
         this.receivedData.push($event);
         console.log(JSON.stringify(this.receivedData))
     }*/
-  	ngOnInit() {
-  		
-		$('.selectize').selectize({
-		    plugins: ['remove_button'],
-		    persist: false,
-		    createOnBlur: true,
-		    create: true
-		});
-
-		$(document).on('click','.for_edit',function(){
-			$(this).closest('.li').find('.to_edit').toggle('100');
-		})
-		$(document).on('click','.for_delete',function(){
-			$(this).closest('.li').remove();
-		});
-		 $('.file-type').on('change',function(e){
-		    // var tmppath = URL.createObjectURL(e.target.files[0]);
-		    // console.log($(this));
-		    // $(this).closest('.fileinput').find('img').attr('src',tmppath);
-		    $(this).closest('.fileinput-noexists').hide();
-		    $(this).closest('.fileinput-new').find('.fileinput-exists').show();
-		});
-
-		$('.file_remove').on('click',function(){
-		    // var a = $(this).closest('.fileinput').find('img').attr('src','./assets/img/placeholder5.png');
-		    // console.log(a);
-		    $(this).closest('.fileinput-exists').hide();
-		    $(this).closest('.fileinput').find('.fileinput-noexists').show();
-		});
-		this.getSectionList()
-		let date=new Date().toISOString()
-		this.addContentRequest.dateOfCreation=date.split('T')[0]
-	}
+  	
 
 	
 	/*imagChange(){
@@ -836,7 +865,6 @@ export class AddContentComponent implements OnInit {
 		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
-           this.addContentRequest.suggestedArticle=false;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=true;
            this.addContentRequest.startDateForDraft=null;
@@ -870,6 +898,8 @@ export class AddContentComponent implements OnInit {
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
            }
             this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
@@ -907,7 +937,6 @@ export class AddContentComponent implements OnInit {
 		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
-           this.addContentRequest.suggestedArticle=false;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
@@ -942,6 +971,8 @@ export class AddContentComponent implements OnInit {
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
            }
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
@@ -979,7 +1010,6 @@ export class AddContentComponent implements OnInit {
 		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
-           this.addContentRequest.suggestedArticle=false;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
@@ -1013,6 +1043,8 @@ export class AddContentComponent implements OnInit {
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
            }
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
@@ -1051,7 +1083,6 @@ export class AddContentComponent implements OnInit {
 		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
-           this.addContentRequest.suggestedArticle=false;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
@@ -1085,6 +1116,8 @@ export class AddContentComponent implements OnInit {
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
            }
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
@@ -1123,7 +1156,6 @@ export class AddContentComponent implements OnInit {
 		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
-           this.addContentRequest.suggestedArticle=false;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
@@ -1157,6 +1189,8 @@ export class AddContentComponent implements OnInit {
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
            }
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
@@ -1195,7 +1229,6 @@ export class AddContentComponent implements OnInit {
 		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
-           this.addContentRequest.suggestedArticle=false;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
@@ -1229,6 +1262,8 @@ export class AddContentComponent implements OnInit {
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
            }
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
