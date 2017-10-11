@@ -18,15 +18,17 @@
                                 <form class="example-form" [formGroup]="complexForm">
 
                                     <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                        <mat-select placeholder="Login as" [formControl]="complexForm.controls['loginAs']" [(ngModel)]="loginModel.role" >
-                                            <mat-option value="superAdmin" selected> Super Administrator </mat-option>
-                                            <mat-option value="sectionAdministrator"> section Administrator </mat-option>
-                                            <mat-option value="contentWriter"> Content Writer </mat-option>
-                                            <mat-option value="businessuser"> Business user </mat-option>
-                                        </mat-select>
-                                         <mat-error *ngIf="complexForm.controls['loginAs'].hasError('required')">
-                                                  Login As is <strong>required</strong>
-                                        </mat-error>
+                                        <mat-form-field>
+                                            <mat-select placeholder="Login as" [formControl]="complexForm.controls['loginAs']" [(ngModel)]="loginModel.role" >
+                                                <mat-option value="superAdmin" selected> Super Administrator </mat-option>
+                                                <mat-option value="sectionAdministrator"> section Administrator </mat-option>
+                                                <mat-option value="contentWriter"> Content Writer </mat-option>
+                                                <mat-option value="businessuser"> Business user </mat-option>
+                                            </mat-select>
+                                             <mat-error *ngIf="complexForm.controls['loginAs'].hasError('required')">
+                                                      Login As is <strong>required</strong>
+                                            </mat-error>
+                                         </mat-form-field>
                                     </div>
                                         
                                     <div class="form-group col-mat-12 col-sm-12 col-xs-12">
