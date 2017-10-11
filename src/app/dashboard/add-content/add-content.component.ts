@@ -205,6 +205,7 @@ export class AddContentComponent implements OnInit {
 			 this.getSectionList()
 			 this.getCategory()
 			 this.getsubCategory()
+			 this.getUserList(this.appProvider.current.currentContentData.typeOfUser)
 	   }
 		else{
            this.getSectionList()
@@ -788,6 +789,14 @@ export class AddContentComponent implements OnInit {
                         this.waitLoader = false;
                         this.adminList=data.response
                         this.localAdminList=data.response;
+                        if (this.appProvider.current.actionFlag=="editContent") {
+                           for (let i=0;i<this.localAdminList.length;i++) {
+                           	     if (this.appProvider.current.currentContentData.userList.map(function (img) { return img._id; }).indexOf(this.localAdminList[i]._id)!=-1) {
+                           	        	this.localAdminList[i].check="active"
+                           	        }   
+                                                                          
+                               	}                        	// code...
+                        }
                     console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
