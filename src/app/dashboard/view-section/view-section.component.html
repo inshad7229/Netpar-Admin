@@ -9,7 +9,7 @@
         <div class="main-content">
             <div class="container-fluid p-0">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12">
+                    <div class="col-lg-12 col-mat-12">
                     	<div class="card m-t-0">
                     		<div class="card-content">
 	                            <div class="select-head">
@@ -48,47 +48,47 @@
                                                     <th> </th>
                                                     <th> </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Kadak" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Kadak" class="tltip_ico">
                                                             <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Share" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Share" class="tltip_ico">
                                                             <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Comment" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Comment" class="tltip_ico">
                                                             <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Save" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Save" class="tltip_ico">
                                                             <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Download" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Download" class="tltip_ico">
                                                             <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Apply" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Apply" class="tltip_ico">
                                                             <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Call" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Call" class="tltip_ico">
                                                             <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Call Me Back" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Call Me Back" class="tltip_ico">
                                                             <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="I'm Interested" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="I'm Interested" class="tltip_ico">
                                                             <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
@@ -671,7 +671,7 @@
                         <h5 class="filter-heading"> Section</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li *ngFor="let sec of sections"><md-checkbox [(ngModel)]="sec.check" (change)="onChangefilter(sec)">{{sec.sectionName}}</md-checkbox></li>
+                                <li *ngFor="let sec of sections"><mat-checkbox [(ngModel)]="sec.check" (change)="onChangefilter(sec)">{{sec.sectionName}}</mat-checkbox></li>
                                 <div class="btns-filter">
 				                    <a class="btn custom-btn" (click)="applyFilter(sections)">Apply Filter </a>
 				                	

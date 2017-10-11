@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
-import {MdListModule} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatListModule} from '@angular/material';
 import {SectionService} from '../../../providers/section.service'
 import {ContentService }from '../../../providers/content.service'
 import {AppProvider} from '../../../providers/app.provider'
@@ -18,8 +18,8 @@ export class SuggestArticleDialogComponent implements OnInit {
   categories:any;
   subCategories:any;
   suggestedArticalList:any;
-  constructor(private dialog: MdDialog, public dialogRef: MdDialogRef<SuggestArticleDialogComponent>,
-  @Inject(MD_DIALOG_DATA) public data: any,
+  constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<SuggestArticleDialogComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: any,
             private sectionService:SectionService,
             private appProvider: AppProvider,
             private contentProvider:ContentService) { 

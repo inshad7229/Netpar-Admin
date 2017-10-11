@@ -4,7 +4,7 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angul
 import { Router } from '@angular/router';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
-import { MdProgressBar} from '@angular/material';
+import { MatProgressBar} from '@angular/material';
 import { NgxCroppieComponent } from 'ngx-croppie';
 import { CroppieOptions } from 'croppie';
 import { AddCategoryRequest} from '../../models/section.modal'

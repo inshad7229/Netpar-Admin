@@ -3,16 +3,16 @@
 	<a (click)="onClosed()"><i class="fa fa-times"></i></a>
 </div>
 <div class="modal-body">
-    <md-list *ngIf="adminData">
-		<md-list-item *ngFor="let name of adminData"><span *ngIf="validate(name.sectionName)==true">{{name.firstName}} {{name.lastName}} </span> </md-list-item>
-		<!-- <md-list-item> Admin2 </md-list-item>
-		<md-list-item> Admin3 </md-list-item>
-		<md-list-item> Admin3 </md-list-item>
-		<md-list-item> Admin3 </md-list-item>
-		<md-list-item> Admin3 </md-list-item>
-		<md-list-item> Admin3 </md-list-item>
+    <mat-list *ngIf="adminData">
+		<mat-list-item *ngFor="let name of adminData"><span *ngIf="validate(name.sectionName)==true">{{name.firstName}} {{name.lastName}} </span> </mat-list-item>
+		<!-- <mat-list-item> Admin2 </mat-list-item>
+		<mat-list-item> Admin3 </mat-list-item>
+		<mat-list-item> Admin3 </mat-list-item>
+		<mat-list-item> Admin3 </mat-list-item>
+		<mat-list-item> Admin3 </mat-list-item>
+		<mat-list-item> Admin3 </mat-list-item>
  -->
-	</md-list>
+	</mat-list>
 </div>
 <!-- <div class="modal-footer">
     <a class="btn btn-danger"> Cancel </a>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { PriorityDialogComponent } from './priority-dialog/priority-dialog.component';
 declare var jquery:any;
 declare var $ :any;
@@ -12,7 +12,7 @@ declare var $ :any;
 })
 export class PriorityComponent implements OnInit {
 
-  constructor(private dialog: MdDialog) { }
+  constructor(private dialog: MatDialog) { }
 
     ngOnInit() {
       $('.filter-plugin > a').on('click',function(){

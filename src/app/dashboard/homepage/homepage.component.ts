@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { HomeDialogComponent } from './home-dialog/home-dialog.component';
 declare var jquery:any;
 declare var $ :any;
@@ -11,7 +11,7 @@ declare var $ :any;
 })
 export class HomepageComponent implements OnInit {
   
-  constructor(private dialog: MdDialog) { }
+  constructor(private dialog: MatDialog) { }
   openDialog(): void {
     let dialogRef = this.dialog.open(HomeDialogComponent, {
       width: '400px',

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ViewDialogComponent} from './view-dialog/view-dialog.component';
 import { ViewChild} from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
-import {MdPaginator} from '@angular/material';
+import {MatPaginator} from '@angular/material';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
@@ -19,7 +19,7 @@ declare var $ :any;
 })
 export class ViewContentComponent implements OnInit {
 
-  	constructor(private dialog: MdDialog) { }
+  	constructor(private dialog: MatDialog) { }
     
     ngOnInit() {
       /*$(window).on('click',function(e){

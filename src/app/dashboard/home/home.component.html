@@ -12,8 +12,8 @@
    
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <md-progress-bar *ngIf="waitLoader" mode="indeterminate"></md-progress-bar>
+                    <div class="col-lg-12 col-mat-12">
+                        <mat-progress-bar *ngIf="waitLoader" mode="indeterminate"></mat-progress-bar>
                         <div class="card" > 
                             <div class="card-header card-header-icon" data-background-color="orange">
                                 <i class="material-icons">account_circle</i>
@@ -45,8 +45,8 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         {{admin.firstName}} {{admin.lastName}}
-                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico" (click)="openDialog(admin)"> <i class="fa fa-trash"></i> </a>
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" (click)="editAdmin(admin,'allEdit')" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico" (click)="openDialog(admin)"> <i class="fa fa-trash"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" (click)="editAdmin(admin,'allEdit')" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
                                                         <div> Role: {{admin.role}} </div>
@@ -68,7 +68,7 @@
                                                     <div *ngIf="enablePasswordEdit!=i">
                                                         
                                                         {{palinPass(admin.plain)}}
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" (click)="editPassword(i)" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" (click)="editPassword(i)" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </div>
                                                         
                                                         <div class="input-group cus-input" *ngIf="enablePasswordEdit==i">
@@ -101,8 +101,8 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         Ashami shah
-                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
                                                         <div> Role: Section Administrator </div>
@@ -120,7 +120,7 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         ashima@netpar.co
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
                                                         <div> - Jobs </div>
@@ -136,8 +136,8 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         Ashami shah
-                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
                                                         <div> Role: Section Administrator </div>
@@ -155,7 +155,7 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         ashima@netpar.co
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
                                                         <div> - Jobs </div>
@@ -171,8 +171,8 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         Ashami shah
-                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
                                                         <div> Role: Section Administrator </div>
@@ -191,7 +191,7 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         ashima@netpar.co
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
                                                         <div> - Jobs </div>
@@ -207,8 +207,8 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         Ashami shah
-                                                        <a mdTooltipPosition="above" mdTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
                                                         <div> Role: Section Administrator </div>
@@ -227,7 +227,7 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         ashima@netpar.co
-                                                        <a mdTooltipPosition="above" mdTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Edit" routerLink="/edit-admin" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
                                                         <div> - Jobs </div>

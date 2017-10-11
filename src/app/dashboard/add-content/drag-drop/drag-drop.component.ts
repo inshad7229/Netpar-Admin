@@ -1,5 +1,5 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-drag-drop',
@@ -9,8 +9,8 @@ import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 export class DragDropComponent implements OnInit {
   date:any;
   showMessage:boolean=false;
-  constructor(private dialog: MdDialog, public dialogRef: MdDialogRef<DragDropComponent>,
-  @Inject(MD_DIALOG_DATA) public data: any) { 
+  constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<DragDropComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: any) { 
   	this.date={}
   }
 
@@ -18,10 +18,10 @@ export class DragDropComponent implements OnInit {
   	alert(JSON.stringify(this.data))
   }
  checkStartDate(){
-
+  
  }
  checkEndDate(){
- 	
+
  }
   submit(){
   	var d = new Date(this.date.start);

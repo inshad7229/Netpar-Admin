@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
@@ -35,7 +35,7 @@ export class AddContentComponent implements OnInit {
 	currentIndex:any;
 	rightPan:any;
 	showRightpan:boolean=false;
-	googleFromdata:any
+	googleFromatata:any
 	mouseDownIndex:number;
 	afterDragIndex:number;
 	gridAudioRef:any;
@@ -108,7 +108,7 @@ export class AddContentComponent implements OnInit {
         opts.enforceBoundary = true;
         return opts;
     }
-	constructor(private dialog: MdDialog, private cpService: ColorPickerService,
+	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
 		        private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
 		        vcr: ViewContainerRef,
 		        public toastr: ToastsManager,
@@ -117,7 +117,7 @@ export class AddContentComponent implements OnInit {
 		        private appProvider: AppProvider,
 		        private adminService:AdminService) { 
 		this.rightPan={ }
-		this.googleFromdata={ }
+		this.googleFromatata={ }
 		this.addContentForm = fb.group({
 								'language':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
 								'sectionId':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
@@ -191,8 +191,8 @@ export class AddContentComponent implements OnInit {
 	})
 	}
 	addForm(){
-		this.googleFromdata.tag="form"; 
-		// this.googleFromdata.url='null';
+		this.googleFromatata.tag="form"; 
+		// this.googleFromatata.url='null';
 	}
 
 
@@ -297,7 +297,7 @@ export class AddContentComponent implements OnInit {
       }
 	}
 	onFormUrlChange(url){
-      this.googleFromdata.formURL=this.sanitizer.bypassSecurityTrustResourceUrl(url)
+      this.googleFromatata.formURL=this.sanitizer.bypassSecurityTrustResourceUrl(url)
 	}
 	onaltTagChange(){
       this.listOne[this.currentIndex].altTag=this.rightPan.altTag

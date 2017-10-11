@@ -1,11 +1,11 @@
 import { Component, OnInit,ViewChild,Inject,ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { MdProgressBar} from '@angular/material';
+import { MatProgressBar} from '@angular/material';
 import {AdminService} from './admin.service'
 import { ToastsManager , Toast} from 'ng2-toastr';
 import {AppProvider} from '../../providers/app.provider'
 import { AdminService as  EditAdminService} from '../edit-admin/edit.service';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { LanguageDialogComponent } from './language-dialog/language-dialog.component';
 
 @Component({
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
         private adminService: AdminService,
         private editadminService: EditAdminService,
         private appProvider: AppProvider,
-        public dialog: MdDialog,
+        public dialog: MatDialog,
          vcr: ViewContainerRef,
         public toastr: ToastsManager, ) {
         this.toastr.setRootViewContainerRef(vcr);
@@ -144,13 +144,13 @@ export class AdminConfirmation {
    
 
   constructor(
-    public dialogRef: MdDialogRef<AdminConfirmation>,
-    @Inject(MD_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<AdminConfirmation>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
         private router: Router,
         private adminService: AdminService,
         private editadminService: EditAdminService,
         private appProvider: AppProvider,
-        public dialog: MdDialog) {
+        public dialog: MatDialog) {
        }
 
   onYesClick(): void {

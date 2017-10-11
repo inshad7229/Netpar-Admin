@@ -9,7 +9,7 @@
         <div class="main-content">
             <div class="container-fluid p-0">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12">
+                    <div class="col-lg-12 col-mat-12">
                         <div class="card" > 
                             <div class="card-header card-header-icon" data-background-color="orange">
                                 <i class="material-icons">edit</i>
@@ -18,70 +18,70 @@
                                 <h4 class="card-title">Add Content</h4>
                                 <div class="cus-form">
                                     <form class="example-form" [formGroup]="addContentForm" >
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language" name="language"   [formControl]="addContentForm.controls['language']" [(ngModel)]="addContentRequest.language">
-                                                <md-option  *ngFor="let lang of stringResource.language" [value]="lang.language">{{lang.language}}</md-option>
-                                                <!-- <md-option value="2"> Language2 </md-option>
-                                                <md-option value="3"> Language3 </md-option>
-                                                <md-option value="4"> Language4 </md-option> -->
-                                            </md-select>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Select Language" name="language"   [formControl]="addContentForm.controls['language']" [(ngModel)]="addContentRequest.language">
+                                                <mat-option  *ngFor="let lang of stringResource.language" [value]="lang.language">{{lang.language}}</mat-option>
+                                                <!-- <mat-option value="2"> Language2 </mat-option>
+                                                <mat-option value="3"> Language3 </mat-option>
+                                                <mat-option value="4"> Language4 </mat-option> -->
+                                            </mat-select>
                                         </div>
 
-                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                                            <md-select placeholder="Select Section" name="sectionId"   [formControl]="addContentForm.controls['sectionId']" [(ngModel)]="addContentRequest.sectionId" (change)="getCategory()">
-                                             <md-option  *ngFor="let section of sections"  [value]="section._id" > {{section.sectionName}}</md-option>
-                                                <!-- <md-option value="2"> Section2 </md-option>
-                                                <md-option value="3"> Section3 </md-option>
-                                                <md-option value="4"> Section4 </md-option> -->
-                                            </md-select>
+                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
+                                            <mat-select placeholder="Select Section" name="sectionId"   [formControl]="addContentForm.controls['sectionId']" [(ngModel)]="addContentRequest.sectionId" (change)="getCategory()">
+                                             <mat-option  *ngFor="let section of sections"  [value]="section._id" > {{section.sectionName}}</mat-option>
+                                                <!-- <mat-option value="2"> Section2 </mat-option>
+                                                <mat-option value="3"> Section3 </mat-option>
+                                                <mat-option value="4"> Section4 </mat-option> -->
+                                            </mat-select>
                                         </div>
-                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                                            <md-select placeholder="Select Category" name="categoryId"   [formControl]="addContentForm.controls['categoryId']" [(ngModel)]="addContentRequest.categoryId" (change)="getsubCategory()">
-                                                <md-option *ngFor="let category of categories"  [value]="category._id" > {{category.categoryName}}</md-option>
-                                            </md-select>
+                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
+                                            <mat-select placeholder="Select Category" name="categoryId"   [formControl]="addContentForm.controls['categoryId']" [(ngModel)]="addContentRequest.categoryId" (change)="getsubCategory()">
+                                                <mat-option *ngFor="let category of categories"  [value]="category._id" > {{category.categoryName}}</mat-option>
+                                            </mat-select>
                                         </div>
-                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                                            <md-select placeholder="Select Sub-category"  name="subCategoryId"   [formControl]="addContentForm.controls['subCategoryId']" [(ngModel)]="addContentRequest.subCategoryId" >
-                                                <md-option *ngFor="let  subcate of subCategory"  [value]="subcate._id" > {{subcate.subCategoryName}}</md-option>
-                                                <!-- <md-option value="2"> Sub-category2 </md-option>
-                                                <md-option value="3"> Sub-category3 </md-option>
-                                                <md-option value="4"> Sub-category4 </md-option> -->
-                                            </md-select>
+                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
+                                            <mat-select placeholder="Select Sub-category"  name="subCategoryId"   [formControl]="addContentForm.controls['subCategoryId']" [(ngModel)]="addContentRequest.subCategoryId" >
+                                                <mat-option *ngFor="let  subcate of subCategory"  [value]="subcate._id" > {{subcate.subCategoryName}}</mat-option>
+                                                <!-- <mat-option value="2"> Sub-category2 </mat-option>
+                                                <mat-option value="3"> Sub-category3 </mat-option>
+                                                <mat-option value="4"> Sub-category4 </mat-option> -->
+                                            </mat-select>
                                         </div>
 
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput placeholder="Add headline" type="text" name="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Add headline" type="text" name="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline">
+                                            </mat-form-field>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput placeholder="Add tagline" type="text" name="tagline"   [formControl]="addContentForm.controls['tagline']" [(ngModel)]="addContentRequest.tagline">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Add tagline" type="text" name="tagline"   [formControl]="addContentForm.controls['tagline']" [(ngModel)]="addContentRequest.tagline">
+                                            </mat-form-field>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <input type="text" placeholder="Add tags" class="selectize txtselectize" name="tags"   [formControl]="addContentForm.controls['tags']" [(ngModel)]="addContentRequest.tags">
                                         </div>
 
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput [mdDatepicker]="picker" placeholder="Date of creation" name="adc"  readonly="true" [formControl]="addContentForm.controls['dateOfCreation']" [(ngModel)]="addContentRequest.dateOfCreation">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput [matDatepicker]="picker" placeholder="Date of creation" name="adc"  readonly="true" [formControl]="addContentForm.controls['dateOfCreation']" [(ngModel)]="addContentRequest.dateOfCreation">
+                                            </mat-form-field>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Type of user" name="typeOfUser"   [formControl]="addContentForm.controls['typeOfUser']" [(ngModel)]="addContentRequest.typeOfUser" (change)="getUserList(addContentRequest.typeOfUser)">
-                                                <md-option value="platformUser"> Platform User </md-option>
-                                                <md-option value="sectionAdministrator"> Section Administrator </md-option>
-                                                <md-option value="contentWriter"> Content Writer </md-option>
-                                                <md-option value="businessuser"> Business User </md-option>
-                                            </md-select>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Type of user" name="typeOfUser"   [formControl]="addContentForm.controls['typeOfUser']" [(ngModel)]="addContentRequest.typeOfUser" (change)="getUserList(addContentRequest.typeOfUser)">
+                                                <mat-option value="platformUser"> Platform User </mat-option>
+                                                <mat-option value="sectionAdministrator"> Section Administrator </mat-option>
+                                                <mat-option value="contentWriter"> Content Writer </mat-option>
+                                                <mat-option value="businessuser"> Business User </mat-option>
+                                            </mat-select>
                                         </div>  
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput placeholder="Search user" type="text" name="serchUser"   [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onsearchuser(searchUser)">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Search user" type="text" name="serchUser"   [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onsearchuser(searchUser)">
+                                            </mat-form-field>
                                         </div>
-                                       <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                       <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <div class="users-panel">
                                                 <div class="users-box" *ngFor="let user of localAdminList;let i=index" (click)="toggleHighlight(i)" [ngClass]="{'active': user.check=='active' }" >
                                                     <div class="cont-img dp">
@@ -187,12 +187,12 @@
                                                 
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <div id="email-builder">
                                                 <div class="email-builder-content">
                                                    
-                                                    <div class="md-card">
-                                                        <div class="md-card-content elements-list">
+                                                    <div class="mat-card">
+                                                        <div class="mat-card-content elements-list">
                                                             <h3 class="m-t-0">Tools</h3>
                                                             <ul>
                                                                 <li data-type="text" (click)="addText()"> 
@@ -462,13 +462,13 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="md-card" >
-                                                        <div class="md-card-content">
+                                                    <div class="mat-card" >
+                                                        <div class="mat-card-content">
                                                             <form action="#" *ngIf="showRightpan">
                                                                  <div class="email-builder-element-edit-field" *ngIf="rightPan.tag!='grid'">
 
                                                                     <div class="block-properties">
-                                                                        <div class="md-btn-group md-btn-group-justify">
+                                                                        <div class="mat-btn-group mat-btn-group-justify">
                                                                             <button type="button" class="custom-btn btn" (click)="onAligmentChange('left')">Left</button>
                                                                             <button type="button" class="custom-btn btn" (click)="onAligmentChange('center')">Center</button>
                                                                             <button type="button" class="custom-btn btn active" (click)="onAligmentChange('right')">Right</button>
@@ -481,20 +481,20 @@
                                                                     <div class="block-properties" *ngIf="rightPan.tag!='grid'">
                                                                         <h3>Padding</h3>
                                                                         <div class="form-row padding-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Top" type="text" name="top" [(ngModel)]="rightPan.top"  (input)="onTopChange()">
-                                                                            </md-form-field>
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Right" type="text" name="right" [(ngModel)]="rightPan.right"  (input)="onRigthChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Top" type="text" name="top" [(ngModel)]="rightPan.top"  (input)="onTopChange()">
+                                                                            </mat-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Right" type="text" name="right" [(ngModel)]="rightPan.right"  (input)="onRigthChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                         <div class="form-row padding-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Bottom" type="text"  name="bottom" [(ngModel)]="rightPan.bottom"(input)="onBottonChange()">
-                                                                            </md-form-field>
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Left" type="text"  name="left" [(ngModel)]="rightPan.left" (input)="onLeftChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Bottom" type="text"  name="bottom" [(ngModel)]="rightPan.bottom"(input)="onBottonChange()">
+                                                                            </mat-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Left" type="text"  name="left" [(ngModel)]="rightPan.left" (input)="onLeftChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -506,9 +506,9 @@
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Background Color" name="bgColor" type="text" (colorPickerChange)="color=oncolor(color)" [(colorPicker)]="color" [value]="color" [cpPosition]="'bottom'" [(ngModel)]="rightPan.bgColor" (input)="onbgChange()" autofocus/>
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Background Color" name="bgColor" type="text" (colorPickerChange)="color=oncolor(color)" [(colorPicker)]="color" [value]="color" [cpPosition]="'bottom'" [(ngModel)]="rightPan.bgColor" (input)="onbgChange()" autofocus/>
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -519,9 +519,9 @@
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Enter Text" type="text"  name="text" [(ngModel)]="rightPan.text" (input)="onTextChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Enter Text" type="text"  name="text" [(ngModel)]="rightPan.text" (input)="onTextChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -532,9 +532,9 @@
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Button Text" type="text"  name="buttonText" [(ngModel)]="rightPan.buttonText" (input)="onButtonTextChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Button Text" type="text"  name="buttonText" [(ngModel)]="rightPan.buttonText" (input)="onButtonTextChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -545,9 +545,9 @@
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Width" type="text" name="width" [(ngModel)]="rightPan.width" (input)="onWidthChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Width" type="text" name="width" [(ngModel)]="rightPan.width" (input)="onWidthChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -577,9 +577,9 @@
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="URL" type="text" name="url" [(ngModel)]="rightPan.url" (input)="onUrlChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="URL" type="text" name="url" [(ngModel)]="rightPan.url" (input)="onUrlChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -589,9 +589,9 @@
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Alt Tag" type="text" name="altTag" [(ngModel)]="rightPan.altTag" (input)="onaltTagChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Alt Tag" type="text" name="altTag" [(ngModel)]="rightPan.altTag" (input)="onaltTagChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -602,9 +602,9 @@
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Title" type="text" name="title" [(ngModel)]="rightPan.title"  (input)="onTitleChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Title" type="text" name="title" [(ngModel)]="rightPan.title"  (input)="onTitleChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -615,9 +615,9 @@
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Caption" type="text" name="caption" [(ngModel)]="rightPan.caption" (input)="onCaptionChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Caption" type="text" name="caption" [(ngModel)]="rightPan.caption" (input)="onCaptionChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -627,9 +627,9 @@
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Tags" type="text" name="tags" [(ngModel)]="rightPan.tags" (input)="ontagsChange()">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Tags" type="text" name="tags" [(ngModel)]="rightPan.tags" (input)="ontagsChange()">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -659,9 +659,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Image URL" type="text" name="gridimgurl1" [(ngModel)]="rightPan.imgurl1" (input)="onGridImgUrl1Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl1" [(ngModel)]="rightPan.imgurl1" (input)="onGridImgUrl1Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -671,9 +671,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Video URL" type="text" name="gridvideourl1" [(ngModel)]="rightPan.videourl1" (input)="onGridVideoUrl1Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl1" [(ngModel)]="rightPan.videourl1" (input)="onGridVideoUrl1Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -683,9 +683,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Audio URL" type="text" name="gridaudiourl1" [(ngModel)]="rightPan.audiourl1" (input)="onGridAudioUrl1Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl1" [(ngModel)]="rightPan.audiourl1" (input)="onGridAudioUrl1Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -695,9 +695,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Document URL" type="text" name="griddocumenturl1" [(ngModel)]="rightPan.documenturl1" (input)="onGridDocumentUrl1Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl1" [(ngModel)]="rightPan.documenturl1" (input)="onGridDocumentUrl1Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -728,9 +728,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Image URL" type="text" name="gridimgurl2" [(ngModel)]="rightPan.imgurl2" (input)="onGridImgUrl2Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl2" [(ngModel)]="rightPan.imgurl2" (input)="onGridImgUrl2Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -740,9 +740,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Video URL" type="text" name="gridvideourl2" [(ngModel)]="rightPan.videourl2" (input)="onGridVideoUrl2Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl2" [(ngModel)]="rightPan.videourl2" (input)="onGridVideoUrl2Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -752,9 +752,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Audio URL" type="text" name="gridaudiourl2" [(ngModel)]="rightPan.audiourl2" (input)="onGridAudioUrl2Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl2" [(ngModel)]="rightPan.audiourl2" (input)="onGridAudioUrl2Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -764,9 +764,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Document URL" type="text" name="griddocumenturl2" [(ngModel)]="rightPan.documenturl2" (input)="onGridDocumentUrl2Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl2" [(ngModel)]="rightPan.documenturl2" (input)="onGridDocumentUrl2Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -797,9 +797,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Image URL" type="text" name="gridimgurl3" [(ngModel)]="rightPan.imgurl3" (input)="onGridImgUrl3Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl3" [(ngModel)]="rightPan.imgurl3" (input)="onGridImgUrl3Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -809,9 +809,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Video URL" type="text" name="gridvideourl3" [(ngModel)]="rightPan.videourl3" (input)="onGridVideoUrl3Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl3" [(ngModel)]="rightPan.videourl3" (input)="onGridVideoUrl3Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -821,9 +821,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Audio URL" type="text" name="gridaudiourl3" [(ngModel)]="rightPan.audiourl3" (input)="onGridAudioUrl3Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl3" [(ngModel)]="rightPan.audiourl3" (input)="onGridAudioUrl3Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -833,9 +833,9 @@
 
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="Document URL" type="text" name="griddocumenturl3" [(ngModel)]="rightPan.documenturl3" (input)="onGridDocumentUrl3Change()">
-                                                                                </md-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl3" [(ngModel)]="rightPan.documenturl3" (input)="onGridDocumentUrl3Change()">
+                                                                                </mat-form-field>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -844,13 +844,13 @@
                                                                 </div>
                                                                 
                                                             </form>
-                                                            <div class="email-builder-element-edit-field" *ngIf="googleFromdata.tag=='form'">
+                                                            <div class="email-builder-element-edit-field" *ngIf="googleFromatata.tag=='form'">
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
-                                                                            <md-form-field>
-                                                                                <input mdInput placeholder="Form Link" type="text" name="form" [(ngModel)]="googleFromdata.url" (input)="onFormUrlChange(googleFromdata.url)">
-                                                                            </md-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Form Link" type="text" name="form" [(ngModel)]="googleFromatata.url" (input)="onFormUrlChange(googleFromatata.url)">
+                                                                            </mat-form-field>
                                                                         </div>
                                                                            
                                                                     </div>
@@ -914,27 +914,27 @@
                                                                     </div>
                                                                     
                                                                     <div *ngIf="data.dragData.name=='Textbox'">
-                                                                        <md-form-field>
-                                                                            <input mdInput placeholder="Textbox" type="text">
-                                                                        </md-form-field>
+                                                                        <mat-form-field>
+                                                                            <input matInput placeholder="Textbox" type="text">
+                                                                        </mat-form-field>
                                                                         <div class="to_edit">
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="label" type="text">
-                                                                                </md-form-field>    
+                                                                            <div class="col-mat-12 col-sm-12 col-xs-12">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="label" type="text">
+                                                                                </mat-form-field>    
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     
                                                                     <div *ngIf="data.dragData.name=='Textarea'">
-                                                                        <md-form-field>
-                                                                            <textarea mdInput placeholder="Guide Text of Form" rows="5" md-select-on-focus></textarea>
-                                                                        </md-form-field>
+                                                                        <mat-form-field>
+                                                                            <textarea matInput placeholder="Guide Text of Form" rows="5" mat-select-on-focus></textarea>
+                                                                        </mat-form-field>
                                                                         <div class="to_edit">
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="label" type="text">
-                                                                                </md-form-field>    
+                                                                            <div class="col-mat-12 col-sm-12 col-xs-12">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="label" type="text">
+                                                                                </mat-form-field>    
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -946,7 +946,7 @@
                                                                                 <input type="file" class="file-type" (click)="formimage()" />
                                                                                 <div class="ripple-container"></div>
                                                                             </span>
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                            <div class="col-mat-12 col-sm-12 col-xs-12">
                                                                                 <div class="file_img thumbnail" style="display:none;">
                                                                                     <img alt="..." src="./assets/img/placeholder5.png">
                                                                                     <span class="close"> <i (click)="close_img()" class="material-icons">cancel</i> </span>
@@ -955,10 +955,10 @@
 
                                                                         </div>
                                                                         <div class="to_edit">
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                                <md-form-field>
-                                                                                    <input mdInput placeholder="label" type="text">
-                                                                                </md-form-field>    
+                                                                            <div class="col-mat-12 col-sm-12 col-xs-12">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="label" type="text">
+                                                                                </mat-form-field>    
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -985,54 +985,54 @@
                                        
 
                                         </div>
-                                        <iframe *ngIf="googleFromdata.formURL" [src]="googleFromdata.formURL" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+                                        <iframe *ngIf="googleFromatata.formURL" [src]="googleFromatata.formURL" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-mat-12 col-sm-12 col-xs-12">
                                             <legend>Add suggested articles:</legend>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <md-radio-group  name="suggestedArticle"  [formControl]="addContentForm.controls['suggestedArticle']" [(ngModel)]="addContentRequest.suggestedArticle" >
-                                                    <md-radio-button value="true" class="col-md-2 col-sm-2 col-xs-12">Yes</md-radio-button>
-                                                    <md-radio-button value="false" class="col-md-2 col-sm-2 col-xs-12">No</md-radio-button>
-                                                </md-radio-group>
+                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                <mat-radio-group  name="suggestedArticle"  [formControl]="addContentForm.controls['suggestedArticle']" [(ngModel)]="addContentRequest.suggestedArticle" >
+                                                    <mat-radio-button value="true" class="col-mat-2 col-sm-2 col-xs-12">Yes</mat-radio-button>
+                                                    <mat-radio-button value="false" class="col-mat-2 col-sm-2 col-xs-12">No</mat-radio-button>
+                                                </mat-radio-group>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <a class="btn btn-success m-0" (click)="openDialog2()" > Add Article + </a>
                                         </div>
-                                        <!-- <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Section">
-                                                <md-option value="1"> Section1 </md-option>
-                                                <md-option value="2"> Section2 </md-option>
-                                                <md-option value="3"> Section3 </md-option>
-                                                <md-option value="4"> Section4 </md-option>
-                                            </md-select>
+                                        <!-- <div class="form-group col-mat-4 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Select Section">
+                                                <mat-option value="1"> Section1 </mat-option>
+                                                <mat-option value="2"> Section2 </mat-option>
+                                                <mat-option value="3"> Section3 </mat-option>
+                                                <mat-option value="4"> Section4 </mat-option>
+                                            </mat-select>
                                         </div>
-                                        <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Category">
-                                                <md-option value="1"> Category1 </md-option>
-                                                <md-option value="2"> Category2 </md-option>
-                                                <md-option value="3"> Category3 </md-option>
-                                                <md-option value="4"> Category4 </md-option>
-                                            </md-select>
+                                        <div class="form-group col-mat-4 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Select Category">
+                                                <mat-option value="1"> Category1 </mat-option>
+                                                <mat-option value="2"> Category2 </mat-option>
+                                                <mat-option value="3"> Category3 </mat-option>
+                                                <mat-option value="4"> Category4 </mat-option>
+                                            </mat-select>
                                         </div>
-                                        <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Sub-category">
-                                                <md-option value="1"> Sub-category1 </md-option>
-                                                <md-option value="2"> Sub-category2 </md-option>
-                                                <md-option value="3"> Sub-category3 </md-option>
-                                                <md-option value="4"> Sub-category4 </md-option>
-                                            </md-select>
+                                        <div class="form-group col-mat-4 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Select Sub-category">
+                                                <mat-option value="1"> Sub-category1 </mat-option>
+                                                <mat-option value="2"> Sub-category2 </mat-option>
+                                                <mat-option value="3"> Sub-category3 </mat-option>
+                                                <mat-option value="4"> Sub-category4 </mat-option>
+                                            </mat-select>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <md-icon mdSuffix>mode_edit</md-icon>
-                                                <input mdInput placeholder="Search name of content item" type="text">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-icon matSuffix>mode_edit</mat-icon>
+                                                <input matInput placeholder="Search name of content item" type="text">
+                                            </mat-form-field>
                                         </div> -->
 
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <div class="row">
                                                 <div class="dshbrd-table table-responsive">
                                                     <table class="table view-content-table">
@@ -1103,10 +1103,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-mat-12 col-sm-12 col-xs-12">
                                             <legend>Picture of Subcategory:</legend>
                                         </div>
-                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
                                             <p> Thumbnail Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
@@ -1131,7 +1131,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
                                             <p> Horizontal Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
@@ -1158,60 +1158,60 @@
 
 
 
-                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="col-mat-12 col-sm-12 col-xs-12">
                                             <legend>User engagement buttons:</legend>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Kadak</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Share</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Comment</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Save</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Download</md-checkbox>
+                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Kadak</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Share</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Comment</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Save</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Download</mat-checkbox>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-mat-12 col-sm-12 col-xs-12">
                                             <legend>Call to action buttons:</legend>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Apply</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Call me back</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">I'm interested</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12">Call</md-checkbox>
+                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Apply</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Call me back</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">I'm interested</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Call</mat-checkbox>
                                             </div>
                                         </div> -->
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-mat-12 col-sm-12 col-xs-12">
                                             <legend>Shortlist content for promotion:</legend>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12" name="sortlistForHomepage" [formControl]="addContentForm.controls['sortlistForHomepage']" [(ngModel)]="addContentRequest.sortlistForHomepage" >Homepage</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12"  name="sortlistForCategory" [formControl]="addContentForm.controls['sortlistForCategory']" [(ngModel)]="addContentRequest.sortlistForCategory">Category</md-checkbox>
+                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12" name="sortlistForHomepage" [formControl]="addContentForm.controls['sortlistForHomepage']" [(ngModel)]="addContentRequest.sortlistForHomepage" >Homepage</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12"  name="sortlistForCategory" [formControl]="addContentForm.controls['sortlistForCategory']" [(ngModel)]="addContentRequest.sortlistForCategory">Category</mat-checkbox>
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <label> This content is applicable for: </label>
-                                            <md-select placeholder="Select State" multiple  name="applicableStateLists" [formControl]="addContentForm.controls['applicableStateLists']" [(ngModel)]="addContentRequest.applicableStateLists">
-                                                <md-option *ngFor="let state of stringResource.stateList" [value]="state.stateName"> {{state.stateName}}</md-option>
-                                                <!-- <md-option value="2"> State2 </md-option>
-                                                <md-option value="3"> State3 </md-option>
-                                                <md-option value="4"> State4 </md-option> -->
-                                            </md-select>
+                                            <mat-select placeholder="Select State" multiple  name="applicableStateLists" [formControl]="addContentForm.controls['applicableStateLists']" [(ngModel)]="addContentRequest.applicableStateLists">
+                                                <mat-option *ngFor="let state of stringResource.stateList" [value]="state.stateName"> {{state.stateName}}</mat-option>
+                                                <!-- <mat-option value="2"> State2 </mat-option>
+                                                <mat-option value="3"> State3 </mat-option>
+                                                <mat-option value="4"> State4 </mat-option> -->
+                                            </mat-select>
                                         </div>
 
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-mat-12 col-sm-12 col-xs-12">
                                             <legend>Preview:</legend>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <a class="btn custom-btn"> Content View </a>
                                             <a class="btn custom-btn"> Listing View </a>
                                         </div>
 
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <a class="btn btn-warning" (click)="openDialog('saveAsDraft')"> Save as draft </a>
                                             <a class="btn btn-success" (click)="submitForReview('saveAsDraft')"> Submit for review </a>
                                             <a class="btn btn-danger" (click)="openDialog('Publish')"> Publish </a>

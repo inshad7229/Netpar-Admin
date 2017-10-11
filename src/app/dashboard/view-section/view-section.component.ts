@@ -1,13 +1,13 @@
 
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
-import {MdListModule} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatListModule} from '@angular/material';
 import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
 import { ToastsManager , Toast} from 'ng2-toastr';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Router } from '@angular/router';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
-import { MdProgressBar} from '@angular/material';
+import { MatProgressBar} from '@angular/material';
 import { DialogComponent} from './dialog/dialog.component';
 import {DataTableModule} from "angular2-datatable";
 
@@ -40,7 +40,7 @@ export class ViewSectionComponent implements OnInit {
     sectionDatabackup:any
     filterSectionList=[];
     finalFilterSectionList:any;
-    constructor(private dialog: MdDialog,
+    constructor(private dialog: MatDialog,
         private router: Router,
         private fb: FormBuilder,
         vcr: ViewContainerRef,

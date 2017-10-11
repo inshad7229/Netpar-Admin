@@ -2,11 +2,11 @@ import { BrowserModule} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpModule, Http, JsonpModule } from "@angular/http";
-import { MdProgressBarModule } from "@angular/material";
-import {MdCheckboxModule} from '@angular/material';
-import {MdProgressSpinnerModule} from '@angular/material';
-import {MdSelectModule} from '@angular/material';
-import {MdInputModule} from '@angular/material';
+import { MatProgressBarModule } from "@angular/material";
+import {MatCheckboxModule} from '@angular/material';
+import {MatProgressSpinnerModule} from '@angular/material';
+import {MatSelectModule} from '@angular/material';
+import {MatInputModule} from '@angular/material';
 import { NgxCroppieModule } from 'ngx-croppie';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,16 +38,16 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     DashboardModule,
     HttpModule,
-    MdInputModule,
-    MdProgressBarModule,
-    MdSelectModule,
-    MdProgressSpinnerModule,
+    MatInputModule,
+    MatProgressBarModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot([]),
     
     BrowserAnimationsModule,
     NoopAnimationsModule,
     FormsModule ,
-    MdCheckboxModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     ToastModule.forRoot()
    

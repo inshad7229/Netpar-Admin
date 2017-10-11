@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DataTableModule} from "angular2-datatable";
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 
@@ -14,7 +14,7 @@ declare var $ :any;
 })
 export class UserComponent implements OnInit {
 
-    constructor(private dialog: MdDialog) { }
+    constructor(private dialog: MatDialog) { }
     openDialog(): void {
         let dialogRef = this.dialog.open(UserDialogComponent, {
             width: '400px',

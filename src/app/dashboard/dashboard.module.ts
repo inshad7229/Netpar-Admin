@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MdTooltipModule, MdTableModule, MdPaginator ,
-         MdProgressBarModule,MdDialogModule,MdDatepickerModule,
-         MdNativeDateModule,MdCheckboxModule,MdProgressSpinnerModule,
-         MdSelectModule,MdRadioModule,MdInputModule
+import { MatTooltipModule, MatTableModule, MatPaginator ,
+         MatProgressBarModule,MatDialogModule,MatDatepickerModule,
+         MatNativeDateModule,MatCheckboxModule,MatProgressSpinnerModule,
+         MatSelectModule,MatRadioModule,MatInputModule
        } from '@angular/material';
-import {MdListModule} from '@angular/material';
+import {MatListModule} from '@angular/material';
 import {DataTableModule} from "angular2-datatable";
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface}  from 'ngx-perfect-scrollbar';
@@ -59,22 +59,22 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     imports: [
         RouterModule.forChild(MODULE_ROUTES),
         PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
-        MdDatepickerModule,
-        MdNativeDateModule,
-        MdTooltipModule,
-        MdTableModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatTooltipModule,
+        MatTableModule,
         ReactiveFormsModule,
         FormsModule,
-        MdProgressBarModule,
-        MdCheckboxModule,
-        MdProgressSpinnerModule,
-        MdRadioModule,
-        MdInputModule,
-        MdSelectModule,
+        MatProgressBarModule,
+        MatCheckboxModule,
+        MatProgressSpinnerModule,
+        MatRadioModule,
+        MatInputModule,
+        MatSelectModule,
         NgxCroppieModule,
         DataTableModule,
         SwiperModule,
-        MdListModule,
+        MatListModule,
         ColorPickerModule,
         DndModule.forRoot(),
 

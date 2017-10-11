@@ -10,7 +10,7 @@
             <div class="container-fluid p-0">
                 <form class="example-form" [formGroup]="addSectionForm">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-12 col-mat-12">
                             <div class="card" > 
                                 <div class="card-header card-header-icon" data-background-color="orange">
                                     <i class="material-icons">edit</i>
@@ -18,43 +18,43 @@
                                 <div class="card-content">
                                     <h4 class="card-title">Add Section</h4>
                                     <div class="cus-form">
-                                            <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select State">
-                                                <md-option value="1"> State1 </md-option>
-                                                <md-option value="2"> State2 </md-option>
-                                                <md-option value="3"> State3 </md-option>
-                                                <md-option value="4"> State4 </md-option>
-                                            </md-select>
+                                            <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Select State">
+                                                <mat-option value="1"> State1 </mat-option>
+                                                <mat-option value="2"> State2 </mat-option>
+                                                <mat-option value="3"> State3 </mat-option>
+                                                <mat-option value="4"> State4 </mat-option>
+                                            </mat-select>
                                         </div> -->
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-select placeholder="Select Language" [formControl]="addSectionForm.controls['language']" 
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Select Language" [formControl]="addSectionForm.controls['language']" 
                                             name="language" [(ngModel)]="addSectionModel.language">
-                                            <md-option  *ngFor="let lang of stringResource.language" [value]="lang.language">{{lang.language}}</md-option>
-                                           <!--  <md-option value="2"> Language2 </md-option>
-                                            <md-option value="3"> Language3 </md-option>
-                                            <md-option value="4"> Language4 </md-option> -->
-                                        </md-select>
+                                            <mat-option  *ngFor="let lang of stringResource.language" [value]="lang.language">{{lang.language}}</mat-option>
+                                           <!--  <mat-option value="2"> Language2 </mat-option>
+                                            <mat-option value="3"> Language3 </mat-option>
+                                            <mat-option value="4"> Language4 </mat-option> -->
+                                        </mat-select>
                                         </div>
 
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <md-form-field>
-                                                    <input mdInput placeholder="Name of Section *" type="text" [formControl]="addSectionForm.controls['sectionName']" name="sectionName"  [(ngModel)]="addSectionModel.sectionName">
-                                                      <md-error  *ngIf="addSectionForm.controls['sectionName'].hasError('required') && addSectionForm.controls['sectionName'].touched">
+                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                <mat-form-field>
+                                                    <input matInput placeholder="Name of Section *" type="text" [formControl]="addSectionForm.controls['sectionName']" name="sectionName"  [(ngModel)]="addSectionModel.sectionName">
+                                                      <mat-error  *ngIf="addSectionForm.controls['sectionName'].hasError('required') && addSectionForm.controls['sectionName'].touched">
                                                        Section Name is <strong>required</strong>
-                                                     </md-error>
-                                                     <md-error  *ngIf="addSectionForm.controls['sectionName'].hasError('pattern')">
+                                                     </mat-error>
+                                                     <mat-error  *ngIf="addSectionForm.controls['sectionName'].hasError('pattern')">
                                                        only alphabets are acceptable 
-                                                     </md-error>
-                                                     <md-error  *ngIf="addSectionForm.controls['sectionName'].hasError('maxlength')">
+                                                     </mat-error>
+                                                     <mat-error  *ngIf="addSectionForm.controls['sectionName'].hasError('maxlength')">
                                                        max length is 30
-                                                     </md-error>                                                   
-                                                </md-form-field>
+                                                     </mat-error>                                                   
+                                                </mat-form-field>
                                             </div>
                                             
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-mat-12 col-sm-12 col-xs-12">
                                                 <legend>Section Display Photo:</legend>
                                             </div>
-                                            <div class="form-group col-md-4 col-sm-6 col-xs-12 text-center">
+                                            <div class="form-group col-mat-4 col-sm-6 col-xs-12 text-center">
                                                 <p> Thumbnail Picture </p>
                                                 <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                     <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
@@ -79,7 +79,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group col-md-4 col-sm-6 col-xs-12 text-center">
+                                            <div class="form-group col-mat-4 col-sm-6 col-xs-12 text-center">
                                                 <p> Horizontal Picture </p>
                                                 <div>
                                                     <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
@@ -108,27 +108,27 @@
                                             </div>
 
 
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-mat-12 col-sm-12 col-xs-12">
                                                 <legend>Category View Applicable *:</legend>
                                             </div>
 
                                             <div class="row">
-                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                    <md-radio-group    [formControl]="addSectionForm.controls['categoryView']" name="cateGoryView" [(ngModel)]="addSectionModel.categoryView">
-                                                        <md-radio-button class="col-md-2 col-sm-2 col-xs-12" value="yes">Yes</md-radio-button>
-                                                        <md-radio-button class="col-md-2 col-sm-2 col-xs-12" value="No">No</md-radio-button>
-                                                    </md-radio-group>
-                                                       <md-error  *ngIf="addSectionForm.controls['categoryView'].hasError('required') && addSectionForm.controls['categoryView'].touched">
+                                                <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                    <mat-radio-group    [formControl]="addSectionForm.controls['categoryView']" name="cateGoryView" [(ngModel)]="addSectionModel.categoryView">
+                                                        <mat-radio-button class="col-mat-2 col-sm-2 col-xs-12" value="yes">Yes</mat-radio-button>
+                                                        <mat-radio-button class="col-mat-2 col-sm-2 col-xs-12" value="No">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                       <mat-error  *ngIf="addSectionForm.controls['categoryView'].hasError('required') && addSectionForm.controls['categoryView'].touched">
                                                        Category View is <strong>required</strong>
-                                                     </md-error>                                                   
+                                                     </mat-error>                                                   
                                                 </div>
                                             </div>
-                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <md-form-field>
-                                                    <input mdInput placeholder="Section Order No" type="number" [formControl]="addSectionForm.controls['orderNo']" name="orderNo" [(ngModel)]="addSectionModel.orderNo">
-                                                </md-form-field>
+                                             <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                <mat-form-field>
+                                                    <input matInput placeholder="Section Order No" type="number" [formControl]="addSectionForm.controls['orderNo']" name="orderNo" [(ngModel)]="addSectionModel.orderNo">
+                                                </mat-form-field>
                                             </div>
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                                 <button class="btn custom-btn" (click)="onAddSection()" [disabled]="!addSectionForm.valid"> Submit </button>
                                             </div>
                                     </div>

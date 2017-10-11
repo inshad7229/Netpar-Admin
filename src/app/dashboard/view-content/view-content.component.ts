@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ViewDialogComponent } from './view-dialog/view-dialog.component';
 
-import {MdSort} from '@angular/material';
+import {MatSort} from '@angular/material';
 import {DataTableModule} from "angular2-datatable";
 
 import { ViewChild} from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
-import {MdPaginator} from '@angular/material';
+import {MatPaginator} from '@angular/material';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
@@ -23,14 +23,14 @@ declare var $ :any;
 })
 export class ViewContentComponent implements OnInit {
 
-  	constructor(private dialog: MdDialog) { }
+  	constructor(private dialog: MatDialog) { }
     displayedColumns = ['userId', 'userName', 'progress', 'color'];
     exampleDatabase = new ExampleDatabase();
     dataSource:  ExampleDataSourceSort | null;
     dataSourceSort: ExampleDataSourceSort | null;
 
-    @ViewChild(MdPaginator) paginator: MdPaginator;
-    @ViewChild(MdSort) sort: MdSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
         $('.filter-plugin > a').on('click',function(){
@@ -103,7 +103,7 @@ export class ExampleDatabase {
 }
 
 export class ExampleDataSource extends DataSource<any> {
-  constructor(private _exampleDatabase: ExampleDatabase, private _paginator: MdPaginator) {
+  constructor(private _exampleDatabase: ExampleDatabase, private _paginator: MatPaginator) {
     super();
   }
 
@@ -126,7 +126,7 @@ export class ExampleDataSource extends DataSource<any> {
 }
 
 export class ExampleDataSourceSort extends DataSource<any> {
-  constructor(private _exampleDatabase: ExampleDatabase, private _sort: MdSort) {
+  constructor(private _exampleDatabase: ExampleDatabase, private _sort: MatSort) {
     super();
   }
 
