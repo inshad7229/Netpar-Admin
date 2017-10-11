@@ -60,6 +60,7 @@ export class AddContentComponent implements OnInit {
     localAdminList:any;
     searchUser:any;
     addedresponse:any;
+    suggestedArticleList:any;
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
@@ -795,11 +796,7 @@ export class AddContentComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
         	alert(JSON.stringify(result))
         	if (result) {
-	        	if (result.flag=='saveAsDraft') {
-	        		 this.saveAsDraft(result)
-	        	}else if (result.flag=='Publish') {
-	        		this.publish(result)
-	        	}else if (result.flag=='Publishlater') {
+	        	 if (result.flag=='Publishlater') {
 	        		this.publishLater(result)
 	        	}
         	}
@@ -812,10 +809,16 @@ export class AddContentComponent implements OnInit {
             width: '800px',
         });
         dialogRef.afterClosed().subscribe(result => {
+        	if (result) {
+        		// code...
+        	  this.suggestedArticleList=result
+        	}
+        	
       
         });
     }
-    saveAsDraft(result){
+    saveAsDraft(){
+
 		   if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
 		   	 	  this.listOne[i].orderNo=i;
@@ -823,15 +826,21 @@ export class AddContentComponent implements OnInit {
 		      console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
+		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList={}
+		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticle=false;
-           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=true;
-           this.addContentRequest.startDateForDraft=result.startDate;
-           this.addContentRequest.endDateForDraft=result.endDate;
+           this.addContentRequest.startDateForDraft=null;
+           this.addContentRequest.endDateForDraft=null;
            this.addContentRequest.submitForreview=false;
            this.addContentRequest.publishStatus=false;
            this.addContentRequest.startDateOfPublish=null;
@@ -852,12 +861,35 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.pageView=0;
            this.addContentRequest.imIntrestedCount=0;
            this.addContentRequest.deleteStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+           this.addContentRequest.publishDate=null;
+		  this.addContentRequest.rejectDate=null;
+		  this.addContentRequest.submitforrevisionDate=null;
+		  this.addContentRequest.submitforreviewDate=null;
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
            }
+            this.contentService.onAddSection(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
+                },error=>{
+                    alert(error)
+           })
     }
-    publish(result){
+    publish(){
     	if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
 		   	 	  this.listOne[i].orderNo=i;
@@ -865,19 +897,25 @@ export class AddContentComponent implements OnInit {
 		      console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
+		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList={}
+		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticle=false;
-           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
            this.addContentRequest.endDateForDraft=null;
            this.addContentRequest.submitForreview=false;
            this.addContentRequest.publishStatus=true;
-           this.addContentRequest.startDateOfPublish=result.startDate;
-           this.addContentRequest.endDateOfpublish=result.endDate;
+           this.addContentRequest.startDateOfPublish=null;
+           this.addContentRequest.endDateOfpublish=null;
            this.addContentRequest.publishLaterStatus=false;
            this.addContentRequest.startDateForPublishLater=null;
            this.addContentRequest.endDateForPublish=null;
@@ -894,6 +932,13 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.pageView=0;
            this.addContentRequest.imIntrestedCount=0;
            this.addContentRequest.deleteStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+           this.addContentRequest.publishDate=this.addContentRequest.dateOfCreation;
+		  this.addContentRequest.rejectDate=null;
+		  this.addContentRequest.submitforrevisionDate=null;
+		  this.addContentRequest.submitforreviewDate=null;
+		  this.addContentRequest.saveAsDraftDate=null;
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
@@ -901,9 +946,17 @@ export class AddContentComponent implements OnInit {
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.addedresponse=data.response
-                        // this.localAdminList=data.response;
-                    console.log(JSON.stringify(data))
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
                 },error=>{
                     alert(error)
            })
@@ -916,12 +969,18 @@ export class AddContentComponent implements OnInit {
 		      console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
+		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList={}
+		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticle=false;
-           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
            this.addContentRequest.endDateForDraft=null;
@@ -945,6 +1004,12 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.pageView=0;
            this.addContentRequest.imIntrestedCount=0;
            this.addContentRequest.deleteStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+            this.addContentRequest.publishDate=null;
+		  this.addContentRequest.rejectDate=null;
+		  this.addContentRequest.submitforrevisionDate=null;
+		  this.addContentRequest.submitforreviewDate=null;
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
@@ -952,9 +1017,17 @@ export class AddContentComponent implements OnInit {
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.addedresponse=data.response
-                        // this.localAdminList=data.response;
-                    console.log(JSON.stringify(data))
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
                 },error=>{
                     alert(error)
            })
@@ -968,12 +1041,18 @@ export class AddContentComponent implements OnInit {
 		      console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
+		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList={}
+		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticle=false;
-           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
            this.addContentRequest.endDateForDraft=null;
@@ -997,6 +1076,12 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.pageView=0;
            this.addContentRequest.imIntrestedCount=0;
            this.addContentRequest.deleteStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+            this.addContentRequest.publishDate=null;
+		  this.addContentRequest.rejectDate=null;
+		  this.addContentRequest.submitforrevisionDate=null;
+		  this.addContentRequest.submitforreviewDate=this.addContentRequest.dateOfCreation;
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
@@ -1004,9 +1089,17 @@ export class AddContentComponent implements OnInit {
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.addedresponse=data.response
-                        // this.localAdminList=data.response;
-                    console.log(JSON.stringify(data))
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
                 },error=>{
                     alert(error)
            })
@@ -1020,12 +1113,18 @@ export class AddContentComponent implements OnInit {
 		      console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
+		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList={}
+		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticle=false;
-           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
            this.addContentRequest.endDateForDraft=null;
@@ -1049,6 +1148,12 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.pageView=0;
            this.addContentRequest.imIntrestedCount=0;
            this.addContentRequest.deleteStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+           this.addContentRequest.publishDate=null;
+		   this.addContentRequest.rejectDate=null;
+		   this.addContentRequest.submitforrevisionDate=null;
+		   this.addContentRequest.submitforreviewDate=null;
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
@@ -1056,9 +1161,17 @@ export class AddContentComponent implements OnInit {
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.addedresponse=data.response
-                        // this.localAdminList=data.response;
-                    console.log(JSON.stringify(data))
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
                 },error=>{
                     alert(error)
            })
@@ -1072,12 +1185,18 @@ export class AddContentComponent implements OnInit {
 		      console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
+		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList={}
+		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticle=false;
-           this.addContentRequest.suggestedArticleList={};
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
            this.addContentRequest.saveAsDraftStatus=false;
            this.addContentRequest.startDateForDraft=null;
            this.addContentRequest.endDateForDraft=null;
@@ -1101,6 +1220,12 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.pageView=0;
            this.addContentRequest.imIntrestedCount=0;
            this.addContentRequest.deleteStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+           this.addContentRequest.publishDate=null;
+		   this.addContentRequest.rejectDate=this.addContentRequest.dateOfCreation;
+		   this.addContentRequest.submitforrevisionDate=null;
+		   this.addContentRequest.submitforreviewDate=null;
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
@@ -1108,12 +1233,23 @@ export class AddContentComponent implements OnInit {
            this.contentService.onAddSection(this.addContentRequest)
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.addedresponse=data.response
-                        // this.localAdminList=data.response;
-                    console.log(JSON.stringify(data))
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
                 },error=>{
                     alert(error)
            })
 
+	}
+	deletesuggestedArticle(i){
+		this.suggestedArticleList.splice(i,1)
 	}
 }

@@ -18,6 +18,8 @@ export class SuggestArticleDialogComponent implements OnInit {
   categories:any;
   subCategories:any;
   suggestedArticalList:any;
+  suggestedArticalListBackup:any;
+  filter:any;
   constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<SuggestArticleDialogComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any,
             private sectionService:SectionService,
@@ -68,9 +70,54 @@ export class SuggestArticleDialogComponent implements OnInit {
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.suggestedArticalList=data.response;
-                    console.log(JSON.stringify(data))
+                    this.suggestedArticalListBackup=data.response;
                 },error=>{
                     alert(error)
                 })
    }
+   saveSuggestedArticle(){
+     let filtredArticle=this.suggestedArticalList.filter(arg=>arg.check==true)
+     this.dialogRef.close(filtredArticle)
+   }
+   onsearcArticle(article){
+      // alert(searchUser)
+      if (article == '') {
+            this.suggestedArticalList = this.suggestedArticalListBackup;
+            return;
+       }
+       let ev= article
+       if (ev && ev.trim() != '') {
+        this.suggestedArticalList = this.suggestedArticalListBackup.filter((value) => {
+          if (!value.sectionName && value.categoryName && value.subCategoryName && value.headline ) {
+            return (
+              value.sectionName.toUpperCase().indexOf(ev.toUpperCase()) > -1 
+              || value.categoryName.toUpperCase().indexOf(ev.toUpperCase()) > -1 
+              || value.subCategoryName.toUpperCase().indexOf(ev.toUpperCase()) > -1 
+              || value.headline.toUpperCase().indexOf(ev.toUpperCase()) > -1
+              
+              );
+          }else if ( !value.sectionName && value.categoryName && value.subCategoryName && value.headline ) {
+            return (
+               value.categoryName.toUpperCase().indexOf(ev.toUpperCase()) > -1 
+              || value.subCategoryName.toUpperCase().indexOf(ev.toUpperCase()) > -1 
+              || value.headline.toUpperCase().indexOf(ev.toUpperCase()) > -1
+              
+              );
+          }else if (!value.sectionName && !value.categoryName && value.subCategoryName && value.headline ) {
+            return (
+              value.subCategoryName.toUpperCase().indexOf(ev.toUpperCase()) > -1 
+              || value.headline.toUpperCase().indexOf(ev.toUpperCase()) > -1
+              
+              );
+          }else if ( !value.sectionName && !value.categoryName && !value.subCategoryName && value.headline ) {
+            return (
+              value.headline.toUpperCase().indexOf(ev.toUpperCase()) > -1
+              
+              );
+          }
+            
+          
+       })
+      }
+    }
 }

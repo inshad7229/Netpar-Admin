@@ -86,7 +86,7 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>  
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="localAdminList">
                                             <mat-form-field>
                                                 <input matInput placeholder="Search user" type="text" name="serchUser"   [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onsearchuser(searchUser)">
                                             </mat-form-field>
@@ -1008,7 +1008,7 @@
                                                 </mat-radio-group>
                                             </div>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="addContentRequest.suggestedArticle=='true'">
                                             <a class="btn btn-success m-0" (click)="openDialog2()" > Add Article + </a>
                                         </div>
                                         <!-- <div class="form-group col-mat-4 col-sm-12 col-xs-12">
@@ -1042,12 +1042,32 @@
                                             </mat-form-field>
                                         </div> -->
 
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="suggestedArticleList">
                                             <div class="row">
                                                 <div class="dshbrd-table table-responsive">
                                                     <table class="table view-content-table">
                                                         <tbody>
-                                                            <tr>
+                                                            <tr *ngFor="let article of suggestedArticleList;let i=index">
+                                                                <td class="text-left">
+                                                                    <div class="cont-img">
+                                                                        <img *ngIf="!article.thumbnailPicture" src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                                        <img *ngIf="article.thumbnailPicture" [src]="article.thumbnailPicture" class="img-responsive" />
+                                                                    </div>
+                                                                    <div class="cont-dtl">
+                                                                        <div> {{article.headline}}</div>
+                                                                        <div> <strong> Posted by: </strong> Rohan Sen </div>
+                                                                        <div class=""> 
+                                                                            <a href="javascript:;">
+                                                                                {{article.sectionName}} | <span class="dark_ylw">{{article.categoryName}}</span>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="javascript:void(0);"> <i class="material-icons" (click)="deletesuggestedArticle(i)">delete</i> </a>
+                                                                </td>
+                                                            </tr>
+                                                            <!-- <tr>
                                                                 <td class="text-left">
                                                                     <div class="cont-img">
                                                                         <img src="./assets/img/placeholder5.png" class="img-responsive" />
@@ -1084,26 +1104,7 @@
                                                                 <td>
                                                                     <a href="javascript:void(0);"> <i class="material-icons" >delete</i> </a>
                                                                 </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-left">
-                                                                    <div class="cont-img">
-                                                                        <img src="./assets/img/placeholder5.png" class="img-responsive" />
-                                                                    </div>
-                                                                    <div class="cont-dtl">
-                                                                        <div> Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </div>
-                                                                        <div> <strong> Posted by: </strong> Rohan Sen </div>
-                                                                        <div class=""> 
-                                                                            <a href="javascript:;">
-                                                                                News | <span class="dark_ylw">Sports News</span>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="javascript:void(0);"> <i class="material-icons" >delete</i> </a>
-                                                                </td>
-                                                            </tr>
+                                                            </tr> -->
                                                             
                                                         </tbody>
                                                         
@@ -1222,14 +1223,13 @@
                                             <a class="btn custom-btn"> Content View </a>
                                             <a class="btn custom-btn"> Listing View </a>
                                         </div>
-
                                         <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                            <a class="btn btn-warning" (click)="openDialog('saveAsDraft')"> Save as draft </a>
-                                            <a class="btn btn-success" (click)="submitForReview()"> Submit for review </a>
-                                            <a class="btn btn-danger" (click)="openDialog('Publish')"> Publish </a>
-                                            <a class="btn btn-warning" (click)="openDialog('Publishlater')"> Publish later </a>
-                                            <a class="btn btn-success" (click)="submitForRevision()"> Send for revision </a>
-                                            <a class="btn btn-danger" (click)="reject()"> Reject </a>
+                                            <a class="btn btn-warning" (click)="saveAsDraft()"> Save as draft </a>
+                                            <a class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser' "  (click)="submitForReview()"> Submit for review </a>
+                                            <a class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="publish('Publish')"> Publish </a>
+                                            <a class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')"> Publish later </a>
+                                            <a class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()"> Send for revision </a>
+                                            <a class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()"> Reject </a>
                                         </div>
                                     </form>
                                 </div>

@@ -48,6 +48,11 @@ export class AddContentRequest {
     deleteStatus:boolean;
     googleForm:boolean;
     googleFormUrl:string;
+    publishDate:string;
+    rejectDate:string;
+    submitforrevisionDate:string;
+    submitforreviewDate:string;
+    saveAsDraftDate:string;
 
 
 

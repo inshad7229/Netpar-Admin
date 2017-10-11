@@ -504,11 +504,14 @@
                                         <div class="row">
                                             <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                                 <label class="form-group col-mat-12">Role as: *</label>
-                                                <mat-radio-group  name="roleAdministrator"  [formControl]="complexForm.controls['role']" [(ngModel)]="register.role" >
-                                                    <mat-radio-button value="superAdmin" class="col-mat-4 col-sm-4 col-xs-12">Administrator</mat-radio-button>
-                                                    <mat-radio-button value="contentWriter" class="col-mat-4 col-sm-4 col-xs-12">Content Writer</mat-radio-button>
-                                                    <mat-radio-button value="businessuser" class="col-mat-4 col-sm-4 col-xs-12">Business User</mat-radio-button>
-                                                </mat-radio-group>
+                                                
+                                                    <mat-radio-group  name="roleAdministrator"  [formControl]="complexForm.controls['role']" [(ngModel)]="register.role" >
+                                                        <mat-radio-button value="superAdmin" class="col-mat-4 col-sm-4 col-xs-12">Super Administrator</mat-radio-button>
+                                                        <mat-radio-button value="contentWriter" class="col-mat-4 col-sm-4 col-xs-12">Content Writer</mat-radio-button>
+                                                        <mat-radio-button value="businessUser" class="col-mat-4 col-sm-4 col-xs-12">Business User</mat-radio-button>
+                                                        <mat-radio-button value="sectionAdministrator" class="col-mat-4 col-sm-4 col-xs-12">Section Adminstatator</mat-radio-button>
+                                                    </mat-radio-group>
+                                            
                                             </div>
                                             <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                                 <label class="form-group col-mat-12" >Name of section:</label>

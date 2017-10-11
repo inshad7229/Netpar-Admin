@@ -35,10 +35,10 @@
     <div class="form-group col-mat-3 col-sm-6 col-xs-12">
         <button class="btn custom-btn" (click)="getSuggestedArtical()"> Filter </button>
     </div>
-    <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+    <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="suggestedArticalList">
         <mat-form-field>
         	<mat-icon matSuffix>mode_edit</mat-icon>
-            <input matInput placeholder="Search name of content item" type="text">
+            <input matInput placeholder="Search name of content item" type="text" [(ngModel)]="filter" (input)="onsearcArticle(filter)">
         </mat-form-field>
     </div>
 
@@ -46,28 +46,29 @@
         <div class="row">
             <div class="dshbrd-table table-responsive">
                 <table class="table view-content-table m-b-0">
-                    <tbody>
-                        <tr>
+                    <tbody *ngIf="suggestedArticalList">
+                        <tr *ngFor="let article of suggestedArticalList;let i=index">
                         	<td>
-                                <mat-checkbox></mat-checkbox>
+                                <mat-checkbox [(ngModel)]="article.check"></mat-checkbox>
                             </td>
                             <td class="text-left">
                                 <div class="cont-img">
-                                    <img src="./assets/img/placeholder5.png" class="img-responsive" />
+                                    <img *ngIf="!article.thumbnailPicture" src="./assets/img/placeholder5.png" class="img-responsive" />
+                                    <img *ngIf="article.thumbnailPicture" [src]="article.thumbnailPicture" class="img-responsive" />
                                 </div>
                                 <div class="cont-dtl">
-                                    <div> Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </div>
+                                    <div> {{article.headline}}</div>
                                     <div> <strong> Posted by: </strong> Rohan Sen </div>
                                     <div class=""> 
                                         <a href="javascript:;">
-                                            News | <span class="dark_ylw">Sports News</span>
+                                            {{article.sectionName}} | <span class="dark_ylw">{{article.categoryName}}</span>
                                         </a>
                                     </div>
                                 </div>
                             </td>
                             
                         </tr>
-                        <tr>
+                       <!--  <tr>
                         	<td>
                                 <mat-checkbox></mat-checkbox>
                             </td>
@@ -106,7 +107,7 @@
                                 </div>
                             </td>
                             
-                        </tr>
+                        </tr> -->
                         
                     </tbody>
                     
@@ -116,6 +117,6 @@
         </div>
     </div>
 </div>
-<div class="modal-footer">
-	<button class="btn custom-btn"> Save </button>
+<div class="modal-footer" *ngIf="suggestedArticalList">
+	<button class="btn custom-btn" (click)="saveSuggestedArticle()"> Save </button>
 </div>
