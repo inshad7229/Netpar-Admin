@@ -33,8 +33,8 @@
                                     <div class="col-mat-7 col-sm-7 col-xs-12"></div>
                                     <div class="col-mat-5 col-sm-5 col-xs-12">
                                         <div class="col-mat-6 col-sm-6 col-xs-12">
-                                            <mat-select placeholder="Choose State">
-                                                <mat-form-field>
+                                            <mat-form-field>
+                                                <mat-select placeholder="Choose State" [(ngModel)]="filterValue.state">
                                                     <mat-option value="1"> State1 </mat-option>
                                                     <mat-option value="2"> State2 </mat-option>
                                                     <mat-option value="3"> State3 </mat-option>
@@ -57,12 +57,12 @@
                                                     <mat-option value="20"> State20 </mat-option>
                                                     <mat-option value="21"> State21 </mat-option>
                                                     <mat-option value="22"> State22 </mat-option>
-                                                </mat-form-field>
-                                            </mat-select>
+                                                 </mat-select>
+                                            </mat-form-field>
                                         </div>
                                         <div class="col-mat-6 col-sm-6 col-xs-12">
                                             <mat-form-field>
-                                                <mat-select placeholder="Choose Language">
+                                                <mat-select placeholder="Choose Language" [(ngModel)]="filterValue.language"> 
                                                     <mat-option value="1">  Hindi </mat-option>
                                                     <mat-option value="2">  Marathi </mat-option>
                                                     <mat-option value="3">  Assamese </mat-option>
@@ -99,7 +99,7 @@
                                     <div class="col-mat-5 col-sm-5 col-xs-12">
                                         <div class="col-mat-6 col-sm-6 col-xs-12">
                                           <mat-form-field>
-                                                <mat-select placeholder="Items Per Page">
+                                                <mat-select placeholder="Items Per Page" [(ngModel)]="filterValue.perPage">
                                                     <mat-option value="1"> 25 </mat-option>
                                                     <mat-option value="2"> 50 </mat-option>
                                                     <mat-option value="3"> 100 </mat-option>
@@ -110,7 +110,7 @@
                                         </div>
                                         <div class="col-mat-6 col-sm-6 col-xs-12">
                                          <mat-form-field>
-                                            <mat-select placeholder="Time Range">
+                                            <mat-select placeholder="Time Range" [(ngModel)]="filterValue.timeRange">
                                                 <mat-option value="1"> 7d </mat-option>
                                                 <mat-option value="2"> 15d </mat-option>
                                                 <mat-option value="3"> 1m </mat-option>

@@ -26,8 +26,10 @@ declare var $ :any;
 export class ViewContentComponent implements OnInit {
     waitLoader
     contentList
+    filterValue:any;
   	constructor(private dialog: MatDialog,
-                private contentService:ContentService ) { }
+                private contentService:ContentService ) {
+                this.filterValue={} }
     displayedColumns = ['userId', 'userName', 'progress', 'color'];
     exampleDatabase = new ExampleDatabase();
     dataSource:  ExampleDataSourceSort | null;
