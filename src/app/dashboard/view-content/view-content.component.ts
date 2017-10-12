@@ -1,3 +1,20 @@
+<<<<<<< HEAD
+=======
+import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
+import { ToastsManager , Toast} from 'ng2-toastr';
+import { Router } from '@angular/router';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
+import {DndModule} from 'ng2-dnd';
+import {ColorPickerService} from 'angular4-color-picker';
+
+import { NgxCroppieComponent } from 'ngx-croppie';
+import { ViewDialogComponent } from './view-dialog/view-dialog.component';
+import { ContentViewDialogComponent } from './content-view-dialog/content-view-dialog.component';
+>>>>>>> 9108d4e66ea52978ab8e8d73f66ead48afb17665
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatListModule} from '@angular/material';
@@ -10,16 +27,34 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { MatProgressBar} from '@angular/material';
 import { DialogComponent} from './dialog/dialog.component';
 import {DataTableModule} from "angular2-datatable";
+<<<<<<< HEAD
 
 
 import {AddSectionRequest} from '../../models/section.modal'
 import {SectionService} from '../../providers/section.service'
 import {AppProvider} from '../../providers/app.provider'
+=======
+import {DataSource} from '@angular/cdk/collections';
+import {MatPaginator} from '@angular/material';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/map';
+import {SectionService} from '../../providers/section.service'
+import {StringResource} from '../../models/saredResources'
+import {AddContentRequest} from '../../models/content.modal'
+import {AppProvider} from '../../providers/app.provider'
+import {AdminService} from '../../providers/admin.service'
+import {ContentService} from '../../providers/content.service'
+
+>>>>>>> 9108d4e66ea52978ab8e8d73f66ead48afb17665
 declare var jquery:any;
 declare var $ :any;
 
 
 @Component({
+<<<<<<< HEAD
     selector: 'app-view-section',
     templateUrl: './view-section.component.html',
     styleUrls: ['./view-section.component.scss'],
@@ -51,12 +86,51 @@ export class ViewSectionComponent implements OnInit {
 
     ngOnInit() {
         $('.filter-plugin > a').on('click', function () {
+=======
+  selector: 'app-view-content',
+  templateUrl: './view-content.component.html',
+  styleUrls: ['./view-content.component.scss'],
+  providers:[ContentService,AdminService,SectionService]
+})
+export class ViewContentComponent implements OnInit {
+    waitLoader
+    contentList
+    filterValue:any;
+    sections
+    categories
+    subCategory
+    sectionFlag
+    stringResource:StringResource=new  StringResource()
+  	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
+            private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
+            vcr: ViewContainerRef,
+            public toastr: ToastsManager,
+            private http: Http,
+            private sectionService:SectionService,
+            private appProvider: AppProvider,
+            private adminService:AdminService,
+            private contentService:ContentService) {
+                this.filterValue={} 
+              }
+    displayedColumns = ['userId', 'userName', 'progress', 'color'];
+    exampleDatabase = new ExampleDatabase();
+    dataSource:  ExampleDataSourceSort | null;
+    dataSourceSort: ExampleDataSourceSort | null;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+
+    ngOnInit() {
+      this.appProvider.current.actionFlag="menu"
+        $('.filter-plugin > a').on('click',function(){
+>>>>>>> 9108d4e66ea52978ab8e8d73f66ead48afb17665
             $(this).closest('.filter-plugin').addClass('open');
-            console.log($(this));
+           // console.log($(this));
         });
         $('.close-filter').on('click', function () {
             $(this).closest('.filter-plugin').removeClass('open');
         });
+<<<<<<< HEAD
         $('.cusdropdown-toggle').on('click', function () {
             alert('hy');
             $(this).closest('.dropdown').toggleClass('open');
@@ -70,6 +144,11 @@ export class ViewSectionComponent implements OnInit {
             }
         });
         this.getSectionViewData()
+=======
+        //this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator);
+        this.dataSource = new ExampleDataSourceSort(this.exampleDatabase, this.sort);
+        this.getList()
+>>>>>>> 9108d4e66ea52978ab8e8d73f66ead48afb17665
         this.getSectionList()
     }
     getSectionViewData() {
@@ -154,6 +233,7 @@ export class ViewSectionComponent implements OnInit {
 
         });
     }
+<<<<<<< HEAD
     showSectionName(name, index) {
         if (index > 0) {
             if (this.sectiondata[index - 1].sectionName == name) {
@@ -164,6 +244,85 @@ export class ViewSectionComponent implements OnInit {
         } else {
             return true;
         }
+=======
+    getList(){
+     this.contentService.ongetContentList()
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        this.contentList=data.response
+                        // this.localAdminList=data.response;
+                   // console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+           })
+  }
+  onView(content){
+     let dialogRef = this.dialog.open(ContentViewDialogComponent, {
+            width: '400px',
+            data:{forContent:content}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          
+        });
+  }
+  onEdit(data){
+    this.appProvider.current.actionFlag="editContent"
+    this.appProvider.current.currentContentData=data;
+    this.router.navigate(['/add-content'],{ skipLocationChange: true });
+  }
+  getSectionList(){
+                this.sectionService.onGetSection()
+              .subscribe(data => {
+                  this.waitLoader = false;
+                  this.sections=data;
+              },error=>{
+                  alert(error)
+              })
+  }
+  getCategory(secId){
+         this.sectionService.onGetCategory(secId)
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.categories=data.response;
+                   // console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+    }
+   getsubCategory(secId,catId){
+     this.sectionService.onGetSubCategory(secId,catId)
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.subCategory=data.response;
+                   // console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+   }
+
+  forSection(sec){
+
+    if (sec.check==true) {
+      this.getCategory(sec._id)
+    }
+  }
+  forCategory(cat){
+    if (cat.check==true) {
+      this.getsubCategory(cat.sectionId,cat._id)
+    }
+  }
+  forSubCategory(sec){
+    alert(JSON.stringify(sec))
+    if (sec.check==true) {
+     //this.getCategory(sec._id)
+    }
+  }
+
+
+
+}
+>>>>>>> 9108d4e66ea52978ab8e8d73f66ead48afb17665
 
     }
     showCategoryName(name, index) {
