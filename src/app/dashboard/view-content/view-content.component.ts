@@ -91,6 +91,7 @@ export class ViewContentComponent implements OnInit {
         });
     }
     getList(){
+      this.waitLoader = true;
      this.contentService.ongetContentList()
             .subscribe(data =>{
                         this.waitLoader = false;
@@ -117,6 +118,7 @@ export class ViewContentComponent implements OnInit {
     this.router.navigate(['/add-content'],{ skipLocationChange: true });
   }
   getSectionList(){
+                this.waitLoader = true;
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
@@ -126,6 +128,7 @@ export class ViewContentComponent implements OnInit {
               })
   }
   getCategory(secId){
+         this.waitLoader = true;
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
@@ -136,6 +139,7 @@ export class ViewContentComponent implements OnInit {
                 }) 
     }
    getsubCategory(secId,catId){
+     this.waitLoader = true;
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;

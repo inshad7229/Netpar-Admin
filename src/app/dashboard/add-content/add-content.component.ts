@@ -131,29 +131,26 @@ export class AddContentComponent implements OnInit {
 		this.googleFromatata={ }
 		this.forContent={}
 		this.addContentForm = fb.group({
-								'language':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'sectionId':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'sectionName':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'categoryName':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'categoryId':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'subCategoryName':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'subCategoryId':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'headline':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'tags':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'dateOfCreation':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'typeOfUser':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'serchUser':[null, Validators.compose([Validators.maxLength(30)])],
-								'userList':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'suggestedArticle':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'suggestedArticleList':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'thumbnailPicture':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'horizontalPicture':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'sortlistForHomepage':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'sortlistForCategory':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'applicableStateLists':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'googleForm':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-								'googleFormUrl':[null, Validators.compose([Validators.required, Validators.maxLength(30)])]
+								'language':[null, Validators.compose([Validators.required])],
+								'sectionId':[null, Validators.compose([Validators.required])],
+								'sectionName':[null],
+								'categoryName':[null],
+								'categoryId':[null],
+								'subCategoryName':[null],
+								'subCategoryId':[null],
+								'headline':[null , Validators.compose([Validators.required, Validators.maxLength(200)])],
+								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(100)])],
+								'tags':[null],
+								'dateOfCreation':[null],
+								'typeOfUser':[null, Validators.compose([Validators.required])],
+								'serchUser':[null],
+								'userList':[null],
+								'suggestedArticle':[null, Validators.compose([Validators.required])],
+								'suggestedArticleList':[null],
+								'sortlistForHomepage':[null],
+								'sortlistForCategory':[null],
+								'applicableStateLists':[null, Validators.compose([Validators.required])]
+			
 							})
                  
           }
@@ -753,6 +750,7 @@ export class AddContentComponent implements OnInit {
     }
 
 	 getSectionList(){
+	 	    this.waitLoader = true;
 	 	    this.categories=[]
 	 	    this.subCategory=[]
 	              this.sectionService.onGetSection()
@@ -764,6 +762,7 @@ export class AddContentComponent implements OnInit {
 	            })
 	}
 	getCategory(){
+		 this.waitLoader = true;
 		 this.subCategory=[]
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
@@ -775,6 +774,7 @@ export class AddContentComponent implements OnInit {
                 }) 
     }
    getsubCategory(){
+   	this.waitLoader = true;
    	this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
                 .subscribe(data => {
                     this.waitLoader = false;
@@ -785,6 +785,7 @@ export class AddContentComponent implements OnInit {
                 }) 
    }
      getUserList(role:any){
+     	 this.waitLoader = true;
          this.adminService.onGetUserOnBasisOfROle(role)
             .subscribe(data =>{
                         this.waitLoader = false;
@@ -956,6 +957,7 @@ export class AddContentComponent implements OnInit {
     }
 
     saveAsDraft(){
+    	this.waitLoader = true;
         if (this.appProvider.current.actionFlag=="editContent") {
              if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
@@ -1102,6 +1104,7 @@ export class AddContentComponent implements OnInit {
         }
     }
     publish(){
+    	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
               if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
@@ -1250,6 +1253,7 @@ export class AddContentComponent implements OnInit {
          }
     }
     publishLater(result){
+    	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
               if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
@@ -1399,6 +1403,7 @@ export class AddContentComponent implements OnInit {
 
     }
     submitForReview(){
+    	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
              if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
@@ -1548,6 +1553,7 @@ export class AddContentComponent implements OnInit {
 
     }
 	submitForRevision(){
+		this.waitLoader = true;
 		if (this.appProvider.current.actionFlag=="editContent") {
              if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
@@ -1697,6 +1703,7 @@ export class AddContentComponent implements OnInit {
 
 	}
 	reject(){
+		this.waitLoader = true;
 		if (this.appProvider.current.actionFlag=="editContent") {
            if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
