@@ -101,6 +101,7 @@ goToAddSubcategory(){
 }
 
 onAction(){
+ // alert( this.appProvider.current.actionFlag)
   this.appProvider.current.actionFlag='menu'
 }
   /*ngOnInit() {

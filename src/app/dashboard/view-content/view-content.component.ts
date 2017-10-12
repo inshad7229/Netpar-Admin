@@ -11,6 +11,7 @@ import {ColorPickerService} from 'angular4-color-picker';
 
 import { NgxCroppieComponent } from 'ngx-croppie';
 import { ViewDialogComponent } from './view-dialog/view-dialog.component';
+import { ContentViewDialogComponent } from './content-view-dialog/content-view-dialog.component';
 
 import {MatSort} from '@angular/material';
 import {DataTableModule} from "angular2-datatable";
@@ -41,6 +42,10 @@ export class ViewContentComponent implements OnInit {
     waitLoader
     contentList
     filterValue:any;
+    sections
+    categories
+    subCategory
+    sectionFlag
     stringResource:StringResource=new  StringResource()
   	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
@@ -62,9 +67,10 @@ export class ViewContentComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
+      this.appProvider.current.actionFlag="menu"
         $('.filter-plugin > a').on('click',function(){
             $(this).closest('.filter-plugin').addClass('open');
-            console.log($(this));
+           // console.log($(this));
         });
         $('.close-filter').on('click',function(){
             $(this).closest('.filter-plugin').removeClass('open');
@@ -72,6 +78,7 @@ export class ViewContentComponent implements OnInit {
         //this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator);
         this.dataSource = new ExampleDataSourceSort(this.exampleDatabase, this.sort);
         this.getList()
+        this.getSectionList()
     }
 
     openDialog(): void {
@@ -89,16 +96,76 @@ export class ViewContentComponent implements OnInit {
                         this.waitLoader = false;
                         this.contentList=data.response
                         // this.localAdminList=data.response;
-                    console.log(JSON.stringify(data))
+                   // console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
            })
   }
+  onView(content){
+     let dialogRef = this.dialog.open(ContentViewDialogComponent, {
+            width: '400px',
+            data:{forContent:content}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          
+        });
+  }
   onEdit(data){
-    this.appProvider.current.actionFlag=="editContent"
+    this.appProvider.current.actionFlag="editContent"
     this.appProvider.current.currentContentData=data;
     this.router.navigate(['/add-content'],{ skipLocationChange: true });
   }
+  getSectionList(){
+                this.sectionService.onGetSection()
+              .subscribe(data => {
+                  this.waitLoader = false;
+                  this.sections=data;
+              },error=>{
+                  alert(error)
+              })
+  }
+  getCategory(secId){
+         this.sectionService.onGetCategory(secId)
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.categories=data.response;
+                   // console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+    }
+   getsubCategory(secId,catId){
+     this.sectionService.onGetSubCategory(secId,catId)
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.subCategory=data.response;
+                   // console.log(JSON.stringify(data))
+                },error=>{
+                    alert(error)
+                }) 
+   }
+
+  forSection(sec){
+
+    if (sec.check==true) {
+      this.getCategory(sec._id)
+    }
+  }
+  forCategory(cat){
+    if (cat.check==true) {
+      this.getsubCategory(cat.sectionId,cat._id)
+    }
+  }
+  forSubCategory(sec){
+    alert(JSON.stringify(sec))
+    if (sec.check==true) {
+     //this.getCategory(sec._id)
+    }
+  }
+
+
+
 }
 
 /** Constants used to fill up our data base. */

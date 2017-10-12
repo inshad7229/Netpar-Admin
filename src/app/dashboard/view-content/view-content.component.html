@@ -191,7 +191,7 @@
                                             <tbody *ngIf="contentList">
                                                 <tr *ngFor="let content of contentList">
                                                     <td class="vertical-top">
-                                                        <mat-checkbox></mat-checkbox>
+                                                        <mat-checkbox [(ngModel)]="content.check"></mat-checkbox>
                                                     </td>
                                                     <td class="td-wdth282 text-left">
                                                         <div class="cont-img">
@@ -478,8 +478,8 @@
                         <h5 class="filter-heading"> Section</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>News</mat-checkbox></li>
-                                <li><mat-checkbox>Jobs</mat-checkbox></li>
+                                <li  *ngFor="let sec of sections" ><mat-checkbox [(ngModel)]="sec.check" (change)="forSection(sec)">{{sec.sectionName}}</mat-checkbox></li>
+                                <!-- <li><mat-checkbox>Jobs</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -487,8 +487,8 @@
                         <h5 class="filter-heading"> Category </h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Sport News</mat-checkbox></li>
-                                <li><mat-checkbox>Technology News</mat-checkbox></li>
+                                <li  *ngFor="let cat of categories" ><mat-checkbox [(ngModel)]="cat.check" (change)="forCategory(cat)">{{cat.categoryName}}</mat-checkbox></li>
+                              <!--   <li><mat-checkbox>Technology News</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -496,8 +496,8 @@
                         <h5 class="filter-heading"> Sub-category </h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Football</mat-checkbox></li>
-                                <li><mat-checkbox>Cricket</mat-checkbox></li>
+                                <li  *ngFor="let subcat of subCategory" ><mat-checkbox [(ngModel)]="subcat.check" (change)="forSubCategory(subcat)">{{subcat.subCategoryName}}</mat-checkbox></li>
+                               <!--  <li><mat-checkbox>Cricket</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>

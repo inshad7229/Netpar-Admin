@@ -49,7 +49,9 @@ import { UserDialogComponent } from './user/user-dialog/user-dialog.component';
 import { LanguageDialogComponent } from './home/language-dialog/language-dialog.component';
 import { SuggestArticleDialogComponent } from './add-content/suggest-article-dialog/suggest-article-dialog.component';
 import { DragDropComponent } from './add-content/drag-drop/drag-drop.component';
-
+import { ContentViewComponent } from './add-content/content-view/content-view.component';
+import { ContentViewDialogComponent } from './view-content/content-view-dialog/content-view-dialog.component';
+import { ListingViewComponent } from './add-content/listing-view/listing-view.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -107,11 +109,15 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               UserDialogComponent,           
              SuggestArticleDialogComponent,
               LanguageDialogComponent,
-              DragDropComponent
+              DragDropComponent,
+              ContentViewComponent,
+              ListingViewComponent,
+              ContentViewDialogComponent
 
            ],
 
-entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent ],
+entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
+ListingViewComponent,ContentViewDialogComponent ],
 })
 
 export class DashboardModule{

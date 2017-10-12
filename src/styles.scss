@@ -1286,3 +1286,20 @@ table tbody td.width170px{
   align-items: center;
   color: #282c3f
 }
+
+.cdk-global-overlay-wrapper {
+  overflow: auto;
+}
+.cdk-overlay-pane {
+  margin: auto 0;
+}
+.cdk-overlay-dark-backdrop{  
+  position: fixed;
+}
+
+.cdk-overlay-container .mat-dialog-container {
+  max-width: 90vw;
+  padding: 0;
+  overflow: visible;
+  box-shadow: none;
+}
