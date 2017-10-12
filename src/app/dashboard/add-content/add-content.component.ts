@@ -10,6 +10,8 @@ import {DndModule} from 'ng2-dnd';
 import {ColorPickerService} from 'angular4-color-picker';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { SuggestArticleDialogComponent } from './suggest-article-dialog/suggest-article-dialog.component';
+import { ContentViewComponent } from './content-view/content-view.component';
+import { ListingViewComponent } from './listing-view/listing-view.component';
 import { NgxCroppieComponent } from 'ngx-croppie';
 import { CroppieOptions } from 'croppie';
 import {SectionService} from '../../providers/section.service'
@@ -61,6 +63,8 @@ export class AddContentComponent implements OnInit {
     searchUser:any;
     addedresponse:any;
     suggestedArticleList:any;
+    forContent;
+    todaydate
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
@@ -125,6 +129,7 @@ export class AddContentComponent implements OnInit {
 		}
 		this.rightPan={ }
 		this.googleFromatata={ }
+		this.forContent={}
 		this.addContentForm = fb.group({
 								'language':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
 								'sectionId':[null, Validators.compose([Validators.required, Validators.maxLength(30)])],
@@ -154,7 +159,7 @@ export class AddContentComponent implements OnInit {
           }
 		
     ngOnInit() {
-  		
+  		this.todaydate=new Date().toISOString()
 		$('.selectize').selectize({
 		    plugins: ['remove_button'],
 		    persist: false,
@@ -170,7 +175,7 @@ export class AddContentComponent implements OnInit {
 		});
 		 $('.file-type').on('change',function(e){
 		    // var tmppath = URL.createObjectURL(e.target.files[0]);
-		    // console.log($(this));
+		    // //console.log($(this));
 		    // $(this).closest('.fileinput').find('img').attr('src',tmppath);
 		    $(this).closest('.fileinput-noexists').hide();
 		    $(this).closest('.fileinput-new').find('.fileinput-exists').show();
@@ -178,13 +183,12 @@ export class AddContentComponent implements OnInit {
 
 		$('.file_remove').on('click',function(){
 		    // var a = $(this).closest('.fileinput').find('img').attr('src','./assets/img/placeholder5.png');
-		    // console.log(a);
+		    // //console.log(a);
 		    $(this).closest('.fileinput-exists').hide();
 		    $(this).closest('.fileinput').find('.fileinput-noexists').show();
 		});
+		//alert(this.appProvider.current.actionFlag)
 		if (this.appProvider.current.actionFlag=="editContent") {
-			
-			 console.log(JSON.stringify(this.appProvider.current.currentContentData))
              this.addContentRequest=this.appProvider.current.currentContentData
              if (this.addContentRequest.suggestedArticle==false) {
              	this.addContentRequest.suggestedArticle='false'
@@ -198,9 +202,11 @@ export class AddContentComponent implements OnInit {
              this.croppieImageThumbnail=this.appProvider.current.currentContentData.thumbnailPicture;
              this.currentImageHorigontal=this.appProvider.current.currentContentData.horizontalPicture;
              this.currentImageThumbnail=this.appProvider.current.currentContentData.thumbnailPicture;
-           if (this.appProvider.current.currentContentData.googleForm==true) {
-           	    this.googleFromatata.tag="form"
-           	    this.googleFromatata.url=this.appProvider.current.currentContentData.googleFormUrl
+             this.suggestedArticleList=this.appProvider.current.currentContentData.suggestedArticleList
+           if (this.appProvider.current.currentContentData.googleForm==true || this.appProvider.current.currentContentData.googleForm=='true') {
+           	    this.googleFromatata.tag="form";
+           	    this.googleFromatata.url=this.appProvider.current.currentContentData.googleFormUrl;
+           	    this.googleFromatata.formURL=this.sanitizer.bypassSecurityTrustResourceUrl(this.appProvider.current.currentContentData.googleFormUrl);
            }
 			 this.getSectionList()
 			 this.getCategory()
@@ -209,8 +215,7 @@ export class AddContentComponent implements OnInit {
 	   }
 		else{
            this.getSectionList()
-			let date=new Date().toISOString()
-			this.addContentRequest.dateOfCreation=date.split('T')[0]
+			this.addContentRequest.dateOfCreation=this.todaydate.split('T')[0]
 		}
 	}		
 	
@@ -338,9 +343,9 @@ export class AddContentComponent implements OnInit {
 	onUrlChange(ref?:any){
       this.listOne[this.currentIndex].url=this.rightPan.url
       this.listOne[this.currentIndex].placeHolder=this.rightPan.url
-  	  console.log(this.ref);
+  	  //console.log(this.ref);
       if ((this.listOne[this.currentIndex].tag=='video' || this.listOne[this.currentIndex].tag=='audio' ) && this.ref) {
-      	console.log(this.ref);
+      	//console.log(this.ref);
       	this.ref.load();
     	this.ref.play();
       }
@@ -365,11 +370,8 @@ export class AddContentComponent implements OnInit {
 	}
 	deleteFromArray(index){
 		let a=this.listOne.splice(index,1)
-		console.log(JSON.stringify(a))
 	}
     OnFirstGrid(audio,video){
-      console.log(audio)
-      console.log(video)
       if ( this.listOne[this.currentIndex]) {
       	 this.listOne[this.currentIndex].activeIndex=1;
       	if (this.listOne[this.currentIndex].imgurl1==null &&  this.listOne[this.currentIndex].audiourl1==null && this.listOne[this.currentIndex].videourl1==null && this.listOne[this.currentIndex].documenturl1==null) {
@@ -387,8 +389,6 @@ export class AddContentComponent implements OnInit {
       }
     }
     OnSecondGrid(audio,video){
-    	console.log(audio)
-      console.log(video)
      if ( this.listOne[this.currentIndex]) {
 	      this.listOne[this.currentIndex].activeIndex=2;
 	      if (this.listOne[this.currentIndex].imgurl2==null &&  this.listOne[this.currentIndex].audiourl2==null && this.listOne[this.currentIndex].videourl2==null && this.listOne[this.currentIndex].documenturl2==null) {
@@ -405,8 +405,6 @@ export class AddContentComponent implements OnInit {
       }
     }
     OnThirdGrid(audio,video){
-    	console.log(audio)
-      console.log(video)
       if (this.listOne[this.currentIndex]) {
 
 	      this.listOne[this.currentIndex].activeIndex=3;
@@ -425,11 +423,11 @@ export class AddContentComponent implements OnInit {
     }
 	 itemDragged(i){
 	 this.mouseDownIndex=i;
-    console.log('mousedown',i)
+    //console.log('mousedown',i)
    }
 	itemSwapped(i){
 	 this.afterDragIndex=i;
-	 console.log('mouseUp',i)
+	 //console.log('mouseUp',i)
 	}
 	ontagsChange(){
 		this.listOne[this.currentIndex].tags=this.rightPan.tags	
@@ -605,7 +603,7 @@ export class AddContentComponent implements OnInit {
             this.userEngaButton.splice(i,1)
     }
 	video(video1){
-		console.log(video1)
+		//console.log(video1)
 	}
 	/*demo:any
   	
@@ -627,7 +625,7 @@ export class AddContentComponent implements OnInit {
 	
 	transferDataSuccess($event: any) {
         this.receivedData.push($event);
-        console.log(JSON.stringify(this.receivedData))
+        //console.log(JSON.stringify(this.receivedData))
     }*/
   	
 
@@ -637,7 +635,7 @@ export class AddContentComponent implements OnInit {
 	    $('.file-type').on('change',function(e){
 	    	var tmppath = URL.createObjectURL(e.target.files[0]);
 	    	
-		    console.log($(this));
+		    //console.log($(this));
 		    $(this).closest('.fileinput').find('img').attr('src',tmppath);
 		    $(this).closest('.fileinput-noexists').hide();
 	    	$(this).closest('.fileinput-new').find('.fileinput-exists').show();
@@ -647,7 +645,7 @@ export class AddContentComponent implements OnInit {
  	formimage(){
  		$('.file-type').on('change',function(e){
 		    var tmppath = URL.createObjectURL(e.target.files[0]);
-		    console.log($(this));
+		    //console.log($(this));
 		    $(this).closest('.btn-file').hide();
 		    $(this).closest('.file_upload').find('img').attr('src',tmppath);
 	    	$(this).closest('.file_upload').find('.file_img').show();
@@ -656,7 +654,7 @@ export class AddContentComponent implements OnInit {
 
  	close_img(){
  		$('.file_img .close').click(function() {
-	 		console.log('s');
+	 		//console.log('s');
 		    $(this).closest('.file_img').hide();
 			$(this).closest('.file_img').find('img').attr('src','./assets/img/placeholder5.png');
 	    	$(this).closest('.file_upload').find('.btn-file').show();
@@ -687,7 +685,7 @@ export class AddContentComponent implements OnInit {
 
     newImageResultFromCroppieHorigontal(img: string) {
         this.croppieImageHorigontal = img;
-        console.log(this.croppieImageHorigontal)
+        //console.log(this.croppieImageHorigontal)
     }
 
     saveImageFromCroppieHorigontal() {
@@ -721,7 +719,7 @@ export class AddContentComponent implements OnInit {
     }
     newImageResultFromCroppieThumbnail(img: string) {
         this.croppieImageThumbnail = img;
-        console.log(this.croppieImageThumbnail)
+        //console.log(this.croppieImageThumbnail)
     }
 
     saveImageFromCroppieThumbnail() {
@@ -755,6 +753,8 @@ export class AddContentComponent implements OnInit {
     }
 
 	 getSectionList(){
+	 	    this.categories=[]
+	 	    this.subCategory=[]
 	              this.sectionService.onGetSection()
 	            .subscribe(data => {
 	                this.waitLoader = false;
@@ -764,11 +764,12 @@ export class AddContentComponent implements OnInit {
 	            })
 	}
 	getCategory(){
+		 this.subCategory=[]
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.categories=data.response;
-                    console.log(JSON.stringify(data))
+                    //console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
                 }) 
@@ -778,7 +779,7 @@ export class AddContentComponent implements OnInit {
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.subCategory=data.response;
-                    console.log(JSON.stringify(data))
+                    //console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
                 }) 
@@ -797,7 +798,7 @@ export class AddContentComponent implements OnInit {
                                                                           
                                	}                        	// code...
                         }
-                    console.log(JSON.stringify(data))
+                    //console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
                 }) 
@@ -855,23 +856,194 @@ export class AddContentComponent implements OnInit {
       
         });
     }
-    saveAsDraft(){
+    
+   contentView(): void {
+   	       this.forContent=this.addContentRequest
+            if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      //console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
+           this.forContent.callToActionButton=this.callToActionButton;
+           this.forContent.userEngagementButton=this.userEngaButton;
+           this.forContent.suggestedArticleList=this.suggestedArticleList
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+           this.addContentRequest.publishDate=this.addContentRequest.dateOfCreation;
+           if (this.googleFromatata.tag=="form") {
+             this.forContent.googleForm=true;
+             this.forContent.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.forContent.googleForm=false;
+           }
+        let dialogRef = this.dialog.open(ContentViewComponent, {
+            width: '400px',
+            data:{forContent:this.forContent}
 
+        });
+        dialogRef.afterClosed().subscribe(result => {
+      
+        });
+    }
+    listView(): void {
+    	  this.forContent=this.addContentRequest
+           if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      //console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
+           this.forContent.callToActionButton=this.callToActionButton;
+           this.forContent.userEngagementButton=this.userEngaButton;
+           this.forContent.suggestedArticleList=this.suggestedArticleList
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+           this.addContentRequest.publishDate=this.addContentRequest.dateOfCreation;
+           if (this.googleFromatata.tag=="form") {
+             this.forContent.googleForm=true;
+             this.forContent.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.forContent.googleForm=false;
+           }
+        let dialogRef = this.dialog.open(ListingViewComponent, {
+            width: '400px',
+             data:{forContent:this.forContent}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+      
+        });
+    }
+
+    saveAsDraft(){
+        if (this.appProvider.current.actionFlag=="editContent") {
+             if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      //console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  } 
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
+           this.addContentRequest.saveAsDraftStatus=true;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
+           }
+            this.contentService.onEditContent(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
+                },error=>{
+                    alert(error)
+           })     
+		}else{
 		   if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
 		   	 	  this.listOne[i].orderNo=i;
 		   	 	  this.listOne[i].index=i;
-		      console.log(JSON.stringify(this.listOne))
+		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
 		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
 		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -927,23 +1099,98 @@ export class AddContentComponent implements OnInit {
                 },error=>{
                     alert(error)
            })
+        }
     }
     publish(){
+    	if (this.appProvider.current.actionFlag=="editContent") {
+              if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      //console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=true;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+           this.addContentRequest.publishDate=this.todaydate.split('T')[0];
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
+           }
+           this.contentService.onEditContent(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
+                },error=>{
+                    alert(error)
+           })
+		}else{
     	if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
 		   	 	  this.listOne[i].orderNo=i;
 		   	 	  this.listOne[i].index=i;
-		      console.log(JSON.stringify(this.listOne))
+		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
 		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
 		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -972,7 +1219,7 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.deleteStatus=false;
            this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
            this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
-           this.addContentRequest.publishDate=this.addContentRequest.dateOfCreation;
+           this.addContentRequest.publishDate=this.todaydate.split('T')[0];
 		  this.addContentRequest.rejectDate=null;
 		  this.addContentRequest.submitforrevisionDate=null;
 		  this.addContentRequest.submitforreviewDate=null;
@@ -1000,23 +1247,99 @@ export class AddContentComponent implements OnInit {
                 },error=>{
                     alert(error)
            })
+         }
     }
     publishLater(result){
+    	if (this.appProvider.current.actionFlag=="editContent") {
+              if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      //console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.publishLaterStatus=true;
+           this.addContentRequest.startDateForPublishLater=result.startDate;
+           this.addContentRequest.endDateForPublish=result.endDate;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
+           }
+           this.contentService.onEditContent(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
+                },error=>{
+                    alert(error)
+           })
+		}else{
     	if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
 		   	 	  this.listOne[i].orderNo=i;
 		   	 	  this.listOne[i].index=i;
-		      console.log(JSON.stringify(this.listOne))
+		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
 		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
 		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1072,24 +1395,100 @@ export class AddContentComponent implements OnInit {
                 },error=>{
                     alert(error)
            })
+        }
 
     }
     submitForReview(){
+    	if (this.appProvider.current.actionFlag=="editContent") {
+             if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      //console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.submitForreview=true;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+		   this.addContentRequest.submitforreviewDate=this.todaydate.split('T')[0];
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
+           }
+           this.contentService.onEditContent(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
+                },error=>{
+                    alert(error)
+           })
+		}else{
     	if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
 		   	 	  this.listOne[i].orderNo=i;
 		   	 	  this.listOne[i].index=i;
-		      console.log(JSON.stringify(this.listOne))
+		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
 		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
 		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1118,10 +1517,10 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.deleteStatus=false;
            this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
            this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
-            this.addContentRequest.publishDate=null;
-		  this.addContentRequest.rejectDate=null;
-		  this.addContentRequest.submitforrevisionDate=null;
-		  this.addContentRequest.submitforreviewDate=this.addContentRequest.dateOfCreation;
+           this.addContentRequest.publishDate=null;
+		   this.addContentRequest.rejectDate=null;
+		   this.addContentRequest.submitforrevisionDate=null;
+		   this.addContentRequest.submitforreviewDate=this.todaydate.split('T')[0];
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
              this.addContentRequest.googleFormUrl=this.googleFromatata.url;
@@ -1145,24 +1544,99 @@ export class AddContentComponent implements OnInit {
                 },error=>{
                     alert(error)
            })
+        }
 
     }
 	submitForRevision(){
-		if (this.listOne.length>0) {
+		if (this.appProvider.current.actionFlag=="editContent") {
+             if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
 		   	 	  this.listOne[i].orderNo=i;
 		   	 	  this.listOne[i].index=i;
-		      console.log(JSON.stringify(this.listOne))
+		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
 		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
 		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.sendForRevisionStatus=true;
+           this.addContentRequest.rejectStatus=false;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+		   this.addContentRequest.submitforrevisionDate=this.todaydate.split('T')[0];
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
+           }
+           this.contentService.onEditContent(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
+                },error=>{
+                    alert(error)
+           })
+		}else{
+		    if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      //console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1193,7 +1667,7 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
            this.addContentRequest.publishDate=null;
 		   this.addContentRequest.rejectDate=null;
-		   this.addContentRequest.submitforrevisionDate=null;
+		   this.addContentRequest.submitforrevisionDate=this.todaydate.split('T')[0];
 		   this.addContentRequest.submitforreviewDate=null;
            if (this.googleFromatata.tag=="form") {
              this.addContentRequest.googleForm=true;
@@ -1217,25 +1691,101 @@ export class AddContentComponent implements OnInit {
                             }
                 },error=>{
                     alert(error)
-           })
+           })	
+		}
+		
 
 	}
 	reject(){
-		if (this.listOne.length>0) {
+		if (this.appProvider.current.actionFlag=="editContent") {
+           if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
 		   	 	  this.listOne[i].orderNo=i;
 		   	 	  this.listOne[i].index=i;
-		      console.log(JSON.stringify(this.listOne))
+		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
 		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
 		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		   this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
+           this.addContentRequest.callToActionButton=this.callToActionButton;
+           this.addContentRequest.userEngagementButton=this.userEngaButton;
+           this.addContentRequest.suggestedArticleList=this.suggestedArticleList
+           this.addContentRequest.saveAsDraftStatus=false;
+           this.addContentRequest.submitForreview=false;
+           this.addContentRequest.publishStatus=false;
+           this.addContentRequest.publishLaterStatus=false;
+           this.addContentRequest.sendForRevisionStatus=false;
+           this.addContentRequest.rejectStatus=true;
+           this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
+           this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
+		   this.addContentRequest.rejectDate=this.todaydate.split('T')[0];
+           if (this.googleFromatata.tag=="form") {
+             this.addContentRequest.googleForm=true;
+             this.addContentRequest.googleFormUrl=this.googleFromatata.url;
+           }else{
+           	this.addContentRequest.googleForm=false;
+           }
+           this.contentService.onEditContent(this.addContentRequest)
+            .subscribe(data =>{
+                        this.waitLoader = false;
+                        if (data.success == false) {
+
+                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                    toastLife: 3000,
+                                    showCloseButton: true
+                                });
+                            }
+                            else if (data.success == true) {
+                              
+                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                            }
+                },error=>{
+                    alert(error)
+           })
+		}else{
+		 if (this.listOne.length>0) {
+		   	 for (let i=0;i<this.listOne.length;i++) {
+		   	 	  this.listOne[i].orderNo=i;
+		   	 	  this.listOne[i].index=i;
+		      //console.log(JSON.stringify(this.listOne))
+		   	 }
+		   }
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1265,7 +1815,7 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
            this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
            this.addContentRequest.publishDate=null;
-		   this.addContentRequest.rejectDate=this.addContentRequest.dateOfCreation;
+		   this.addContentRequest.rejectDate=this.todaydate.split('T')[0];
 		   this.addContentRequest.submitforrevisionDate=null;
 		   this.addContentRequest.submitforreviewDate=null;
            if (this.googleFromatata.tag=="form") {
@@ -1290,7 +1840,10 @@ export class AddContentComponent implements OnInit {
                             }
                 },error=>{
                     alert(error)
-           })
+           })	
+		}
+
+		
 
 	}
 	deletesuggestedArticle(i){
