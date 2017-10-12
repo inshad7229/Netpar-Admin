@@ -866,14 +866,25 @@ export class AddContentComponent implements OnInit {
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.forContent.sectionName=localsection[0].sectionName;
-		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.forContent.categoryName=localcategory[0].categoryName;
-		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		   this.forContent.subCategoryName=localsubcategory[0].subCategoryName;
-		   this.forContent.contentBody=this.listOne;
-		   this.forContent.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
            this.forContent.callToActionButton=this.callToActionButton;
            this.forContent.userEngagementButton=this.userEngaButton;
            this.forContent.suggestedArticleList=this.suggestedArticleList
@@ -897,21 +908,32 @@ export class AddContentComponent implements OnInit {
     }
     listView(): void {
     	  this.forContent=this.addContentRequest
-            if (this.listOne.length>0) {
+           if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
 		   	 	  this.listOne[i].orderNo=i;
 		   	 	  this.listOne[i].index=i;
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.forContent.sectionName=localsection[0].sectionName;
-		   let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.forContent.categoryName=localcategory[0].categoryName;
-		   let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		   this.forContent.subCategoryName=localsubcategory[0].subCategoryName;
-		   this.forContent.contentBody=this.listOne;
-		   this.forContent.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.sections.length>0) {
+		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+		   this.addContentRequest.sectionName=localsection[0].sectionName;
+		   }
+		   if (this.categories.length>0) {
+		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+		   }
+		  if (this.subCategory.length>0) {
+		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+		  }
+		   this.addContentRequest.contentBody=this.listOne;
+		   if (this.localAdminList) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }else{
+		   	this.addContentRequest.userList=[];
+		   }
            this.forContent.callToActionButton=this.callToActionButton;
            this.forContent.userEngagementButton=this.userEngaButton;
            this.forContent.suggestedArticleList=this.suggestedArticleList
