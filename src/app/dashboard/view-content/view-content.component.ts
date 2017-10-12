@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
+import { ToastsManager , Toast} from 'ng2-toastr';
+import { Router } from '@angular/router';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
+import {DndModule} from 'ng2-dnd';
+import {ColorPickerService} from 'angular4-color-picker';
+
+import { NgxCroppieComponent } from 'ngx-croppie';
 import { ViewDialogComponent } from './view-dialog/view-dialog.component';
 
 import {MatSort} from '@angular/material';
 import {DataTableModule} from "angular2-datatable";
-
-import { ViewChild} from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -13,7 +21,13 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
+import {SectionService} from '../../providers/section.service'
+import {StringResource} from '../../models/saredResources'
+import {AddContentRequest} from '../../models/content.modal'
+import {AppProvider} from '../../providers/app.provider'
+import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -21,15 +35,24 @@ declare var $ :any;
   selector: 'app-view-content',
   templateUrl: './view-content.component.html',
   styleUrls: ['./view-content.component.scss'],
-  providers:[ContentService]
+  providers:[ContentService,AdminService,SectionService]
 })
 export class ViewContentComponent implements OnInit {
     waitLoader
     contentList
     filterValue:any;
-  	constructor(private dialog: MatDialog,
-                private contentService:ContentService ) {
-                this.filterValue={} }
+    stringResource:StringResource=new  StringResource()
+  	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
+            private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
+            vcr: ViewContainerRef,
+            public toastr: ToastsManager,
+            private http: Http,
+            private sectionService:SectionService,
+            private appProvider: AppProvider,
+            private adminService:AdminService,
+            private contentService:ContentService) {
+                this.filterValue={} 
+              }
     displayedColumns = ['userId', 'userName', 'progress', 'color'];
     exampleDatabase = new ExampleDatabase();
     dataSource:  ExampleDataSourceSort | null;
@@ -70,6 +93,11 @@ export class ViewContentComponent implements OnInit {
                 },error=>{
                     alert(error)
            })
+  }
+  onEdit(data){
+    this.appProvider.current.actionFlag=="editContent"
+    this.appProvider.current.currentContentData=data;
+    this.router.navigate(['/add-content'],{ skipLocationChange: true });
   }
 }
 

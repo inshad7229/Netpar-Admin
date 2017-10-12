@@ -35,8 +35,8 @@
                                         <div class="col-mat-6 col-sm-6 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Choose State" [(ngModel)]="filterValue.state">
-                                                    <mat-option value="1"> State1 </mat-option>
-                                                    <mat-option value="2"> State2 </mat-option>
+                                                    <mat-option *ngFor="let state of stringResource.stateList" [value]="state.stateName"> {{state.stateName}}</mat-option>
+                                                    <!-- <mat-option value="2"> State2 </mat-option>
                                                     <mat-option value="3"> State3 </mat-option>
                                                     <mat-option value="4"> State4 </mat-option>
                                                     <mat-option value="5"> State5 </mat-option>
@@ -56,15 +56,15 @@
                                                     <mat-option value="19"> State19 </mat-option>
                                                     <mat-option value="20"> State20 </mat-option>
                                                     <mat-option value="21"> State21 </mat-option>
-                                                    <mat-option value="22"> State22 </mat-option>
+                                                    <mat-option value="22"> State22 </mat-option> -->
                                                  </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-mat-6 col-sm-6 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Choose Language" [(ngModel)]="filterValue.language"> 
-                                                    <mat-option value="1">  Hindi </mat-option>
-                                                    <mat-option value="2">  Marathi </mat-option>
+                                                    <mat-option *ngFor="let lang of stringResource.language" [value]="lang.language">  {{lang.language}}</mat-option>
+                                                    <!-- <mat-option value="2">  Marathi </mat-option>
                                                     <mat-option value="3">  Assamese </mat-option>
                                                     <mat-option value="4">  Bengali </mat-option>
                                                     <mat-option value="5">  Dogri </mat-option>
@@ -84,7 +84,7 @@
                                                     <mat-option value="19"> Sanskrit </mat-option>
                                                     <mat-option value="20"> Santali </mat-option>
                                                     <mat-option value="21"> Sindhi </mat-option>
-                                                    <mat-option value="22"> Tamil </mat-option>
+                                                    <mat-option value="22"> Tamil </mat-option> -->
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -215,7 +215,7 @@
                                                             </div>
                                                             <div class="m-t-5"> 
                                                                 <a href="javascript:;" class="text-success" (click)="onView(content)"> <i class="fa fa-eye"></i> View </a> |
-                                                                <a href="javascript:;" class="text-danger"> <i class="fa fa-pencil" (click)="onEdit(content)"></i> Edit </a>
+                                                                <a href="javascript:;" class="text-danger" (click)="onEdit(content)"> <i class="fa fa-pencil" ></i> Edit </a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -467,10 +467,10 @@
                         <h5 class="filter-heading"> Select Language</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Language1</mat-checkbox></li>
-                                <li><mat-checkbox>Language2</mat-checkbox></li>
+                                <li *ngFor="let lang of stringResource.language" ><mat-checkbox [(ngModel)]="lang.check">{{lang.language}}</mat-checkbox></li>
+                               <!--  <li><mat-checkbox>Language2</mat-checkbox></li>
                                 <li><mat-checkbox>Language3</mat-checkbox></li>
-                                <li><mat-checkbox>Language4</mat-checkbox></li>
+                                <li><mat-checkbox>Language4</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
