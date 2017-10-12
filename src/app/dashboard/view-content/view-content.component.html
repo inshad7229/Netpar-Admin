@@ -468,7 +468,7 @@
                         <h5 class="filter-heading"> Select Language</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li *ngFor="let lang of stringResource.language" ><mat-checkbox [(ngModel)]="lang.check">{{lang.language}}</mat-checkbox></li>
+                                <li *ngFor="let lang of stringResource.language" ><mat-checkbox [(ngModel)]="lang.check" (change)="onSelectLang(lang)">{{lang.language}}</mat-checkbox></li>
                                <!--  <li><mat-checkbox>Language2</mat-checkbox></li>
                                 <li><mat-checkbox>Language3</mat-checkbox></li>
                                 <li><mat-checkbox>Language4</mat-checkbox></li> -->

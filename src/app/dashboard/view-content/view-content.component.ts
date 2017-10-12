@@ -42,9 +42,12 @@ export class ViewContentComponent implements OnInit {
     waitLoader
     contentList
     filterValue:any;
-    sections
-    categories
-    subCategory
+    sections=[]
+    categories=[]
+    subCategory=[]
+    sectionsBack
+    categoriesBack
+    subCategoryBack
     sectionFlag
     stringResource:StringResource=new  StringResource()
   	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
@@ -122,7 +125,8 @@ export class ViewContentComponent implements OnInit {
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sections=data;
+                  this.sectionsBack=data;
+                  this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   alert(error)
               })
@@ -132,7 +136,8 @@ export class ViewContentComponent implements OnInit {
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categories=data.response;
+                    this.categoriesBack=data.response;
+                    this.categories=this.categories.concat(this.categoriesBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
@@ -143,7 +148,8 @@ export class ViewContentComponent implements OnInit {
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategory=data.response;
+                    this.subCategoryBack=data.response;
+                    this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
@@ -154,20 +160,29 @@ export class ViewContentComponent implements OnInit {
 
     if (sec.check==true) {
       this.getCategory(sec._id)
+    }else{
+      this.categories=this.categories.filter(arg=>arg.sectionId != sec._id)
+      this.subCategory=this.subCategory.filter(arg=>arg.sectionId != sec._id)
     }
   }
   forCategory(cat){
     if (cat.check==true) {
       this.getsubCategory(cat.sectionId,cat._id)
+    }else{
+      this.subCategory=this.subCategory.filter(arg=>arg.categoryId!=cat._id)
     }
   }
-  forSubCategory(sec){
-    alert(JSON.stringify(sec))
-    if (sec.check==true) {
-     //this.getCategory(sec._id)
+  forSubCategory(subCat){
+    alert(JSON.stringify(subCat))
+    if (subCat.check==true) {
+     //this.getCategory(subCat._id)
+    }else{
+      
     }
   }
+  onSelectLang(lang){
 
+  }
 
 
 }
