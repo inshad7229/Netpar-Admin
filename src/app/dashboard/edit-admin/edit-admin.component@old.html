@@ -9,7 +9,7 @@
         <div class="main-content">
             <div class="container-fluid p-0">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12">
+                    <div class="col-lg-12 col-mat-12">
                         <div class="card"> 
                             <div class="card-header card-header-icon" data-background-color="orange">
                                 <i class="material-icons">edit</i>
@@ -18,7 +18,7 @@
                                 <h4 class="card-title">Edit Administrator</h4>
                                 <div class="cus-form">
                                     <form class="example-form" [formGroup]="complexForm">
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12 text-center">
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail">
                                                     <img alt="..." src="./assets/img/placeholder5.png">
@@ -35,113 +35,113 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput placeholder="First Name"  name="firstName" type="text"  [formControl]="complexForm.controls['firstName']" [(ngModel)]="register.firstName"> 
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput placeholder="First Name"  name="firstName" type="text"  [formControl]="complexForm.controls['firstName']" [(ngModel)]="register.firstName"> 
+                                            </mat-form-field>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput name="lastName"  placeholder="Last Name" type="text"  [formControl]="complexForm.controls['lastName']" [(ngModel)]="register.lastName">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput name="lastName"  placeholder="Last Name" type="text"  [formControl]="complexForm.controls['lastName']" [(ngModel)]="register.lastName">
+                                            </mat-form-field>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput  name="email" placeholder="Email" type="email"  [formControl]="complexForm.controls['email']" [(ngModel)]="register.email">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput  name="email" placeholder="Email" type="email"  [formControl]="complexForm.controls['email']" [(ngModel)]="register.email">
+                                            </mat-form-field>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput name="alteremail" placeholder="Alternate Email" type="email"  [formControl]="complexForm.controls['alternativeEmail']" [(ngModel)]="register.alternativeEmail">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput name="alteremail" placeholder="Alternate Email" type="email"  [formControl]="complexForm.controls['alternativeEmail']" [(ngModel)]="register.alternativeEmail">
+                                            </mat-form-field>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput name="password" placeholder="Password" type="password"  [formControl]="complexForm.controls['password']" [(ngModel)]="register.password">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput name="password" placeholder="Password" type="password"  [formControl]="complexForm.controls['password']" [(ngModel)]="register.password">
+                                            </mat-form-field>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <md-form-field>
-                                                <input mdInput name="contactNo" placeholder="Contact No." type="text"  [formControl]="complexForm.controls['contactNo']" [(ngModel)]="register.contactNo">
-                                            </md-form-field>
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput name="contactNo" placeholder="Contact No." type="text"  [formControl]="complexForm.controls['contactNo']" [(ngModel)]="register.contactNo">
+                                            </mat-form-field>
                                         </div>
 
                                         <div class="row">
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <label class="col-md-2">Role as:</label>
-                                                <md-radio-group name="roleAdministrator"  [formControl]="complexForm.controls['role']" [(ngModel)]="register.role" >
-                                                    <md-radio-button  value="Administrator" class="col-md-2 col-sm-2 col-xs-12">Administrator</md-radio-button>
-                                                    <md-radio-button  value="contentWriter" class="col-md-2 col-sm-2 col-xs-12" >Content Writer</md-radio-button>
-                                                    <md-radio-button value="businessUser" class="col-md-2 col-sm-2 col-xs-12" >Business User</md-radio-button>
-                                                </md-radio-group>
+                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                <label class="col-mat-2">Role as:</label>
+                                                <mat-radio-group name="roleAdministrator"  [formControl]="complexForm.controls['role']" [(ngModel)]="register.role" >
+                                                    <mat-radio-button  value="Administrator" class="col-mat-2 col-sm-2 col-xs-12">Administrator</mat-radio-button>
+                                                    <mat-radio-button  value="contentWriter" class="col-mat-2 col-sm-2 col-xs-12" >Content Writer</mat-radio-button>
+                                                    <mat-radio-button value="businessUser" class="col-mat-2 col-sm-2 col-xs-12" >Business User</mat-radio-button>
+                                                </mat-radio-group>
                                             </div>
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <label class="col-md-2">Name of section:</label>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12" >Jobs</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12" >Loan</md-checkbox>
-                                                <md-checkbox class="col-md-2 col-sm-2 col-xs-12" >News</md-checkbox>
+                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                <label class="col-mat-2">Name of section:</label>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12" >Jobs</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12" >Loan</mat-checkbox>
+                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12" >News</mat-checkbox>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-mat-12 col-sm-12 col-xs-12">
                                             <h4 class="m-b-0"> Backend Privilieges:</h4>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                                <label class="col-md-12">Administrator Management:</label>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['administratorManagement']" [(ngModel)]="register.administratorManagement" (change)="onPriviliegesChange('administrator',register.administratorManagement)">Administrator Management</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['viewEditAdministrator']" [(ngModel)]="register.viewEditAdministrator" (change)="onPriviliegesChange('administratorOption')">View/Edit Administrator</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addAdministrator']" [(ngModel)]="register.addAdministrator" (change)="onPriviliegesChange('administratorOption')">Add Administrator</md-checkbox>
+                                            <div class="form-group col-mat-3 col-sm-3 col-xs-12">
+                                                <label class="col-mat-12">Administrator Management:</label>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['administratorManagement']" [(ngModel)]="register.administratorManagement" (change)="onPriviliegesChange('administrator',register.administratorManagement)">Administrator Management</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['viewEditAdministrator']" [(ngModel)]="register.viewEditAdministrator" (change)="onPriviliegesChange('administratorOption')">View/Edit Administrator</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addAdministrator']" [(ngModel)]="register.addAdministrator" (change)="onPriviliegesChange('administratorOption')">Add Administrator</mat-checkbox>
                                             </div>
-                                            <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                                <label class="col-md-12">Template Management:</label>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['templateManagement']" [(ngModel)]="register.templateManagement" (change)="onPriviliegesChange('template',register.templateManagement)">Template Management</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionTemplate']" [(ngModel)]="register.sectionTemplate" (change)="onPriviliegesChange('templateOption')">Section Template</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['categoryTemplate']" [(ngModel)]="register.categoryTemplate" (change)="onPriviliegesChange('templateOption')">Category Template</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['listingView']" [(ngModel)]="register.listingView" (change)="onPriviliegesChange('templateOption')">Listing View Template</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageTemplate']" [(ngModel)]="register.homepageTemplate" (change)="onPriviliegesChange('templateOption')">Homepage Template</md-checkbox>
+                                            <div class="form-group col-mat-3 col-sm-3 col-xs-12">
+                                                <label class="col-mat-12">Template Management:</label>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['templateManagement']" [(ngModel)]="register.templateManagement" (change)="onPriviliegesChange('template',register.templateManagement)">Template Management</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionTemplate']" [(ngModel)]="register.sectionTemplate" (change)="onPriviliegesChange('templateOption')">Section Template</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['categoryTemplate']" [(ngModel)]="register.categoryTemplate" (change)="onPriviliegesChange('templateOption')">Category Template</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['listingView']" [(ngModel)]="register.listingView" (change)="onPriviliegesChange('templateOption')">Listing View Template</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageTemplate']" [(ngModel)]="register.homepageTemplate" (change)="onPriviliegesChange('templateOption')">Homepage Template</mat-checkbox>
                                             </div>
-                                            <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                                <label class="col-md-12">Section Management:</label>
-                                                 <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionManagement']" [(ngModel)]="register.sectionManagement"  (change)="onPriviliegesChange('section',register.sectionManagement)" >Section Management</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSection']" [(ngModel)]="register.addSection"  (change)="onPriviliegesChange('sectionOption')" >Add Section</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addcategory']" [(ngModel)]="register.addcategory"  (change)="onPriviliegesChange('sectionOption')" >Add category</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSubcategory']" [(ngModel)]="register.addSubcategory"  (change)="onPriviliegesChange('sectionOption')" >Add Subcategory</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['viewEditSection']" [(ngModel)]="register.viewEditSection"  (change)="onPriviliegesChange('sectionOption')" >View/Edit Section</md-checkbox>
+                                            <div class="form-group col-mat-3 col-sm-3 col-xs-12">
+                                                <label class="col-mat-12">Section Management:</label>
+                                                 <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionManagement']" [(ngModel)]="register.sectionManagement"  (change)="onPriviliegesChange('section',register.sectionManagement)" >Section Management</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSection']" [(ngModel)]="register.addSection"  (change)="onPriviliegesChange('sectionOption')" >Add Section</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addcategory']" [(ngModel)]="register.addcategory"  (change)="onPriviliegesChange('sectionOption')" >Add category</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSubcategory']" [(ngModel)]="register.addSubcategory"  (change)="onPriviliegesChange('sectionOption')" >Add Subcategory</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['viewEditSection']" [(ngModel)]="register.viewEditSection"  (change)="onPriviliegesChange('sectionOption')" >View/Edit Section</mat-checkbox>
                                             </div>
-                                            <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                                <label class="col-md-12">Content Management:</label>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['contentManagement']" [(ngModel)]="register.contentManagement" (change)="onPriviliegesChange('content',register.contentManagement)">Content Management</md-checkbox>
-                                                 <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addContentManagement']" [(ngModel)]="register.addContentManagement" (change)="onPriviliegesChange('contentOption')">Add Content Management</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['manageContentItem']" [(ngModel)]="register.manageContentItem" (change)="onPriviliegesChange('contentOption')">Manage Content Item</md-checkbox>
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['commentManagement']" [(ngModel)]="register.commentManagement" (change)="onPriviliegesChange('contentOption')">Comment Management</md-checkbox>
+                                            <div class="form-group col-mat-3 col-sm-3 col-xs-12">
+                                                <label class="col-mat-12">Content Management:</label>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['contentManagement']" [(ngModel)]="register.contentManagement" (change)="onPriviliegesChange('content',register.contentManagement)">Content Management</mat-checkbox>
+                                                 <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addContentManagement']" [(ngModel)]="register.addContentManagement" (change)="onPriviliegesChange('contentOption')">Add Content Management</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['manageContentItem']" [(ngModel)]="register.manageContentItem" (change)="onPriviliegesChange('contentOption')">Manage Content Item</mat-checkbox>
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['commentManagement']" [(ngModel)]="register.commentManagement" (change)="onPriviliegesChange('contentOption')">Comment Management</mat-checkbox>
                                             </div>
 
                                         </div>
 
                                         <div class="row">
-                                            <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['userContributionManagement']" [(ngModel)]="register.userContributionManagement">User Contribution Management</md-checkbox>
+                                            <div class="form-group col-mat-3 col-sm-3 col-xs-12">
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['userContributionManagement']" [(ngModel)]="register.userContributionManagement">User Contribution Management</mat-checkbox>
                                             </div>
-                                            <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageManagement']" [(ngModel)]="register.homepageManagement">Homepage Management</md-checkbox>
+                                            <div class="form-group col-mat-3 col-sm-3 col-xs-12">
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageManagement']" [(ngModel)]="register.homepageManagement">Homepage Management</mat-checkbox>
                                             </div>
-                                            <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                                <md-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['userManagement']" [(ngModel)]="register.userManagement">User Management</md-checkbox>
+                                            <div class="form-group col-mat-3 col-sm-3 col-xs-12">
+                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['userManagement']" [(ngModel)]="register.userManagement">User Management</mat-checkbox>
                                             </div>
-                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                                <div class="col-mat-12 col-sm-12 col-xs-12">
                                                     <h4 class="m-b-0"> Platform Analytics:</h4>
                                                 </div>
-                                                <md-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['sectionAnalytics']" [(ngModel)]="register.sectionAnalytics">Section Analytics</md-checkbox>
-                                                <md-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['articleAnalytics']" [(ngModel)]="register.articleAnalytics">Article Analytics</md-checkbox>
-                                                <md-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['elementAnalytics']" [(ngModel)]="register.elementAnalytics">Element Analytics</md-checkbox>
-                                                <md-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['templateAnalytics']" [(ngModel)]="register.templateAnalytics">Template Analytics</md-checkbox>
-                                                <md-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['googleAnalytics']" [(ngModel)]="register.googleAnalytics">Google  Analytics</md-checkbox>
+                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['sectionAnalytics']" [(ngModel)]="register.sectionAnalytics">Section Analytics</mat-checkbox>
+                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['articleAnalytics']" [(ngModel)]="register.articleAnalytics">Article Analytics</mat-checkbox>
+                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['elementAnalytics']" [(ngModel)]="register.elementAnalytics">Element Analytics</mat-checkbox>
+                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['templateAnalytics']" [(ngModel)]="register.templateAnalytics">Template Analytics</mat-checkbox>
+                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['googleAnalytics']" [(ngModel)]="register.googleAnalytics">Google  Analytics</mat-checkbox>
                                             </div>
 
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
                                             <a class="btn custom-btn" (click)="onRegister()"> Submit </a>
                                         </div>
                                     </form>

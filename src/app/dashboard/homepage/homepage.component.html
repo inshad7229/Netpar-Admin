@@ -9,7 +9,7 @@
         <div class="main-content">
             <div class="container-fluid p-0">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12">
+                    <div class="col-lg-12 col-mat-12">
                     	<div class="card m-t-0">
                     		<div class="card-content">
 	                            <div class="select-head">
@@ -30,29 +30,87 @@
                             <div class="card-content">
                                 <h4 class="card-title">Homepage Management</h4>
                                 <div class="row">
-                                    <div class="col-md-8 col-sm-8 col-xs-12">
-                                    	<a class="btn btn-round btn-md btn-disabled btn-warning" (click)="openDialog()">Prioritise of homepage</a>
-                                    	<a class="btn btn-round btn-md btn-disabled btn-success" (click)="openDialog()">Prioritise of category</a>
-                                    	<a class="btn btn-round btn-md btn-disabled btn-danger">Remove from shortlist</a>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <md-select placeholder="Items per page">
-                                                <md-option value="1"> 25 </md-option>
-                                                <md-option value="2"> 50 </md-option>
-                                                <md-option value="3"> 100 </md-option>
-                                                <md-option value="4"> 200 </md-option>
-                                                <md-option value="4"> All </md-option>
-                                            </md-select>
+                                    <div class="col-mat-7 col-sm-7 col-xs-12"></div>
+                                    <div class="col-mat-5 col-sm-5 col-xs-12">
+                                        <div class="col-mat-6 col-sm-6 col-xs-12">
+                                            <mat-select placeholder="Choose State">
+                                                <mat-option value="1"> State1 </mat-option>
+                                                <mat-option value="2"> State2 </mat-option>
+                                                <mat-option value="3"> State3 </mat-option>
+                                                <mat-option value="4"> State4 </mat-option>
+                                                <mat-option value="5"> State5 </mat-option>
+                                                <mat-option value="6"> State6 </mat-option>
+                                                <mat-option value="7"> State7 </mat-option>
+                                                <mat-option value="8"> State8 </mat-option>
+                                                <mat-option value="9"> State9 </mat-option>
+                                                <mat-option value="10"> State10 </mat-option>
+                                                <mat-option value="11"> State11 </mat-option>
+                                                <mat-option value="12"> State12 </mat-option>
+                                                <mat-option value="13"> State13 </mat-option>
+                                                <mat-option value="14"> State14 </mat-option>
+                                                <mat-option value="15"> State15 </mat-option>
+                                                <mat-option value="16"> State16 </mat-option>
+                                                <mat-option value="17"> State17 </mat-option>
+                                                <mat-option value="18"> State18 </mat-option>
+                                                <mat-option value="19"> State19 </mat-option>
+                                                <mat-option value="20"> State20 </mat-option>
+                                                <mat-option value="21"> State21 </mat-option>
+                                                <mat-option value="22"> State22 </mat-option>
+                                            </mat-select>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <md-select placeholder="Time Range">
-                                                <md-option value="1"> 7d </md-option>
-                                                <md-option value="2"> 15d </md-option>
-                                                <md-option value="3"> 1m </md-option>
-                                                <md-option value="4"> 3m </md-option>
-                                                <md-option value="4"> 6m </md-option>
-                                            </md-select>
+                                        <div class="col-mat-6 col-sm-6 col-xs-12">
+                                            <mat-select placeholder="Choose Language">
+                                                <mat-option value="1">  Hindi </mat-option>
+                                                <mat-option value="2">  Marathi </mat-option>
+                                                <mat-option value="3">  Assamese </mat-option>
+                                                <mat-option value="4">  Bengali </mat-option>
+                                                <mat-option value="5">  Dogri </mat-option>
+                                                <mat-option value="6">  Gujarati </mat-option>
+                                                <mat-option value="7">  Punjabi </mat-option>
+                                                <mat-option value="8">  Bodo </mat-option>
+                                                <mat-option value="9">  Kannada </mat-option>
+                                                <mat-option value="10"> Kashmiri </mat-option>
+                                                <mat-option value="11"> Urdu </mat-option>
+                                                <mat-option value="12"> Telegu </mat-option>
+                                                <mat-option value="13"> Konkani </mat-option>
+                                                <mat-option value="14"> Malayalam </mat-option>
+                                                <mat-option value="15"> Manipuri or Meithei </mat-option>
+                                                <mat-option value="16"> English </mat-option>
+                                                <mat-option value="17"> Nepali </mat-option>
+                                                <mat-option value="18"> Oriya </mat-option>
+                                                <mat-option value="19"> Sanskrit </mat-option>
+                                                <mat-option value="20"> Santali </mat-option>
+                                                <mat-option value="21"> Sindhi </mat-option>
+                                                <mat-option value="22"> Tamil </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row homepage-btns">
+                                    <div class="col-mat-7 col-sm-7 col-xs-12">
+                                    	<a class="btn btn-round btn-mat btn-disabled btn-warning" (click)="openDialog()">Prioritise of homepage</a>
+                                    	<a class="btn btn-round btn-mat btn-disabled btn-success" (click)="openDialog()">Prioritise of category</a>
+                                    	<a class="btn btn-round btn-mat btn-disabled btn-danger">Remove from shortlist</a>
+                                    </div>
+                                    <div class="col-mat-5 col-sm-5 col-xs-12">
+                                        <div class="col-mat-6 col-sm-6 col-xs-12">
+                                            <mat-select placeholder="Items per page">
+                                                <mat-option value="1"> 25 </mat-option>
+                                                <mat-option value="2"> 50 </mat-option>
+                                                <mat-option value="3"> 100 </mat-option>
+                                                <mat-option value="4"> 200 </mat-option>
+                                                <mat-option value="4"> All </mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="col-mat-6 col-sm-6 col-xs-12">
+                                            <mat-select placeholder="Time Range">
+                                                <mat-option value="1"> 7d </mat-option>
+                                                <mat-option value="2"> 15d </mat-option>
+                                                <mat-option value="3"> 1m </mat-option>
+                                                <mat-option value="4"> 3m </mat-option>
+                                                <mat-option value="4"> 6m </mat-option>
+                                                <mat-option value="5"> All </mat-option>
+                                            </mat-select>
                                         </div>
                                     </div>
 
@@ -75,47 +133,47 @@
                                                     <th> </th>
                                                     <th> </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Like" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Kadak" class="tltip_ico">
                                                             <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Share" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Share" class="tltip_ico">
                                                             <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Comment" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Comment" class="tltip_ico">
                                                             <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Save" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Save" class="tltip_ico">
                                                             <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Download" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Download" class="tltip_ico">
                                                             <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Apply" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Apply" class="tltip_ico">
                                                             <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Call" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Call" class="tltip_ico">
                                                             <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Call Me Back" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Call Me Back" class="tltip_ico">
                                                             <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="I'm Interested" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="I'm Interested" class="tltip_ico">
                                                             <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
@@ -125,7 +183,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="vertical-top">
-                                                        <md-checkbox></md-checkbox>
+                                                        <mat-checkbox></mat-checkbox>
                                                     </td>
                                                     <td class="td-wdth282 text-left">
                                                         <div class="cont-img">
@@ -192,20 +250,34 @@
 	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
                     <div class="wrapFilter-ul">
                         <div class="wrapFilter-div">
+                            <h5 class="filter-heading"> Status</h5>
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>Shortlist content</md-checkbox></li>
-                                <li><md-checkbox>Active priority content</md-checkbox></li>
-                                <li><md-checkbox>Completed priority content</md-checkbox></li>
-                                <li><md-checkbox>Scheduled content</md-checkbox></li>
+                                <li><mat-checkbox>Shortlist content</mat-checkbox></li>
+                                <li><mat-checkbox>Active priority content</mat-checkbox></li>
+                                <li><mat-checkbox>Completed priority content</mat-checkbox></li>
+                                <li><mat-checkbox>Scheduled content</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
+                    
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Select Language</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><mat-checkbox>Language1</mat-checkbox></li>
+                                <li><mat-checkbox>Language2</mat-checkbox></li>
+                                <li><mat-checkbox>Language3</mat-checkbox></li>
+                                <li><mat-checkbox>Language4</mat-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> Section</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>News</md-checkbox></li>
-                                <li><md-checkbox>Jobs</md-checkbox></li>
+                                <li><mat-checkbox>News</mat-checkbox></li>
+                                <li><mat-checkbox>Jobs</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
@@ -213,8 +285,8 @@
                         <h5 class="filter-heading"> Category </h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>Sport News</md-checkbox></li>
-                                <li><md-checkbox>Technology News</md-checkbox></li>
+                                <li><mat-checkbox>Sport News</mat-checkbox></li>
+                                <li><mat-checkbox>Technology News</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
@@ -222,8 +294,19 @@
                         <h5 class="filter-heading"> Sub-Category </h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>Cricket</md-checkbox></li>
-                                <li><md-checkbox>Football</md-checkbox></li>
+                                <li><mat-checkbox>Cricket</mat-checkbox></li>
+                                <li><mat-checkbox>Football</mat-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Status</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><mat-checkbox>Draft</mat-checkbox></li>
+                                <li><mat-checkbox>Rejected</mat-checkbox></li>
+                                <li><mat-checkbox>Revision</mat-checkbox></li>
+                                <li><mat-checkbox>Scheduled</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>

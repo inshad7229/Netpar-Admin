@@ -4,11 +4,12 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angul
 import { Router } from '@angular/router';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
-import { MdProgressBar} from '@angular/material';
+import { MatProgressBar} from '@angular/material';
 import { NgxCroppieComponent } from 'ngx-croppie';
 import { CroppieOptions } from 'croppie';
 import { AddCategoryRequest} from '../../models/section.modal'
 import {SectionService} from '../../providers/section.service'
+import {AdminService} from '../../providers/admin.service'
 import {StringResource} from '../../models/saredResources'
 import {AppProvider} from '../../providers/app.provider'
 import {Observable} from "rxjs";
@@ -19,18 +20,19 @@ declare var $ :any;
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
   styleUrls: ['./add-category.component.scss'],
-  providers:[FormControlDirective,SectionService]
+  providers:[FormControlDirective,SectionService,AdminService]
 })
 export class AddCategoryComponent implements OnInit {
     @ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
      addCategoryForm: FormGroup;
-         widthPx = '300';
+    widthPx = '300';
     heightPx = '300';
     imageUrl = '';
     currentImageHorigontal: string;
     croppieImageHorigontal: string;
     waitLoader:boolean;
     sections:any;
+    adminList:any;
     addCategoryRequest:AddCategoryRequest=new AddCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -83,13 +85,14 @@ export class AddCategoryComponent implements OnInit {
         return opts;
     }
    constructor(
-         private router: Router,
+        private router: Router,
         private fb: FormBuilder,
         vcr: ViewContainerRef,
         public toastr: ToastsManager,
         private http: Http,
         private sectionService:SectionService,
-        private appProvider: AppProvider
+        private appProvider: AppProvider,
+        private adminService:AdminService
       ) {   
 
             this.addCategoryForm = fb.group({
@@ -290,4 +293,5 @@ export class AddCategoryComponent implements OnInit {
                     alert(error)
                 }) 
   }
+
 }

@@ -1,0 +1,158 @@
+<div class="modal-header">
+	<h4 class="modal-title" >Content View <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
+</div>
+<div class="modal-body" *ngIf="forContent">
+	<div class="inner-card yellow-brd">
+    	<h4 class="font-400">{{forContent.headline}} </h4>
+    </div>
+    <div class="inner-card dashed-brd">
+    	<p> {{forContent.tagline}}  </p>
+    	<p>
+    		<strong> By: </strong>
+    		<span class="text-blue"> Peter Parker </span>
+    		<span class="text-light pull-right"> {{forContent.dateOfCreation}} </span>
+    	</p>
+    	<p class="m-0 text-right font_12">
+    		<i> 1500 Likes &#x25CF; 300 Comments </i>
+    	</p>
+    </div>
+	<ul class="like-bar dashed-brd">
+		<li class="active">
+			<a class="text-danger" routerLink=""><span class="span-icns"> <i class="icon-okay"></i></span> Like </a>
+		</li>
+		<li>
+			<a class="text-rose" routerLink=""><span class="span-icns"> <i class="icon-msg"></i></span> Comment </a> 
+		</li>
+		<li>
+			<a class="text-primary" routerLink=""><span class="span-icns"> <i class="icon-badge"></i></span> Save </a> 
+		</li>
+		<li>
+			<a class="text-orange" routerLink=""><span class="span-icns"> <i class="icon-donload"></i></span> Download </a> 
+		</li>
+	</ul>
+	<div class="inner-card dashed-brd" *ngFor="let content of forContent.contentBody">
+		<div class="form-group" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor}">
+			<img [src]="content.url" class="img-responsive rad-shad" />
+		</div>
+		<div [ngStyle]="{background:content.backgroundColor}" *ngIf="content.tag=='text'">
+			<p class="text-light">{{content.text}}</p>
+		</div>
+		
+		<audio controls style="width:100%" *ngIf="content.tag=='audio'">
+	        <source [src]="content.url"  type="audio/mpeg" />
+	        Your browser does not support the audio element.
+	    </audio>
+    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.tag=='video'">
+	        <source [src]="content.url" type="video/mp4">
+	    </video>
+        <div style="text-align: center;" *ngIf="content.tag=='document'" document><img width="50%" style="display: inline-block;" [src]="content.url"></div>
+	    <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" *ngIf="content.tag=='grid'">
+            <tbody>
+                <tr style="text-align: center;">
+                    <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
+                        <audio controls style="width:100%" *ngIf="content.audiourl1!=null">
+					        <source [src]="content.audiourl1"  type="audio/mpeg" />
+					        Your browser does not support the audio element.
+					    </audio>
+				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl1!=null">
+					        <source [src]="content.videourl1" type="video/mp4">
+					    </video>
+                        <img *ngIf="content.documenturl1!=null" width="50%" style="display: inline-block;" [src]="content.documenturl1" >
+                        <img *ngIf="content.imgurl1!=null" style="width:100%" [src]="content.imgurl1">
+                    </td>
+                    <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
+                        <audio controls style="width:100%" *ngIf="content.audiourl2!=null">
+					        <source [src]="content.audiourl2"  type="audio/mpeg" />
+					        Your browser does not support the audio element.
+					    </audio>
+				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl2!=null">
+					        <source [src]="content.videourl2" type="video/mp4">
+					    </video>
+                        <img *ngIf="content.documenturl2!=null" width="50%" style="display: inline-block;" [src]="content.documenturl2" >
+                        <img *ngIf="content.imgurl2!=null" style="width:100%" [src]="content.imgurl2">
+                    </td>
+                   <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
+                        <audio controls style="width:100%" *ngIf="content.audiourl3!=null">
+					        <source [src]="content.audiourl3"  type="audio/mpeg" />
+					        Your browser does not support the audio element.
+					    </audio>
+				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl3!=null">
+					        <source [src]="content.videourl3" type="video/mp4">
+					    </video>
+                        <img *ngIf="content.documenturl3!=null" width="50%" style="display: inline-block;" [src]="content.documenturl3" >
+                        <img *ngIf="content.imgurl3!=null" style="width:100%" [src]="content.imgurl3">
+                    </td>
+                    
+
+                </tr>
+            </tbody>
+        </table>
+
+	</div>
+    <div *ngIf="forContent.googleForm==true || forContent.googleForm=='true'">
+    	<iframe  [src]="googleFormUrl(forContent.googleFormUrl)" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+    </div>
+
+
+	<ul class="like-bar dashed-brd">
+		<li>
+			<a class="text-info" routerLink=""><span class="span-icns"> <i class="fa fa-eye"></i></span> 1500 </a> 
+		</li>
+		<li>
+			<a class="text-danger" routerLink=""><span class="span-icns"> <i class="icon-okay"></i></span> 1100 </a>
+		</li>
+		<li>
+			<a class="text-rose" routerLink=""><span class="span-icns"> <i class="icon-msg"></i></span> 500 </a> 
+		</li>
+		<li>
+			<a class="text-primary" routerLink=""><span class="span-icns"> <i class="icon-badge"></i></span> 200 </a> 
+		</li>
+	</ul>
+	<!-- <div class="inner-card dashed-brd"> <h4 class="font-16 m-0"> Comments </h4> </div>
+	<div class="inner-card dashed-brd">
+		<div class="col-mat-12 col-sm-12 col-xs-12 p-0">
+			<mat-form-field>
+	            <textarea matInput placeholder="Write your comment here..." rows="3"></textarea>
+	        </mat-form-field>
+		</div>
+		<div class="col-mat-12 col-sm-12 col-xs-12 p-0 text-right form-group">
+			<button class="btn btn-info btn-sm">Send</button>
+		</div>
+		<div class="user-img">
+			<img src="./assets/img/profile_user.jpg" class="img-responsive" />
+		</div>
+		<div class="comment-box">
+			<h5 class="m-0"> Ravi Kumar </h5>
+			<p>About 5 lakh commuters travel daily in the Delhi Metro, as well as 2 to 3 lakh workers working on them travel by metro train daily.</p>
+		</div>
+		<div class="col-mat-12 col-sm-12 col-xs-12 text-center">
+			<a routerLink="/comments-page" class="text-primary"><u>See more</u></a>
+		</div>
+	</div> -->
+	<div class="inner-card dashed-brd"  *ngIf="forContent.suggestedArticle==true || forContent.suggestedArticle=='true'" >
+		<h4 class="font-16 m-0"> Suggested Articles </h4>
+	</div>
+	<div class="inner-card"  *ngIf="forContent.suggestedArticle==true || forContent.suggestedArticle=='true'" >
+		<div class="suggested-ulist">
+			
+	        <div class="slide" *ngFor="let suggest of forContent.suggestedArticleList">
+		            <img [src]="suggest.thumbnailPicture"> 
+	    			<div class="suggested-div color-red">
+	    				<div class="suggested-text">{{suggest.sectionName}}</div>
+	    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+	    			</div>
+	    		
+	    	</div>
+	    	<!-- <div class="slide">
+		        <a routerLink=""><img src="./assets/img/img_r-2.jpg"> 
+	    			<div class="suggested-div color-orange">
+	    				<div class="suggested-text">News </div>
+	    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+	    			</div>
+	    		</a>
+	    	</div> -->
+	    	
+	    	
+	    </div>
+	</div>
+</div>

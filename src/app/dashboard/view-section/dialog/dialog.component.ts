@@ -1,6 +1,6 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
-import {MdListModule} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatListModule} from '@angular/material';
 
 
 import {AdminService} from '../../../providers/admin.service'
@@ -15,11 +15,11 @@ export class DialogComponent implements OnInit {
 waitLoader
 adminData 
 adminName=[];
-  constructor(private dialog: MdDialog, 
-              public dialogRef: MdDialogRef<DialogComponent>,
+  constructor(private dialog: MatDialog, 
+              public dialogRef: MatDialogRef<DialogComponent>,
               private adminService:AdminService,
               private appProvider:AppProvider,
-    @Inject(MD_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
   	 this.getAdminList()

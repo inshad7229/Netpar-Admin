@@ -1,0 +1,25 @@
+<div class="modal-header">
+	<h4 class="modal-title" >Listing View <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
+</div>
+<div class="modal-body">
+	<div class="inner-card">
+		<div class="suggested-ulist list-view7">
+			<div class="view-lists grid-1">
+            	<a routerLink="/homepage" class="color-red">
+             		<img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+          			<div class="list-text-wrap one-heading">
+           				<div class="text-red">{{forContent.sectionName}} </div>
+           				<div class="suggested-div">
+            				<div class="suggested-text">{{forContent.categoryName}} </div>
+           				</div>
+           				<div class="detail-text">{{forContent.headline}} </div>
+      				</div>		
+          			<!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
+          			<div class="line"></div>
+         		</a>
+        	</div>
+	    	
+	    	
+	    </div>
+	</div>
+</div>

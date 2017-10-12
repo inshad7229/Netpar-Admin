@@ -27,7 +27,23 @@ export class AdminService {
             return error;
         });
     }
-
+ onGetUserOnBasisOfROle(role:any):  Observable<any> {
+        let api =  ENV.mainApi+"fetchAdmins";
+        let a={
+            role:role
+        }
+         let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(api,JSON.stringify(a), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
 
 
 

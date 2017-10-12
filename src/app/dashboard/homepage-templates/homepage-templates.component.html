@@ -9,64 +9,79 @@
         <div class="main-content">
             <div class="container-fluid p-0">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12">
+                    <div class="col-lg-12 col-mat-12">
                         <div class="card" > 
                             <div class="card-header card-header-icon" data-background-color="orange">
                                 <i class="material-icons">show_chart</i>
                             </div>
                             <div class="card-content">
                                 <h4 class="card-title">Homepage Template</h4>
-                                <div class="template-panel">
-                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                        <div class="template-wrapper">
-                                            <img class="template-slide" src="./assets/img/template1.png" />
-                                            <div class="rotate-div">
-                                                <span> Template 1 / Active in News Section </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                        <div class="template-wrapper">
-                                            <img class="template-slide" src="./assets/img/template2.png" />
-                                            <div class="rotate-div">
-                                                <span> Template 2 / Active in Jobs Section </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                        <div class="template-wrapper">
-                                            <img class="template-slide" src="./assets/img/template3.png" />
-                                            <div class="rotate-div">
-                                                <span> Template 3 / Active in Jobs Section </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                        <div class="template-wrapper">
-                                            <img class="template-slide" src="./assets/img/template4.png" />
-                                            <div class="rotate-div">
-                                                <span> Template 4 / Active in Jobs Section </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                        <div class="template-wrapper">
-                                            <img class="template-slide" src="./assets/img/template5.png" />
-                                            <div class="rotate-div">
-                                                <span> Template 5 / Active in News Section </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                                        <div class="template-wrapper">
-                                            <img class="template-slide" src="./assets/img/template6.png" />
-                                            <div class="rotate-div">
-                                                <span> Template 6 / Active in Jobs Section </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="row">
+                                    <div class="template-table dshbrd-table table-responsive">
+                                        <table class="table table-striped user-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+                                            <thead class="text-danger">
+                                                <tr>
+                                                    <th> Template </th>
+                                                    <th> Template Name </th>
+                                                    <th> Active In Category </th>
+                                                    <th> Start Time </th>
+                                                    <th> End Time </th>
+                                                </tr>
+                                               
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <div class="cont-img templt-img">
+                                                            <img class="img-responsive" src="./assets/img/template3.png" />
+                                                        </div>
+                                                    </td>
+                                                    <td> Listing View Screen1 </td>
+                                                    <td> Sports News </td>
+                                                    <td> 12:00 PM, 21-09-2017 </td>
+                                                    <td> 5:05 PM, 25-09-2017 </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <div class="cont-img templt-img">
+                                                            <img class="img-responsive" src="./assets/img/template1.png" />
+                                                        </div>
+                                                    </td>
+                                                    <td> Listing View Screen2 </td>
+                                                    <td> Sports News </td>
+                                                    <td> 12:00 PM, 21-09-2017 </td>
+                                                    <td> 5:05 PM, 25-09-2017 </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <div class="cont-img templt-img">
+                                                            <img class="img-responsive" src="./assets/img/template2.png" />
+                                                        </div>
+                                                    </td>
+                                                    <td> Listing View Screen3 </td>
+                                                    <td> Sports News </td>
+                                                    <td> 12:00 PM, 21-09-2017 </td>
+                                                    <td> 5:05 PM, 25-09-2017 </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <div class="cont-img templt-img">
+                                                            <img class="img-responsive" src="./assets/img/template4.png" />
+                                                        </div>
+                                                    </td>
+                                                    <td> Listing View Screen1 </td>
+                                                    <td> Sports News </td>
+                                                    <td> 12:00 PM, 21-09-2017 </td>
+                                                    <td> 5:05 PM, 25-09-2017 </td>
+                                                </tr>
 
+
+                                            </tbody>
+                                            
+                                        </table>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MdTooltipModule, MdTableModule, MdPaginator ,
-         MdProgressBarModule,MdDialogModule,MdDatepickerModule,
-         MdNativeDateModule,MdCheckboxModule,MdProgressSpinnerModule,
-         MdSelectModule,MdRadioModule,MdInputModule
+import { MatTooltipModule, MatTableModule, MatPaginator ,
+         MatProgressBarModule,MatDialogModule,MatDatepickerModule,
+         MatNativeDateModule,MatCheckboxModule,MatProgressSpinnerModule,
+         MatSelectModule,MatRadioModule,MatInputModule
        } from '@angular/material';
-import {MdListModule} from '@angular/material';
+import {MatListModule} from '@angular/material';
 import {DataTableModule} from "angular2-datatable";
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface}  from 'ngx-perfect-scrollbar';
@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { NgxCroppieModule } from 'ngx-croppie';
 import {DndModule} from 'ng2-dnd';
 import { SwiperModule } from 'angular2-useful-swiper';
+import {ColorPickerModule} from 'angular4-color-picker';
 
 
 
@@ -46,7 +47,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { UserDialogComponent } from './user/user-dialog/user-dialog.component';
 import { LanguageDialogComponent } from './home/language-dialog/language-dialog.component';
-
+import { SuggestArticleDialogComponent } from './add-content/suggest-article-dialog/suggest-article-dialog.component';
+import { DragDropComponent } from './add-content/drag-drop/drag-drop.component';
+import { ContentViewComponent } from './add-content/content-view/content-view.component';
+import { ContentViewDialogComponent } from './view-content/content-view-dialog/content-view-dialog.component';
+import { ListingViewComponent } from './add-content/listing-view/listing-view.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -56,22 +61,23 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     imports: [
         RouterModule.forChild(MODULE_ROUTES),
         PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
-        MdDatepickerModule,
-        MdNativeDateModule,
-        MdTooltipModule,
-        MdTableModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatTooltipModule,
+        MatTableModule,
         ReactiveFormsModule,
         FormsModule,
-        MdProgressBarModule,
-        MdCheckboxModule,
-        MdProgressSpinnerModule,
-        MdRadioModule,
-        MdInputModule,
-        MdSelectModule,
+        MatProgressBarModule,
+        MatCheckboxModule,
+        MatProgressSpinnerModule,
+        MatRadioModule,
+        MatInputModule,
+        MatSelectModule,
         NgxCroppieModule,
         DataTableModule,
         SwiperModule,
-        MdListModule,
+        MatListModule,
+        ColorPickerModule,
         DndModule.forRoot(),
 
     ],
@@ -100,12 +106,18 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
              SectionAnalyticsComponent,
              ArticleAnalyticsComponent,
              ElementAnalyticsComponent,
-              UserDialogComponent,
-              LanguageDialogComponent
+              UserDialogComponent,           
+             SuggestArticleDialogComponent,
+              LanguageDialogComponent,
+              DragDropComponent,
+              ContentViewComponent,
+              ListingViewComponent,
+              ContentViewDialogComponent
 
            ],
 
-entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent ],
+entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
+ListingViewComponent,ContentViewDialogComponent ],
 })
 
 export class DashboardModule{

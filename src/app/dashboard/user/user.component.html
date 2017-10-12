@@ -9,7 +9,7 @@
         <div class="main-content">
             <div class="container-fluid p-0">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12">
+                    <div class="col-lg-12 col-mat-12">
                         
                         <div class="card m-t-0">
                             <div class="card-content">
@@ -32,27 +32,44 @@
                             <div class="card-content">
                                 <h4 class="card-title">User Management</h4>
                                 <div class="row">
-                                    <div class="col-md-5 col-sm-5 col-xs-12">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <md-select placeholder="Items per page">
-                                                <md-option value="1"> 25 </md-option>
-                                                <md-option value="2"> 50 </md-option>
-                                                <md-option value="3"> 100 </md-option>
-                                                <md-option value="4"> 200 </md-option>
-                                                <md-option value="4"> All </md-option>
-                                            </md-select>
+                                    <div class="col-mat-5 col-sm-5 col-xs-12 p-0">
+                                        <div class="col-mat-6 col-sm-6 col-xs-12">
+                                            <mat-select placeholder="Items per page">
+                                                <mat-option value="1"> 25 </mat-option>
+                                                <mat-option value="2"> 50 </mat-option>
+                                                <mat-option value="3"> 100 </mat-option>
+                                                <mat-option value="4"> 200 </mat-option>
+                                                <mat-option value="4"> All </mat-option>
+                                            </mat-select>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <md-select placeholder="Time Range">
-                                                <md-option value="1"> 7d </md-option>
-                                                <md-option value="2"> 15d </md-option>
-                                                <md-option value="3"> 1m </md-option>
-                                                <md-option value="4"> 3m </md-option>
-                                                <md-option value="4"> 6m </md-option>
-                                                <md-option value="4"> 1y </md-option>
-                                                <md-option value="4"> all </md-option>
-                                            </md-select>
+                                        <div class="col-mat-6 col-sm-6 col-xs-12">
+                                            <mat-select placeholder="Time Range">
+                                                <mat-option value="1"> 7d </mat-option>
+                                                <mat-option value="2"> 15d </mat-option>
+                                                <mat-option value="3"> 1m </mat-option>
+                                                <mat-option value="4"> 3m </mat-option>
+                                                <mat-option value="4"> 6m </mat-option>
+                                                <mat-option value="4"> 1y </mat-option>
+                                                <mat-option value="4"> all </mat-option>
+                                            </mat-select>
                                         </div>
+                                    </div>
+                                    <div class="col-mat-7 col-sm-7 col-xs-12 p-0">
+                                        <div class="col-mat-5 col-sm-5 col-xs-12">
+                                            <mat-select placeholder="State" multiple>
+                                                <mat-option value="1"> State1 </mat-option>
+                                                <mat-option value="2"> State2 </mat-option>
+                                                <mat-option value="3"> State3 </mat-option>
+                                                <mat-option value="4"> State4 </mat-option>
+                                                <mat-option value="4"> State5 </mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="col-mat-3 col-sm-3 col-xs-12">
+                                            <button class="btn btn-success" (click)="openDialog2()"> District + </button>
+                                        </div>
+                                        <!-- <div class="col-mat-3 col-sm-3 col-xs-12">
+                                            <button class="btn btn-success" (click)="openDialog2()"> Block + </button>
+                                        </div> -->
                                     </div>
 
                                     <div class="p-lr-15 pull-right">
@@ -61,19 +78,19 @@
                                                 <i class="material-icons">tune</i>
                                             </a>
                                             <ul class="dropdown-menu">
-												<li> <a> <md-checkbox value="1"> Time spent             </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="2"> Avg time spent/day     </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="3"> Avg time Spent/session </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="4"> Page views             </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="5"> Avg Page views/session </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="6"> Number of sesions      </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="7"> Last seen online       </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="8"> Number of comments     </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="9"> Number of likes        </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="10"> Number of saves       </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="11"> Number of downloads   </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="12"> Number of invites     </md-checkbox> </a> </li>
-												<li> <a> <md-checkbox value="13"> Number of coversions  </md-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="1"> Time spent             </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="2"> Avg time spent/day     </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="3"> Avg time Spent/session </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="4"> Page views             </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="5"> Avg Page views/session </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="6"> Number of sesions      </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="7"> Last seen online       </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="8"> Number of comments     </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="9"> Number of likes        </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="10"> Number of saves       </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="11"> Number of downloads   </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="12"> Number of invites     </mat-checkbox> </a> </li>
+												<li> <a> <mat-checkbox value="13"> Number of coversions  </mat-checkbox> </a> </li>
                                             </ul>
                                         </div>
 	                                </div>
@@ -87,7 +104,7 @@
 		                                            <th> Platform User Profile </th>
 		                                            <th colspan="7"> Platform Interaction </th>
 		                                            <th colspan="5"> User Engagement </th>
-		                                            <th colspan="2"> Call To Action </th>
+		                                            <th colspan="4"> Call To Action </th>
 		                                            <th> Influencer </th>
 		                                            <th> Referral Code </th>
 		                                        </tr>
@@ -101,51 +118,51 @@
                                                     <th><mfDefaultSorter by="avgp"> Avg Page Views/Session</mfDefaultSorter> </th>
                                                     <th><mfDefaultSorter by="online"> Last Online</mfDefaultSorter> </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Like" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Like" class="tltip_ico">
                                                             <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Share" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Share" class="tltip_ico">
                                                             <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Comment" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Comment" class="tltip_ico">
                                                             <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Save" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Save" class="tltip_ico">
                                                             <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Download" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Download" class="tltip_ico">
                                                             <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Submission" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Submission" class="tltip_ico">
                                                             <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Publications" class="tltip_ico">
+                                                        <a matTooltipPosition="above" matTooltip="Call" class="tltip_ico">
+                                                            <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a matTooltipPosition="above" matTooltip="Call Me Back" class="tltip_ico">
+                                                            <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
+                                                        </a>
+                                                    </th>
+                                                    <th>
+                                                        <a matTooltipPosition="above" matTooltip="Publications" class="tltip_ico">
                                                             <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
 
-                                                    <!-- <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Submission" class="tltip_ico">
-                                                            <mfDefaultSorter by="phone"> <i class="fa fa-external-link-square"></i> </mfDefaultSorter> 
-                                                        </a>
-                                                    </th>
-                                                    <th>
-                                                        <a mdTooltipPosition="above" mdTooltip="Publications" class="tltip_ico">
-                                                            <mfDefaultSorter by="volume"> <i class="fa fa-file-text"></i> </mfDefaultSorter> 
-                                                        </a>
-                                                    </th> -->
                                                     <th></th>
                                                     <th></th>
 
@@ -185,6 +202,8 @@
 		                                            <td> 50 </td>
 		                                            <td> 50 </td>
 		                                            <td> 68 </td>
+                                                    <td> 40 </td>
+                                                    <td> 150 </td>
 		                                            <td> 75 </td>
 		                                            <td> 
                                                     	<div class="cus-switch user">
@@ -236,6 +255,8 @@
                                                     <td> 50 </td>
                                                     <td> 50 </td>
                                                     <td> 68 </td>
+                                                    <td> 40 </td>
+                                                    <td> 150 </td>
                                                     <td> 75 </td>
                                                     <td> 
                                                         <div class="cus-switch user">
@@ -286,6 +307,8 @@
                                                     <td> 80 </td>
                                                     <td> 50 </td>
                                                     <td> 50 </td>
+                                                    <td> 40 </td>
+                                                    <td> 150 </td>
                                                     <td> 68 </td>
                                                     <td> 75 </td>
                                                     <td> 
@@ -335,13 +358,38 @@
 	        <ul class="sidebar-filter" type="none">
 	        	<div class="left-content">
 	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
+                    <!-- <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Select State</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><mat-checkbox>State1</mat-checkbox></li>
+                                <li><mat-checkbox>State2</mat-checkbox></li>
+                                <li><mat-checkbox>State3</mat-checkbox></li>
+                                <li><mat-checkbox>State4</mat-checkbox></li>
+                            </ul>
+                        </div>
+                    </div> -->
+
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Select Language</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><mat-checkbox>Language1</mat-checkbox></li>
+                                <li><mat-checkbox>Language2</mat-checkbox></li>
+                                <li><mat-checkbox>Language3</mat-checkbox></li>
+                                <li><mat-checkbox>Language4</mat-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> State</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>State1</md-checkbox></li>
-                                <li><md-checkbox>State2</md-checkbox></li>
-                                <li><md-checkbox>State3</md-checkbox></li>
+                                <li><mat-checkbox>State1</mat-checkbox></li>
+                                <li><mat-checkbox>State2</mat-checkbox></li>
+                                <li><mat-checkbox>State3</mat-checkbox></li>
+                                <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
                             </ul>
                         </div>
                     </div>
@@ -349,9 +397,10 @@
                         <h5 class="filter-heading"> District</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>District1</md-checkbox></li>
-                                <li><md-checkbox>District2</md-checkbox></li>
-                                <li><md-checkbox>District3</md-checkbox></li>
+                                <li><mat-checkbox>District1</mat-checkbox></li>
+                                <li><mat-checkbox>District2</mat-checkbox></li>
+                                <li><mat-checkbox>District3</mat-checkbox></li>
+                                <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
                             </ul>
                         </div>
                     </div>
@@ -359,16 +408,17 @@
                         <h5 class="filter-heading"> Block</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>Block1</md-checkbox></li>
-                                <li><md-checkbox>Block2</md-checkbox></li>
-                                <li><md-checkbox>Block3</md-checkbox></li>
+                                <li><mat-checkbox>Block1</mat-checkbox></li>
+                                <li><mat-checkbox>Block2</mat-checkbox></li>
+                                <li><mat-checkbox>Block3</mat-checkbox></li>
+                                <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="wrapFilter-ul">
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>Unverified mobile number</md-checkbox></li>
+                                <li><mat-checkbox>Unverified mobile number</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
@@ -376,10 +426,10 @@
                         <h5 class="filter-heading"> Active user</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>Hyper active</md-checkbox></li>
-                                <li><md-checkbox>Moderatley active</md-checkbox></li>
-                                <li><md-checkbox>active</md-checkbox></li>
-                                <li><md-checkbox>Inactive</md-checkbox></li>
+                                <li><mat-checkbox>Hyper active</mat-checkbox></li>
+                                <li><mat-checkbox>Moderatley active</mat-checkbox></li>
+                                <li><mat-checkbox>active</mat-checkbox></li>
+                                <li><mat-checkbox>Inactive</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
@@ -387,8 +437,8 @@
                         <h5 class="filter-heading"> Gender</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>Male</md-checkbox></li>
-                                <li><md-checkbox>Female</md-checkbox></li>
+                                <li><mat-checkbox>Male</mat-checkbox></li>
+                                <li><mat-checkbox>Female</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
@@ -396,9 +446,9 @@
                         <h5 class="filter-heading"> User</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><md-checkbox>Influencers</md-checkbox></li>
-                                <li><md-checkbox>Verified</md-checkbox></li>
-                                <li><md-checkbox>Unverified</md-checkbox></li>
+                                <li><mat-checkbox>Influencers</mat-checkbox></li>
+                                <li><mat-checkbox>Verified</mat-checkbox></li>
+                                <li><mat-checkbox>Unverified</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>

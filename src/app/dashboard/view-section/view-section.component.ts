@@ -1,13 +1,13 @@
 
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
-import {MdListModule} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatListModule} from '@angular/material';
 import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
 import { ToastsManager , Toast} from 'ng2-toastr';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Router } from '@angular/router';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
-import { MdProgressBar} from '@angular/material';
+import { MatProgressBar} from '@angular/material';
 import { DialogComponent} from './dialog/dialog.component';
 import {DataTableModule} from "angular2-datatable";
 
@@ -38,7 +38,9 @@ export class ViewSectionComponent implements OnInit {
     filterModel=[];
     filterData:any;
     sectionDatabackup:any
-    constructor(private dialog: MdDialog,
+    filterSectionList=[];
+    finalFilterSectionList:any;
+    constructor(private dialog: MatDialog,
         private router: Router,
         private fb: FormBuilder,
         vcr: ViewContainerRef,
@@ -482,9 +484,10 @@ export class ViewSectionComponent implements OnInit {
       console.log(JSON.stringify(this.filterModel))
       if (this.filterModel.length>0) {
         this.sectiondata=this.filterModel
-          // code...
+         this.finalFilterSectionList=this.filterSectionList
       }else{
-         this.sectiondata=this.forFilterData 
+         this.sectiondata=this.forFilterData;
+         this.finalFilterSectionList=[]; 
       }
 
      }
@@ -494,19 +497,57 @@ export class ViewSectionComponent implements OnInit {
             if (sec.check==true) {
               this.filterData=this.forFilterData.filter(f=>f.sectionName==sec.sectionName)
               this.filterModel.push(this.filterData[0])
+              this.filterSectionList.push(sec)
               console.log('if')
-              console.log(JSON.stringify(this.filterModel))   
+              console.log(JSON.stringify(this.filterSectionList))   
             }
             else {
               console.log('elsef')
-             this.filterModel= this.filterModel.filter(f=>f.sectionName!=sec.sectionName)  
-            console.log(JSON.stringify(this.filterModel))   
+             this.filterModel= this.filterModel.filter(f=>f.sectionName!=sec.sectionName)
+             this.filterSectionList=this.filterSectionList.filter(f=>f.sectionName!=sec.sectionName)  
+            console.log(JSON.stringify(this.filterSectionList))   
             }
          }
      }
      clearAll(){
          this.sectiondata=this.forFilterData
-         this.sections=this.sectionDatabackup 
+          this.finalFilterSectionList=[];
+          this.filterSectionList=[];
+          this.filterData=[]
+          this.filterModel=[]
+         // this.sections=this.sectionDatabackup 
+         for (let i = 0; i<this.sections.length; i++) {
+              this.sections[i].check=false;
+         }
+     }
+     clearOneFilter(sec){
+         if (sec) {
+              for (let i = 0; i<this.sections.length; i++) {
+                if (this.sections[i].sectionName==sec.sectionName) {
+                    this.sections[i].check=false;
+                  }
+           } 
+           this.finalFilterSectionList= this.finalFilterSectionList.filter(f=>f.sectionName!=sec.sectionName)
+           this.filterSectionList= this.filterSectionList.filter(f=>f.sectionName!=sec.sectionName)
+           console.log('hy'+JSON.stringify(this.finalFilterSectionList))
+           if (this.finalFilterSectionList.length>0) {
+                this.sectiondata=this.sectiondata.filter(f=>f.sectionName!=sec.sectionName)
+                this.filterModel=this.filterModel.filter(f=>f.sectionName!=sec.sectionName)
+            }else{
+              this.sectiondata=this.forFilterData;
+              this.filterSectionList=[]
+              this.filterModel=[] 
+               this.finalFilterSectionList=[]; 
+            }
+          
+         }
+        // for (let i = 0; i<=this.sections.length; i++) {
+              
+        //     if (this.sections[i].sectionName==sec.sectionName) {
+        //         this.sections[i].check=false;
+        //       }
+        //  }
+        
      }
 }
 

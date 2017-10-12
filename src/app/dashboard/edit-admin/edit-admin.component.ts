@@ -4,7 +4,7 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angul
 import { Router } from '@angular/router';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
-import { MdProgressBar} from '@angular/material';
+import { MatProgressBar} from '@angular/material';
 import {Admin} from './edit.model.component'
 import {StringResource} from '../../models/saredResources'
 import {AdminService} from './edit.service';
