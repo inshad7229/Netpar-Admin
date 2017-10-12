@@ -955,7 +955,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  } 
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1011,7 +1014,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1091,7 +1097,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1148,7 +1157,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1229,7 +1241,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1287,7 +1302,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1368,7 +1386,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1425,7 +1446,11 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1506,7 +1531,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1563,7 +1591,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1645,7 +1676,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
@@ -1702,7 +1736,10 @@ export class AddContentComponent implements OnInit {
 		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
 		  }
 		   this.addContentRequest.contentBody=this.listOne;
-		   this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   if (this.localAdminList.length>0) {
+		   	// code...
+		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
+		   }
            this.addContentRequest.callToActionButton=this.callToActionButton;
            this.addContentRequest.userEngagementButton=this.userEngaButton;
            this.addContentRequest.suggestedArticleList=this.suggestedArticleList
