@@ -1,186 +1,553 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { ViewDialogComponent } from './view-dialog/view-dialog.component';
 
-import {MatSort} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatListModule} from '@angular/material';
+import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
+import { ToastsManager , Toast} from 'ng2-toastr';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
+import { Router } from '@angular/router';
+import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
+import { MatProgressBar} from '@angular/material';
+import { DialogComponent} from './dialog/dialog.component';
 import {DataTableModule} from "angular2-datatable";
 
-import { ViewChild} from '@angular/core';
-import {DataSource} from '@angular/cdk/collections';
-import {MatPaginator} from '@angular/material';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/map';
-import {ContentService} from '../../providers/content.service'
+
+import {AddSectionRequest} from '../../models/section.modal'
+import {SectionService} from '../../providers/section.service'
+import {AppProvider} from '../../providers/app.provider'
 declare var jquery:any;
 declare var $ :any;
 
-@Component({
-  selector: 'app-view-content',
-  templateUrl: './view-content.component.html',
-  styleUrls: ['./view-content.component.scss'],
-  providers:[ContentService]
-})
-export class ViewContentComponent implements OnInit {
-    waitLoader
-    contentList
-    filterValue:any;
-  	constructor(private dialog: MatDialog,
-                private contentService:ContentService ) {
-                this.filterValue={} }
-    displayedColumns = ['userId', 'userName', 'progress', 'color'];
-    exampleDatabase = new ExampleDatabase();
-    dataSource:  ExampleDataSourceSort | null;
-    dataSourceSort: ExampleDataSourceSort | null;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
+@Component({
+    selector: 'app-view-section',
+    templateUrl: './view-section.component.html',
+    styleUrls: ['./view-section.component.scss'],
+    providers:[SectionService]
+})
+
+
+
+export class ViewSectionComponent implements OnInit {
+    waitLoader: boolean;
+    sectiondata = [];
+    flag;
+    statusData: any;
+    sections;
+    forFilterData=[]
+    filterModel=[];
+    filterData:any;
+    sectionDatabackup:any
+    filterSectionList=[];
+    finalFilterSectionList:any;
+    constructor(private dialog: MatDialog,
+        private router: Router,
+        private fb: FormBuilder,
+        vcr: ViewContainerRef,
+        public toastr: ToastsManager,
+        private http: Http,
+        private sectionService: SectionService,
+        private appProvider: AppProvider) {}
 
     ngOnInit() {
-        $('.filter-plugin > a').on('click',function(){
+        $('.filter-plugin > a').on('click', function () {
             $(this).closest('.filter-plugin').addClass('open');
             console.log($(this));
         });
-        $('.close-filter').on('click',function(){
+        $('.close-filter').on('click', function () {
             $(this).closest('.filter-plugin').removeClass('open');
         });
-        //this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator);
-        this.dataSource = new ExampleDataSourceSort(this.exampleDatabase, this.sort);
-        this.getList()
+        $('.cusdropdown-toggle').on('click', function () {
+            alert('hy');
+            $(this).closest('.dropdown').toggleClass('open');
+        })
+        $(window).on('click', function (e) {
+            e.stopPropagation();
+            var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
+            console.log($trigger);
+            if ($trigger !== e.target && !$trigger.has(e.target).length) {
+                $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
+            }
+        });
+        this.getSectionViewData()
+        this.getSectionList()
     }
+    getSectionViewData() {
+        this.sectiondata = []
+        this.sectionService.onGetSectionData()
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+                    this.toastr.error('Add Section  failed Please try again', 'Error !!. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    let local = data.FinalArray;
+                    for (let i = 0; i < local.length; i++) {
+                        var obj = local[i];
+                        console.log(JSON.stringify(obj))
+                        if (obj.section_categories.length > 0) {
+                            for (let j = 0; j < obj.section_categories.length; j++) {
+                                var obj2 = obj.section_categories[j]
+                                if (obj2.section_subcategories.length > 0) {
+                                    for (let k = 0; k < obj2.section_subcategories.length; k++) {
+                                        var obj3 = obj2.section_subcategories[k]
+                                        obj3.contributionForm=obj2.contributionForm;
+                                        this.sectiondata.push(obj3)
+                                        this.forFilterData.push(obj3)
+                                    }
+                                } else {
 
-    openDialog(): void {
-        let dialogRef = this.dialog.open(ViewDialogComponent, {
+                                    this.sectiondata.push(obj2)
+                                    this.forFilterData.push(obj2)
+                                }
+
+                            }
+                        } else {
+                            this.sectiondata.push(obj)
+                            this.forFilterData.push(obj)
+
+                        }
+                    }
+                    console.log(JSON.stringify(this.sectiondata))
+                }
+            }, error => {
+
+            })
+    }
+    openDiv(e, flag, data) {
+        $('.dropdown').removeClass('open');
+        this.flag = flag;
+        if (this.flag == 'section') {
+            let id
+            if (data.sectionId) {
+                id = data.sectionId
+            } else {
+                id = data._id
+            }
+            this.getSectionData(id, e)
+        } else if (this.flag == 'category') {
+            let id
+            if (data.categoryId) {
+                id = data.categoryId
+            } else {
+                id = data._id
+            }
+            this.getCategoryData(id, e)
+        } else if (this.flag == 'subCategory') {
+            let id = data._id
+            this.getSubCategoryData(id, e)
+
+        }
+        console.log(JSON.stringify(this.flag))
+
+        console.log(JSON.stringify(data))
+    }
+    openDialog(data): void {
+      this.appProvider.current.currentSectionName=data.sectionName;
+        let dialogRef = this.dialog.open(DialogComponent, {
             width: '400px',
         });
 
         dialogRef.afterClosed().subscribe(result => {
-          
+
         });
     }
-    getList(){
-     this.contentService.ongetContentList()
-            .subscribe(data =>{
-                        this.waitLoader = false;
-                        this.contentList=data.response
-                        // this.localAdminList=data.response;
-                    console.log(JSON.stringify(data))
+    showSectionName(name, index) {
+        if (index > 0) {
+            if (this.sectiondata[index - 1].sectionName == name) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+
+    }
+    showCategoryName(name, index) {
+        if (index > 0) {
+            if (this.sectiondata[index - 1].categoryName == name) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+    showSubcategoryName(name, index) {
+        if (index > 0) {
+            if (this.sectiondata[index - 1].subCategoryName == name) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+    editSection(data) {
+        this.appProvider.current.actionFlag = "editSection"
+        if (data.sectionId) {
+            this.appProvider.current.currentId = data.sectionId
+        } else {
+            this.appProvider.current.currentId = data._id
+        }
+        console.log('section' + JSON.stringify(data))
+        this.router.navigate(['/add-section'], {
+            skipLocationChange: true
+        });
+    }
+    deleteSection(data) {
+        let date=new Date().toISOString();
+         data.deleteStatus=true;
+        this.sectionService.onDeleteSection(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+    }
+    enableDisableSection(data) {
+         let date=new Date().toISOString();
+         data.enableDisableDate=date;
+        this.sectionService.onEnableDisableSection(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+    }
+    publishUnpublishSection(data) {
+        let date=new Date().toISOString();
+         data.publishUnbuplishDate=date;
+        this.sectionService.onPublishUnpublishSection(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+    }
+    editCategory(data) {
+        this.appProvider.current.actionFlag = "editCategory"
+        if (data.categoryId) {
+            this.appProvider.current.currentId = data.categoryId
+        } else {
+            this.appProvider.current.currentId = data._id
+        }
+        console.log('Category' + JSON.stringify(data))
+        this.router.navigate(['/add-category'], {
+            skipLocationChange: true
+        });
+    }
+    deleteCategory(data) {
+         let date=new Date().toISOString();
+         data.deleteStatus=true;
+        this.sectionService.onDeleteCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+    }
+    enableDisableCategory(data) {
+        let date=new Date().toISOString();
+         data.enableDisableDate=date;
+        this.sectionService.onEnableDisableCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+
+    }
+    publishUnpublishCategory(data) {
+         let date=new Date().toISOString();
+         data.publishUnbuplishDate=date;
+        this.sectionService.onPublishUnpublishCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+    }
+    editSubCategory(data) {
+        this.appProvider.current.actionFlag = "editSubCategory"
+        this.appProvider.current.currentId = data._id;
+        console.log('SubCategory' + JSON.stringify(data))
+        this.router.navigate(['/add-subcategory'], {
+            skipLocationChange: true
+        });
+    }
+    deleteSubCategory(data) {
+        let date=new Date().toISOString();
+         data.deleteStatus=true;
+        this.sectionService.onDeleteSubCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+    }
+    enableDisableSubCategory(data) {
+        let date=new Date().toISOString();
+         data.enableDisableDate=date;
+        this.sectionService.onEnableDisableSubCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+    }
+    publishUnpublishSubCategory(data) {
+         let date=new Date().toISOString();
+         data.publishUnbuplishDate=date;
+        this.sectionService.onPublishUnpublishSubCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    alert('hello')
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+    }
+    getSectionData(id, e) {
+        this.sectionService.onGetSingleSectionData(id)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+                    this.toastr.error('Add Section  failed Please try again', 'Error !!. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                    this.statusData = data.response[0];
+                    $(e).closest('.dropdown').toggleClass('open');
+
+                }
+            }, error => {
+
+            })
+    }
+
+    getCategoryData(id, e) {
+        this.sectionService.onGetSingleSCategoryData(id)
+            .subscribe(data => {
+                this.waitLoader = false;
+                this.statusData = data.response[0]
+                $(e).closest('.dropdown').toggleClass('open');
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+    }
+    getSubCategoryData(id, e) {
+        this.sectionService.onGetSingleSubCategoryData(id)
+            .subscribe(data => {
+                this.waitLoader = false;
+                this.statusData = data.response[0]
+                $(e).closest('.dropdown').toggleClass('open');
+                console.log(JSON.stringify(data))
+            }, error => {
+                alert(error)
+            })
+
+    }
+     getSectionList(){
+         this.sectionService.onGetSection()
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    this.sections=data;
+                    this.sectionDatabackup=data
                 },error=>{
                     alert(error)
-           })
-  }
-}
-
-/** Constants used to fill up our data base. */
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
-
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleDatabase {
-  /** Stream that emits whenever the data has been modified. */
-  dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
-  get data(): UserData[] { return this.dataChange.value; }
-
-  constructor() {
-    // Fill up the database with 100 users.
-    for (let i = 0; i < 100; i++) { this.addUser(); }
-  }
-
-  /** Adds a new user to the database. */
-  addUser() {
-    const copiedData = this.data.slice();
-    copiedData.push(this.createNewUser());
-    this.dataChange.next(copiedData);
-  }
-
-  /** Builds and returns a new User. */
-  private createNewUser() {
-    const name =
-        NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-        NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-    return {
-      id: (this.data.length + 1).toString(),
-      name: name,
-      progress: Math.round(Math.random() * 100).toString(),
-      color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-    };
-  }
-
-}
-
-export class ExampleDataSource extends DataSource<any> {
-  constructor(private _exampleDatabase: ExampleDatabase, private _paginator: MatPaginator) {
-    super();
-  }
-
-  connect(): Observable<UserData[]> {
-    const displayDataChanges = [
-      this._exampleDatabase.dataChange,
-      this._paginator.page,
-    ];
-
-    return Observable.merge(...displayDataChanges).map(() => {
-      const data = this._exampleDatabase.data.slice();
-
-      // Grab the page's slice of data.
-      const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-      return data.splice(startIndex, this._paginator.pageSize);
-    });
-  }
-
-  disconnect() {}
-}
-
-export class ExampleDataSourceSort extends DataSource<any> {
-  constructor(private _exampleDatabase: ExampleDatabase, private _sort: MatSort) {
-    super();
-  }
-
-  connect(): Observable<UserData[]> {
-    const displayDataChanges = [
-      this._exampleDatabase.dataChange,
-      this._sort.sortChange,
-    ];
-
-    return Observable.merge(...displayDataChanges).map(() => {
-      return this.getSortedData();
-    });
-  }
-
-  disconnect() {}
-  getSortedData(): UserData[] {
-    const data = this._exampleDatabase.data.slice();
-    if (!this._sort.active || this._sort.direction == '') { return data; }
-
-    return data.sort((a, b) => {
-      let propertyA: number|string = '';
-      let propertyB: number|string = '';
-
-      switch (this._sort.active) {
-        case 'userId': [propertyA, propertyB] = [a.id, b.id]; break;
-        case 'userName': [propertyA, propertyB] = [a.name, b.name]; break;
-        case 'progress': [propertyA, propertyB] = [a.progress, b.progress]; break;
-        case 'color': [propertyA, propertyB] = [a.color, b.color]; break;
+                })
+     }
+     applyFilter(data){
+      console.log(JSON.stringify(this.filterModel))
+      if (this.filterModel.length>0) {
+        this.sectiondata=this.filterModel
+         this.finalFilterSectionList=this.filterSectionList
+      }else{
+         this.sectiondata=this.forFilterData;
+         this.finalFilterSectionList=[]; 
       }
 
-      let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-      let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-
-      return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
-    });
-  }
-
+     }
+     onChangefilter(sec){
+         if (sec) {
+             console.log(JSON.stringify(sec))
+            if (sec.check==true) {
+              this.filterData=this.forFilterData.filter(f=>f.sectionName==sec.sectionName)
+              this.filterModel.push(this.filterData[0])
+              this.filterSectionList.push(sec)
+              console.log('if')
+              console.log(JSON.stringify(this.filterSectionList))   
+            }
+            else {
+              console.log('elsef')
+             this.filterModel= this.filterModel.filter(f=>f.sectionName!=sec.sectionName)
+             this.filterSectionList=this.filterSectionList.filter(f=>f.sectionName!=sec.sectionName)  
+            console.log(JSON.stringify(this.filterSectionList))   
+            }
+         }
+     }
+     clearAll(){
+         this.sectiondata=this.forFilterData
+          this.finalFilterSectionList=[];
+          this.filterSectionList=[];
+          this.filterData=[]
+          this.filterModel=[]
+         // this.sections=this.sectionDatabackup 
+         for (let i = 0; i<this.sections.length; i++) {
+              this.sections[i].check=false;
+         }
+     }
+     clearOneFilter(sec){
+         if (sec) {
+              for (let i = 0; i<this.sections.length; i++) {
+                if (this.sections[i].sectionName==sec.sectionName) {
+                    this.sections[i].check=false;
+                  }
+           } 
+           this.finalFilterSectionList= this.finalFilterSectionList.filter(f=>f.sectionName!=sec.sectionName)
+           this.filterSectionList= this.filterSectionList.filter(f=>f.sectionName!=sec.sectionName)
+           console.log('hy'+JSON.stringify(this.finalFilterSectionList))
+           if (this.finalFilterSectionList.length>0) {
+                this.sectiondata=this.sectiondata.filter(f=>f.sectionName!=sec.sectionName)
+                this.filterModel=this.filterModel.filter(f=>f.sectionName!=sec.sectionName)
+            }else{
+              this.sectiondata=this.forFilterData;
+              this.filterSectionList=[]
+              this.filterModel=[] 
+               this.finalFilterSectionList=[]; 
+            }
+          
+         }
+        // for (let i = 0; i<=this.sections.length; i++) {
+              
+        //     if (this.sections[i].sectionName==sec.sectionName) {
+        //         this.sections[i].check=false;
+        //       }
+        //  }
+        
+     }
 }
+
