@@ -181,19 +181,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr *ngFor="let content of contentList">
                                                     <td class="vertical-top">
-                                                        <mat-checkbox></mat-checkbox>
+                                                        <mat-checkbox [(ngModel)]="content.editcheck"></mat-checkbox>
                                                     </td>
                                                     <td class="td-wdth282 text-left">
                                                         <div class="cont-img">
-                                                            <img src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                            <img *ngIf="!content.thumbnailPicture" src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                            <img *ngIf="content.thumbnailPicture" [src]="content.thumbnailPicture" class="img-responsive" />
                                                             <div>
-                                                                Status: <span class="text-success"><b>Approved</b></span>
+                                                                Status:
+                                                                <span class="text-success" *ngIf="content.saveAsDraftStatus==true"><b>Draft</b></span>
+                                                                <span class="text-success" *ngIf="content.submitForreview==true"><b>Under Review</b></span>
+                                                                <span class="text-success" *ngIf="content.publishStatus==true"><b>Published</b></span>
+                                                                <span class="text-success" *ngIf="content.sendForRevisionStatus==true"><b>Revision</b></span>
                                                             </div>
                                                         </div>
                                                         <div class="cont-dtl">
-                                                            <div> Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </div>
+                                                            <div>  {{content.headline}}</div>
                                                             <div> <strong> Posted by: </strong> Rohan Sen </div>
                                                             <div class=""> 
                                                                 <a href="javascript:;">
@@ -201,20 +206,21 @@
                                                                 </a>
                                                             </div>
                                                             <div class="m-t-5"> 
-                                                                <a href="javascript:;" class="text-success"> <i class="fa fa-eye"></i> View </a> |
-                                                                <a href="javascript:;" class="text-danger"> <i class="fa fa-pencil"></i> Edit </a>
+                                                                <a href="javascript:;" class="text-success" (click)="onView(content)"> <i class="fa fa-eye"></i> View </a> |
+                                                                <a href="javascript:;" class="text-danger" (click)="onEdit(content)"> <i class="fa fa-pencil" ></i> Edit </a>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="td-wdth155 text-left vertical-top">
-                                                        <p> <strong> Published </strong> /Rejected: 16/08/2017 </p>
-                                                        <p> Creation: 16/08/2017 </p>
-                                                        <p> Submit for Review: <strong> 16/08/2017 </strong> </p>
+                                                    <td class="td-wdth155 text-left">
+                                                        <p *ngIf="content.publishStatus==true"> <strong> Published </strong> /Rejected: {{content.publishDate}} </p>
+                                                        <p *ngIf="content.rejectStatus==true"> Published / <strong>Rejected </strong>: {{content.rejectDate}} </p>
+                                                        <p> Creation: {{content.dateOfCreation}}</p>
+                                                        <p *ngIf="content.submitForreview==true"> Submit for Review: <strong> {{content.submitforreviewDate}}</strong> </p>
                                                     </td>
-                                                    <td> 1,00,000 </td> <td> 5,00,000 </td> <td> 60,000 </td> <td> 
-                                                    2,000 </td> <td> 8,55,070 </td>
-                                                    <td> 1,00,000 </td> <td> 48,000 </td> <td> 40,024 </td> <td> 5,00,000 </td> 
-                                                    <td>10,00,000 </td>
+                                                    <td>{{content.likeCount}}</td> <td> {{content.shareCount}}</td> <td>{{content.commentCount}}</td> <td> 
+                                                    {{content.saveCount}}</td> <td> {{content.downloadCount}}</td>
+                                                    <td> {{content.applyCount}}</td> <td>{{content.callCount}}</td> <td>{{content.callMeBackCount}} </td> <td> {{content.imIntrestedCount}} </td> 
+                                                    <td>{{content.pageView}}</td>
 
                                                 </tr>
                                                 

@@ -30,7 +30,7 @@ import { AddSectionComponent } from './add-section/add-section.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
 import { AddContentComponent } from './add-content/add-content.component';
-import { ViewContentComponent } from './view-content/view-content.component';
+import { ViewContentComponent,ContentConfirmation } from './view-content/view-content.component';
 import { ViewDialogComponent } from './view-content/view-dialog/view-dialog.component';
 import { AdminConfirmation} from './home/home.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -40,6 +40,7 @@ import { PriorityDialogComponent } from './priority/priority-dialog/priority-dia
 import { CommentComponent } from './comment/comment.component';
 import { UserContributionComponent } from './user-contribution/user-contribution.component';
 import { UserComponent } from './user/user.component';
+import { FilterDialogComponent } from './user/filter-dialog/filter-dialog.component';
 import { SectionAnalyticsComponent } from './section-analytics/section-analytics.component';
 import { ArticleAnalyticsComponent } from './article-analytics/article-analytics.component';
 import { ElementAnalyticsComponent } from './element-analytics/element-analytics.component';
@@ -112,12 +113,14 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               DragDropComponent,
               ContentViewComponent,
               ListingViewComponent,
-              ContentViewDialogComponent
+              ContentViewDialogComponent,
+              ContentConfirmation,
+              FilterDialogComponent
 
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
-ListingViewComponent,ContentViewDialogComponent ],
+ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent ],
 })
 
 export class DashboardModule{

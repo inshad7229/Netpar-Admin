@@ -39,6 +39,10 @@ export class ViewSectionComponent implements OnInit {
     filterData:any;
     sectionDatabackup:any
     filterSectionList=[];
+    filterCategory=[];
+    filterSubCategory=[];
+    language=[];
+    status=[]
     finalFilterSectionList:any;
     constructor(private dialog: MatDialog,
         private router: Router,

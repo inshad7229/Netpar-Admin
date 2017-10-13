@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewContainerRef,ViewChild,Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
@@ -48,7 +48,43 @@ export class ViewContentComponent implements OnInit {
     sectionsBack
     categoriesBack
     subCategoryBack
-    sectionFlag
+    sectionFlag;
+    filterSection=[]
+    filterCategory=[]
+    filterSubcategory=[]
+    filterLanguage=[];
+    filterStatus=[]
+    sortListToHomePage=[];
+    sortListToCategoryPage=[];
+    editContent=[];
+    status=[
+      {
+        _id:"saveAsDraftStatus",
+        value:"Draft"
+
+      },
+      {
+        _id:"rejectStatus",
+        value:"Rejected"
+
+      },
+      {
+        _id:"sendForRevisionStatus",
+        value:"Revision"
+
+      },
+      {
+        _id:"publishLaterStatus",
+        value:"Scheduled"
+
+      },
+      {
+        _id:"publishStatus",
+        value:"Published"
+
+      }
+    ]
+    filterRequest:any;
     stringResource:StringResource=new  StringResource()
   	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
@@ -59,7 +95,9 @@ export class ViewContentComponent implements OnInit {
             private appProvider: AppProvider,
             private adminService:AdminService,
             private contentService:ContentService) {
-                this.filterValue={} 
+                this.toastr.setRootViewContainerRef(vcr);
+                this.filterValue={}
+                this.filterRequest={} 
               }
     displayedColumns = ['userId', 'userName', 'progress', 'color'];
     exampleDatabase = new ExampleDatabase();
@@ -68,7 +106,7 @@ export class ViewContentComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
-
+    
     ngOnInit() {
       this.appProvider.current.actionFlag="menu"
         $('.filter-plugin > a').on('click',function(){
@@ -159,32 +197,179 @@ export class ViewContentComponent implements OnInit {
   forSection(sec){
 
     if (sec.check==true) {
+      this.filterSection.push(sec._id)
       this.getCategory(sec._id)
     }else{
       this.categories=this.categories.filter(arg=>arg.sectionId != sec._id)
       this.subCategory=this.subCategory.filter(arg=>arg.sectionId != sec._id)
+      this.filterSection=this.filterSection.filter(arg=>arg != sec._id)
+      this.filterCategory.filter(arg=>arg.sectionId != sec._id)
+      this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.sectionId != sec._id)
     }
   }
   forCategory(cat){
+    console.log(JSON.stringify(cat))
     if (cat.check==true) {
+      this.filterCategory.push({_id:cat._id,sectionId:cat.sectionId})
       this.getsubCategory(cat.sectionId,cat._id)
     }else{
+      this.filterCategory.filter(arg=>arg._id!=cat._id)
+      this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.categoryId!=cat._id)
       this.subCategory=this.subCategory.filter(arg=>arg.categoryId!=cat._id)
+
     }
   }
   forSubCategory(subCat){
-    alert(JSON.stringify(subCat))
     if (subCat.check==true) {
+      this.filterSubcategory.push({_id:subCat._id,sectionId:subCat.sectionId,categoryId:subCat.categoryId})
      //this.getCategory(subCat._id)
     }else{
-      
+      this.filterSubcategory=this.filterSubcategory.filter(arg=>arg._id!=subCat._id)
     }
   }
   onSelectLang(lang){
-
+   if (lang.check==true) {
+      this.filterLanguage.push(lang.language)
+     //this.getCategory(subCat._id)
+    }else{
+      this.filterLanguage=this.filterLanguage.filter(arg=>arg!=lang.language)
+    }
   }
+  forStatus(stat){
+    if (stat.check==true) {
+      // this.filterStatus.push(stat._id)
+      if (stat._id=='saveAsDraftStatus') {
+        this.filterRequest.saveAsDraftStatus=true;
+      }
+      if (stat._id=='rejectStatus') {
+        this.filterRequest.rejectStatus=true;
+      }
+      if (stat._id=='sendForRevisionStatus') {
+        this.filterRequest.sendForRevisionStatus=true;
+      }
+      if (stat._id=='publishLaterStatus') {
+        this.filterRequest.publishLaterStatus=true;
+      }
+      if (stat._id=='publishStatus') {
+        this.filterRequest.publishStatus=true;
+      }
+     //this.getCategory(subCat._id)
+    }else{
+      if (stat._id=='saveAsDraftStatus') {
+        delete(this.filterRequest.saveAsDraftStatus);
+      }
+      if (stat._id=='rejectStatus') {
+        delete(this.filterRequest.rejectStatus);
+      }
+      if (stat._id=='sendForRevisionStatus') {
+        delete(this.filterRequest.sendForRevisionStatus);
+      }
+      if (stat._id=='publishLaterStatus') {
+        delete(this.filterRequest.publishLaterStatus);
+      }
+      if (stat._id=='publishStatus') {
+        delete(this.filterRequest.publishStatus);
+      }
+    }
+  }
+  onEditMultipal(flag ,data){
+    this.editContent=[]
+    if (data) {
+        for (let i=0;i<data.length;i++) {
+        if(data[i].editcheck==true){
+          this.editContent.push(data[i]._id)
+        }
+      }
+    }
+     let dialogRef = this.dialog.open(ContentConfirmation, {
+            width: '400px',
+            data:{flag:flag}
+        });
 
+        dialogRef.afterClosed().subscribe(result => {
+          if (result=='yes') {
+              this.waitLoader =true;
+              this.contentService.onEditContentMultipal(flag,this.editContent)
+              .subscribe(data => {
+                     if (data.success == false) {
+                           this.waitLoader =false;
+                            this.toastr.error(data.msg, 'Edit Content  Failed. ', {
+                                toastLife: 3000,
+                                showCloseButton: true
+                            });
+                        }
+                        else if (data.success == true) {
+                          
+                           this.toastr.success(data.msg, 'Content  Edited. ', {
+                                toastLife: 3000,
+                                showCloseButton: true
+                            });
+                           this.getList()
+                        }
+                },error=>{
+                    alert(error)
+                })
+              }
+           }); 
+             
+      }
+      onApplyFilter(){
+          if (this.filterLanguage.length>0 ) {
+          this.filterRequest.language={
+             $in:this.filterLanguage
+           }
+            // code...
+          }else{
+            delete(this.filterRequest.language)
+          }
 
+          if (this.filterSection.length>0) {
+            // code...
+              this.filterRequest.sectionId={
+               $in:this.filterSection
+            }
+          }else{
+            delete(this.filterRequest.sectionId)
+          }
+          if (this.filterCategory.length>0 && this.filterSection.length>0 ) {
+            // code...
+           this.filterRequest.categoryId={
+             $in:this.filterCategory}
+          }else{
+            delete(this.filterRequest.categoryId)
+          }
+          if (this.filterSubcategory.length>0 && this.filterCategory.length>0 && this.filterSection.length>0) {
+            // code...
+          this.filterRequest.subCategoryId=
+           {$in:this.filterSubcategory}
+          }else{
+            delete(this.filterRequest.subCategoryId)
+          }
+
+        
+         this.waitLoader =true;
+              this.contentService.onApplyFilter(this.filterRequest)
+              .subscribe(data => {
+                     if (data.success == false) {
+                           this.waitLoader =false;
+                            this.toastr.error(data.msg, 'Data Filter Failed. ', {
+                                toastLife: 3000,
+                                showCloseButton: true
+                            });
+                        }
+                        else if (data.success == true) {
+                          
+                           // this.toastr.success(data.msg, 'Content  Edited. ', {
+                           //      toastLife: 3000,
+                           //      showCloseButton: true
+                           //  });
+                           //this.getList()
+                        }
+                },error=>{
+                    alert(error)
+              })
+        }
+      
 }
 
 /** Constants used to fill up our data base. */
@@ -296,5 +481,45 @@ export class ExampleDataSourceSort extends DataSource<any> {
       return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
     });
   }
+
+}
+
+
+
+@Component({
+  selector: 'content-confirmation-dialog',
+  templateUrl: 'contentConfirmation.html',
+})
+
+export class ContentConfirmation {
+   
+  msg;
+  constructor(
+    public dialogRef: MatDialogRef<ContentConfirmation>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+        private router: Router,
+        private appProvider: AppProvider,
+        public dialog: MatDialog) {
+         if(this.data.flag=='sortlistForHomepage'){
+           this.msg='Shortlist to homepage'
+          }
+          if(this.data.flag=='sortlistForCategory'){
+          this.msg='Shortlist to category'
+          }
+          if(this.data.flag=='delete'){
+          this.msg='Delete'
+          }
+       }
+
+  onYesClick(): void {
+    this.dialogRef.close('yes');
+    // this.homePage.onDelete(this.data.admin)
+  }
+   onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+ 
 
 }

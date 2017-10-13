@@ -1,8 +1,8 @@
 export class AddContentRequest {
-	_id:string;
-	language:string;
-	sectionId:string;
-	sectionName:string;
+    _id:string;
+    language:string;
+    sectionId:string;
+    sectionName:string;
     categoryName:string;
     categoryId:string;
     subCategoryId:string;
@@ -11,6 +11,8 @@ export class AddContentRequest {
     tagline:string;
     tags:string;
     dateOfCreation:string;
+    deleteStatus:boolean;
+    googleForm:boolean;
     typeOfUser:string;
     userList:object;
     contentBody:object;
@@ -45,8 +47,6 @@ export class AddContentRequest {
     callMeBackCount:number;
     pageView:number;
     imIntrestedCount:number;
-    deleteStatus:boolean;
-    googleForm:boolean;
     googleFormUrl:string;
     publishDate:string;
     rejectDate:string;
