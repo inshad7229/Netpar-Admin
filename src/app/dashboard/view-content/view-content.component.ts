@@ -84,7 +84,14 @@ export class ViewContentComponent implements OnInit {
 
       }
     ]
+    contentBackup:any;
+    filterData:any;
     filterRequest:any;
+    showFilterPan:boolean=false;
+    filterLanguageFilterPan:any;
+    filterSectionFilterPan:any;
+    filterCategoryFilterPan:any;
+    filterSubcategoryFilterPan:any;
     stringResource:StringResource=new  StringResource()
   	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
@@ -136,10 +143,12 @@ export class ViewContentComponent implements OnInit {
      this.contentService.ongetContentList()
             .subscribe(data =>{
                         this.waitLoader = false;
+                        this.contentBackup=data.response;
                         this.contentList=data.response
                         // this.localAdminList=data.response;
                    // console.log(JSON.stringify(data))
                 },error=>{
+                    this.waitLoader =false;
                     alert(error)
            })
   }
@@ -166,6 +175,7 @@ export class ViewContentComponent implements OnInit {
                   this.sectionsBack=data;
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
+                  this.waitLoader =false;
                   alert(error)
               })
   }
@@ -178,6 +188,7 @@ export class ViewContentComponent implements OnInit {
                     this.categories=this.categories.concat(this.categoriesBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
+                    this.waitLoader =false;
                     alert(error)
                 }) 
     }
@@ -190,10 +201,23 @@ export class ViewContentComponent implements OnInit {
                     this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
+                     this.waitLoader =false;
                     alert(error)
                 }) 
    }
-
+   findSec(id){
+     let sec =this.sections.filter(arg=>arg._id==id)
+    // console.log(JSON.stringify(sec))
+    return sec[0].sectionName;
+   }
+  findCat(id){
+    let cat =this.categories.filter(arg=>arg._id==id)
+    return cat[0].categoryName;
+  }
+  findSubCat(id){
+    let sub =this.subCategory.filter(arg=>arg._id==id)
+    return sub[0].subCategoryName;
+  }
   forSection(sec){
 
     if (sec.check==true) {
@@ -299,7 +323,7 @@ export class ViewContentComponent implements OnInit {
                             });
                         }
                         else if (data.success == true) {
-                          
+                            this.waitLoader =false;
                            this.toastr.success(data.msg, 'Content  Edited. ', {
                                 toastLife: 3000,
                                 showCloseButton: true
@@ -307,6 +331,7 @@ export class ViewContentComponent implements OnInit {
                            this.getList()
                         }
                 },error=>{
+                    this.waitLoader =false;
                     alert(error)
                 })
               }
@@ -331,17 +356,24 @@ export class ViewContentComponent implements OnInit {
           }else{
             delete(this.filterRequest.sectionId)
           }
-          if (this.filterCategory.length>0 && this.filterSection.length>0 ) {
+          if (this.filterCategory.length>0) {
             // code...
+            let category=[]
+            for(let i=0;i<this.filterCategory.length;i++){
+              category.push(this.filterCategory[i]._id)
+            }
            this.filterRequest.categoryId={
-             $in:this.filterCategory}
+             $in:category}
           }else{
             delete(this.filterRequest.categoryId)
           }
-          if (this.filterSubcategory.length>0 && this.filterCategory.length>0 && this.filterSection.length>0) {
-            // code...
+          if (this.filterSubcategory.length>0 ) {
+            let subCategory=[]
+            for(let i=0;i<this.filterSubcategory.length;i++){
+              subCategory.push(this.filterSubcategory[i]._id)
+            }
           this.filterRequest.subCategoryId=
-           {$in:this.filterSubcategory}
+           {$in:subCategory}
           }else{
             delete(this.filterRequest.subCategoryId)
           }
@@ -358,14 +390,15 @@ export class ViewContentComponent implements OnInit {
                             });
                         }
                         else if (data.success == true) {
-                          
-                           // this.toastr.success(data.msg, 'Content  Edited. ', {
-                           //      toastLife: 3000,
-                           //      showCloseButton: true
-                           //  });
-                           //this.getList()
+                          this.waitLoader =false;
+                           this.contentList=data.response;
+                           this.filterLanguageFilterPan=this.filterLanguage
+                           this.filterSectionFilterPan=this.filterSection
+                           this.filterCategoryFilterPan=this.filterCategory
+                           this.filterSubcategoryFilterPan=this.filterSubcategory
                         }
                 },error=>{
+                    this.waitLoader =false;
                     alert(error)
               })
         }

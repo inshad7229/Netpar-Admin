@@ -17,7 +17,10 @@
 	                                <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
 	                            </div>
 	                            <ul class="slctd-fltrli" type="none">
-	                                <li> Rejected <span> <i class="fa fa-times"></i> </span> </li>
+	                                <li *ngFor="let lang of filterLanguageFilterPan"> {{lang}} <span> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let sec of filterSectionFilterPan"> {{findSec(sec)}} <span> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let cat of filterCategoryFilterPan"> {{findCat(cat._id)}} <span> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let subCat of filterSubcategoryFilterPan"> {{findSubCat(subCat._id)}} <span> <i class="fa fa-times"></i> </span> </li>
 	                                <li> Draft <span> <i class="fa fa-times"></i> </span> </li>
 	                                <li> News <span> <i class="fa fa-times"></i> </span> </li>
 	                                <li> Revision <span> <i class="fa fa-times"></i> </span> </li>
