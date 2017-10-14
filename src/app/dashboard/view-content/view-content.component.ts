@@ -92,6 +92,11 @@ export class ViewContentComponent implements OnInit {
     filterSectionFilterPan:any;
     filterCategoryFilterPan:any;
     filterSubcategoryFilterPan:any;
+    saveAsDraftStatus:boolean;
+    rejectStatus:boolean;
+    sendForRevisionStatus:boolean;
+    publishLaterStatus:boolean;
+    publishStatus:boolean;
     stringResource:StringResource=new  StringResource()
   	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
@@ -207,16 +212,21 @@ export class ViewContentComponent implements OnInit {
    }
    findSec(id){
      let sec =this.sections.filter(arg=>arg._id==id)
-    // console.log(JSON.stringify(sec))
-    return sec[0].sectionName;
+    if (sec.length>0) {
+        return sec[0].sectionName;
+    }
    }
   findCat(id){
     let cat =this.categories.filter(arg=>arg._id==id)
-    return cat[0].categoryName;
+    if (cat.length>0) {
+      return cat[0].categoryName;
+    }
   }
   findSubCat(id){
     let sub =this.subCategory.filter(arg=>arg._id==id)
-    return sub[0].subCategoryName;
+    if (sub.length>0) {
+      return sub[0].subCategoryName;
+    }
   }
   forSection(sec){
 
@@ -252,6 +262,10 @@ export class ViewContentComponent implements OnInit {
     }
   }
   onSelectLang(lang){
+    console.log('ang'+JSON.stringify(this.filterLanguageFilterPan))
+     // console.log(''+JSON.stringify(this.filterSectionFilterPan))
+     //  console.log(''+JSON.stringify(this.filterCategoryFilterPan))
+     //   console.log(''+JSON.stringify(this.filterSubcategoryFilterPan))
    if (lang.check==true) {
       this.filterLanguage.push(lang.language)
      //this.getCategory(subCat._id)
@@ -339,11 +353,12 @@ export class ViewContentComponent implements OnInit {
              
       }
       onApplyFilter(){
+        let demo=[]
           if (this.filterLanguage.length>0 ) {
           this.filterRequest.language={
              $in:this.filterLanguage
            }
-            // code...
+            demo.push({language:this.filterRequest.language})
           }else{
             delete(this.filterRequest.language)
           }
@@ -353,6 +368,7 @@ export class ViewContentComponent implements OnInit {
               this.filterRequest.sectionId={
                $in:this.filterSection
             }
+             demo.push({sectionId:this.filterRequest.sectionId})
           }else{
             delete(this.filterRequest.sectionId)
           }
@@ -364,6 +380,7 @@ export class ViewContentComponent implements OnInit {
             }
            this.filterRequest.categoryId={
              $in:category}
+              demo.push({categoryId:this.filterRequest.categoryId})
           }else{
             delete(this.filterRequest.categoryId)
           }
@@ -374,13 +391,38 @@ export class ViewContentComponent implements OnInit {
             }
           this.filterRequest.subCategoryId=
            {$in:subCategory}
+           demo.push({subCategoryId:this.filterRequest.subCategoryId})
           }else{
             delete(this.filterRequest.subCategoryId)
           }
 
-        
+           if(this.filterRequest.saveAsDraftStatus){
+                 demo.push({saveAsDraftStatus:this.filterRequest.saveAsDraftStatus})
+            }
+            if(this.filterRequest.rejectStatus){
+               demo.push({rejectStatus:this.filterRequest.rejectStatus})
+              
+            }
+            if(this.filterRequest.sendForRevisionStatus){
+                   demo.push({sendForRevisionStatus:this.filterRequest.sendForRevisionStatus})
+              
+            }
+            if(this.filterRequest.publishLaterStatus){
+                  demo.push({publishLaterStatus:this.filterRequest.publishLaterStatus})
+              
+            }
+            if(this.filterRequest.publishStatus){
+                demo.push({publishStatus:this.filterRequest.publishStatus})
+            }
+      
+          let demo2=[];
+          demo2.push({$or:demo})
+           demo2.push({deleteStatus:false})
+           let demo3={
+             $and:demo2
+           }
          this.waitLoader =true;
-              this.contentService.onApplyFilter(this.filterRequest)
+              this.contentService.onApplyFilter(demo3)
               .subscribe(data => {
                      if (data.success == false) {
                            this.waitLoader =false;
@@ -392,15 +434,84 @@ export class ViewContentComponent implements OnInit {
                         else if (data.success == true) {
                           this.waitLoader =false;
                            this.contentList=data.response;
-                           this.filterLanguageFilterPan=this.filterLanguage
-                           this.filterSectionFilterPan=this.filterSection
-                           this.filterCategoryFilterPan=this.filterCategory
-                           this.filterSubcategoryFilterPan=this.filterSubcategory
+                           this.filterLanguageFilterPan=this.filterLanguage.slice(0);
+                           this.filterSectionFilterPan=this.filterSection.slice(0);
+                           this.filterCategoryFilterPan=this.filterCategory.slice(0);
+                           this.filterSubcategoryFilterPan=this.filterSubcategory.slice(0);
+                            if(this.filterRequest.saveAsDraftStatus){
+                                 this.saveAsDraftStatus=true; 
+                            }
+                            if(this.filterRequest.rejectStatus){
+                               this.rejectStatus=true;
+                              
+                            }
+                            if(this.filterRequest.sendForRevisionStatus){
+                                   this.sendForRevisionStatus=true;
+                              
+                            }
+                            if(this.filterRequest.publishLaterStatus){
+                                 this.publishLaterStatus=true;
+                              
+                            }
+                            if(this.filterRequest.publishStatus){
+                                 this.publishStatus=true;
+                            }
+
                         }
                 },error=>{
                     this.waitLoader =false;
                     alert(error)
               })
+        }
+
+        onClearLangFilter(lang){
+          this.contentList=this.contentList.filter(arg=>arg.language!=lang)
+          this.filterLanguageFilterPan=this.filterLanguageFilterPan.filter(arg=>arg!=lang)
+        }
+        onClearSectionFilter(secId){
+            this.contentList=this.contentList.filter(arg=>arg.sectionId!=secId) 
+            this.filterSectionFilterPan=this.filterSectionFilterPan.filter(arg=>arg!=secId)         
+        }
+        onClearCategoryFilter(catId){
+          console.log(JSON.stringify(this.filterCategoryFilterPan))
+            this.contentList=this.contentList.filter(arg=>arg.categoryId!=catId)
+            this.filterCategoryFilterPan=this.filterCategoryFilterPan.filter(arg=>arg._id!=catId)
+        }
+        onClearSubCategoryFilter(subCatId){
+            this.contentList=this.contentList.filter(arg=>arg.subCategorId!=subCatId)
+            this.filterSubcategoryFilterPan=this.filterSubcategoryFilterPan.filter(arg=>arg._id!=subCatId)
+        }
+        onClearDraftFilter(status){
+            this.contentList=this.contentList.filter(arg=>arg.saveAsDraftStatus!=status)
+            this.saveAsDraftStatus=false;
+        }
+        onClearRejectFilter(status){
+            this.contentList=this.contentList.filter(arg=>arg.rejectStatus!=status)
+            this.rejectStatus=false;
+        }
+        onClearRevisionFilter(status){
+            this.contentList=this.contentList.filter(arg=>arg.sendForRevisionStatus!=status)
+            this.sendForRevisionStatus=false;
+        }
+        onClearScheduledFilter(status){
+            this.contentList=this.contentList.filter(arg=>arg.publishLaterStatus!=status)
+            this.publishLaterStatus=false;
+        }
+        onClearPublishedFilter(status){
+            this.contentList=this.contentList.filter(arg=>arg.publishStatus!=status)
+            this.publishStatus=false;
+        }
+        clearAll(){
+            this.filterLanguageFilterPan=[]
+            this.filterSectionFilterPan=[]
+            this.filterCategoryFilterPan=[]
+            this.filterSubcategoryFilterPan=[]
+            this.saveAsDraftStatus=false;
+            this.rejectStatus=false;
+            this.sendForRevisionStatus=false;
+            this.publishLaterStatus=false;
+            this.publishStatus=false;
+            this.contentList=this.contentBackup.slice(0)
         }
       
 }

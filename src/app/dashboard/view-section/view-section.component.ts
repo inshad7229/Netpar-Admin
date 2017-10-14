@@ -62,7 +62,7 @@ export class ViewSectionComponent implements OnInit {
             $(this).closest('.filter-plugin').removeClass('open');
         });
         $('.cusdropdown-toggle').on('click', function () {
-            alert('hy');
+           
             $(this).closest('.dropdown').toggleClass('open');
         })
         $(window).on('click', function (e) {
@@ -144,9 +144,6 @@ export class ViewSectionComponent implements OnInit {
             this.getSubCategoryData(id, e)
 
         }
-        console.log(JSON.stringify(this.flag))
-
-        console.log(JSON.stringify(data))
     }
     openDialog(data): void {
       this.appProvider.current.currentSectionName=data.sectionName;
@@ -217,7 +214,7 @@ export class ViewSectionComponent implements OnInit {
                         showCloseButton: true
                     });
                 } else if (data.success == true) {
-                    alert('hello')
+     
                     $('.dropdown').removeClass('open');
                     this.getSectionViewData()
                     //this.router.navigate(['/view-section'],{ skipLocationChange: true });
@@ -240,7 +237,7 @@ export class ViewSectionComponent implements OnInit {
                         showCloseButton: true
                     });
                 } else if (data.success == true) {
-                    alert('hello')
+             
                     $('.dropdown').removeClass('open');
                     this.getSectionViewData()
                     //this.router.navigate(['/view-section'],{ skipLocationChange: true });
@@ -263,7 +260,7 @@ export class ViewSectionComponent implements OnInit {
                         showCloseButton: true
                     });
                 } else if (data.success == true) {
-                    alert('hello')
+                
                     $('.dropdown').removeClass('open');
                     this.getSectionViewData()
                     //this.router.navigate(['/view-section'],{ skipLocationChange: true });
@@ -298,7 +295,7 @@ export class ViewSectionComponent implements OnInit {
                         showCloseButton: true
                     });
                 } else if (data.success == true) {
-                    alert('hello')
+           
                     $('.dropdown').removeClass('open');
                     this.getSectionViewData()
                     //this.router.navigate(['/view-section'],{ skipLocationChange: true });
@@ -321,7 +318,7 @@ export class ViewSectionComponent implements OnInit {
                         showCloseButton: true
                     });
                 } else if (data.success == true) {
-                    alert('hello')
+           
                     $('.dropdown').removeClass('open');
                     this.getSectionViewData()
                     //this.router.navigate(['/view-section'],{ skipLocationChange: true });
@@ -345,7 +342,7 @@ export class ViewSectionComponent implements OnInit {
                         showCloseButton: true
                     });
                 } else if (data.success == true) {
-                    alert('hello')
+   
                     $('.dropdown').removeClass('open');
                     this.getSectionViewData()
                     //this.router.navigate(['/view-section'],{ skipLocationChange: true });
@@ -376,7 +373,7 @@ export class ViewSectionComponent implements OnInit {
                         showCloseButton: true
                     });
                 } else if (data.success == true) {
-                    alert('hello')
+                   
                     $('.dropdown').removeClass('open');
                     this.getSectionViewData()
                     //this.router.navigate(['/view-section'],{ skipLocationChange: true });
@@ -399,7 +396,7 @@ export class ViewSectionComponent implements OnInit {
                         showCloseButton: true
                     });
                 } else if (data.success == true) {
-                    alert('hello')
+              
                     $('.dropdown').removeClass('open');
                     this.getSectionViewData()
                     //this.router.navigate(['/view-section'],{ skipLocationChange: true });
@@ -422,7 +419,7 @@ export class ViewSectionComponent implements OnInit {
                         showCloseButton: true
                     });
                 } else if (data.success == true) {
-                    alert('hello')
+              
                     $('.dropdown').removeClass('open');
                     this.getSectionViewData()
                     //this.router.navigate(['/view-section'],{ skipLocationChange: true });

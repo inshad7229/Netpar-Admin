@@ -41,7 +41,8 @@
                                                        {{i+1}}.
                                                     </td>
                                                     <td >
-                                                        <img  [src]="admin.image" class="img-responsive profile-img"   />
+                                                        <img  *ngIf="!admin.image"  src="./assets/img/placeholder5.png" class="img-responsive profile-img"   />
+                                                        <img  *ngIf="admin.image" [src]="admin.image" class="img-responsive profile-img"   />
                                                     </td>
                                                     <td class="td-icon">
                                                         {{admin.firstName}} {{admin.lastName}}
