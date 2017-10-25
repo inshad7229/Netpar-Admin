@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { MatTooltipModule, MatTableModule, MatPaginator ,
          MatProgressBarModule,MatDialogModule,MatDatepickerModule,
          MatNativeDateModule,MatCheckboxModule,MatProgressSpinnerModule,
-         MatSelectModule,MatRadioModule,MatInputModule
+         MatSelectModule,MatRadioModule,MatInputModule, MatChipsModule
        } from '@angular/material';
 import {MatListModule} from '@angular/material';
 import {DataTableModule} from "angular2-datatable";
@@ -15,7 +15,10 @@ import {DndModule} from 'ng2-dnd';
 import { SwiperModule } from 'angular2-useful-swiper';
 import {ColorPickerModule} from 'angular4-color-picker';
 import { CKEditorModule } from 'ng2-ckeditor';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1edc723770151e5a03251fe633fb9f1a3d31e278
 
 
 import { MODULE_COMPONENTS, MODULE_ROUTES } from './dashboard.routes';
@@ -54,6 +57,8 @@ import { DragDropComponent } from './add-content/drag-drop/drag-drop.component';
 import { ContentViewComponent } from './add-content/content-view/content-view.component';
 import { ContentViewDialogComponent } from './view-content/content-view-dialog/content-view-dialog.component';
 import { ListingViewComponent } from './add-content/listing-view/listing-view.component';
+import {EditorComponent } from './add-content/editor/editor.component';
+import { SimpleTinyComponent } from './tiny/tiny.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -76,13 +81,14 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatRadioModule,
         MatInputModule,
         MatSelectModule,
+        MatChipsModule,
         NgxCroppieModule,
         DataTableModule,
         SwiperModule,
         MatListModule,
         ColorPickerModule,
+        CKEditorModule,
         DndModule.forRoot(),
-
     ],
     declarations: [
              AdminConfirmation,///inshad
@@ -117,12 +123,14 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               ListingViewComponent,
               ContentViewDialogComponent,
               ContentConfirmation,
-              FilterDialogComponent
+              FilterDialogComponent,
+              SimpleTinyComponent,
+              EditorComponent
 
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
-ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent ],
+ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent ],
 })
 
 export class DashboardModule{

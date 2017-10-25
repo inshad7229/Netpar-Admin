@@ -10,7 +10,7 @@
             <div class="container-fluid p-0">
                 <mat-progress-bar *ngIf="waitLoader" mode="indeterminate"></mat-progress-bar>
                 <div class="row">
-                    <div class="col-lg-12 col-mat-12">
+                    <div class="col-lg-12 col-md-12">
                         <div class="card" > 
                             <div class="card-header card-header-icon" data-background-color="orange">
                                 <i class="material-icons">edit</i>
@@ -18,10 +18,21 @@
                             <div class="card-content">
                                 <h4 class="card-title">Add Content</h4>
                                 <div class="cus-form">
+                                   <!--  <ckeditor
+                                        [(ngModel)]="ckeditorContent"
+                                        [config]="{uiColor: '#99000'}"
+                                        [readonly]="false"
+                                        (change)="onChange($event)"
+                                        (ready)="onReady($event)"
+                                        (focus)="onFocus($event)"
+                                        (blur)="onBlur($event)"
+                                        debounce="500">
+                                      </ckeditor> -->
+
                                     <form class="example-form" [formGroup]="addContentForm" >
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <mat-select placeholder="Select Language *" name="language"   [formControl]="addContentForm.controls['language']" [(ngModel)]="addContentRequest.language">
+                                                <mat-select placeholder="Select Language *" name="language"   [formControl]="addContentForm.controls['language']" [(ngModel)]="addContentRequest.language" (change)="onselectLang(addContentRequest.language)">
                                                     <mat-option  *ngFor="let lang of stringResource.language" [value]="lang.language">{{lang.language}}</mat-option>
                                                     <!-- <mat-option value="2"> Language2 </mat-option>
                                                     <mat-option value="3"> Language3 </mat-option>
@@ -39,7 +50,7 @@
                                             </mat-form-field>
                                         </div>
 
-                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Section *" name="sectionId"   [formControl]="addContentForm.controls['sectionId']" [(ngModel)]="addContentRequest.sectionId" (change)="getCategory()">
                                                  <mat-option  *ngFor="let section of sections"  [value]="section._id" > {{section.sectionName}}</mat-option>
@@ -58,14 +69,14 @@
                                                 </mat-error> -->
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                         <mat-form-field>
                                             <mat-select placeholder="Select Category" name="categoryId"   [formControl]="addContentForm.controls['categoryId']" [(ngModel)]="addContentRequest.categoryId" (change)="getsubCategory()">
                                                 <mat-option *ngFor="let category of categories"  [value]="category._id" > {{category.categoryName}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Sub-category"  name="subCategoryId"   [formControl]="addContentForm.controls['subCategoryId']" [(ngModel)]="addContentRequest.subCategoryId" >
                                                     <mat-option *ngFor="let  subcate of subCategory"  [value]="subcate._id" > {{subcate.subCategoryName}}</mat-option>
@@ -76,7 +87,7 @@
                                             </mat-form-field>
                                         </div>
 
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Add headline *" type="text" name="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline">
                                                 <mat-error  *ngIf="addContentForm.controls['headline'].hasError('required') && addContentForm.controls['headline'].touched">
@@ -90,30 +101,43 @@
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Add tagline *"  type="text" name="tagline"   [formControl]="addContentForm.controls['tagline']" [(ngModel)]="addContentRequest.tagline">
                                                 <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('required') && addContentForm.controls['tagline'].touched">
                                                 TagLine is <strong>required</strong>
                                                 </mat-error>
-                                               <!--  <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('pattern')">
-                                                only alphabets are acceptable 
-                                                </mat-error> -->
                                                 <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('maxlength')">
                                                 max length is 100
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                            <input type="text" placeholder="Add tags" class="selectize txtselectize" name="tags"   [formControl]="addContentForm.controls['tags']" [(ngModel)]="addContentRequest.tags">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <!-- <input type="text" placeholder="Add tags" class="selectize txtselectize" name="tags"   [formControl]="addContentForm.controls['tags']" [(ngModel)]="addContentRequest.tags"> -->
+                                            <mat-form-field class="demo-chip-list">
+                                              <mat-chip-list #chipList>
+                                                <mat-chip *ngFor="let fruit of addContentRequest.tags" [selectable]="selectable"
+                                                         [removable]="removable" (remove)="remove(fruit)">
+                                                  {{fruit.name}}
+                                                  <i matChipRemove *ngIf="removable" class="material-icons">cancel</i>
+                                                  <!-- <mat-icon >cancel</mat-icon> -->
+                                                </mat-chip>
+                                                <input placeholder="Add tags"
+                                                       [matChipInputFor]="chipList"
+                                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                       [matChipInputAddOnBlur]="addOnBlur"
+                                                       (matChipInputTokenEnd)="add($event)" />
+                                              </mat-chip-list>
+                                            </mat-form-field>
+
                                         </div>
 
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                            <mat-form-field>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <mat-form-field style="color: gray">
                                                 <input matInput [matDatepicker]="picker" placeholder="Date of creation" name="adc"  readonly="true" [formControl]="addContentForm.controls['dateOfCreation']" [(ngModel)]="addContentRequest.dateOfCreation">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Type of user *" name="typeOfUser"   [formControl]="addContentForm.controls['typeOfUser']" [(ngModel)]="addContentRequest.typeOfUser" (change)="getUserList(addContentRequest.typeOfUser)">
                                                     <mat-option value="platformUser"> Platform User </mat-option>
@@ -132,12 +156,12 @@
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>  
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="localAdminList">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="localAdminList">
                                             <mat-form-field>
                                                 <input matInput placeholder="Search user" type="text" name="serchUser"   [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onsearchuser(searchUser)">
                                             </mat-form-field>
                                         </div>
-                                       <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                       <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="users-panel">
                                                 <div class="users-box" *ngFor="let user of localAdminList;let i=index" (click)="toggleHighlight(i)" [ngClass]="{'active': user.check=='active' }" >
                                                     <div class="cont-img dp">
@@ -243,7 +267,7 @@
                                                 
                                             </div>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div id="email-builder">
                                                 <div class="email-builder-content">
                                                    
@@ -331,7 +355,7 @@
                                                     <div position-relative>
                                                         <div class="builder">
                                                             <div class="email-container list-group" dnd-sortable-container [sortableData]="listOne">
-                                                               <div *ngFor="let item of listOne; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i" (mousedown)="itemDragged(i)" (onDropSuccess)="itemSwapped(i)">
+                                                               <div *ngFor="let item of listOne; let i = index" class="list-group-item"  (mousedown)="itemDragged(i)" (onDropSuccess)="itemSwapped(i)">
                                                                     <div class="builder-element" *ngIf="item.tag=='grid'">
                                                                         <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
@@ -386,10 +410,7 @@
                                                                             </tbody>
                                                                         </table>
                                                                         <figcaption>{{item.caption}}</figcaption>
-                                                                        <div class="icons-actions">
-                                                                            <i title="Move element" class="material-icons">drag_handle</i>
-                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
-                                                                        </div>
+                                                                        
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='button'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
@@ -402,21 +423,25 @@
                                                                             </tbody>
                                                                         </table>
 
-                                                                        <div class="icons-actions">
-                                                                            <i title="Move element" class="material-icons">drag_handle</i>
-                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
-                                                                        </div>
+                                                                        
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='text'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
-                                                                            <tbody>
-                                                                                <tr (click)="onClickOnDragItem(i,item)">
+                                                                            <tbody (click)="onText(i,item.text)">
+                                                                                <tr  >
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
-                                                                                        <div [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}"><P>{{item.text}}</P></div>
+                                                                                        <div [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
+                                                                                           <!--  <textarea matInput  [(ngModel)]="item.text" [ngModelOptions]="{standalone: true}" >
+                                                                                            </textarea> -->
+       
+                                                                                            <div [innerHTML]="getHtml(item.text)" ></div>
+                                                                                        </div> 
                                                                                     </td>
                                                                                 </tr>
+                                                                               
                                                                             </tbody>
                                                                         </table>
+<<<<<<< HEAD
                                                                           <ckeditor
                                                                                 [(ngModel)]="ckeditorContent"
                                                                                 [config]="{uiColor: '#99000'}"
@@ -431,6 +456,22 @@
                                                                             <i title="Move element" class="material-icons">drag_handle</i>
                                                                             <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
                                                                         </div>
+=======
+                                                                        
+                                                                     <!--    <div class="editable">
+                                                                            <div [(ngModel)]='item.text' [ngModelOptions]="{standalone: true}" name="jjj" (change)="keyupHandlerFunction($event)">
+                                                                                Your Text will be here.
+                                                                            </div>
+                                                                        </div> -->
+                                                                       <!--  <ckeditor name="edit"
+                                                                            [(ngModel)]="item.text"
+                                                                            [config]="{uiColor: '#99000'}"
+                                                                            debounce="500" [ngModelOptions]="{standalone: true}">
+                                                                        </ckeditor> -->
+
+
+                                                                        
+>>>>>>> 1edc723770151e5a03251fe633fb9f1a3d31e278
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='image'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
@@ -444,10 +485,7 @@
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
-                                                                        <div class="icons-actions">
-                                                                            <i title="Move element" class="material-icons">drag_handle</i>
-                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
-                                                                        </div>
+                                                                        
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='video'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
@@ -463,10 +501,7 @@
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
-                                                                        <div class="icons-actions">
-                                                                            <i title="Move element" class="material-icons">drag_handle</i>
-                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
-                                                                        </div>
+                                                                        
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='audio'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
@@ -483,10 +518,7 @@
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
-                                                                        <div class="icons-actions">
-                                                                            <i title="Move element" class="material-icons">drag_handle</i>
-                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
-                                                                        </div>
+                                                                        
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='document'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
@@ -500,10 +532,7 @@
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
-                                                                        <div class="icons-actions">
-                                                                            <i title="Move element" class="material-icons">drag_handle</i>
-                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
-                                                                        </div>
+                                                                        
                                                                     </div>
 
                                                                     <!-- <div class="builder-element" *ngIf="item.tag=='form'">
@@ -521,7 +550,10 @@
                                                                             <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
                                                                         </div>
                                                                     </div> -->
-
+                                                                    <div class="icons-actions" dnd-sortable [sortableIndex]="i">
+                                                                        <i title="Move element" class="material-icons">drag_handle</i>
+                                                                        <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                    </div>
                                                                 </div>
 
                                                             </div>
@@ -588,6 +620,7 @@
                                                                             <mat-form-field>
                                                                                 <input matInput placeholder="Enter Text" type="text"  name="text" [(ngModel)]="rightPan.text" (input)="onTextChange()">
                                                                             </mat-form-field>
+                                                                            <!-- <simple-tiny [elementId]="'id_custome'" (onEditorKeyup)="keyupHandlerFunction($event)"> </simple-tiny> -->
                                                                         </div>
                                                                            
                                                                     </div>
@@ -651,6 +684,24 @@
                                                                     </div>
 
                                                                 </div>
+                                                                <div class="fileinput" data-provides="fileinput" *ngIf=" rightPan.tag=='video'  ">
+                                                                        <span class="btn custom-btn btn-round btn-file">
+                                                                            <span class="fileinput-new">Change Video</span>
+                                                                            <input type="file" class="file-type" accept="video/*" (change)=onVideoChange(); />
+                                                                        </span>
+                                                                 </div>
+                                                                 <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='audio'">
+                                                                        <span class="btn custom-btn btn-round btn-file">
+                                                                            <span class="fileinput-new">Change Audio</span>
+                                                                            <input type="file" class="file-type" accept="audio/*" (change)=onAudioChange($event); />
+                                                                        </span>
+                                                                 </div>
+                                                                 <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='document' ">
+                                                                        <span class="btn custom-btn btn-round btn-file">
+                                                                            <span class="fileinput-new">Change Document</span>
+                                                                            <input type="file" class="file-type" accept=" .pdf , .doc ,.docx" (change)=onDocumentChange(); />
+                                                                        </span>
+                                                                 </div>
                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
 
                                                                     <div class="block-properties">
@@ -662,7 +713,16 @@
                                                                            
                                                                     </div>
 
+                                                                    <div class="row">
+                                                                        <label class="col-md-12 col-sm-12 col-xs-12"> Download </label>
+                                                                        <mat-radio-group>
+                                                                            <mat-radio-button value="true" class="col-md-6 col-sm-6 col-xs-12">Yes</mat-radio-button>
+                                                                            <mat-radio-button value="false" class="col-md-6 col-sm-6 col-xs-12">No</mat-radio-button>
+                                                                        </mat-radio-group>
+
+                                                                    </div>
                                                                 </div>
+
 
                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image' || rightPan.tag=='video' || rightPan.tag=='audio' || rightPan.tag=='document' || rightPan.tag=='grid' ">
 
@@ -753,6 +813,12 @@
                                                                                     <input matInput placeholder="Audio URL" type="text" name="gridaudiourl1" [(ngModel)]="rightPan.audiourl1" (input)="onGridAudioUrl1Change()">
                                                                                 </mat-form-field>
                                                                             </div>
+                                                                            <div class="fileinput" data-provides="fileinput">
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change Audio</span>
+                                                                                    <input type="file" class="file-type" (change)=onAudioChange(); />
+                                                                                </span>
+                                                                            </div>
                                                                                
                                                                         </div>
 
@@ -809,6 +875,12 @@
                                                                                 <mat-form-field>
                                                                                     <input matInput placeholder="Video URL" type="text" name="gridvideourl2" [(ngModel)]="rightPan.videourl2" (input)="onGridVideoUrl2Change()">
                                                                                 </mat-form-field>
+                                                                            </div>
+                                                                            <div class="fileinput" data-provides="fileinput">
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change Video</span>
+                                                                                    <input type="file" class="file-type" (change)=onVideoChange(); />
+                                                                                </span>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -926,7 +998,9 @@
                                                                 <div class="block-properties">
                                                                     <div class="">
                                                                         <p>Call to Action Buttons</p>
-                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let callbtn of callToActionButton;let i=index" (click)="removeCallButton(i)">{{callbtn.title}} 
+                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let callbtn of callToActionButton;let i=index" (click)="removeCallButton(i)">
+                                                                        <i class="{{getClass(callbtn.title)}}"></i>
+                                                                            {{callbtn.title}} 
                                                                         <span class="badge" > <i class="fa fa-times"></i> </span></button>
                                                                             
                                                                     </div>
@@ -936,7 +1010,9 @@
                                                                 <div class="block-properties">
                                                                     <div class="">
                                                                         <p>User Engagement Buttons</p>
-                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let userbtn of userEngaButton; let i=index" (click)="removeUerButton(i)">{{userbtn.title}}
+                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let userbtn of userEngaButton; let i=index" (click)="removeUerButton(i)">
+                                                                        <i class="{{getClass(userbtn.title)}}"></i>
+                                                                            {{userbtn.title}}
                                                                         <span class="badge" > <i class="fa fa-times"  ></i> </span></button>
                                                                         
                                                                     </div>
@@ -984,7 +1060,7 @@
                                                                             <input matInput placeholder="Textbox" type="text">
                                                                         </mat-form-field>
                                                                         <div class="to_edit">
-                                                                            <div class="col-mat-12 col-sm-12 col-xs-12">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                                                                 <mat-form-field>
                                                                                     <input matInput placeholder="label" type="text">
                                                                                 </mat-form-field>    
@@ -997,7 +1073,7 @@
                                                                             <textarea matInput placeholder="Guide Text of Form" rows="5" mat-select-on-focus></textarea>
                                                                         </mat-form-field>
                                                                         <div class="to_edit">
-                                                                            <div class="col-mat-12 col-sm-12 col-xs-12">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                                                                 <mat-form-field>
                                                                                     <input matInput placeholder="label" type="text">
                                                                                 </mat-form-field>    
@@ -1012,7 +1088,7 @@
                                                                                 <input type="file" class="file-type" (click)="formimage()" />
                                                                                 <div class="ripple-container"></div>
                                                                             </span>
-                                                                            <div class="col-mat-12 col-sm-12 col-xs-12">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                                                                 <div class="file_img thumbnail" style="display:none;">
                                                                                     <img alt="..." src="./assets/img/placeholder5.png">
                                                                                     <span class="close"> <i (click)="close_img()" class="material-icons">cancel</i> </span>
@@ -1021,7 +1097,7 @@
 
                                                                         </div>
                                                                         <div class="to_edit">
-                                                                            <div class="col-mat-12 col-sm-12 col-xs-12">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                                                                 <mat-form-field>
                                                                                     <input matInput placeholder="label" type="text">
                                                                                 </mat-form-field>    
@@ -1053,22 +1129,22 @@
                                         </div>
                                         <iframe *ngIf="googleFromatata.formURL" [src]="googleFromatata.formURL" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 
-                                        <div class="col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <legend>Add suggested articles *:</legend>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                 <mat-radio-group  name="suggestedArticle"  [formControl]="addContentForm.controls['suggestedArticle']" [(ngModel)]="addContentRequest.suggestedArticle" >
-                                                    <mat-radio-button value="true" class="col-mat-2 col-sm-2 col-xs-12">Yes</mat-radio-button>
-                                                    <mat-radio-button value="false" class="col-mat-2 col-sm-2 col-xs-12">No</mat-radio-button>
+                                                    <mat-radio-button value="true" class="col-md-2 col-sm-2 col-xs-12">Yes</mat-radio-button>
+                                                    <mat-radio-button value="false" class="col-md-2 col-sm-2 col-xs-12">No</mat-radio-button>
                                                 </mat-radio-group>
 
                                             </div>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="addContentRequest.suggestedArticle=='true'">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="addContentRequest.suggestedArticle=='true'">
                                             <a class="btn btn-success m-0" (click)="openDialog2()" > Add Article + </a>
                                         </div>
-                                        <!-- <div class="form-group col-mat-4 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select Section">
                                                 <mat-option value="1"> Section1 </mat-option>
                                                 <mat-option value="2"> Section2 </mat-option>
@@ -1076,7 +1152,7 @@
                                                 <mat-option value="4"> Section4 </mat-option>
                                             </mat-select>
                                         </div>
-                                        <div class="form-group col-mat-4 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select Category">
                                                 <mat-option value="1"> Category1 </mat-option>
                                                 <mat-option value="2"> Category2 </mat-option>
@@ -1084,7 +1160,7 @@
                                                 <mat-option value="4"> Category4 </mat-option>
                                             </mat-select>
                                         </div>
-                                        <div class="form-group col-mat-4 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select Sub-category">
                                                 <mat-option value="1"> Sub-category1 </mat-option>
                                                 <mat-option value="2"> Sub-category2 </mat-option>
@@ -1092,14 +1168,14 @@
                                                 <mat-option value="4"> Sub-category4 </mat-option>
                                             </mat-select>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-icon matSuffix>mode_edit</mat-icon>
                                                 <input matInput placeholder="Search name of content item" type="text">
                                             </mat-form-field>
                                         </div> -->
 
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="suggestedArticleList">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="suggestedArticleList">
                                             <div class="row">
                                                 <div class="dshbrd-table table-responsive">
                                                     <table class="table view-content-table">
@@ -1171,10 +1247,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-mat-12 col-sm-12 col-xs-12">
-                                            <legend>Picture of Subcategory:</legend>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <legend>Preview Picture:</legend>
                                         </div>
-                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12 text-center">
                                             <p> Thumbnail Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
@@ -1199,7 +1275,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-mat-4 col-sm-4 col-xs-12">
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                             <p> Horizontal Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
@@ -1226,41 +1302,41 @@
 
 
 
-                                        <!-- <div class="col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                                             <legend>User engagement buttons:</legend>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Kadak</mat-checkbox>
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Share</mat-checkbox>
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Comment</mat-checkbox>
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Save</mat-checkbox>
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Download</mat-checkbox>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Kadak</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Share</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Comment</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Save</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Download</mat-checkbox>
                                             </div>
                                         </div>
-                                        <div class="col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <legend>Call to action buttons:</legend>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Apply</mat-checkbox>
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Call me back</mat-checkbox>
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">I'm interested</mat-checkbox>
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12">Call</mat-checkbox>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Apply</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Call me back</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">I'm interested</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Call</mat-checkbox>
                                             </div>
                                         </div> -->
 
-                                        <div class="col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <legend>Shortlist content for promotion:</legend>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12" name="sortlistForHomepage" [formControl]="addContentForm.controls['sortlistForHomepage']" [(ngModel)]="addContentRequest.sortlistForHomepage" >Homepage</mat-checkbox>
-                                                <mat-checkbox class="col-mat-2 col-sm-2 col-xs-12"  name="sortlistForCategory" [formControl]="addContentForm.controls['sortlistForCategory']" [(ngModel)]="addContentRequest.sortlistForCategory">Category</mat-checkbox>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12" name="sortlistForHomepage" [formControl]="addContentForm.controls['sortlistForHomepage']" [(ngModel)]="addContentRequest.sortlistForHomepage" >Homepage</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12"  name="sortlistForCategory" [formControl]="addContentForm.controls['sortlistForCategory']" [(ngModel)]="addContentRequest.sortlistForCategory">Category</mat-checkbox>
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <label> This content is applicable for: </label>
                                             <mat-form-field>
                                                 <mat-select placeholder="Select State *" multiple  name="applicableStateLists" [formControl]="addContentForm.controls['applicableStateLists']" [(ngModel)]="addContentRequest.applicableStateLists">
@@ -1282,14 +1358,14 @@
                                         </div>
 
 
-                                        <div class="col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <legend>Preview:</legend>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn custom-btn" (click)="contentView()" [disabled]="!addContentForm.valid"> Content View </button>
                                             <button class="btn custom-btn" (click)="listView()" [disabled]="!addContentForm.valid"> Listing View </button>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn btn-warning" (click)="saveAsDraft()" [disabled]="!addContentForm.valid"> Save as draft </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser' "  (click)="submitForReview()" [disabled]="!addContentForm.valid"> Submit for review </button>
                                             <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="publish('Publish')" [disabled]="!addContentForm.valid"> Publish </button>

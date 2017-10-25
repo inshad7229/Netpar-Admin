@@ -205,9 +205,10 @@ export class EditAdminComponent implements OnInit {
     onRegister() {
         let languageArray=this.getLanguage()
         this.waitLoader = true;
-        console.log(JSON.stringify(this.options))
+       // console.log(JSON.stringify(this.options))
         this.register.sectionName = this.options
-        this.register.image = this.currentImage;
+        let img= this.currentImage
+        this.register.image = img.replace("data:image/png;base64,","");
         this.register.langDetails=languageArray;
         if (this.appProvider.current.adminPageFlag == "allEdit") {
             this.register.plain = window.btoa(this.register.password);
@@ -312,49 +313,7 @@ export class EditAdminComponent implements OnInit {
 
         }
     }
-    onChange(event: any, input: any) {
-        let files = [].slice.call(event.target.files);
-        this.uploadFile = files;
-        this.newUploadFiles = files;
-        input.value = files.map(f => f.name).join(',');
-        this.length = files.length;
 
-        this.convertToBase64();
-    }
-
-
-    convertToBase64() {
-
-        this.tempCustomerBase64 = [];
-        for (var i = 0; i < this.length; i++) {
-            let formData: FormData = new FormData();
-            this.uploadFile = this.newUploadFiles[i];
-            formData.append('photos', this.uploadFile);
-            this.register.image = formData
-
-            let headers = new Headers();
-
-            let options = new RequestOptions({
-                headers: headers
-            });
-            this.http.post('http://52.15.178.19:3001/api/test', this.register.image, options)
-                .subscribe(
-                    data => {
-
-
-                        data = data.json().base64String;
-                        this.tempCustomerBase64.push(data);
-                        setTimeout(() => {
-
-                            //this.patch_information = "Saved"
-
-                        }, 10000);
-                    },
-                    error => console.log(error))
-
-
-        }
-    }
 
     get selectedOptions() { // right now: ['1','3']
         return this.options
@@ -407,6 +366,57 @@ export class EditAdminComponent implements OnInit {
             this.croppieImage = fr.result;
         };
         fr.readAsDataURL(file);
+        let files = [].slice.call(evt.target.files);
+        this.uploadFile = files;
+        this.newUploadFiles = files;
+       // input.value = files.map(f => f.name).join(',');
+        this.length = files.length;
+
+        this.convertToBase64();
+    }
+
+
+        onChange(event: any, input: any) {
+        let files = [].slice.call(event.target.files);
+        this.uploadFile = files;
+        this.newUploadFiles = files;
+        input.value = files.map(f => f.name).join(',');
+        this.length = files.length;
+
+        this.convertToBase64();
+    }
+
+
+    convertToBase64() {
+
+        this.tempCustomerBase64 = [];
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            this.register.image = formData
+            let headers = new Headers();
+
+            let options = new RequestOptions({
+                headers: headers
+            });
+            this.http.post('http://52.15.178.19:3002/api/test', this.register.image, options)
+                .subscribe(
+                    data => {
+
+
+                        data = data.json().base64String;
+                        this.tempCustomerBase64.push(data);
+                        setTimeout(() => {
+
+                            //this.patch_information = "Saved"
+
+                        }, 10000);
+                    },
+                    error => console.log(error))
+
+
+        }
     }
     addAppend(){
           this.showsecondary=this.showsecondary+1;

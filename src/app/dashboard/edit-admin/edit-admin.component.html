@@ -12,7 +12,7 @@
                 <mat-progress-bar *ngIf="waitLoader" mode="indeterminate"></mat-progress-bar>
                 <form [formGroup]="complexForm" >
                     <div class="row">
-                        <div class="col-lg-6 col-mat-6 col-sm-12 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
                             <div class="card"> 
                                 <div class="card-header card-header-icon" data-background-color="orange">
@@ -22,7 +22,7 @@
                                     <h4 class="card-title">Basic Information</h4>
 
 
-                                    <div class="form-group col-mat-12 col-sm-12 col-xs-12 text-center">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
                                         <div>
                                             <ngx-croppie *ngIf="croppieImage" #ngxCroppie [croppieOptions]="croppieOptions" [imageUrl]="croppieImage" (result)="newImageResultFromCroppie($event)"></ngx-croppie>
                                         </div>
@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <input matInput placeholder="First Name *" name="firstName" type="text"  [formControl]="complexForm.controls['firstName']" [(ngModel)]="register.firstName" [readonly]="disable">
                                              <mat-error  *ngIf="complexForm.controls['firstName'].hasError('required') && complexForm.controls['firstName'].touched">
@@ -72,7 +72,7 @@
                                              </mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <input matInput name="lastName"  placeholder="Last Name *" type="text"  [formControl]="complexForm.controls['lastName']" [(ngModel)]="register.lastName" [readonly]="disable">
                                              <mat-error  *ngIf="complexForm.controls['lastName'].hasError('required')">
@@ -86,7 +86,7 @@
                                              </mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <input matInput name="email" placeholder="Email *" type="email"  [formControl]="complexForm.controls['email']" [(ngModel)]="register.email" [readonly]="disable">
                                             <mat-error  *ngIf="complexForm.controls['email'].hasError('required')">
@@ -97,7 +97,7 @@
                                              </mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <input matInput name="alteremail" placeholder="Alternate Email *" type="email"  [formControl]="complexForm.controls['alternativeEmail']" [(ngModel)]="register.alternativeEmail" [readonly]="disable">
                                             <mat-error  *ngIf="complexForm.controls['alternativeEmail'].hasError('required')">
@@ -108,7 +108,7 @@
                                              </mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <input matInput name="password" placeholder="Password *" type="password"  [formControl]="complexForm.controls['password']" [(ngModel)]="register.password">
                                             <mat-error  *ngIf="complexForm.controls['password'].hasError('required')">
@@ -116,7 +116,7 @@
                                              </mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                             <input matInput name="contactNo" placeholder="Contact No. *" type="text"  [formControl]="complexForm.controls['contactNo']" [(ngModel)]="register.contactNo" [readonly]="disable">
                                             <mat-error  *ngIf="complexForm.controls['contactNo'].hasError('required')">
@@ -132,7 +132,7 @@
                                     </div>
                                         
                                      <div *ngIf="showsecondary>0">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -140,7 +140,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language1']" [(ngModel)]="register.language1" name="language1">
                                                     <mat-option *ngFor="let lang of getResources1()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -150,19 +150,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName1']" [(ngModel)]="register.firstName1" name="firstName1">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName1']" [(ngModel)]="register.lastName1" name="lastName1">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>1">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -170,7 +170,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language2']" [(ngModel)]="register.language2" name="language2">
                                                     <mat-option *ngFor="let lang of getResources2()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -180,19 +180,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName2']" [(ngModel)]="register.firstName2" name="firstName2">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName2']" [(ngModel)]="register.lastName2" name="lastName2">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>2">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -200,7 +200,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language3']" [(ngModel)]="register.language3" name="language1">
                                                     <mat-option *ngFor="let lang of getResources3()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -210,19 +210,19 @@
                                                 </mat-select>
                                         </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName3']" [(ngModel)]="register.firstName3" name="firstName3">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName3']" [(ngModel)]="register.lastName3" name="lastName3">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>3">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -230,7 +230,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                         <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language4']" [(ngModel)]="register.language4" name="language4">
                                                     <mat-option *ngFor="let lang of getResources4()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -240,19 +240,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName4']" [(ngModel)]="register.firstName4" name="firstName4">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName4']" [(ngModel)]="register.lastName4" name="lastName4">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>4">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -260,7 +260,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                         <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language5']" [(ngModel)]="register.language5" name="language5">
                                                     <mat-option *ngFor="let lang of getResources5()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -270,19 +270,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName5']" [(ngModel)]="register.firstName5" name="firstName1">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName5']" [(ngModel)]="register.lastName5" name="lastName5">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>5">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -290,7 +290,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                         <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language6']" [(ngModel)]="register.language6" name="language6">
                                                     <mat-option *ngFor="let lang of getResources6()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -300,19 +300,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName6']" [(ngModel)]="register.firstName6" name="firstName6">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName6']" [(ngModel)]="register.lastName6" name="lastName6">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>6">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -320,7 +320,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                       <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                       <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language7']" [(ngModel)]="register.language7" name="language7">
                                                     <mat-option *ngFor="let lang of getResources7()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -330,19 +330,19 @@
                                                 </mat-select>
                                         </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName7']" [(ngModel)]="register.firstName7" name="firstName7">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName7']" [(ngModel)]="register.lastName7" name="lastName7">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>7">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -350,7 +350,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                       <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                       <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language8']" [(ngModel)]="register.language8" name="language8">
                                                     <mat-option *ngFor="let lang of getResources8()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -360,19 +360,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName8']" [(ngModel)]="register.firstName8" name="firstName8">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName8']" [(ngModel)]="register.lastName8" name="lastName8">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>8">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -380,7 +380,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language9']" [(ngModel)]="register.language9" name="language9">
                                                     <mat-option *ngFor="let lang of getResources9()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -390,19 +390,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName9']" [(ngModel)]="register.firstName9" name="firstName9">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName9']" [(ngModel)]="register.lastName9" name="lastName9">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>9">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -410,7 +410,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                         <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language10']" [(ngModel)]="register.language10" name="language10">
                                                     <mat-option *ngFor="let lang of getResources10()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -420,19 +420,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName10']" [(ngModel)]="register.firstName10" name="firstName10">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName10']" [(ngModel)]="register.lastName10" name="lastName10">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div *ngIf="showsecondary>10">
-                                        <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-select placeholder="Select State">
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -440,7 +440,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                             </mat-select>
                                         </div> -->
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <mat-select placeholder="Select Language" [formControl]="complexForm.controls['language11']" [(ngModel)]="register.language11" name="language11">
                                                     <mat-option *ngFor="let lang of getResources11()" [value]="lang.language" >{{lang.language}}</mat-option>
@@ -450,19 +450,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName11']" [(ngModel)]="register.firstName11" name="firstName11">
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName11']" [(ngModel)]="register.lastName11" name="lastName11">
                                             </mat-form-field>
                                         </div>
                                     </div>
 
-                                  <!--   <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="showsecondary==0">
+                                  <!--   <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="showsecondary==0">
                                         <mat-select placeholder="Select State">
                                             <mat-option value="1"> State1 </mat-option>
                                             <mat-option value="2"> State2 </mat-option>
@@ -470,7 +470,7 @@
                                             <mat-option value="4"> State4 </mat-option>
                                         </mat-select>
                                     </div>
-                                    <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="showsecondary==0">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="showsecondary==0">
                                         <mat-select placeholder="Select Language">
                                             <mat-option value="1"> Language1 </mat-option>
                                             <mat-option value="2"> Language2 </mat-option>
@@ -478,12 +478,12 @@
                                             <mat-option value="4"> Language4 </mat-option>
                                         </mat-select>
                                     </div> -->
-                                    <div class="form-group col-mat-12 col-sm-12 col-xs-12" >
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12" >
                                         <button class="btn btn-round btn-success appendLang" type="button" (click)="addAppend()">Add Languages<i class="material-icons">add</i></button>
                                     </div>
                                     
                                     
-                                    <!-- <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="showsecondary">
+                                    <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="showsecondary">
                                         <button class="btn btn-round btn-success appendLang" (click)="removeAppend()">Remove Languages<i class="material-icons">add</i></button>
                                     </div> -->
 
@@ -493,7 +493,7 @@
                     </div>
                         
 
-                        <div class="col-lg-6 col-mat-6 col-sm-12 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="card"> 
                                 <div class="card-header card-header-icon" data-background-color="orange">
                                     <i class="material-icons">touch_app</i>
@@ -502,25 +502,25 @@
                                     <h4 class="card-title">Access Information</h4>
                                     <div class="cus-form m-t-20">
                                         <div class="row">
-                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                                <label class="form-group col-mat-12">Role as: *</label>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <label class="form-group col-md-12">Role as: *</label>
                                                 
                                                     <mat-radio-group  name="roleAdministrator"  [formControl]="complexForm.controls['role']" [(ngModel)]="register.role" >
-                                                        <mat-radio-button value="superAdmin" class="col-mat-4 col-sm-4 col-xs-12">Super Administrator</mat-radio-button>
-                                                        <mat-radio-button value="contentWriter" class="col-mat-4 col-sm-4 col-xs-12">Content Writer</mat-radio-button>
-                                                        <mat-radio-button value="businessUser" class="col-mat-4 col-sm-4 col-xs-12">Business User</mat-radio-button>
-                                                        <mat-radio-button value="sectionAdministrator" class="col-mat-4 col-sm-4 col-xs-12">Section Adminstatator</mat-radio-button>
+                                                        <mat-radio-button value="superAdmin" class="col-md-4 col-sm-4 col-xs-12">Super Administrator</mat-radio-button>
+                                                        <mat-radio-button value="contentWriter" class="col-md-4 col-sm-4 col-xs-12">Content Writer</mat-radio-button>
+                                                        <mat-radio-button value="businessUser" class="col-md-4 col-sm-4 col-xs-12">Business User</mat-radio-button>
+                                                        <mat-radio-button value="sectionAdministrator" class="col-md-4 col-sm-4 col-xs-12">Section Adminstatator</mat-radio-button>
                                                     </mat-radio-group>
                                             
                                             </div>
-                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                                <label class="form-group col-mat-12" >Name of section:</label>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <label class="form-group col-md-12" >Name of section:</label>
                                                 <div *ngFor="let option of options ">
                                                     
-                                                <mat-checkbox class="col-mat-4 col-sm-4 col-xs-12"value="{{option.value}}" [(ngModel)]="option.checked"  [formControl]="complexForm.controls['section']">{{option.name}}</mat-checkbox>
+                                                <mat-checkbox class="col-md-4 col-sm-4 col-xs-12"value="{{option.value}}" [(ngModel)]="option.checked"  [formControl]="complexForm.controls['section']">{{option.name}}</mat-checkbox>
                                                 </div>
-                                               <!--  <mat-checkbox class="col-mat-4 col-sm-4 col-xs-12"value="{{option.value}}" [(ngModel)]="option.checked" >Loan</mat-checkbox>
-                                                <mat-checkbox class="col-mat-4 col-sm-4 col-xs-12"value="{{option.value}}"  [(ngModel)]="option.checked" >News</mat-checkbox> -->
+                                               <!--  <mat-checkbox class="col-md-4 col-sm-4 col-xs-12"value="{{option.value}}" [(ngModel)]="option.checked" >Loan</mat-checkbox>
+                                                <mat-checkbox class="col-md-4 col-sm-4 col-xs-12"value="{{option.value}}"  [(ngModel)]="option.checked" >News</mat-checkbox> -->
                                             </div>
                                         </div>
                                     </div>
@@ -528,7 +528,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-mat-6 col-sm-12 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="card"> 
                                 <div class="card-header card-header-icon" data-background-color="orange">
                                     <i class="material-icons">verified_user</i>
@@ -537,47 +537,47 @@
                                     <h4 class="card-title">Backend Privilieges:</h4>
                                     <div class="cus-form">
                                         <div class="row wrap-form">
-                                            <div class="form-group col-mat-6 col-sm-6 col-xs-12">
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                 <div class="privlig-box">
                                                     <div class="privlig-header">
-                                                        <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionManagement']" [(ngModel)]="register.sectionManagement"  (change)="onPriviliegesChange('section',register.sectionManagement)" >Section Management</mat-checkbox>
+                                                        <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionManagement']" [(ngModel)]="register.sectionManagement"  (change)="onPriviliegesChange('section',register.sectionManagement)" >Section Management</mat-checkbox>
                                                     </div>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSection']" [(ngModel)]="register.addSection"  (change)="onPriviliegesChange('sectionOption')" >Add Section</mat-checkbox >
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addcategory']" [(ngModel)]="register.addcategory"  (change)="onPriviliegesChange('sectionOption')" >Add category</mat-checkbox>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSubcategory']" [(ngModel)]="register.addSubcategory"  (change)="onPriviliegesChange('sectionOption')" >Add Subcategory</mat-checkbox>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12"  [formControl]="complexForm.controls['viewEditSection']" [(ngModel)]="register.viewEditSection"  (change)="onPriviliegesChange('sectionOption')"  >View/Edit Section</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSection']" [(ngModel)]="register.addSection"  (change)="onPriviliegesChange('sectionOption')" >Add Section</mat-checkbox >
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addcategory']" [(ngModel)]="register.addcategory"  (change)="onPriviliegesChange('sectionOption')" >Add category</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSubcategory']" [(ngModel)]="register.addSubcategory"  (change)="onPriviliegesChange('sectionOption')" >Add Subcategory</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12"  [formControl]="complexForm.controls['viewEditSection']" [(ngModel)]="register.viewEditSection"  (change)="onPriviliegesChange('sectionOption')"  >View/Edit Section</mat-checkbox>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-mat-6 col-sm-6 col-xs-12">
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                 <div class="privlig-box">
                                                     <div class="privlig-header">
-                                                        <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['templateManagement']" [(ngModel)]="register.templateManagement" (change)="onPriviliegesChange('template',register.templateManagement)" >Template Management</mat-checkbox>
+                                                        <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['templateManagement']" [(ngModel)]="register.templateManagement" (change)="onPriviliegesChange('template',register.templateManagement)" >Template Management</mat-checkbox>
                                                     </div>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionTemplate']" [(ngModel)]="register.sectionTemplate" (change)="onPriviliegesChange('templateOption')" >Section Template</mat-checkbox>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['categoryTemplate']" [(ngModel)]="register.categoryTemplate" (change)="onPriviliegesChange('templateOption')" >Category Template</mat-checkbox>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['listingView']" [(ngModel)]="register.listingView" (change)="onPriviliegesChange('templateOption')" >Listing View Template</mat-checkbox>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageTemplate']" [(ngModel)]="register.homepageTemplate" (change)="onPriviliegesChange('templateOption')" >Homepage Template</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionTemplate']" [(ngModel)]="register.sectionTemplate" (change)="onPriviliegesChange('templateOption')" >Section Template</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['categoryTemplate']" [(ngModel)]="register.categoryTemplate" (change)="onPriviliegesChange('templateOption')" >Category Template</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['listingView']" [(ngModel)]="register.listingView" (change)="onPriviliegesChange('templateOption')" >Listing View Template</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageTemplate']" [(ngModel)]="register.homepageTemplate" (change)="onPriviliegesChange('templateOption')" >Homepage Template</mat-checkbox>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row wrap-form">
-                                            <div class="form-group col-mat-6 col-sm-6 col-xs-12">
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                 <div class="privlig-box">
                                                     <div class="privlig-header">
-                                                        <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12"  [formControl]="complexForm.controls['administratorManagement']" [(ngModel)]="register.administratorManagement" (change)="onPriviliegesChange('administrator',register.administratorManagement)" >Admin Management</mat-checkbox>
+                                                        <mat-checkbox class="col-md-12 col-sm-12 col-xs-12"  [formControl]="complexForm.controls['administratorManagement']" [(ngModel)]="register.administratorManagement" (change)="onPriviliegesChange('administrator',register.administratorManagement)" >Admin Management</mat-checkbox>
                                                     </div>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['viewEditAdministrator']" [(ngModel)]="register.viewEditAdministrator" (change)="onPriviliegesChange('administratorOption')" >View/Edit Administrator</mat-checkbox>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addAdministrator']" [(ngModel)]="register.addAdministrator" (change)="onPriviliegesChange('administratorOption')" >Add Administrator</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['viewEditAdministrator']" [(ngModel)]="register.viewEditAdministrator" (change)="onPriviliegesChange('administratorOption')" >View/Edit Administrator</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addAdministrator']" [(ngModel)]="register.addAdministrator" (change)="onPriviliegesChange('administratorOption')" >Add Administrator</mat-checkbox>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-mat-6 col-sm-6 col-xs-12">
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                 <div class="privlig-box">
                                                     <div class="privlig-header">
-                                                        <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['contentManagement']" [(ngModel)]="register.contentManagement" (change)="onPriviliegesChange('content',register.contentManagement)" >Content Management</mat-checkbox>
+                                                        <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['contentManagement']" [(ngModel)]="register.contentManagement" (change)="onPriviliegesChange('content',register.contentManagement)" >Content Management</mat-checkbox>
                                                     </div>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addContentManagement']" [(ngModel)]="register.addContentManagement" (change)="onPriviliegesChange('contentOption')" >Add Content Management</mat-checkbox>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['manageContentItem']" [(ngModel)]="register.manageContentItem" (change)="onPriviliegesChange('contentOption')" >Manage Content Item</mat-checkbox>
-                                                    <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['commentManagement']" [(ngModel)]="register.commentManagement" (change)="onPriviliegesChange('contentOption')" >Comment Management</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addContentManagement']" [(ngModel)]="register.addContentManagement" (change)="onPriviliegesChange('contentOption')" >Add Content Management</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['manageContentItem']" [(ngModel)]="register.manageContentItem" (change)="onPriviliegesChange('contentOption')" >Manage Content Item</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['commentManagement']" [(ngModel)]="register.commentManagement" (change)="onPriviliegesChange('contentOption')" >Comment Management</mat-checkbox>
                                                 </div>
                                             </div>
                                         </div>
@@ -585,10 +585,10 @@
 
                                         <div class="row wrap-form">
 
-                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12"  [formControl]="complexForm.controls['userContributionManagement']" [(ngModel)]="register.userContributionManagement" >User Contribution Management</mat-checkbox>
-                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageManagement']" [(ngModel)]="register.homepageManagement" >Homepage Management</mat-checkbox>
-                                                <mat-checkbox class="col-mat-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['userManagement']" [(ngModel)]="register.userManagement" >User Management</mat-checkbox>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-md-12 col-sm-12 col-xs-12"  [formControl]="complexForm.controls['userContributionManagement']" [(ngModel)]="register.userContributionManagement" >User Contribution Management</mat-checkbox>
+                                                <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageManagement']" [(ngModel)]="register.homepageManagement" >Homepage Management</mat-checkbox>
+                                                <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['userManagement']" [(ngModel)]="register.userManagement" >User Management</mat-checkbox>
                                             </div>
                                         </div>
                                     </div>
@@ -596,7 +596,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-12 col-mat-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="card"> 
                                 <div class="card-header card-header-icon" data-background-color="orange">
                                     <i class="material-icons">timeline</i>
@@ -605,19 +605,19 @@
                                     <h4 class="card-title"> Platform Analytics:</h4>
                                     <div class="cus-form m-t-20">
                                         <div class="row">
-                                            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
-                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['sectionAnalytics']" [(ngModel)]="register.sectionAnalytics" >Section Analytics</mat-checkbox>
-                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['articleAnalytics']" [(ngModel)]="register.articleAnalytics" >Article Analytics</mat-checkbox>
-                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['elementAnalytics']" [(ngModel)]="register.elementAnalytics" >Element Analytics</mat-checkbox>
-                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['templateAnalytics']" [(ngModel)]="register.templateAnalytics" >Template Analytics</mat-checkbox>
-                                                <mat-checkbox class="col-mat-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['googleAnalytics']" [(ngModel)]="register.googleAnalytics" >Google  Analytics</mat-checkbox>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['sectionAnalytics']" [(ngModel)]="register.sectionAnalytics" >Section Analytics</mat-checkbox>
+                                                <mat-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['articleAnalytics']" [(ngModel)]="register.articleAnalytics" >Article Analytics</mat-checkbox>
+                                                <mat-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['elementAnalytics']" [(ngModel)]="register.elementAnalytics" >Element Analytics</mat-checkbox>
+                                                <mat-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['templateAnalytics']" [(ngModel)]="register.templateAnalytics" >Template Analytics</mat-checkbox>
+                                                <mat-checkbox class="col-md-3 col-sm-3 col-xs-12" [formControl]="complexForm.controls['googleAnalytics']" [(ngModel)]="register.googleAnalytics" >Google  Analytics</mat-checkbox>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                             <button class="btn custom-btn" [disabled]="!complexForm.valid" (click)="onRegister()"> Submit </button>
                         </div>
 

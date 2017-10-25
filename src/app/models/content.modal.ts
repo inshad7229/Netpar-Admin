@@ -9,7 +9,7 @@ export class AddContentRequest {
     subCategoryName:string;
     headline:string;
     tagline:string;
-    tags:string;
+    tags:any;
     dateOfCreation:string;
     deleteStatus:boolean;
     googleForm:boolean;

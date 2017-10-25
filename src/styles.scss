@@ -743,12 +743,12 @@ ul.sidebar-filter {
 .filter-plugin >a{
   display: block;
 }
-.close-filter{
+.left-content .close-filter{
   width: 100%;
   float: left;
   position: relative;
 }
-.close-filter span{
+.left-content .close-filter span{
   position: absolute;
   top: 0;
   right: 0;
@@ -757,7 +757,7 @@ ul.sidebar-filter {
   z-index: 1;
   opacity: .4;
 }
-.close-filter span:hover{
+.left-content .close-filter span:hover{
   opacity: 1;
 }
 
