@@ -1,5 +1,6 @@
-import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Component, OnInit,ViewContainerRef,ViewChild, Input, Output, EventEmitter,HostListener,ElementRef } from '@angular/core';
+
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent} from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
@@ -9,6 +10,7 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angul
 import {DndModule} from 'ng2-dnd';
 import {ColorPickerService} from 'angular4-color-picker';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
+import { EditorComponent } from './editor/editor.component';
 import { SuggestArticleDialogComponent } from './suggest-article-dialog/suggest-article-dialog.component';
 import { ContentViewComponent } from './content-view/content-view.component';
 import { ListingViewComponent } from './listing-view/listing-view.component';
@@ -19,10 +21,17 @@ import {StringResource} from '../../models/saredResources'
 import {AddContentRequest} from '../../models/content.modal'
 import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
-import {ContentService} from '../../providers/content.service'
+import {ContentService} from '../../providers/content.service';
+import 'tinymce';
+import 'tinymce/themes/modern';
+import {ENTER} from '@angular/cdk/keycodes';
+import {SPACE} from '@angular/cdk/keycodes';
+
+const COMMA = 188;
 
 declare var jQuery:any;
 declare var $ :any;
+declare var tinymce: any;
 
 
 @Component({
@@ -34,6 +43,27 @@ declare var $ :any;
 
 export class AddContentComponent implements OnInit {
 	@ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
+	@ViewChild('fixedBox') fixedBox: ElementRef;
+
+	@Input() elementId: String;
+	@Output() onEditorKeyup = new EventEmitter<any>();
+
+	editor;
+	
+	visible: boolean = true;
+	selectable: boolean = true;
+	removable: boolean = true;
+	addOnBlur: boolean = true;
+
+	// Enter, comma
+	separatorKeysCodes = [ENTER, COMMA,SPACE];
+
+	// fruits = [
+	//     { name: 'Lemon' },
+	//     { name: 'Lime' },
+	//     { name: 'Apple' },
+	// ];
+
 	listOne= [ ];
 	currentIndex:any;
 	rightPan:any;
@@ -56,15 +86,30 @@ export class AddContentComponent implements OnInit {
     croppieImageHorigontal: string;
     waitLoader:boolean;
     sections:any;
+    sectionsData:any;
     categories:any;
     subCategory:any;
+    categoriesData:any;
+    subCategoryData:any;
     adminList:any;
     localAdminList:any;
     searchUser:any;
     addedresponse:any;
     suggestedArticleList:any;
     forContent;
-    todaydate
+    todaydate;
+    content;
+    fixedBoxOffsetTop: number  = 0;
+	showDiv:boolean=false;
+	showTinymcIndex:number=-1;
+	showTinymcFlag:boolean=true;
+	ckeditorContent
+    uploadFile
+    newUploadFiles=[]
+    length
+    tempCustomerBase64
+    register
+
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
@@ -73,14 +118,14 @@ export class AddContentComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${this.widthPx}x${this.heightPx}`;
+        return `http://placehold.it/${300}x${180}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
-            width: parseInt(this.widthPx, 10),
-            height: parseInt(this.heightPx, 10)
+            width: parseInt('300', 10),
+            height: parseInt('180', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -123,7 +168,15 @@ export class AddContentComponent implements OnInit {
 		        private sectionService:SectionService,
 		        private appProvider: AppProvider,
 		        private adminService:AdminService,
-		        private contentService:ContentService) { 
+		        private contentService:ContentService) {
+		this.ckeditorContent = `<p>My HTML</p>`;
+				this.addContentRequest.tags=[]
+				/*tinymce.init({
+				  skin_url: 'assets/skins/lightgray'
+				  // other settings
+				});*/
+
+ 
 		this.appProvider.current.loginData={
 			role:'sectionAdministrator'
 		}
@@ -156,6 +209,20 @@ export class AddContentComponent implements OnInit {
           }
 		
     ngOnInit() {
+    	// tinymce.init({
+	    //    selector: 'div.editable',
+     //        inline: true,
+	    //   plugins: ['link', 'paste', 'table'],
+	    //   skin_url: 'assets/skins/lightgray',
+	    //   setup: editor => {
+	    //     this.editor = editor;
+	    //     editor.on('keyup', () => {
+	    //       const content = editor.getContent();
+	    //       this.onEditorKeyup.emit(content);
+	    //     });
+	    //   },
+	    // });
+
   		this.todaydate=new Date().toISOString()
 		$('.selectize').selectize({
 		    plugins: ['remove_button'],
@@ -221,6 +288,18 @@ export class AddContentComponent implements OnInit {
 
     addText(){
     	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block',text:'Dummy Text'}) 
+    	//  tinymce.init({
+	    //   selector: '#' + this.elementId,
+	    //   plugins: ['link', 'paste', 'table'],
+	    //   skin_url: 'assets/skins/lightgray',
+	    //   setup: editor => {
+	    //     this.editor = editor;
+	    //     editor.on('keyup', () => {
+	    //       const content = editor.getContent();
+	    //       this.onEditorKeyup.emit(content);
+	    //     });
+	    //   },
+	    // });
     }
 	addImage(){
         this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block'})
@@ -300,7 +379,7 @@ export class AddContentComponent implements OnInit {
 	addownload(flag){
 		
 		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-         this.userEngaButton.push({tag:'button',title:"'Download",status:true})
+         this.userEngaButton.push({tag:'button',title:"Download",status:true})
       }
 	}
 	onClickOnDragItem(index,item,ref?){
@@ -419,13 +498,26 @@ export class AddContentComponent implements OnInit {
 	  }
     }
 	 itemDragged(i){
+	 	tinymce.init({
+	       selector: 'div.editable',
+            inline: true,
+	      plugins: ['link', 'paste', 'table'],
+	      skin_url: 'assets/skins/lightgray',
+	      setup: editor => {
+	        this.editor = editor;
+	        editor.on('keyup', () => {
+	          const content = editor.getContent();
+	          this.onEditorKeyup.emit(content);
+	        });
+	      },
+	    });
 	 this.mouseDownIndex=i;
     //console.log('mousedown',i)
    }
-	itemSwapped(i){
-	 this.afterDragIndex=i;
-	 //console.log('mouseUp',i)
-	}
+	// itemSwapped(i){
+	//  this.afterDragIndex=i;
+	//  //console.log('mouseUp',i)
+	// }
 	ontagsChange(){
 		this.listOne[this.currentIndex].tags=this.rightPan.tags	
 	}
@@ -756,7 +848,10 @@ export class AddContentComponent implements OnInit {
 	              this.sectionService.onGetSection()
 	            .subscribe(data => {
 	                this.waitLoader = false;
-	                this.sections=data;
+	                this.sectionsData=data;
+	                if (this.addContentRequest.language) {
+	                     this.sections=data.filter(arg=>arg.language==this.addContentRequest.language);;
+	                }
 	            },error=>{
 	                alert(error)
 	            })
@@ -767,7 +862,10 @@ export class AddContentComponent implements OnInit {
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categories=data.response;
+                    this.categoriesData=data.response;
+                     if (this.addContentRequest.language) {
+	                     this.categories=data.response.filter(arg=>arg.language==this.addContentRequest.language);;
+	                }
                     //console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
@@ -778,11 +876,26 @@ export class AddContentComponent implements OnInit {
    	this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategory=data.response;
-                    //console.log(JSON.stringify(data))
+                    this.subCategoryData=data.response;
+                     if (this.addContentRequest.language) {
+	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language);;
+	                }
                 },error=>{
                     alert(error)
                 }) 
+   }
+
+   onselectLang(lang){
+   	if (this.sectionsData.length>0) {
+         //this.subCategory=this.subCategoryData.filter(arg=>arg.language==this.addContentRequest.language);;
+          this.sections=this.sectionsData.filter(arg=>arg.language==lang);
+    }
+     if (this.categoriesData.length>0) {
+         this.categories=this.categoriesData.filter(arg=>arg.language==lang);;
+    }
+    if (this.subCategoryData.length>0) {
+         this.subCategory=this.subCategoryData.filter(arg=>arg.language==lang);;
+    }
    }
      getUserList(role:any){
      	 this.waitLoader = true;
@@ -803,7 +916,8 @@ export class AddContentComponent implements OnInit {
                 },error=>{
                     alert(error)
                 }) 
-  }
+   }
+  
   onsearchuser(searchUser){
       // alert(searchUser)
       if (searchUser == '') {
@@ -1856,4 +1970,157 @@ export class AddContentComponent implements OnInit {
 	deletesuggestedArticle(i){
 		this.suggestedArticleList.splice(i,1)
 	}
+	keyupHandlerFunction(e,i){
+	   console.log('hy+'+e+i)
+	   this.showTinymcIndex=i;
+	   if (e=="onBlur") {
+	    this.showTinymcFlag=false
+	    this.showTinymcIndex=-1;
+	   }else{
+       this.showTinymcIndex=i;
+	   this.listOne[i].text=e;
+	   }
+	}
+	tinymcIndex(i){
+		this.showTinymcIndex=i;
+	}
+	onBlur(){
+	console.log('blur')	
+	}
+
+
+	
+	onVideoChange(){
+
+	}
+
+	add(event: MatChipInputEvent): void {
+	    let input = event.input;
+	    let value = event.value;
+
+	    // Add our person
+	    if ((value || '').trim()) {
+	     this.addContentRequest.tags.push({ name: value.trim() });
+	    }
+
+	    // Reset the input value
+	    if (input) {
+	      input.value = '';
+	    }
+	  }
+
+	  remove(fruit: any): void {
+	    let index =this.addContentRequest.tags.indexOf(fruit);
+
+	    if (index >= 0) {
+	     this.addContentRequest.tags.splice(index, 1);
+	    }
+	  }
+
+	  getClass(title){
+
+	      if (title=='Apply') {
+	      	 return 'icon-check';
+	      }
+
+	      if (title=='Call') {
+	      	 return 'icon-call';
+	      }
+
+	      if (title=='Call me back') {
+	      	 return 'icon-callme';
+	      }
+	      if (title=='Im Interested') {
+	      	 return 'icon-click';
+	      }
+	      if (title=='Kadak') {
+	      	 return 'icon-okay';
+	      }
+	      if (title=='Share') {
+	      	 return 'fa fa-share-alt';
+	      }
+	      if (title=='Comment') {
+	      	 return 'icon-msg';
+	      }
+	      if (title=='Save') {
+	      	 return 'icon-badge';
+	      }
+	      if (title=='Download') {
+	      	 return 'icon-donload';
+	      }	
+	  }
+
+	  onText(i,text){
+         let dialogRef = this.dialog.open(EditorComponent, {
+            width: '400px',
+            data:{text:text}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        	//alert(JSON.stringify(result))
+        	if (result) {
+        		 this.listOne[i].text=result.text;
+        	}
+      
+        });
+	  }
+
+	  getHtml(value){
+        return this.sanitizer.bypassSecurityTrustHtml(value);
+	  }
+  onAudioChange(event: any, input: any) {
+        let files = [].slice.call(event.target.files);
+        //this.uploadFile = files;
+        this.newUploadFiles.push(files);
+        console.log(this.newUploadFiles[0])
+        //input.value = files.map(f => f.name).join(',');
+        this.length = this.newUploadFiles.length;
+
+        this.convertToBase64();
+    }
+
+
+    convertToBase64() {
+        let b=[]
+        this.tempCustomerBase64 = [];
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log('hhh'+this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            b.push(formData)
+            let headers = new Headers();
+
+            let options = new RequestOptions({
+                headers: headers
+            });
+            this.http.post('http://52.15.178.19:3002/api/test',b[0], options)
+                .subscribe(
+                    data => {
+
+
+                        data = data.json().base64String;
+                        this.tempCustomerBase64.push(data);
+                        setTimeout(() => {
+
+                            //this.patch_information = "Saved"
+
+                        }, 10000);
+                    },
+                    error => console.log(error))
+
+
+        }
+    }
+	// @HostListener("window:focus", [])
+ //  	@HostListener("window:resize", [])
+	//   	onWindowFocus(){
+	//   		console.log('hy')
+ //       const rect = this.fixedBox.nativeElement.getBoundingClientRect();
+	// if((-rect.top) > rect.height){
+	// 	this.showDiv=true
+	// 	}
+	// 	else{
+ //    this.showDiv=false
+	// 	} 	
+ //  }
 }

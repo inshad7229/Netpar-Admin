@@ -1,0 +1,28 @@
+<div class="modal-header">
+
+    <h4 class="modal-title">Text Editor<span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
+</div>
+<div class="modal-body">
+    <div class="">
+           <ckeditor
+                [(ngModel)]="ckeditorContent"
+                [config]="ckEditorConfig"
+                [readonly]="false"
+                debounce="500">
+                <ckbutton [name]="'saveButton'"
+                  [command]="'saveCmd'"
+                  (click)="save($event)"
+                  [icon]="'save.png'"
+                  [label]="'Save Document'"
+                  [toolbar]="'clipboard,1'">
+                </ckbutton>
+        </ckeditor>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+             <button class="btn custom-btn" (click)="save()" [disabled]="showMessage"> Save</button>
+           
+        </div>
+
+        
+
+    </div>
+</div>
