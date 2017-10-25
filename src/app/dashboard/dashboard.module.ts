@@ -15,10 +15,6 @@ import {DndModule} from 'ng2-dnd';
 import { SwiperModule } from 'angular2-useful-swiper';
 import {ColorPickerModule} from 'angular4-color-picker';
 import { CKEditorModule } from 'ng2-ckeditor';
-<<<<<<< HEAD
-
-=======
->>>>>>> 1edc723770151e5a03251fe633fb9f1a3d31e278
 
 
 import { MODULE_COMPONENTS, MODULE_ROUTES } from './dashboard.routes';

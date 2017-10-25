@@ -22,8 +22,6 @@ import {AddContentRequest} from '../../models/content.modal'
 import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service';
-import 'tinymce';
-import 'tinymce/themes/modern';
 import {ENTER} from '@angular/cdk/keycodes';
 import {SPACE} from '@angular/cdk/keycodes';
 
@@ -104,7 +102,6 @@ export class AddContentComponent implements OnInit {
 	showDiv:boolean=false;
 	showTinymcIndex:number=-1;
 	showTinymcFlag:boolean=true;
-	ckeditorContent
     uploadFile
     newUploadFiles=[]
     length
@@ -169,10 +166,7 @@ export class AddContentComponent implements OnInit {
 		        private sectionService:SectionService,
 		        private appProvider: AppProvider,
 		        private adminService:AdminService,
-<<<<<<< HEAD
-		        private contentService:ContentService) { 
-		 this.ckeditorContent = `<p>My HTML</p>`;
-=======
+
 		        private contentService:ContentService) {
 		this.ckeditorContent = `<p>My HTML</p>`;
 				this.addContentRequest.tags=[]
@@ -182,7 +176,6 @@ export class AddContentComponent implements OnInit {
 				});*/
 
  
->>>>>>> 1edc723770151e5a03251fe633fb9f1a3d31e278
 		this.appProvider.current.loginData={
 			role:'sectionAdministrator'
 		}
