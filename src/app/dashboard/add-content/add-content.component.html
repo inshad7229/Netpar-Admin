@@ -686,19 +686,19 @@
                                                                 <div class="fileinput" data-provides="fileinput" *ngIf=" rightPan.tag=='video'  ">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Video</span>
-                                                                            <input type="file" class="file-type" accept="video/*" (change)=onVideoChange(); />
+                                                                            <input type="file" class="file-type" accept="video/*" (change)=onVideoChange($event,this.rightPan.count); />
                                                                         </span>
                                                                  </div>
                                                                  <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='audio'">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Audio</span>
-                                                                            <input type="file" class="file-type" accept="audio/*" (change)=onAudioChange($event); />
+                                                                            <input type="file" class="file-type" accept="audio/*" (change)=onAudioChange($event,this.rightPan.count); />
                                                                         </span>
                                                                  </div>
                                                                  <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='document' ">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Document</span>
-                                                                            <input type="file" class="file-type" accept=" .pdf , .doc ,.docx" (change)=onDocumentChange(); />
+                                                                            <input type="file" class="file-type" accept=" .pdf , .doc ,.docx" (change)=onDocumentChange($event,this.rightPan.count); />
                                                                         </span>
                                                                  </div>
                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
@@ -1371,6 +1371,7 @@
                                             <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" [disabled]="!addContentForm.valid"> Publish later </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" [disabled]="!addContentForm.valid"> Send for revision </button>
                                             <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" [disabled]="!addContentForm.valid"> Reject </button>
+                                             <button class="btn btn-danger"  (click)="onupload()" > Reject </button>
                                         </div>
                                     </form>
                                 </div>

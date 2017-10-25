@@ -107,7 +107,16 @@ export class AddContentComponent implements OnInit {
     length
     tempCustomerBase64
     register
+    audioCount:number=0;
+    videoCount:number=0;
+    documentCount:number=0;
+    gridCount:number=0
 
+    audioFileData=[];
+    videoFileData=[];
+    documentFileData=[];
+    gridFileData=[];
+    
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
@@ -304,19 +313,25 @@ export class AddContentComponent implements OnInit {
         this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block'})
 	}
 	addAudio(){
-        this.listOne.push({tag:"audio",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Audio',aligment:'center', display:'inline-block'})
+		 this.audioCount=this.audioCount+1;
+		 console.log(this.audioCount)
+        this.listOne.push({tag:"audio",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Audio',aligment:'center', display:'inline-block',count:this.audioCount})
 	}
 	addVideo(){
-		this.listOne.push({tag:"video",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/videos/SampleVideo.mp4',altTag:'file not found',title:'Title', caption:'Video',aligment:'center', display:'inline-block'})
+		this.videoCount=this.videoCount+1;
+		this.listOne.push({tag:"video",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/videos/SampleVideo.mp4',altTag:'file not found',title:'Title', caption:'Video',aligment:'center', display:'inline-block',count:this.videoCount})
 	}
 	addFile(){
-		this.listOne.push({tag:"document",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'110px',url:'./assets/img/JAVA.png',altTag:'file not found',title:'Title', caption:'File',aligment:'center', display:'inline-block'})
+		this.documentCount=this.documentCount+1;
+		this.listOne.push({tag:"document",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'110px',url:'./assets/img/JAVA.png',altTag:'file not found',title:'Title', caption:'File',aligment:'center', display:'inline-block',count:this.documentCount})
 	}
 	addGrid(){
+		   this.gridCount=this.gridCount+1;
 		   this.listOne.push({tag:"grid",tags:'grid, grid',top:null,bottom:null,right:null,left:null,aligment:'center',title:'Title',caption:'File',activeIndex:null,
 		    placeholder1:'./assets/img/placeholder5.png' ,audiourl1:null,videourl1:null,imgurl1:'./assets/img/placeholder5.png',documenturl1:null,
 			placeholder2:'./assets/img/placeholder5.png' ,audiourl2:null,videourl2:null,imgurl2:'./assets/img/placeholder5.png',documenturl2:null,
 			placeholder3:'./assets/img/placeholder5.png' ,audiourl3:null,videourl3:null,imgurl3:'./assets/img/placeholder5.png',documenturl3:null,
+			count:this.gridCount
 	})
 	}
 	addForm(){
@@ -1986,13 +2001,6 @@ export class AddContentComponent implements OnInit {
 	onBlur(){
 	console.log('blur')	
 	}
-
-
-	
-	onVideoChange(){
-
-	}
-
 	add(event: MatChipInputEvent): void {
 	    let input = event.input;
 	    let value = event.value;
@@ -2066,19 +2074,17 @@ export class AddContentComponent implements OnInit {
 	  getHtml(value){
         return this.sanitizer.bypassSecurityTrustHtml(value);
 	  }
-  onAudioChange(event: any, input: any) {
+  onAudioChange(event: any, count: any) {
         let files = [].slice.call(event.target.files);
-        //this.uploadFile = files;
         this.newUploadFiles=files;
         console.log(this.newUploadFiles[0])
-        //input.value = files.map(f => f.name).join(',');
         this.length = this.newUploadFiles.length;
 
-        this.convertToBase64();
+        this.makeAudioFile(count);
     }
 
 
-    convertToBase64() {
+    makeAudioFile(count:any) {
         let b=[]
         this.tempCustomerBase64 = [];
         for (var i = 0; i < this.length; i++) {
@@ -2086,41 +2092,179 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            b.push({file:formData})
+            formData.append('count', count);
+            this.audioFileData.push({count:count,file:formData})
+           
+            // let headers = new Headers();
+
+            // let options = new RequestOptions({
+            //     headers: headers
+            // });
+            // this.http.post('http://52.15.178.19:3002/api/test',this.audioFileData[0].file, options)
+            //     .subscribe(
+            //         data => {
+
+
+            //             data = data.json().base64String;
+            //             this.tempCustomerBase64.push(data);
+            //             setTimeout(() => {
+
+            //                 //this.patch_information = "Saved"
+
+            //             }, 10000);
+            //         },
+            //         error => console.log(error))
+
+
+        }
+    }
+
+    onVideoChange(event: any, count: any) {
+        let files = [].slice.call(event.target.files);
+        this.newUploadFiles=files;
+        console.log(this.newUploadFiles[0])
+        this.length = this.newUploadFiles.length;
+
+        this.makeVideoFile(count);
+    }
+
+
+    makeVideoFile(count:any) {
+        let b=[]
+        this.tempCustomerBase64 = [];
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('count', count);
+            this.videoFileData.push({count:count,file:formData})
+           
+            // let headers = new Headers();
+
+            // let options = new RequestOptions({
+            //     headers: headers
+            // });
+            // this.http.post('http://52.15.178.19:3002/api/test',this.audioFileData[0].file, options)
+            //     .subscribe(
+            //         data => {
+
+
+            //             data = data.json().base64String;
+            //             this.tempCustomerBase64.push(data);
+            //             setTimeout(() => {
+
+            //                 //this.patch_information = "Saved"
+
+            //             }, 10000);
+            //         },
+            //         error => console.log(error))
+
+
+        }
+    }
+
+    onDocumentChange(event: any, count: any) {
+        let files = [].slice.call(event.target.files);
+        this.newUploadFiles=files;
+        console.log(this.newUploadFiles[0])
+        this.length = this.newUploadFiles.length;
+
+        this.makeVideoFile(count);
+    }
+
+
+    makeDocumentFile(count:any) {
+        let b=[]
+        this.tempCustomerBase64 = [];
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('count', count);
+            this.documentFileData.push({count:count,file:formData})
+           
+            // let headers = new Headers();
+
+            // let options = new RequestOptions({
+            //     headers: headers
+            // });
+            // this.http.post('http://52.15.178.19:3002/api/test',this.audioFileData[0].file, options)
+            //     .subscribe(
+            //         data => {
+
+
+            //             data = data.json().base64String;
+            //             this.tempCustomerBase64.push(data);
+            //             setTimeout(() => {
+
+            //                 //this.patch_information = "Saved"
+
+            //             }, 10000);
+            //         },
+            //         error => console.log(error))
+
+
+        }
+    }
+    onupload(){
+    	for (var i = 0; i < this.audioFileData.length; i++) {
+           
             let headers = new Headers();
 
             let options = new RequestOptions({
                 headers: headers
             });
-            console.log('hhh'+b[0].file)
-            this.http.post('http://52.15.178.19:3002/api/test',b[0].file, options)
+            this.http.post('http://52.15.178.19:3002/api/test',this.audioFileData[i].file, options)
                 .subscribe(
                     data => {
-
-
                         data = data.json().base64String;
                         this.tempCustomerBase64.push(data);
                         setTimeout(() => {
 
-                            //this.patch_information = "Saved"
+                        }, 10000);
+                    },
+                    error => console.log(error))
+        }
+    
+    for (var i = 0; i < this.videoFileData.length; i++) {
+           
+            let headers = new Headers();
+
+            let options = new RequestOptions({
+                headers: headers
+            });
+            this.http.post('http://52.15.178.19:3002/api/test',this.videoFileData[i].file, options)
+                .subscribe(
+                    data => {
+                        data = data.json().base64String;
+                        this.tempCustomerBase64.push(data);
+                        setTimeout(() => {
 
                         }, 10000);
                     },
                     error => console.log(error))
-
-
         }
-    }
-	// @HostListener("window:focus", [])
- //  	@HostListener("window:resize", [])
-	//   	onWindowFocus(){
-	//   		console.log('hy')
- //       const rect = this.fixedBox.nativeElement.getBoundingClientRect();
-	// if((-rect.top) > rect.height){
-	// 	this.showDiv=true
-	// 	}
-	// 	else{
- //    this.showDiv=false
-	// 	} 	
- //  }
+    
+    for (var i = 0; i < this.documentFileData.length; i++) {
+           
+            let headers = new Headers();
+
+            let options = new RequestOptions({
+                headers: headers
+            });
+            this.http.post('http://52.15.178.19:3002/api/test',this.documentFileData[i].file, options)
+                .subscribe(
+                    data => {
+                        data = data.json().base64String;
+                        this.tempCustomerBase64.push(data);
+                        setTimeout(() => {
+
+                        }, 10000);
+                    },
+                    error => console.log(error))
+        }
+    
+  }
 }
