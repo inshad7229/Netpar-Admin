@@ -35,6 +35,7 @@ declare var $ :any;
 export class AddContentComponent implements OnInit {
 	@ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
 	listOne= [ ];
+	ckeditorContent
 	currentIndex:any;
 	rightPan:any;
 	showRightpan:boolean=false;
@@ -124,6 +125,7 @@ export class AddContentComponent implements OnInit {
 		        private appProvider: AppProvider,
 		        private adminService:AdminService,
 		        private contentService:ContentService) { 
+		 this.ckeditorContent = `<p>My HTML</p>`;
 		this.appProvider.current.loginData={
 			role:'sectionAdministrator'
 		}

@@ -417,6 +417,16 @@
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
+                                                                          <ckeditor
+                                                                                [(ngModel)]="ckeditorContent"
+                                                                                [config]="{uiColor: '#99000'}"
+                                                                                [readonly]="false"
+                                                                                (change)="onChange($event)"
+                                                                                (ready)="onReady($event)"
+                                                                                (focus)="onFocus($event)"
+                                                                                (blur)="onBlur($event)"
+                                                                                debounce="500">
+                                                                              </ckeditor>
                                                                         <div class="icons-actions">
                                                                             <i title="Move element" class="material-icons">drag_handle</i>
                                                                             <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>

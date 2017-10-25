@@ -14,6 +14,7 @@ import { NgxCroppieModule } from 'ngx-croppie';
 import {DndModule} from 'ng2-dnd';
 import { SwiperModule } from 'angular2-useful-swiper';
 import {ColorPickerModule} from 'angular4-color-picker';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 
 
@@ -63,6 +64,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         RouterModule.forChild(MODULE_ROUTES),
         PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
         MatDatepickerModule,
+        CKEditorModule,
         MatNativeDateModule,
         MatTooltipModule,
         MatTableModule,
