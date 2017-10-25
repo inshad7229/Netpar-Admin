@@ -2070,7 +2070,7 @@ export class AddContentComponent implements OnInit {
   onAudioChange(event: any, input: any) {
         let files = [].slice.call(event.target.files);
         //this.uploadFile = files;
-        this.newUploadFiles.push(files);
+        this.newUploadFiles=files;
         console.log(this.newUploadFiles[0])
         //input.value = files.map(f => f.name).join(',');
         this.length = this.newUploadFiles.length;
@@ -2084,16 +2084,17 @@ export class AddContentComponent implements OnInit {
         this.tempCustomerBase64 = [];
         for (var i = 0; i < this.length; i++) {
             let formData: FormData = new FormData();
-            console.log('hhh'+this.newUploadFiles[i])
+            console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            b.push(formData)
+            b.push({file:formData})
             let headers = new Headers();
 
             let options = new RequestOptions({
                 headers: headers
             });
-            this.http.post('http://52.15.178.19:3002/api/test',b[0], options)
+            console.log('hhh'+b[0].file)
+            this.http.post('http://52.15.178.19:3002/api/test',b[0].file, options)
                 .subscribe(
                     data => {
 
