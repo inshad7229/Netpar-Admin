@@ -65,6 +65,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         RouterModule.forChild(MODULE_ROUTES),
         PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
         MatDatepickerModule,
+        CKEditorModule,
         MatNativeDateModule,
         MatTooltipModule,
         MatTableModule,

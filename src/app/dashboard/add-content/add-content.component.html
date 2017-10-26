@@ -441,6 +441,21 @@
                                                                                
                                                                             </tbody>
                                                                         </table>
+<!-- 
+                                                                          <ckeditor
+                                                                                [(ngModel)]="ckeditorContent"
+                                                                                [config]="{uiColor: '#99000'}"
+                                                                                [readonly]="false"
+                                                                                (change)="onChange($event)"
+                                                                                (ready)="onReady($event)"
+                                                                                (focus)="onFocus($event)"
+                                                                                (blur)="onBlur($event)"
+                                                                                debounce="500">
+                                                                              </ckeditor> -->
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                        </div>
                                                                         
                                                                      <!--    <div class="editable">
                                                                             <div [(ngModel)]='item.text' [ngModelOptions]="{standalone: true}" name="jjj" (change)="keyupHandlerFunction($event)">
@@ -455,6 +470,7 @@
 
 
                                                                         
+
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='image'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
@@ -670,19 +686,27 @@
                                                                 <div class="fileinput" data-provides="fileinput" *ngIf=" rightPan.tag=='video'  ">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Video</span>
+<<<<<<< HEAD
                                                                             <input type="file" class="file-type" accept="video/*" (change)=onVideoChange($event); />
+=======
+                                                                            <input type="file" class="file-type" accept="video/*" (change)=onVideoChange($event,this.rightPan.count); />
+>>>>>>> 42f38aee78554a8596d86681938ff1fa0df3fa81
                                                                         </span>
                                                                  </div>
                                                                  <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='audio'">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Audio</span>
-                                                                            <input type="file" class="file-type" accept="audio/*" (change)=onAudioChange($event); />
+                                                                            <input type="file" class="file-type" accept="audio/*" (change)=onAudioChange($event,this.rightPan.count); />
                                                                         </span>
                                                                  </div>
                                                                  <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='document' ">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Document</span>
+<<<<<<< HEAD
                                                                             <input type="file" class="file-type" accept=" .pdf , .doc ,.docx" (change)=onDocumentChange($event); />
+=======
+                                                                            <input type="file" class="file-type" accept=" .pdf , .doc ,.docx" (change)=onDocumentChange($event,this.rightPan.count); />
+>>>>>>> 42f38aee78554a8596d86681938ff1fa0df3fa81
                                                                         </span>
                                                                  </div>
                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
@@ -1355,6 +1379,7 @@
                                             <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" [disabled]="!addContentForm.valid"> Publish later </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" [disabled]="!addContentForm.valid"> Send for revision </button>
                                             <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" [disabled]="!addContentForm.valid"> Reject </button>
+                                             <button class="btn btn-danger"  (click)="onupload()" > Reject </button>
                                         </div>
                                     </form>
                                 </div>
