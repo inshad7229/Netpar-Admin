@@ -310,20 +310,20 @@ export class AddContentComponent implements OnInit {
 	    // });
     }
 	addImage(){
-        this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block'})
+        this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',tempUrl:'./assets/img/cover.jpeg',url:null,altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block',downloadable:true})
 	}
 	addAudio(){
 		 this.audioCount=this.audioCount+1;
 		 console.log(this.audioCount)
-        this.listOne.push({tag:"audio",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Audio',aligment:'center', display:'inline-block',count:this.audioCount})
+        this.listOne.push({tag:"audio",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',tempUrl:'./assets/img/cover.jpeg',url:null,altTag:'file not found',title:'Title', caption:'Audio',aligment:'center', display:'inline-block',count:this.audioCount,downloadable:true})
 	}
 	addVideo(){
 		this.videoCount=this.videoCount+1;
-		this.listOne.push({tag:"video",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/videos/SampleVideo.mp4',altTag:'file not found',title:'Title', caption:'Video',aligment:'center', display:'inline-block',count:this.videoCount})
+		this.listOne.push({tag:"video",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',tempUrl:'./assets/videos/SampleVideo.mp4',url:null,altTag:'file not found',title:'Title', caption:'Video',aligment:'center', display:'inline-block',count:this.videoCount,downloadable:true})
 	}
 	addFile(){
 		this.documentCount=this.documentCount+1;
-		this.listOne.push({tag:"document",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'110px',url:'./assets/img/JAVA.png',altTag:'file not found',title:'Title', caption:'File',aligment:'center', display:'inline-block',count:this.documentCount})
+		this.listOne.push({tag:"document",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'110px',tempUrl:'./assets/img/JAVA.png',url:null,altTag:'file not found',title:'Title', caption:'File',aligment:'center', display:'inline-block',count:this.documentCount,downloadable:true})
 	}
 	addGrid(){
 		   this.gridCount=this.gridCount+1;
@@ -331,7 +331,12 @@ export class AddContentComponent implements OnInit {
 		    placeholder1:'./assets/img/placeholder5.png' ,audiourl1:null,videourl1:null,imgurl1:'./assets/img/placeholder5.png',documenturl1:null,
 			placeholder2:'./assets/img/placeholder5.png' ,audiourl2:null,videourl2:null,imgurl2:'./assets/img/placeholder5.png',documenturl2:null,
 			placeholder3:'./assets/img/placeholder5.png' ,audiourl3:null,videourl3:null,imgurl3:'./assets/img/placeholder5.png',documenturl3:null,
-			count:this.gridCount
+			count:this.gridCount,
+			data1:"fromUrl",
+			data2:"fromUrl",
+			data3:"fromUrl",
+			downloadable:true
+
 	})
 	}
 	addForm(){
@@ -430,10 +435,30 @@ export class AddContentComponent implements OnInit {
 	onWidthChange(){
       this.listOne[this.currentIndex].width=this.rightPan.width
 	}
-	onUrlChange(ref?:any){
+	onUrlChange(right:any){
+	  this.listOne[this.currentIndex].tempUrl=this.rightPan.url
       this.listOne[this.currentIndex].url=this.rightPan.url
       this.listOne[this.currentIndex].placeHolder=this.rightPan.url
   	  //console.log(this.ref);
+
+  	  if (this.listOne[this.currentIndex].tag=='audio') {
+  	  	if (this.audioFileData.length>0) {
+	  	    let index=this.audioFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.audioFileData[index].file=null
+  	  	}
+  	  }
+  	  if (this.listOne[this.currentIndex].tag=='video') {
+  	  	if (this.videoFileData.length>0) {
+  	    		let index=this.videoFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+  	    		this.videoFileData[index].file=null
+  	  	}
+  	  }
+  	  if (this.listOne[this.currentIndex].tag=='document') {
+  	  	if (this.documentFileData.length>0) {
+  	    	let index=this.documentFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+  	   		 this.documentFileData[index].file=null
+  	  	}
+  	  }
       if ((this.listOne[this.currentIndex].tag=='video' || this.listOne[this.currentIndex].tag=='audio' ) && this.ref) {
       	//console.log(this.ref);
       	this.ref.load();
@@ -448,6 +473,9 @@ export class AddContentComponent implements OnInit {
 	}
 	onTitleChange(){
       this.listOne[this.currentIndex].title=this.rightPan.title
+	}
+	onDownloadableChange(){
+		this.listOne[this.currentIndex].downloadable=this.rightPan.downloadable
 	}
 	onCaptionChange(){
       this.listOne[this.currentIndex].caption=this.rightPan.caption
@@ -512,19 +540,19 @@ export class AddContentComponent implements OnInit {
 	  }
     }
 	 itemDragged(i){
-	 	tinymce.init({
-	       selector: 'div.editable',
-            inline: true,
-	      plugins: ['link', 'paste', 'table'],
-	      skin_url: 'assets/skins/lightgray',
-	      setup: editor => {
-	        this.editor = editor;
-	        editor.on('keyup', () => {
-	          const content = editor.getContent();
-	          this.onEditorKeyup.emit(content);
-	        });
-	      },
-	    });
+	 	// tinymce.init({
+	  //      selector: 'div.editable',
+   //          inline: true,
+	  //     plugins: ['link', 'paste', 'table'],
+	  //     skin_url: 'assets/skins/lightgray',
+	  //     setup: editor => {
+	  //       this.editor = editor;
+	  //       editor.on('keyup', () => {
+	  //         const content = editor.getContent();
+	  //         this.onEditorKeyup.emit(content);
+	  //       });
+	  //     },
+	  //   });
 	 this.mouseDownIndex=i;
     //console.log('mousedown',i)
    }
@@ -535,7 +563,7 @@ export class AddContentComponent implements OnInit {
 	ontagsChange(){
 		this.listOne[this.currentIndex].tags=this.rightPan.tags	
 	}
-	imageUploadForGridOneIndexEvent(evt: any) {
+	imageUploadForGridOneIndexEvent(evt: any,right:any) {
         if (!evt.target) {
             return;
         }
@@ -557,40 +585,57 @@ export class AddContentComponent implements OnInit {
 			this.listOne[this.currentIndex].audiourl1=null;
 			this.listOne[this.currentIndex].videourl1=null;
 			this.listOne[this.currentIndex].documenturl1=null;
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file1=null
+		  }
         };
         fr.readAsDataURL(file);
 	}
-	onGridImgUrl1Change(){
+	onGridImgUrl1Change(right:any){
             this.listOne[this.currentIndex].imgurl1=this.rightPan.imgurl1;
 			this.listOne[this.currentIndex].audiourl1=null;
 			this.listOne[this.currentIndex].videourl1=null;
 			this.listOne[this.currentIndex].documenturl1=null;
+		  if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file1=null
+		  }
+  	  
 	}
-	onGridVideoUrl1Change(){
+	onGridVideoUrl1Change(right:any){
 
             this.listOne[this.currentIndex].imgurl1=null;
 			this.listOne[this.currentIndex].audiourl1=null;
 			this.listOne[this.currentIndex].videourl1=this.rightPan.videourl1;
 			this.listOne[this.currentIndex].documenturl1=null;
-			// this.gridVideoRef.load();
-			// this.gridVideoRef.play();
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file1=null
+		  }
 	}
-	onGridAudioUrl1Change(){
+	onGridAudioUrl1Change(right:any){
 		    this.listOne[this.currentIndex].imgurl1=null;
 			this.listOne[this.currentIndex].audiourl1=this.rightPan.audiourl1;
 			this.listOne[this.currentIndex].videourl1=null;
 			this.listOne[this.currentIndex].documenturl1=null;
-			// this.gridAudioRef.load();
-			// this.gridAudioRef.play();
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file1=null
+		  }
 
 	}
-	onGridDocumentUrl1Change(){
+	onGridDocumentUrl1Change(right:any){
             this.listOne[this.currentIndex].imgurl1=null;
 			this.listOne[this.currentIndex].audiourl1=null;
 			this.listOne[this.currentIndex].videourl1=null;
 			this.listOne[this.currentIndex].documenturl1=this.rightPan.documenturl1;
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file1=null
+		  }
 	}
-	imageUploadForGridTwoIndexEvent(evt: any) {
+	imageUploadForGridTwoIndexEvent(evt: any,right:any) {
         if (!evt.target) {
             return;
         }
@@ -612,39 +657,55 @@ export class AddContentComponent implements OnInit {
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=null;
 			this.listOne[this.currentIndex].documenturl2=null;
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file2=null
+		  }
         };
         fr.readAsDataURL(file);
 
 	}
-	onGridImgUrl2Change(){
+	onGridImgUrl2Change(right:any){
             this.listOne[this.currentIndex].imgurl2=this.rightPan.imgurl2;
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=null;
 			this.listOne[this.currentIndex].documenturl2=null;
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file2=null
+		  }
 	}
-	onGridVideoUrl2Change(){
+	onGridVideoUrl2Change(right:any){
             this.listOne[this.currentIndex].imgurl2=null;
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=this.rightPan.videourl2;
 			this.listOne[this.currentIndex].documenturl2=null;
-			// this.gridVideoRef.load();
-			// this.gridVideoRef.play();
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file2=null
+		  }
 	}
-	onGridAudioUrl2Change(){
+	onGridAudioUrl2Change(right:any){
             this.listOne[this.currentIndex].imgurl2=null;
 			this.listOne[this.currentIndex].audiourl2=this.rightPan.audiourl2;
 			this.listOne[this.currentIndex].videourl2=null;
 			this.listOne[this.currentIndex].documenturl2=null;
-			// this.gridAudioRef.load();
-			// this.gridAudioRef.play();
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file2=null
+		  }
 	}
-	onGridDocumentUrl2Change(){
+	onGridDocumentUrl2Change(right:any){
              this.listOne[this.currentIndex].imgurl2=null;
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=null;
 			this.listOne[this.currentIndex].documenturl2=this.rightPan.documenturl2;
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file2=null
+		  }
 	}
-	imageUploadForGridThirdIndexEvent(evt: any) {
+	imageUploadForGridThirdIndexEvent(evt: any,right) {
         if (!evt.target) {
             return;
         }
@@ -666,37 +727,53 @@ export class AddContentComponent implements OnInit {
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=null;
 			this.listOne[this.currentIndex].documenturl2=null;
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file3=null
+		   }
         };
         fr.readAsDataURL(file);
 
 	}
-	onGridImgUrl3Change(){
+	onGridImgUrl3Change(right:any){
             this.listOne[this.currentIndex].imgurl3=this.rightPan.imgurl3;
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=null;
 			this.listOne[this.currentIndex].documenturl2=null;
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file3=null
+		   }
 	}
-	onGridVideoUrl3Change(){
+	onGridVideoUrl3Change(right:any){
             this.listOne[this.currentIndex].imgurl3=null;
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=this.rightPan.videourl2;
 			this.listOne[this.currentIndex].documenturl2=null;
-			// this.gridVideoRef.load();
-			// this.gridVideoRef.play();
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file3=null
+		   }
 	}
-	onGridAudioUrl3Change(){
+	onGridAudioUrl3Change(right:any){
             this.listOne[this.currentIndex].imgurl3=null;
 			this.listOne[this.currentIndex].audiourl2=this.rightPan.audiourl2;
 			this.listOne[this.currentIndex].videourl2=null;
 			this.listOne[this.currentIndex].documenturl2=null;
-			// this.gridAudioRef.load();
-			// this.gridAudioRef.play();
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file3=null
+		   }
 	}
-	onGridDocumentUrl3Change(){
+	onGridDocumentUrl3Change(right:any){
             this.listOne[this.currentIndex].imgurl3=null;
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=null;
 			this.listOne[this.currentIndex].documenturl2=this.rightPan.documenturl2;
+			if (this.gridFileData.length>0) {
+	  	    let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+	  	    this.gridFileData[index].file3=null
+		   }
 	}
 	removeCallButton(i){
 
@@ -2074,17 +2151,17 @@ export class AddContentComponent implements OnInit {
 	  getHtml(value){
         return this.sanitizer.bypassSecurityTrustHtml(value);
 	  }
-  onAudioChange(event: any, count: any) {
+  onAudioChange(event: any, right: any) {
         let files = [].slice.call(event.target.files);
         this.newUploadFiles=files;
         console.log(this.newUploadFiles[0])
         this.length = this.newUploadFiles.length;
 
-        this.makeAudioFile(count);
+        this.makeAudioFile(right);
     }
 
 
-    makeAudioFile(count:any) {
+    makeAudioFile(right:any) {
         let b=[]
         this.tempCustomerBase64 = [];
         for (var i = 0; i < this.length; i++) {
@@ -2092,15 +2169,22 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('count', count);
-            this.audioFileData.push({count:count,file:formData})
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            this.listOne[this.currentIndex].url=formData.get('file')
+            if (this.audioFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.audioFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.audioFileData[index].file=formData
+            }else{
+              this.audioFileData.push({tag:right.tag,count:right.count,file:formData})
+            }
            
             // let headers = new Headers();
 
             // let options = new RequestOptions({
             //     headers: headers
             // });
-            // this.http.post('http://52.15.178.19:3002/api/test',this.audioFileData[0].file, options)
+            // this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.audioFileData[0].file, options)
             //     .subscribe(
             //         data => {
 
@@ -2119,17 +2203,17 @@ export class AddContentComponent implements OnInit {
         }
     }
 
-    onVideoChange(event: any, count: any) {
+    onVideoChange(event: any,right: any) {
         let files = [].slice.call(event.target.files);
         this.newUploadFiles=files;
         console.log(this.newUploadFiles[0])
         this.length = this.newUploadFiles.length;
 
-        this.makeVideoFile(count);
+        this.makeVideoFile(right);
     }
 
 
-    makeVideoFile(count:any) {
+    makeVideoFile(right:any) {
         let b=[]
         this.tempCustomerBase64 = [];
         for (var i = 0; i < this.length; i++) {
@@ -2137,15 +2221,22 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('count', count);
-            this.videoFileData.push({count:count,file:formData})
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            if (this.videoFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.videoFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.videoFileData[index].file=formData
+            }else{
+              this.videoFileData.push({tag:right.tag,count:right.count,file:formData})
+            }
+            
            
             // let headers = new Headers();
 
             // let options = new RequestOptions({
             //     headers: headers
             // });
-            // this.http.post('http://52.15.178.19:3002/api/test',this.audioFileData[0].file, options)
+            // this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.audioFileData[0].file, options)
             //     .subscribe(
             //         data => {
 
@@ -2164,17 +2255,17 @@ export class AddContentComponent implements OnInit {
         }
     }
 
-    onDocumentChange(event: any, count: any) {
+    onDocumentChange(event: any, right: any) {
         let files = [].slice.call(event.target.files);
         this.newUploadFiles=files;
         console.log(this.newUploadFiles[0])
         this.length = this.newUploadFiles.length;
 
-        this.makeVideoFile(count);
+        this.makeVideoFile(right);
     }
 
 
-    makeDocumentFile(count:any) {
+    makeDocumentFile(right:any) {
         let b=[]
         this.tempCustomerBase64 = [];
         for (var i = 0; i < this.length; i++) {
@@ -2182,32 +2273,306 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('count', count);
-            this.documentFileData.push({count:count,file:formData})
-           
-            // let headers = new Headers();
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            if (this.documentFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.documentFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.documentFileData[index].file=formData
+            }else{
+              this.documentFileData.push({tag:right.tag,count:right.count,file:formData})
+            }
+        }
+    }
+    onGridVideoData1Change(event: any, right: any){
 
-            // let options = new RequestOptions({
-            //     headers: headers
-            // });
-            // this.http.post('http://52.15.178.19:3002/api/test',this.audioFileData[0].file, options)
-            //     .subscribe(
-            //         data => {
+            this.listOne[this.currentIndex].imgurl1=null;
+			this.listOne[this.currentIndex].audiourl1=null;
+			this.listOne[this.currentIndex].videourl1=null;
+			this.listOne[this.currentIndex].documenturl1=null;
+			let files = [].slice.call(event.target.files);
+	        this.newUploadFiles=files;
+	        console.log(this.newUploadFiles[0])
+	        this.length = this.newUploadFiles.length;
+	        this.makeVideoForGrid1File(right);
+	}
 
-
-            //             data = data.json().base64String;
-            //             this.tempCustomerBase64.push(data);
-            //             setTimeout(() => {
-
-            //                 //this.patch_information = "Saved"
-
-            //             }, 10000);
-            //         },
-            //         error => console.log(error))
+    makeVideoForGrid1File(right:any) {
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            formData.append('for', 'videourl1');
+            if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.gridFileData[index].file1=formData
+                this.gridFileData[index].for="videourl1"
+            }else{
+              this.gridFileData.push({tag:right.tag,count:right.count,for:"videourl1",file1:formData,file2:null,file3:null})
+            }
 
 
         }
-    }
+       }
+	onGridAudioData1Change(event: any, right: any){
+		    this.listOne[this.currentIndex].imgurl1=null;
+			this.listOne[this.currentIndex].audiourl1=null;
+			this.listOne[this.currentIndex].videourl1=null;
+			this.listOne[this.currentIndex].documenturl1=null;
+	        let files = [].slice.call(event.target.files);
+	        this.newUploadFiles=files;
+	        console.log(this.newUploadFiles[0])
+	        this.length = this.newUploadFiles.length;
+	        this.makeAudioForGrid1File(right);
+	}
+
+    makeAudioForGrid1File(right:any) {
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            formData.append('for', 'audiourl1');
+            if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.gridFileData[index].file1=formData
+                this.gridFileData[index].for="audiourl1"
+            }else{
+              this.gridFileData.push({tag:right.tag,count:right.count,for:"audiourl1",file1:formData,file2:null,file3:null})
+            }
+
+
+        }
+       }
+	onGridDocumentData1Change(event: any, right: any){
+            this.listOne[this.currentIndex].imgurl1=null;
+			this.listOne[this.currentIndex].audiourl1=null;
+			this.listOne[this.currentIndex].videourl1=null;
+			this.listOne[this.currentIndex].documenturl1=null;
+			let files = [].slice.call(event.target.files);
+	        this.newUploadFiles=files;
+	        console.log(this.newUploadFiles[0])
+	        this.length = this.newUploadFiles.length;
+	        this.makeDocumentForGrid1File(right);
+	}
+
+    makeDocumentForGrid1File(right:any) {
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            formData.append('for', 'documenturl1');
+            if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.gridFileData[index].file1=formData
+                this.gridFileData[index].for="documenturl1"
+            }else{
+              this.gridFileData.push({tag:right.tag,count:right.count,for:"documenturl1",file1:formData,file2:null,file3:null})
+            }
+
+
+        }
+       }
+	
+	onGridVideoData2Change(event: any, right: any){
+            this.listOne[this.currentIndex].imgurl2=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+	        let files = [].slice.call(event.target.files);
+	        this.newUploadFiles=files;
+	        console.log(this.newUploadFiles[0])
+	        this.length = this.newUploadFiles.length;
+	        this.makeVideoForGrid2File(right);
+	}
+
+    makeVideoForGrid2File(right:any) {
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            formData.append('for', 'videourl2');
+            if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.gridFileData[index].file2=formData
+                this.gridFileData[index].for="videourl2"
+            }else{
+              this.gridFileData.push({tag:right.tag,count:right.count,for:"videourl2",file1:null,file2:formData,file3:null})
+            }
+
+
+        }
+       }
+	onGridAudioData2Change(event: any, right: any){
+            this.listOne[this.currentIndex].imgurl2=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+            let files = [].slice.call(event.target.files);
+	        this.newUploadFiles=files;
+	        console.log(this.newUploadFiles[0])
+	        this.length = this.newUploadFiles.length;
+	        this.makeAudioForGrid2File(right);
+	}
+
+    makeAudioForGrid2File(right:any) {
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            formData.append('for', 'audiourl2');
+            if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.gridFileData[index].file2=formData
+                this.gridFileData[index].for="audiourl2"
+            }else{
+              this.gridFileData.push({tag:right.tag,count:right.count,for:"audiourl2",file1:null,file2:formData,file3:null})
+            }
+
+
+        }
+       }
+	onGridDocumentData2Change(event: any, right: any){
+             this.listOne[this.currentIndex].imgurl2=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+			let files = [].slice.call(event.target.files);
+	        this.newUploadFiles=files;
+	        console.log(this.newUploadFiles[0])
+	        this.length = this.newUploadFiles.length;
+	        this.makeDocumentForGrid2File(right);
+	}
+
+    makeDocumentForGrid2File(right:any) {
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            formData.append('for', 'documenturl2');
+            if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.gridFileData[index].file2=formData
+                this.gridFileData[index].for="documenturl2"
+            }else{
+              this.gridFileData.push({tag:right.tag,count:right.count,for:"documenturl2",file1:null,file2:formData,file3:null})
+            }
+
+
+        }
+       }
+   	onGridVideoData3Change(event: any, right: any){
+            this.listOne[this.currentIndex].imgurl2=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+	        let files = [].slice.call(event.target.files);
+	        this.newUploadFiles=files;
+	        console.log(this.newUploadFiles[0])
+	        this.length = this.newUploadFiles.length;
+	        this.makeVideoForGrid3File(right);
+	}
+
+    makeVideoForGrid3File(right:any) {
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            formData.append('for', 'videourl3');
+            if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.gridFileData[index].file3=formData
+                this.gridFileData[index].for="videourl3"
+            }else{
+              this.gridFileData.push({tag:right.tag,count:right.count,for:"videourl3",file1:null,file2:null,file3:formData})
+            }
+
+
+        }
+       }
+	onGridAudioData3Change(event: any, right: any){
+            this.listOne[this.currentIndex].imgurl2=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+            let files = [].slice.call(event.target.files);
+	        this.newUploadFiles=files;
+	        console.log(this.newUploadFiles[0])
+	        this.length = this.newUploadFiles.length;
+	        this.makeAudioForGrid3File(right);
+	}
+
+    makeAudioForGrid3File(right:any) {
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            formData.append('for', 'audiourl3');
+            if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.gridFileData[index].file3=formData
+                this.gridFileData[index].for="audiourl3"
+            }else{
+              this.gridFileData.push({tag:right.tag,count:right.count,for:"audiourl3",file1:null,file2:null,file3:formData})
+            }
+
+
+        }
+       }
+	onGridDocumentData3Change(event: any, right: any){
+             this.listOne[this.currentIndex].imgurl2=null;
+			this.listOne[this.currentIndex].audiourl2=null;
+			this.listOne[this.currentIndex].videourl2=null;
+			this.listOne[this.currentIndex].documenturl2=null;
+			let files = [].slice.call(event.target.files);
+	        this.newUploadFiles=files;
+	        console.log(this.newUploadFiles[0])
+	        this.length = this.newUploadFiles.length;
+	        this.makeDocumentForGrid3File(right);
+	}
+
+    makeDocumentForGrid3File(right:any) {
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            console.log(this.newUploadFiles[i])
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            formData.append('tag', right.tag);
+            formData.append('count', right.count);
+            formData.append('for', 'documenturl3');
+            if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
+            	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
+                this.gridFileData[index].file3=formData
+                this.gridFileData[index].for="documenturl3"
+            }else{
+              this.gridFileData.push({tag:right.tag,count:right.count,for:"documenturl3",file1:null,file2:null,file3:formData})
+            }
+
+
+        }
+       }
     onupload(){
     	for (var i = 0; i < this.audioFileData.length; i++) {
            
@@ -2216,7 +2581,9 @@ export class AddContentComponent implements OnInit {
             let options = new RequestOptions({
                 headers: headers
             });
-            this.http.post('http://52.15.178.19:3002/api/test',this.audioFileData[i].file, options)
+            if (this.audioFileData[i].file!=null) {
+
+            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.audioFileData[i].file, options)
                 .subscribe(
                     data => {
                         data = data.json().base64String;
@@ -2226,6 +2593,8 @@ export class AddContentComponent implements OnInit {
                         }, 10000);
                     },
                     error => console.log(error))
+            }
+            
         }
     
     for (var i = 0; i < this.videoFileData.length; i++) {
@@ -2235,7 +2604,8 @@ export class AddContentComponent implements OnInit {
             let options = new RequestOptions({
                 headers: headers
             });
-            this.http.post('http://52.15.178.19:3002/api/test',this.videoFileData[i].file, options)
+            if (this.videoFileData[i].file!=null) {
+            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.videoFileData[i].file, options)
                 .subscribe(
                     data => {
                         data = data.json().base64String;
@@ -2245,6 +2615,8 @@ export class AddContentComponent implements OnInit {
                         }, 10000);
                     },
                     error => console.log(error))
+            }
+            
         }
     
     for (var i = 0; i < this.documentFileData.length; i++) {
@@ -2254,7 +2626,8 @@ export class AddContentComponent implements OnInit {
             let options = new RequestOptions({
                 headers: headers
             });
-            this.http.post('http://52.15.178.19:3002/api/test',this.documentFileData[i].file, options)
+            if (this.documentFileData[i].file!=null) {
+            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.documentFileData[i].file, options)
                 .subscribe(
                     data => {
                         data = data.json().base64String;
@@ -2264,6 +2637,53 @@ export class AddContentComponent implements OnInit {
                         }, 10000);
                     },
                     error => console.log(error))
+            }
+            
+        }
+    for (var i = 0; i < this.gridFileData.length; i++) {
+           
+            let headers = new Headers();
+
+            let options = new RequestOptions({
+                headers: headers
+            });
+            if (this.gridFileData[i].file1!=null) {
+            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.gridFileData[i].file1, options)
+                .subscribe(
+                    data => {
+                        data = data.json().base64String;
+                        this.tempCustomerBase64.push(data);
+                        setTimeout(() => {
+
+                        }, 10000);
+                    },
+                    error => console.log(error))
+            }
+            if (this.gridFileData[i].file2!=null) {
+            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.gridFileData[i].file2, options)
+                .subscribe(
+                    data => {
+                        data = data.json().base64String;
+                        this.tempCustomerBase64.push(data);
+                        setTimeout(() => {
+
+                        }, 10000);
+                    },
+                    error => console.log(error))
+            }
+            if (this.gridFileData[i].file3!=null) {
+            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.gridFileData[i].file3, options)
+                .subscribe(
+                    data => {
+                        data = data.json().base64String;
+                        this.tempCustomerBase64.push(data);
+                        setTimeout(() => {
+
+                        }, 10000);
+                    },
+                    error => console.log(error))
+            }
+            
         }
     
   }

@@ -478,7 +478,7 @@
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
+                                                                                        <img [src]="item.tempUrl" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
@@ -493,7 +493,7 @@
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
                                                                                         <video #ref id="my-video" controls preload="auto" width="80%" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
-                                                                                            <source [src]="item.url" type="video/mp4">
+                                                                                            <source [src]="item.tempUrl" type="video/mp4">
                                                                                         </video>
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
@@ -509,7 +509,7 @@
                                                                                     <td  [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
                                                                                         <audio #ref2 controls [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
-                                                                                            <source [src]="item.url"  type="audio/mpeg" />
+                                                                                            <source [src]="item.tempUrl"  type="audio/mpeg" />
                                                                                             Your browser does not support the audio element.
                                                                                         </audio>
                                                                                         <figcaption [ngStyle]="{textAlign:item.aligment}">{{item.caption}}</figcaption>
@@ -525,7 +525,7 @@
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
                                                                                     <td  [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
+                                                                                        <img [src]="item.tempUrl" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
@@ -676,7 +676,7 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="URL" type="text" name="url" [(ngModel)]="rightPan.url" (input)="onUrlChange()">
+                                                                                <input matInput placeholder="URL" type="text" name="url" [(ngModel)]="rightPan.url" (input)="onUrlChange(rightPan)">
                                                                             </mat-form-field>
                                                                         </div>
                                                                            
@@ -687,21 +687,21 @@
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Video</span>
 
-                                                                            <input type="file" class="file-type" accept="video/*" (change)=onVideoChange($event,this.rightPan.count); />
+                                                                            <input type="file" class="file-type" accept="video/*" (change)=onVideoChange($event,this.rightPan); />
 
                                                                         </span>
                                                                  </div>
                                                                  <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='audio'">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Audio</span>
-                                                                            <input type="file" class="file-type" accept="audio/*" (change)=onAudioChange($event,this.rightPan.count); />
+                                                                            <input type="file" class="file-type" accept="audio/*" (change)=onAudioChange($event,this.rightPan); />
                                                                         </span>
                                                                  </div>
                                                                  <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='document' ">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Document</span>
 
-                                                                            <input type="file" class="file-type" accept=" .pdf , .doc ,.docx" (change)=onDocumentChange($event,this.rightPan.count); />
+                                                                            <input type="file" class="file-type" accept=" .pdf , .doc ,.docx" (change)=onDocumentChange($event,this.rightPan); />
 
                                                                         </span>
                                                                  </div>
@@ -716,15 +716,9 @@
                                                                            
                                                                     </div>
 
-                                                                    <div class="row">
-                                                                        <label class="col-md-12 col-sm-12 col-xs-12"> Download </label>
-                                                                        <mat-radio-group>
-                                                                            <mat-radio-button value="true" class="col-md-6 col-sm-6 col-xs-12">Yes</mat-radio-button>
-                                                                            <mat-radio-button value="false" class="col-md-6 col-sm-6 col-xs-12">No</mat-radio-button>
-                                                                        </mat-radio-group>
-
-                                                                    </div>
+                                                                    
                                                                 </div>
+
 
 
                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image' || rightPan.tag=='video' || rightPan.tag=='audio' || rightPan.tag=='document' || rightPan.tag=='grid' ">
@@ -736,6 +730,14 @@
                                                                             </mat-form-field>
                                                                         </div>
                                                                            
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label class="col-md-12 col-sm-12 col-xs-12"> Download </label>
+                                                                        <mat-radio-group name="download" [(ngModel)]="rightPan.downloadable" (change)="onDownloadableChange()">
+                                                                            <mat-radio-button [value]="true" class="col-md-6 col-sm-6 col-xs-12">Yes</mat-radio-button>
+                                                                            <mat-radio-button [value]="false" class="col-md-6 col-sm-6 col-xs-12">No</mat-radio-button>
+                                                                        </mat-radio-group>
+
                                                                     </div>
 
                                                                 </div>
@@ -764,7 +766,7 @@
                                                                     </div>
 
                                                                 </div>
-                                                                  <div *ngIf="rightPan.activeIndex==1">
+                                                                <div *ngIf="rightPan.activeIndex==1">
                                                                         <div class="email-builder-element-edit-field" >
 
                                                                         <div class="block-properties">
@@ -775,7 +777,7 @@
                                                                                     </div>
                                                                                     <span class="btn custom-btn btn-round btn-file">
                                                                                         <span class="fileinput-new">Change</span>
-                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridOneIndexEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridOneIndexEvent($event,rightPan)" accept="image/gif, image/jpeg, image/png" />
                                                                                         <div class="ripple-container"></div>
                                                                                     </span>
                                                                                 </div>
@@ -804,6 +806,12 @@
                                                                                     <input matInput placeholder="Video URL" type="text" name="gridvideourl1" [(ngModel)]="rightPan.videourl1" (input)="onGridVideoUrl1Change()">
                                                                                 </mat-form-field>
                                                                             </div>
+                                                                            <div class="fileinput" data-provides="fileinput">
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change Video</span>
+                                                                                    <input type="file" class="file-type" (change)=onGridVideoData1Change($event,rightPan); />
+                                                                                </span>
+                                                                            </div>
                                                                                
                                                                         </div>
 
@@ -819,7 +827,7 @@
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Audio</span>
-                                                                                    <input type="file" class="file-type" (change)=onAudioChange(); />
+                                                                                    <input type="file" class="file-type" (change)=onGridAudioData1Change($event,rightPan); />
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -833,6 +841,12 @@
                                                                                 <mat-form-field>
                                                                                     <input matInput placeholder="Document URL" type="text" name="griddocumenturl1" [(ngModel)]="rightPan.documenturl1" (input)="onGridDocumentUrl1Change()">
                                                                                 </mat-form-field>
+                                                                            </div>
+                                                                            <div class="fileinput" data-provides="fileinput">
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change Document</span>
+                                                                                    <input type="file" class="file-type" (change)=onGridDocumentData1Change($event,rightPan); />
+                                                                                </span>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -850,7 +864,7 @@
                                                                                     </div>
                                                                                     <span class="btn custom-btn btn-round btn-file">
                                                                                         <span class="fileinput-new">Change</span>
-                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridTwoIndexEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridTwoIndexEvent($event,rightPan)" accept="image/gif, image/jpeg, image/png" />
                                                                                         <div class="ripple-container"></div>
                                                                                     </span>
                                                                                 </div>
@@ -882,7 +896,7 @@
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Video</span>
-                                                                                    <input type="file" class="file-type" (change)=onVideoChange(); />
+                                                                                    <input type="file" class="file-type" (change)=onGridVideoData2Change($event,rightPan); />
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -897,6 +911,12 @@
                                                                                     <input matInput placeholder="Audio URL" type="text" name="gridaudiourl2" [(ngModel)]="rightPan.audiourl2" (input)="onGridAudioUrl2Change()">
                                                                                 </mat-form-field>
                                                                             </div>
+                                                                            <div class="fileinput" data-provides="fileinput">
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change Audio</span>
+                                                                                    <input type="file" class="file-type" (change)=onGridAudioData2Change($event,rightPan); />
+                                                                                </span>
+                                                                            </div>
                                                                                
                                                                         </div>
 
@@ -908,6 +928,12 @@
                                                                                 <mat-form-field>
                                                                                     <input matInput placeholder="Document URL" type="text" name="griddocumenturl2" [(ngModel)]="rightPan.documenturl2" (input)="onGridDocumentUrl2Change()">
                                                                                 </mat-form-field>
+                                                                            </div>
+                                                                            <div class="fileinput" data-provides="fileinput">
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change Document</span>
+                                                                                    <input type="file" class="file-type" (change)=onGridDocumentData2Change($event,rightPan); />
+                                                                                </span>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -925,7 +951,7 @@
                                                                                     </div>
                                                                                     <span class="btn custom-btn btn-round btn-file">
                                                                                         <span class="fileinput-new">Change</span>
-                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridThirdIndexEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridThirdIndexEvent($event,rightPan)" accept="image/gif, image/jpeg, image/png" />
                                                                                         <div class="ripple-container"></div>
                                                                                     </span>
                                                                                 </div>
@@ -954,6 +980,12 @@
                                                                                     <input matInput placeholder="Video URL" type="text" name="gridvideourl3" [(ngModel)]="rightPan.videourl3" (input)="onGridVideoUrl3Change()">
                                                                                 </mat-form-field>
                                                                             </div>
+                                                                             <div class="fileinput" data-provides="fileinput">
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change Audio</span>
+                                                                                    <input type="file" class="file-type" (change)=onGridVideoData3Change($event,rightPan); />
+                                                                                </span>
+                                                                            </div>
                                                                                
                                                                         </div>
 
@@ -966,6 +998,12 @@
                                                                                     <input matInput placeholder="Audio URL" type="text" name="gridaudiourl3" [(ngModel)]="rightPan.audiourl3" (input)="onGridAudioUrl3Change()">
                                                                                 </mat-form-field>
                                                                             </div>
+                                                                            <div class="fileinput" data-provides="fileinput">
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change Audio</span>
+                                                                                    <input type="file" class="file-type" (change)=onGridAudioData3Change($event,rightPan); />
+                                                                                </span>
+                                                                            </div>
                                                                                
                                                                         </div>
 
@@ -977,6 +1015,12 @@
                                                                                 <mat-form-field>
                                                                                     <input matInput placeholder="Document URL" type="text" name="griddocumenturl3" [(ngModel)]="rightPan.documenturl3" (input)="onGridDocumentUrl3Change()">
                                                                                 </mat-form-field>
+                                                                            </div>
+                                                                            <div class="fileinput" data-provides="fileinput">
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change Document</span>
+                                                                                    <input type="file" class="file-type" (change)=onGridDocumentData3Change($event,rightPan); />
+                                                                                </span>
                                                                             </div>
                                                                                
                                                                         </div>
@@ -1371,7 +1415,7 @@
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn btn-warning" (click)="saveAsDraft()" [disabled]="!addContentForm.valid"> Save as draft </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser' "  (click)="submitForReview()" [disabled]="!addContentForm.valid"> Submit for review </button>
-                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="publish('Publish')" [disabled]="!addContentForm.valid"> Publish </button>
+                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="publish('Publish')" > Publish </button>
                                             <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" [disabled]="!addContentForm.valid"> Publish later </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" [disabled]="!addContentForm.valid"> Send for revision </button>
                                             <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" [disabled]="!addContentForm.valid"> Reject </button>
