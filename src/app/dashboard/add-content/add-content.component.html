@@ -670,7 +670,7 @@
                                                                 <div class="fileinput" data-provides="fileinput" *ngIf=" rightPan.tag=='video'  ">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Video</span>
-                                                                            <input type="file" class="file-type" accept="video/*" (change)=onVideoChange(); />
+                                                                            <input type="file" class="file-type" accept="video/*" (change)=onVideoChange($event); />
                                                                         </span>
                                                                  </div>
                                                                  <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='audio'">
@@ -682,7 +682,7 @@
                                                                  <div class="fileinput" data-provides="fileinput" *ngIf="rightPan.tag=='document' ">
                                                                         <span class="btn custom-btn btn-round btn-file">
                                                                             <span class="fileinput-new">Change Document</span>
-                                                                            <input type="file" class="file-type" accept=" .pdf , .doc ,.docx" (change)=onDocumentChange(); />
+                                                                            <input type="file" class="file-type" accept=" .pdf , .doc ,.docx" (change)=onDocumentChange($event); />
                                                                         </span>
                                                                  </div>
                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
