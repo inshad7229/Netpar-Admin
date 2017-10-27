@@ -33,6 +33,7 @@
     "jquery-ui-sortable": "^1.0.0",
     "mi18n": "^0.3.4",
     "moment": "^2.19.1",
+    "ng-pick-datetime": "^5.0.0-beta.11",
     "ng2-datetime": "^1.4.0",
     "ng2-dnd": "^4.2.0",
     "ng2-inline-editor": "^0.1.1-alpha.20",

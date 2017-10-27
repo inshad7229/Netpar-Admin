@@ -15,6 +15,7 @@ import {DndModule} from 'ng2-dnd';
 import { SwiperModule } from 'angular2-useful-swiper';
 import {ColorPickerModule} from 'angular4-color-picker';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { DateTimePickerModule } from 'ng-pick-datetime';
 
 
 import { MODULE_COMPONENTS, MODULE_ROUTES } from './dashboard.routes';
@@ -55,6 +56,8 @@ import { ContentViewDialogComponent } from './view-content/content-view-dialog/c
 import { ListingViewComponent } from './add-content/listing-view/listing-view.component';
 import {EditorComponent } from './add-content/editor/editor.component';
 import { SimpleTinyComponent } from './tiny/tiny.component';
+import { TrimPipe } from '../pipes/trim/trim.pipe';
+import {TrimDirective  } from '../directives/trim/trim.directive';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -84,6 +87,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatListModule,
         ColorPickerModule,
         CKEditorModule,
+        DateTimePickerModule,
         DndModule.forRoot(),
     ],
     declarations: [
@@ -121,12 +125,15 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               ContentConfirmation,
               FilterDialogComponent,
               SimpleTinyComponent,
-              EditorComponent
+              EditorComponent,
+              TrimPipe,
+              TrimDirective 
 
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
 ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent ],
+providers:[TrimPipe]
 })
 
 export class DashboardModule{

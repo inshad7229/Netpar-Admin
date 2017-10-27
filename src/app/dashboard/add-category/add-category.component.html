@@ -28,7 +28,7 @@
                                     </div> -->
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12 abc">
                                         <mat-form-field>
-                                            <mat-select placeholder="Select Language" [formControl]="addCategoryForm.controls['language']" name="language" [(ngModel)]="addCategoryRequest.language">
+                                            <mat-select placeholder="Select Language" [formControl]="addCategoryForm.controls['language']" name="language" [(ngModel)]="addCategoryRequest.language" (change)="onLanguageChange(addCategoryRequest.language)">
                                                 <mat-option  *ngFor="let lang of stringResource.language" [value]="lang.language">{{lang.language}}</mat-option>
                                                <!--  <mat-option value="2"> Language2 </mat-option>
                                                 <mat-option value="3"> Language3 </mat-option>
@@ -52,7 +52,7 @@
 
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <input matInput placeholder="Name of Category *" type="text" [formControl]="addCategoryForm.controls['categoryName']" name="categoryName" [(ngModel)]="addCategoryRequest.categoryName">
+                                            <input matInput placeholder="Name of Category *" type="text" [formControl]="addCategoryForm.controls['categoryName']" name="categoryName" id="categoryName" [(ngModel)]="addCategoryRequest.categoryName" appTrim>
                                              <mat-error  *ngIf="addCategoryForm.controls['categoryName'].hasError('required') && addCategoryForm.controls['categoryName'].touched">
                                                        Name of Category is <strong>required</strong>
                                             </mat-error>
@@ -148,9 +148,20 @@
                                                        Category View Template Applicable is <strong>required</strong>
                                             </mat-error>
                                         </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            
+                                            <span>Choose Category Template Format</span>
+                                        </div>
+                                        <div class="templt-div" *ngFor="let cat of stringResource.categoryTemplate;let i=index">
+                                            <div class="templt-img {{cat.status}}">
+                                                <img class="img-responsive" src="./assets/img/category-view/{{cat.template}}" (click)="onClickCatTemp(i)">
+                                            </div>
+                                             <span>{{cat.templateName}}</span>
+                                        </div>
+
                                     </div>
 
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
     	                                    <mat-select placeholder="Choose Category Template Format" [formControl]="addCategoryForm.controls['categoryFormat']" name="categoryFormat" [(ngModel)]="addCategoryRequest.categoryFormat">
     	                                        <mat-option value="1">  Template1> </mat-option>
@@ -159,7 +170,7 @@
     	                                        <mat-option value="4"> Template4 </mat-option>
     	                                    </mat-select>
                                         </mat-form-field>
-	                                </div>
+	                                </div> -->
 
 	                                <div class="col-md-12 col-sm-12 col-xs-12">
                                         <legend>Subcategory View Applicable *:</legend>
@@ -189,7 +200,7 @@
                                            </mat-error>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
     	                                    <mat-select placeholder="Choose Listing View Template" [formControl]="addCategoryForm.controls['listViewFormat']" name="listViewFormat" [(ngModel)]="addCategoryRequest.listViewFormat">
     	                                        <mat-option value="1"> Template1 </mat-option>
@@ -198,7 +209,17 @@
     	                                        <mat-option value="4"> Template4 </mat-option>
     	                                    </mat-select>
                                         </mat-form-field>
-	                                </div>
+	                                </div> -->
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                            
+                                            <span>Choose Listing View Template</span>
+                                        </div>
+                                        <div class="templt-div" *ngFor="let list of stringResource.listingTemplate;let i=index">
+                                            <div class="templt-img {{list.status}}">
+                                                <img class="img-responsive" src="./assets/img/listing-view/{{list.template}}" (click)="onClickListTemp(i)">
+                                            </div>
+                                             <span>{{list.templateName}}</span>
+                                        </div>
 
                                 </div>
                             </div>

@@ -1304,3 +1304,40 @@ table tbody td.width170px{
   box-shadow: none;
   float: left;
 }
+
+
+.icon-wdth mfdefaultsorter a.text-nowrap{
+  padding-right: 0;
+  min-width: 55px;  
+}
+
+.templt-div{
+  width: 25%;
+  float: left;
+  padding: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+.templt-div .templt-img:active img, .templt-div .templt-img.active img{
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.templt-div .templt-img{
+  position: relative;
+}
+.templt-div .templt-img.active::after {
+  background-color: #4caf50;
+  border: 2px solid #4caf50;
+  border-radius: 100px;
+  color: #fff;
+  content: "\f00c";
+  font-family: "fontawesome";
+  font-size: 32px;
+  height: 45px;
+  left: 27%;
+  line-height: 45px;
+  position: absolute;
+  text-align: center;
+  top: 35%;
+  width: 45px;
+}

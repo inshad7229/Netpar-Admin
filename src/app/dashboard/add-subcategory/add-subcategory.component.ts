@@ -15,6 +15,7 @@ import {StringResource} from '../../models/saredResources'
 import {AppProvider} from '../../providers/app.provider'
 declare var jquery:any;
 declare var $ :any;
+declare var google:any
 
 @Component({
   selector: 'app-add-subcategory',
@@ -33,6 +34,7 @@ export class AddSubcategoryComponent implements OnInit {
     croppieImageHorigontal: string;
     sections:any;
     categories:any;
+     sectionsData
     addSubCategoryRequest: AddSubCategoryRequest=new  AddSubCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -95,7 +97,7 @@ export class AddSubcategoryComponent implements OnInit {
          private appProvider: AppProvider
       ) {   this.addSubCategoryForm = fb.group({
                 'sectionName': [null, Validators.compose([Validators.required])],
-                'categoryName': [null, Validators.compose([Validators.required])],
+                'categoryName': [null],
                 'subCategoryName':[null, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])],
                 'subCategoryView':[null, Validators.compose([Validators.required])],
                 'subCategoryFormat':[null],
@@ -137,6 +139,28 @@ export class AddSubcategoryComponent implements OnInit {
         }
 
   	}
+
+     onLanguageChange(language){
+       let selectedLang
+       if(language=="Hindi"){
+          selectedLang=google.elements.transliteration.LanguageCode.HINDI
+       }
+       else if(language=="Marathi"){
+          selectedLang=google.elements.transliteration.LanguageCode.MARATHI
+       }else{
+         selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
+       }
+        var options = {
+          sourceLanguage:
+              google.elements.transliteration.LanguageCode.ENGLISH,
+          destinationLanguage:[selectedLang],
+          shortcutKey: 'ctrl+g',
+          transliterationEnabled: true
+        };
+        var control = new google.elements.transliteration.TransliterationControl(options);
+        control.makeTransliteratable(['subCategoryName']);
+        this.sections=this.sectionsData.filter(arg=>arg.language==language);
+  }
   	 newImageResultFromCroppieHorigontal(img: string) {
         this.croppieImageHorigontal = img;
         console.log(this.croppieImageHorigontal)
@@ -285,7 +309,10 @@ export class AddSubcategoryComponent implements OnInit {
                       this.sectionService.onGetSection()
                     .subscribe(data => {
                         this.waitLoader = false;
-                        this.sections=data;
+                        this.sectionsData=data;
+                    if (this.addSubCategoryRequest.language) {
+                         this.sections=data.filter(arg=>arg.language==this.addSubCategoryRequest.language);;
+                    }
                     },error=>{
                         alert(error)
                     })
@@ -301,5 +328,11 @@ export class AddSubcategoryComponent implements OnInit {
                     alert(error)
                 }) 
   }
-   
+   onClickSubCatTemp(j){
+    for (let i=0;i<this.stringResource.subCategoryTemplate.length;i++) {
+        this.stringResource.subCategoryTemplate[i].status="inactive"
+    }
+    this.stringResource.subCategoryTemplate[j].status="active"
+    this.addSubCategoryRequest.subCategoryFormat=this.stringResource.subCategoryTemplate[j].templateName
+}
 }

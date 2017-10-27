@@ -15,7 +15,7 @@ import {AppProvider} from '../../providers/app.provider'
 import {Observable} from "rxjs";
 declare var jquery:any;
 declare var $ :any;
-
+declare var google:any 
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
@@ -33,6 +33,7 @@ export class AddCategoryComponent implements OnInit {
     waitLoader:boolean;
     sections:any;
     adminList:any;
+    sectionsData
     addCategoryRequest:AddCategoryRequest=new AddCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -148,6 +149,27 @@ export class AddCategoryComponent implements OnInit {
         
        
   	}
+      onLanguageChange(language){
+       let selectedLang
+       if(language=="Hindi"){
+          selectedLang=google.elements.transliteration.LanguageCode.HINDI
+       }
+       else if(language=="Marathi"){
+          selectedLang=google.elements.transliteration.LanguageCode.MARATHI
+       }else{
+         selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
+       }
+        var options = {
+          sourceLanguage:
+              google.elements.transliteration.LanguageCode.ENGLISH,
+          destinationLanguage:[selectedLang],
+          shortcutKey: 'ctrl+g',
+          transliterationEnabled: true
+        };
+        var control = new google.elements.transliteration.TransliterationControl(options);
+        control.makeTransliteratable(['categoryName']);
+        this.sections=this.sectionsData.filter(arg=>arg.language==language);;
+  }
   	newImageResultFromCroppieHorigontal(img: string) {
         this.croppieImageHorigontal = img;
         console.log(this.croppieImageHorigontal)
@@ -278,7 +300,10 @@ export class AddCategoryComponent implements OnInit {
          this.sectionService.onGetSection()
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.sections=data;
+                    this.sectionsData=data;
+                    if (this.addCategoryRequest.language) {
+                         this.sections=data.filter(arg=>arg.language==this.addCategoryRequest.language);;
+                    }
                 },error=>{
                     alert(error)
                 })
@@ -293,5 +318,18 @@ export class AddCategoryComponent implements OnInit {
                     alert(error)
                 }) 
   }
-
+onClickCatTemp(j){
+    for (let i=0;i<this.stringResource.categoryTemplate.length;i++) {
+        this.stringResource.categoryTemplate[i].status="inactive"
+    }
+    this.stringResource.categoryTemplate[j].status="active"
+    this.addCategoryRequest.categoryFormat=this.stringResource.categoryTemplate[j].templateName
+}
+onClickListTemp(j){
+    for (let i=0;i<this.stringResource.listingTemplate.length;i++) {
+        this.stringResource.listingTemplate[i].status="inactive"
+    }
+    this.stringResource.listingTemplate[j].status="active"
+    this.addCategoryRequest.listViewFormat=this.stringResource.listingTemplate[j].templateName
+}
 }

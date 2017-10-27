@@ -14,6 +14,7 @@ import {AppProvider} from '../../providers/app.provider'
 import {StringResource} from '../../models/saredResources'
 declare var jquery:any;
 declare var $ :any;
+declare var google:any;
 
 @Component({
   selector: 'app-add-section',
@@ -91,7 +92,7 @@ export class AddSectionComponent implements OnInit {
         private sectionService:SectionService,
         private appProvider: AppProvider
       ) {   this.addSectionForm = fb.group({
-            'sectionName': [null, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])],
+            'sectionName': [null, Validators.compose([Validators.required, Validators.maxLength(30)])],
             'categoryView': [null, Validators.compose([Validators.required])],
             'orderNo':[null],
             'language':[null]
@@ -102,6 +103,19 @@ export class AddSectionComponent implements OnInit {
     }
      
   ngOnInit() {
+
+
+        // var options = {
+        //   sourceLanguage:
+        //       google.elements.transliteration.LanguageCode.ENGLISH,
+        //   destinationLanguage:
+        //       [google.elements.transliteration.LanguageCode.MARATHI],
+        //   shortcutKey: 'ctrl+g',
+        //   transliterationEnabled: true
+        // };
+        // var control = new google.elements.transliteration.TransliterationControl(options);
+        // control.makeTransliteratable(['sectionName']);
+
   		$('.file-type').on('change',function(e){
 		    // var tmppath = URL.createObjectURL(e.target.files[0]);
 		    // console.log($(this));
@@ -139,6 +153,26 @@ export class AddSectionComponent implements OnInit {
                 })
        // code...
    }
+  }
+  onLanguageChange(language){
+       let selectedLang
+       if(language=="Hindi"){
+          selectedLang=google.elements.transliteration.LanguageCode.HINDI
+       }
+       else if(language=="Marathi"){
+          selectedLang=google.elements.transliteration.LanguageCode.MARATHI
+       }else{
+         selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
+       }
+        var options = {
+          sourceLanguage:
+              google.elements.transliteration.LanguageCode.ENGLISH,
+          destinationLanguage:[selectedLang],
+          shortcutKey: 'ctrl+g',
+          transliterationEnabled: true
+        };
+        var control = new google.elements.transliteration.TransliterationControl(options);
+        control.makeTransliteratable(['sectionName']);
   }
   newImageResultFromCroppieHorigontal(img: string) {
         this.croppieImageHorigontal = img;

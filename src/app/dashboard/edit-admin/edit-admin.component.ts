@@ -18,6 +18,7 @@ import {SectionService} from '../../providers/section.service'
 declare var jquery:any;
 declare var $ :any;
 declare var imageData:any;
+declare var google:any 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 
@@ -201,6 +202,17 @@ export class EditAdminComponent implements OnInit {
             this.currentImage = this.appProvider.current.adminData.image
             this.register.password = window.atob(this.register.plain)
         }
+
+        var options = {
+          sourceLanguage:
+              google.elements.transliteration.LanguageCode.ENGLISH,
+          destinationLanguage:
+              [google.elements.transliteration.LanguageCode.MARATHI],
+          shortcutKey: 'ctrl+g',
+          transliterationEnabled: true
+        };
+        var control = new google.elements.transliteration.TransliterationControl(options);
+        control.makeTransliteratable(['firstName','lastname']);
     }
     onRegister() {
         let languageArray=this.getLanguage()
