@@ -89,7 +89,7 @@
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Add headline *" type="text" name="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline">
+                                                <input matInput placeholder="Add headline *" type="text" name="headline" id="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline" appTrim >
                                                 <mat-error  *ngIf="addContentForm.controls['headline'].hasError('required') && addContentForm.controls['headline'].touched">
                                                 Headline is <strong>required</strong>
                                                 </mat-error>
@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Add tagline *"  type="text" name="tagline"   [formControl]="addContentForm.controls['tagline']" [(ngModel)]="addContentRequest.tagline">
+                                                <input matInput placeholder="Add tagline *"  type="text" name="tagline" id="tagline"   [formControl]="addContentForm.controls['tagline']" [(ngModel)]="addContentRequest.tagline" appTrim>
                                                 <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('required') && addContentForm.controls['tagline'].touched">
                                                 TagLine is <strong>required</strong>
                                                 </mat-error>
@@ -123,6 +123,7 @@
                                                   <!-- <mat-icon >cancel</mat-icon> -->
                                                 </mat-chip>
                                                 <input placeholder="Add tags"
+                                                       id="tags"
                                                        [matChipInputFor]="chipList"
                                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                                        [matChipInputAddOnBlur]="addOnBlur"
@@ -710,7 +711,7 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Alt Tag" type="text" name="altTag" [(ngModel)]="rightPan.altTag" (input)="onaltTagChange()">
+                                                                                <input matInput placeholder="Alt Tag" type="text" name="altTag" id="altTag" [(ngModel)]="rightPan.altTag" (input)="onaltTagChange()" appTrim>
                                                                             </mat-form-field>
                                                                         </div>
                                                                            
@@ -726,7 +727,7 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Title" type="text" name="title" [(ngModel)]="rightPan.title"  (input)="onTitleChange()">
+                                                                                <input matInput placeholder="Title" type="text" name="title" id="title" [(ngModel)]="rightPan.title"  (input)="onTitleChange()" appTrim>
                                                                             </mat-form-field>
                                                                         </div>
                                                                            
@@ -747,7 +748,7 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Caption" type="text" name="caption" [(ngModel)]="rightPan.caption" (input)="onCaptionChange()">
+                                                                                <input matInput placeholder="Caption" type="text" name="caption" id="caption" [(ngModel)]="rightPan.caption" (input)="onCaptionChange()" appTrim>
                                                                             </mat-form-field>
                                                                         </div>
                                                                            

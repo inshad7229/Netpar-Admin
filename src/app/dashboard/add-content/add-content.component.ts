@@ -30,6 +30,7 @@ const COMMA = 188;
 declare var jQuery:any;
 declare var $ :any;
 declare var tinymce: any;
+declare var  google:any;
 
 
 @Component({
@@ -977,6 +978,24 @@ export class AddContentComponent implements OnInit {
    }
 
    onselectLang(lang){
+   	let selectedLang
+       if(lang=="Hindi"){
+          selectedLang=google.elements.transliteration.LanguageCode.HINDI
+       }
+       else if(lang=="Marathi"){
+          selectedLang=google.elements.transliteration.LanguageCode.MARATHI
+       }else{
+         selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
+       }
+        var options = {
+          sourceLanguage:
+              google.elements.transliteration.LanguageCode.ENGLISH,
+          destinationLanguage:[selectedLang],
+          shortcutKey: 'ctrl+g',
+          transliterationEnabled: true
+        };
+        var control = new google.elements.transliteration.TransliterationControl(options);
+        control.makeTransliteratable(['headline','tagline','tags']);
    	if (this.sectionsData.length>0) {
          //this.subCategory=this.subCategoryData.filter(arg=>arg.language==this.addContentRequest.language);;
           this.sections=this.sectionsData.filter(arg=>arg.language==lang);
@@ -1025,13 +1044,11 @@ export class AddContentComponent implements OnInit {
      
 
   }
-  toggleHighlight(i){
-  	if (this.localAdminList[i].check=='active') {
-  		this.localAdminList[i].check='inactive';
-  	}else{
-
-  	  this.localAdminList[i].check='active';
+  toggleHighlight(j){
+  	for (let  i = 0; i<this.localAdminList.length; i++) {
+  		this.localAdminList[i].check='inactive'
   	}
+  	this.localAdminList[j].check='active'
   }
   openDialog(flag): void {
         let dialogRef = this.dialog.open(DragDropComponent, {
@@ -2137,7 +2154,7 @@ export class AddContentComponent implements OnInit {
 	  onText(i,text){
          let dialogRef = this.dialog.open(EditorComponent, {
             width: '400px',
-            data:{text:text}
+            data:{text:text,lang:this.addContentRequest.language}
         });
         dialogRef.afterClosed().subscribe(result => {
         	//alert(JSON.stringify(result))
