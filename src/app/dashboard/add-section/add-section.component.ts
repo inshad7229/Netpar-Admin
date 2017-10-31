@@ -155,24 +155,25 @@ export class AddSectionComponent implements OnInit {
    }
   }
   onLanguageChange(language){
-       let selectedLang
-       if(language=="Hindi"){
-          selectedLang=google.elements.transliteration.LanguageCode.HINDI
-       }
-       else if(language=="Marathi"){
-          selectedLang=google.elements.transliteration.LanguageCode.MARATHI
-       }else{
-         selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
-       }
-        var options = {
-          sourceLanguage:
-              google.elements.transliteration.LanguageCode.ENGLISH,
-          destinationLanguage:[selectedLang],
-          shortcutKey: 'ctrl+g',
-          transliterationEnabled: true
-        };
-        var control = new google.elements.transliteration.TransliterationControl(options);
-        control.makeTransliteratable(['sectionName']);
+       this.appProvider.current.currentLanguage=language;
+       // let selectedLang
+       // if(language=="Hindi"){
+       //    selectedLang=google.elements.transliteration.LanguageCode.HINDI
+       // }
+       // else if(language=="Marathi"){
+       //    selectedLang=google.elements.transliteration.LanguageCode.MARATHI
+       // }else{
+       //   selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
+       // }
+       //  var options = {
+       //    sourceLanguage:
+       //        google.elements.transliteration.LanguageCode.ENGLISH,
+       //    destinationLanguage:[selectedLang],
+       //    shortcutKey: 'ctrl+g',
+       //    transliterationEnabled: true
+       //  };
+       //  var control = new google.elements.transliteration.TransliterationControl(options);
+       //  control.makeTransliteratable(['sectionName']);
   }
   newImageResultFromCroppieHorigontal(img: string) {
         this.croppieImageHorigontal = img;

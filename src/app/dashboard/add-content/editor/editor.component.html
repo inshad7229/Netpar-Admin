@@ -8,14 +8,15 @@
                 [(ngModel)]="ckeditorContent"
                 [config]="ckEditorConfig"
                 [readonly]="false"
+                (change)="onChange($event)"
                 debounce="500">
-                <ckbutton [name]="'saveButton'"
+               <!--  <ckbutton [name]="'saveButton'"
                   [command]="'saveCmd'"
                   (click)="save($event)"
                   [icon]="'save.png'"
                   [label]="'Save Document'"
                   [toolbar]="'clipboard,1'">
-                </ckbutton>
+                </ckbutton> -->
         </ckeditor>
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
              <button class="btn custom-btn" (click)="save()" [disabled]="showMessage"> Save</button>

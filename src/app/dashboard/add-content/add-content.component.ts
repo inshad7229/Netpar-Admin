@@ -119,6 +119,7 @@ export class AddContentComponent implements OnInit {
     gridFileData=[];
     
     stringResource:StringResource=new  StringResource()
+    contentId
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -294,7 +295,9 @@ export class AddContentComponent implements OnInit {
 	
 
 
-
+     onAddTags(event){
+        console.log('add'+event)
+     }
     addText(){
     	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block',text:'Dummy Text'}) 
     	//  tinymce.init({
@@ -945,7 +948,9 @@ export class AddContentComponent implements OnInit {
 	                     this.sections=data.filter(arg=>arg.language==this.addContentRequest.language);;
 	                }
 	            },error=>{
+	            	 this.waitLoader = false;
 	                alert(error)
+	                this.waitLoader = false;
 	            })
 	}
 	getCategory(){
@@ -960,7 +965,9 @@ export class AddContentComponent implements OnInit {
 	                }
                     //console.log(JSON.stringify(data))
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
+                    this.waitLoader = false;
                 }) 
     }
    getsubCategory(){
@@ -973,37 +980,40 @@ export class AddContentComponent implements OnInit {
 	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language);;
 	                }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
+                    this.waitLoader = false;
                 }) 
    }
 
    onselectLang(lang){
-   	let selectedLang
-       if(lang=="Hindi"){
-          selectedLang=google.elements.transliteration.LanguageCode.HINDI
-       }
-       else if(lang=="Marathi"){
-          selectedLang=google.elements.transliteration.LanguageCode.MARATHI
-       }else{
-         selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
-       }
-        var options = {
-          sourceLanguage:
-              google.elements.transliteration.LanguageCode.ENGLISH,
-          destinationLanguage:[selectedLang],
-          shortcutKey: 'ctrl+g',
-          transliterationEnabled: true
-        };
-        var control = new google.elements.transliteration.TransliterationControl(options);
-        control.makeTransliteratable(['headline','tagline','tags']);
-   	if (this.sectionsData.length>0) {
+   	// let selectedLang
+    //    if(lang=="Hindi"){
+    //       selectedLang=google.elements.transliteration.LanguageCode.HINDI
+    //    }
+    //    else if(lang=="Marathi"){
+    //       selectedLang=google.elements.transliteration.LanguageCode.MARATHI
+    //    }else{
+    //      selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
+    //    }
+    //     var options = {
+    //       sourceLanguage:
+    //           google.elements.transliteration.LanguageCode.ENGLISH,
+    //       destinationLanguage:[selectedLang],
+    //       shortcutKey: 'ctrl+g',
+    //       transliterationEnabled: true
+    //     };
+    //     var control = new google.elements.transliteration.TransliterationControl(options);
+    //     control.makeTransliteratable(['headline','tagline','tags']);
+    this.appProvider.current.currentLanguage=lang;
+   	if (this.sectionsData && this.sectionsData.length>0) {
          //this.subCategory=this.subCategoryData.filter(arg=>arg.language==this.addContentRequest.language);;
           this.sections=this.sectionsData.filter(arg=>arg.language==lang);
     }
-     if (this.categoriesData.length>0) {
+     if (this.categoriesData && this.categoriesData.length>0) {
          this.categories=this.categoriesData.filter(arg=>arg.language==lang);;
     }
-    if (this.subCategoryData.length>0) {
+    if (this.subCategoryData && this.subCategoryData.length>0) {
          this.subCategory=this.subCategoryData.filter(arg=>arg.language==lang);;
     }
    }
@@ -1020,10 +1030,10 @@ export class AddContentComponent implements OnInit {
                            	        	this.localAdminList[i].check="active"
                            	        }   
                                                                           
-                               	}                        	// code...
+                               	}
                         }
-                    //console.log(JSON.stringify(data))
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
                 }) 
    }
@@ -1235,10 +1245,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                               this.contentId=data.response._id
+                               this.onupload()
+                                 //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })     
 		}else{
@@ -1317,10 +1329,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                  this.contentId=data.response._id
+                                  this.onupload()
+                                // this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	this.waitLoader = false;
                     alert(error)
            })
         }
@@ -1383,10 +1397,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                this.contentId=data.response._id
+                                this.onupload()
+                                // this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	  this.waitLoader = false;
                     alert(error)
            })
 		}else{
@@ -1466,10 +1482,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                 this.contentId=data.response._id
+                                 this.onupload()
+                                 //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })
          }
@@ -1533,10 +1551,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                  this.contentId=data.response._id
+                                  this.onupload()
+                                // this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })
 		}else{
@@ -1615,10 +1635,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                   this.contentId=data.response._id
+                                   this.onupload()
+                                 //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })
         }
@@ -1682,10 +1704,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                  this.contentId=data.response._id
+                                  this.onupload()
+                                 //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })
 		}else{
@@ -1765,10 +1789,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                   this.contentId=data.response._id
+                                   this.onupload()
+                                 //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })
         }
@@ -1832,10 +1858,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                  this.contentId=data.response._id
+                                  this.onupload()
+                                 ///this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })
 		}else{
@@ -1914,10 +1942,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                   this.contentId=data.response._id
+                                   this.onupload()
+                                 //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })	
 		}
@@ -1982,10 +2012,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                                   this.contentId=data.response._id
+                                   this.onupload()
+                                 //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })
 		}else{
@@ -2064,10 +2096,12 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
-                                 this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                               this.contentId=data.response._id
+                               this.onupload()
+                                // this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
                 },error=>{
+                	 this.waitLoader = false;
                     alert(error)
            })	
 		}
@@ -2095,13 +2129,65 @@ export class AddContentComponent implements OnInit {
 	onBlur(){
 	console.log('blur')	
 	}
-	add(event: MatChipInputEvent): void {
+	add(event: MatChipInputEvent){
 	    let input = event.input;
 	    let value = event.value;
-
-	    // Add our person
+        let lang
+	    if (this.appProvider.current.currentLanguage=="Hindi") {
+           lang='hindi'
+        }else if (this.appProvider.current.currentLanguage=="Bengali") {
+           lang='bengali'
+        }else if (this.appProvider.current.currentLanguage=="Gujarati") {
+            lang='gujarati'
+        }else if (this.appProvider.current.currentLanguage=="Kannada") {
+            lang='kannada'
+        }else if (this.appProvider.current.currentLanguage=="Marathi") {
+            lang='marathi'
+        }else if (this.appProvider.current.currentLanguage=="Malayalam") {
+            lang='malayalam'
+        }else if (this.appProvider.current.currentLanguage=="Telugu") {
+            lang='telugu'
+        }else if (this.appProvider.current.currentLanguage=="Tamil") {
+            lang='tamil'
+        }else if (this.appProvider.current.currentLanguage=="Punjabi") {
+            lang='punjabi'
+        }else {
+            lang='marathi'
+        }
+	    let a=[]
+        a[0]=value
+        let b={
+            data:a
+        }
 	    if ((value || '').trim()) {
-	     this.addContentRequest.tags.push({ name: value.trim() });
+	    let api =  "https://api-gw.revup.reverieinc.com/apiman-gateway/PROMATICS/transliteration/1.0?source_lang=english&target_lang="+lang+"&content_lang=&abbreviate=&noOfsuggestions=1&domain=1";
+         let params: URLSearchParams = new URLSearchParams();
+         params.set('source_lang','english'); 
+         params.set('target_lang','hindi'); 
+         params.set('domain','3'); 
+         params.set('mt_context','generic_english_proper'); 
+         let options = new RequestOptions({
+                    headers: new Headers({
+                       "rev-api-key": "5c3a548b01cce02490127a5f50c3fb47",
+                       "rev-app-id": "NETPAR_APP",
+                       "content-type": "application/json"
+                    }),
+                  //  search:params
+         });
+        return this.http.post(api,JSON.stringify(b),options).subscribe(response => {
+            console.log("customer Info datais " + response);
+            let responsee=response.json();
+            this.addContentRequest.tags.push({ name: responsee.responseList[0].outString[0] });
+			if (input) {
+			input.value = '';
+			}
+            // this.ngControl.valueAccessor.writeValue(responsee.responseList[0].outString);
+            // this.ngControl.viewToModelUpdate(responsee.responseList[0].outString);
+
+        },error => {
+            let errorr=error;
+        });
+	     // this.addContentRequest.tags.push({ name: value.trim() });
 	    }
 
 	    // Reset the input value
@@ -2186,14 +2272,14 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
+            // formData.append('tag', right.tag);
+            //formData.append('count', right.count);
             this.listOne[this.currentIndex].url=formData.get('file')
             if (this.audioFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.audioFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.audioFileData[index].file=formData
             }else{
-              this.audioFileData.push({tag:right.tag,count:right.count,file:formData})
+              this.audioFileData.push({tag:right.tag,count:right.count,file:formData,for:'url'})
             }
            
             // let headers = new Headers();
@@ -2221,9 +2307,30 @@ export class AddContentComponent implements OnInit {
     }
 
     onVideoChange(event: any,right: any) {
+    	if (!event.target) {
+            return;
+        }
+        if (!event.target.files) {
+            return;
+        }
+        if (event.target.files.length !== 1) {
+            return;
+        }
+        const file = event.target.files[0];
+        console.log(file)
+        // if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
+        //     return;
+        // }
+        const fr = new FileReader();
+        fr.onloadend = (loadEvent) => {
+            this.rightPan.url = fr.result;
+            this.rightPan.placeHolder=fr.result;
+            this.listOne[this.currentIndex].url=fr.result
+        };
+        fr.readAsDataURL(file);
         let files = [].slice.call(event.target.files);
         this.newUploadFiles=files;
-        console.log(this.newUploadFiles[0])
+       // console.log(this.newUploadFiles[0])
         this.length = this.newUploadFiles.length;
 
         this.makeVideoFile(right);
@@ -2235,8 +2342,13 @@ export class AddContentComponent implements OnInit {
         this.tempCustomerBase64 = [];
         for (var i = 0; i < this.length; i++) {
             let formData: FormData = new FormData();
-            console.log(this.newUploadFiles[i])
+            let time=new Date()
+
+           // console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
+            this.uploadFile.newname=time.getTime()
+            //this.uploadFile.newName=
+            console.log(this.uploadFile)
             formData.append('file', this.uploadFile);
             formData.append('tag', right.tag);
             formData.append('count', right.count);
@@ -2244,7 +2356,7 @@ export class AddContentComponent implements OnInit {
             	let index=this.videoFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.videoFileData[index].file=formData
             }else{
-              this.videoFileData.push({tag:right.tag,count:right.count,file:formData})
+              this.videoFileData.push({tag:right.tag,count:right.count,file:formData,for:'url'})
             }
             
            
@@ -2296,7 +2408,7 @@ export class AddContentComponent implements OnInit {
             	let index=this.documentFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.documentFileData[index].file=formData
             }else{
-              this.documentFileData.push({tag:right.tag,count:right.count,file:formData})
+              this.documentFileData.push({tag:right.tag,count:right.count,file:formData,for:'url'})
             }
         }
     }
@@ -2319,9 +2431,9 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
-            formData.append('for', 'videourl1');
+            // formData.append('tag', right.tag);
+            // formData.append('count', right.count);
+            // formData.append('for', 'videourl1');
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file1=formData
@@ -2351,9 +2463,9 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
-            formData.append('for', 'audiourl1');
+            // formData.append('tag', right.tag);
+            // formData.append('count', right.count);
+            // formData.append('for', 'audiourl1');
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file1=formData
@@ -2383,9 +2495,9 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
-            formData.append('for', 'documenturl1');
+            //formData.append('tag', right.tag);
+            // formData.append('count', right.count);
+            // formData.append('for', 'documenturl1');
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file1=formData
@@ -2416,9 +2528,9 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
-            formData.append('for', 'videourl2');
+            // formData.append('tag', right.tag);
+            // formData.append('count', right.count);
+            // formData.append('for', 'videourl2');
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file2=formData
@@ -2448,9 +2560,9 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
-            formData.append('for', 'audiourl2');
+            // formData.append('tag', right.tag);
+            // formData.append('count', right.count);
+            // formData.append('for', 'audiourl2');
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file2=formData
@@ -2480,9 +2592,9 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
-            formData.append('for', 'documenturl2');
+            // formData.append('tag', right.tag);
+            // formData.append('count', right.count);
+            // formData.append('for', 'documenturl2');
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file2=formData
@@ -2512,9 +2624,9 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
-            formData.append('for', 'videourl3');
+            // formData.append('tag', right.tag);
+            // formData.append('count', right.count);
+            // formData.append('for', 'videourl3');
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file3=formData
@@ -2544,9 +2656,9 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
-            formData.append('for', 'audiourl3');
+            // formData.append('tag', right.tag);
+            // formData.append('count', right.count);
+            // formData.append('for', 'audiourl3');
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file3=formData
@@ -2576,9 +2688,9 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
-            formData.append('for', 'documenturl3');
+            // formData.append('tag', right.tag);
+            // formData.append('count', right.count);
+            // formData.append('for', 'documenturl3');
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file3=formData
@@ -2600,7 +2712,7 @@ export class AddContentComponent implements OnInit {
             });
             if (this.audioFileData[i].file!=null) {
 
-            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.audioFileData[i].file, options)
+            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.audioFileData[i].tag+'/'+this.audioFileData[i].count+'/'+this.audioFileData[i].for,this.audioFileData[i].file, options)
                 .subscribe(
                     data => {
                         data = data.json().base64String;
@@ -2622,7 +2734,8 @@ export class AddContentComponent implements OnInit {
                 headers: headers
             });
             if (this.videoFileData[i].file!=null) {
-            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.videoFileData[i].file, options)
+            	console.log(JSON.stringify(this.videoFileData[i]))
+            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.videoFileData[i].tag+'/'+this.videoFileData[i].count+'/'+this.videoFileData[i].for,this.videoFileData[i].file, options)
                 .subscribe(
                     data => {
                         data = data.json().base64String;
@@ -2644,7 +2757,7 @@ export class AddContentComponent implements OnInit {
                 headers: headers
             });
             if (this.documentFileData[i].file!=null) {
-            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.documentFileData[i].file, options)
+            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.documentFileData[i].tag+'/'+this.documentFileData[i].count+'/'+this.documentFileData[i].for,this.documentFileData[i].file, options)
                 .subscribe(
                     data => {
                         data = data.json().base64String;
@@ -2665,7 +2778,7 @@ export class AddContentComponent implements OnInit {
                 headers: headers
             });
             if (this.gridFileData[i].file1!=null) {
-            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.gridFileData[i].file1, options)
+            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file1, options)
                 .subscribe(
                     data => {
                         data = data.json().base64String;
@@ -2677,7 +2790,7 @@ export class AddContentComponent implements OnInit {
                     error => console.log(error))
             }
             if (this.gridFileData[i].file2!=null) {
-            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.gridFileData[i].file2, options)
+            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file2, options)
                 .subscribe(
                     data => {
                         data = data.json().base64String;
@@ -2689,7 +2802,7 @@ export class AddContentComponent implements OnInit {
                     error => console.log(error))
             }
             if (this.gridFileData[i].file3!=null) {
-            	this.http.post('http://52.15.178.19:3001/api/updateContentBody',this.gridFileData[i].file3, options)
+            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file3, options)
                 .subscribe(
                     data => {
                         data = data.json().base64String;

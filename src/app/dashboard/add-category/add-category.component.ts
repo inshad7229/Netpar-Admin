@@ -98,7 +98,7 @@ export class AddCategoryComponent implements OnInit {
 
             this.addCategoryForm = fb.group({
                 'sectionName': [null, Validators.compose([Validators.required])],
-                'categoryName': [null, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])],
+                'categoryName': [null, Validators.compose([Validators.required,Validators.maxLength(30)])],
                 'categoryView':[null,Validators.compose([Validators.required])],
                 'categoryFormat':[null],
                 'subCategoryView':[null,Validators.compose([Validators.required])],
@@ -150,24 +150,25 @@ export class AddCategoryComponent implements OnInit {
        
   	}
       onLanguageChange(language){
-       let selectedLang
-       if(language=="Hindi"){
-          selectedLang=google.elements.transliteration.LanguageCode.HINDI
-       }
-       else if(language=="Marathi"){
-          selectedLang=google.elements.transliteration.LanguageCode.MARATHI
-       }else{
-         selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
-       }
-        var options = {
-          sourceLanguage:
-              google.elements.transliteration.LanguageCode.ENGLISH,
-          destinationLanguage:[selectedLang],
-          shortcutKey: 'ctrl+g',
-          transliterationEnabled: true
-        };
-        var control = new google.elements.transliteration.TransliterationControl(options);
-        control.makeTransliteratable(['categoryName']);
+       // let selectedLang
+       // if(language=="Hindi"){
+       //    selectedLang=google.elements.transliteration.LanguageCode.HINDI
+       // }
+       // else if(language=="Marathi"){
+       //    selectedLang=google.elements.transliteration.LanguageCode.MARATHI
+       // }else{
+       //   selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
+       // }
+       //  var options = {
+       //    sourceLanguage:
+       //        google.elements.transliteration.LanguageCode.ENGLISH,
+       //    destinationLanguage:[selectedLang],
+       //    shortcutKey: 'ctrl+g',
+       //    transliterationEnabled: true
+       //  };
+       //  var control = new google.elements.transliteration.TransliterationControl(options);
+       //  control.makeTransliteratable(['categoryName']);
+        this.appProvider.current.currentLanguage=language;
         this.sections=this.sectionsData.filter(arg=>arg.language==language);;
   }
   	newImageResultFromCroppieHorigontal(img: string) {
