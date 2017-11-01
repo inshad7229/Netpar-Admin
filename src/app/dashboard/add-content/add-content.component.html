@@ -366,11 +366,11 @@
                                                                                     >
                                                                                        
                                                                                         <audio #audi01 controls *ngIf="item.audiourl1!=null">
-                                                                                            <source [src]="item.audiourl1"  type="audio/mpeg" />
+                                                                                            <source [src]="safeURL(item.audiourl1)"  type="audio/mpeg" />
                                                                                             Your browser does not support the audio element.
                                                                                         </audio>
                                                                                         <video #video1 *ngIf="item.videourl1!=null "  id="my-video" controls preload="auto" width="80%" (click)="video(video1)">
-                                                                                            <source [src]="item.videourl1" type="video/mp4">
+                                                                                            <source [src]="safeURL(item.videourl1)" type="video/mp4">
                                                                                         </video>
                                                                                          <img [src]="item.imgurl1" *ngIf="item.imgurl1!=null ">
                                                                                          <img [src]="item.documenturl1" *ngIf="item.documenturl1!=null ">
@@ -380,11 +380,11 @@
                                                                                     <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnSecondGrid(audi02,video2)">
                                                                                       
                                                                                         <audio #audi02 controls *ngIf="item.audiourl2!=null">
-                                                                                            <source [src]="item.audiourl2"  type="audio/mpeg" />
+                                                                                            <source [src]="safeURL(item.audiourl2)"  type="audio/mpeg" />
                                                                                             Your browser does not support the audio element.
                                                                                         </audio>
                                                                                         <video #video2 *ngIf="item.videourl2!=null" #ref id="my-video" controls preload="auto" width="80%" >
-                                                                                            <source [src]="item.videourl2" type="video/mp4">
+                                                                                            <source [src]="safeURL(item.videourl2)" type="video/mp4">
                                                                                         </video>
                                                                                          <img [src]="item.imgurl2" *ngIf="item.imgurl2!=null">
                                                                                          <img [src]="item.documenturl2" *ngIf="item.documenturl2!=null">
@@ -394,11 +394,11 @@
                                                                                     <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnThirdGrid(audio3,video3)">
                                                                                         
                                                                                         <audio #audio3 controls *ngIf="item.audiourl3!=null">
-                                                                                            <source [src]="item.audiourl3"  type="audio/mpeg" />
+                                                                                            <source [src]="safeURL(item.audiourl3)"  type="audio/mpeg" />
                                                                                             Your browser does not support the audio element.
                                                                                         </audio>
                                                                                         <video #video3 *ngIf="item.videourl3!=null" #ref id="my-video" controls preload="auto" width="80%" >
-                                                                                            <source [src]="item.videourl3" type="video/mp4">
+                                                                                            <source [src]="safeURL(item.videourl3)" type="video/mp4">
                                                                                         </video>
                                                                                          <img [src]="item.imgurl3" *ngIf="item.imgurl3!=null">
                                                                                          <img [src]="item.documenturl3" *ngIf="item.documenturl3!=null">
@@ -478,7 +478,7 @@
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <img [src]="item.tempUrl" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
+                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
@@ -493,7 +493,7 @@
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
                                                                                         <video #ref id="my-video" controls preload="auto" width="80%" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
-                                                                                            <source [src]="item.tempUrl" type="video/mp4">
+                                                                                            <source [src]="safeURL(item.url)" type="video/mp4">
                                                                                         </video>
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
@@ -509,7 +509,7 @@
                                                                                     <td  [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
                                                                                         <audio #ref2 controls [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
-                                                                                            <source [src]="item.tempUrl"  type="audio/mpeg" />
+                                                                                            <source [src]="safeURL(item.url)"  type="audio/mpeg" />
                                                                                             Your browser does not support the audio element.
                                                                                         </audio>
                                                                                         <figcaption [ngStyle]="{textAlign:item.aligment}">{{item.caption}}</figcaption>
@@ -525,7 +525,7 @@
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
                                                                                     <td  [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <img [src]="item.tempUrl" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
+                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
@@ -657,7 +657,7 @@
                                                                         <div class="form-row text-inputs">
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <div class="fileinput-new thumbnail">
-                                                                                    <img alt="..." [src]="rightPan.placeHolder">
+                                                                                    <img alt="..." [src]="rightPan.url">
                                                                                 </div>
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change</span>
@@ -773,7 +773,7 @@
                                                                             <div class="form-row text-inputs">
                                                                                 <div class="fileinput" data-provides="fileinput">
                                                                                     <div class="fileinput-new thumbnail">
-                                                                                        <img alt="..." [src]="rightPan.placeholder1">
+                                                                                        <img alt="..." [src]="rightPan.imgurl1">
                                                                                     </div>
                                                                                     <span class="btn custom-btn btn-round btn-file">
                                                                                         <span class="fileinput-new">Change</span>
@@ -791,7 +791,7 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl1" [(ngModel)]="rightPan.imgurl1" (input)="onGridImgUrl1Change()">
+                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl1" [(ngModel)]="rightPan.imgurl1" (input)="onGridImgUrl1Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                                
@@ -803,13 +803,13 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl1" [(ngModel)]="rightPan.videourl1" (input)="onGridVideoUrl1Change()">
+                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl1" [(ngModel)]="rightPan.videourl1" (input)="onGridVideoUrl1Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Video</span>
-                                                                                    <input type="file" class="file-type" (change)=onGridVideoData1Change($event,rightPan); />
+                                                                                    <input type="file" class="file-type" (change)=onGridVideoData1Change($event,rightPan);  accept="video/*"/>
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -821,13 +821,13 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl1" [(ngModel)]="rightPan.audiourl1" (input)="onGridAudioUrl1Change()">
+                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl1" [(ngModel)]="rightPan.audiourl1" (input)="onGridAudioUrl1Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Audio</span>
-                                                                                    <input type="file" class="file-type" (change)=onGridAudioData1Change($event,rightPan); />
+                                                                                    <input type="file" class="file-type" (change)=onGridAudioData1Change($event,rightPan);  accept="audio/*" />
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -839,13 +839,13 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl1" [(ngModel)]="rightPan.documenturl1" (input)="onGridDocumentUrl1Change()">
+                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl1" [(ngModel)]="rightPan.documenturl1" (input)="onGridDocumentUrl1Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Document</span>
-                                                                                    <input type="file" class="file-type" (change)=onGridDocumentData1Change($event,rightPan); />
+                                                                                    <input type="file" class="file-type" (change)=onGridDocumentData1Change($event,rightPan);  accept=" .pdf , .doc ,.docx"/>
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -860,7 +860,7 @@
                                                                             <div class="form-row text-inputs">
                                                                                 <div class="fileinput" data-provides="fileinput">
                                                                                     <div class="fileinput-new thumbnail">
-                                                                                        <img alt="..." [src]="rightPan.placeholder2">
+                                                                                        <img alt="..." [src]="rightPan.imgurl2">
                                                                                     </div>
                                                                                     <span class="btn custom-btn btn-round btn-file">
                                                                                         <span class="fileinput-new">Change</span>
@@ -878,7 +878,7 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl2" [(ngModel)]="rightPan.imgurl2" (input)="onGridImgUrl2Change()">
+                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl2" [(ngModel)]="rightPan.imgurl2" (input)="onGridImgUrl2Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                                
@@ -890,13 +890,13 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl2" [(ngModel)]="rightPan.videourl2" (input)="onGridVideoUrl2Change()">
+                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl2" [(ngModel)]="rightPan.videourl2" (input)="onGridVideoUrl2Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Video</span>
-                                                                                    <input type="file" class="file-type" (change)=onGridVideoData2Change($event,rightPan); />
+                                                                                    <input type="file" class="file-type" (change)=onGridVideoData2Change($event,rightPan); accept="video/*"/>
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -908,13 +908,13 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl2" [(ngModel)]="rightPan.audiourl2" (input)="onGridAudioUrl2Change()">
+                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl2" [(ngModel)]="rightPan.audiourl2" (input)="onGridAudioUrl2Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Audio</span>
-                                                                                    <input type="file" class="file-type" (change)=onGridAudioData2Change($event,rightPan); />
+                                                                                    <input type="file" class="file-type" (change)=onGridAudioData2Change($event,rightPan); accept="audio/*"/>
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -926,13 +926,13 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl2" [(ngModel)]="rightPan.documenturl2" (input)="onGridDocumentUrl2Change()">
+                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl2" [(ngModel)]="rightPan.documenturl2" (input)="onGridDocumentUrl2Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Document</span>
-                                                                                    <input type="file" class="file-type" (change)=onGridDocumentData2Change($event,rightPan); />
+                                                                                    <input type="file" class="file-type" (change)=onGridDocumentData2Change($event,rightPan);  accept=" .pdf , .doc ,.docx"/>
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -947,7 +947,7 @@
                                                                             <div class="form-row text-inputs">
                                                                                 <div class="fileinput" data-provides="fileinput">
                                                                                     <div class="fileinput-new thumbnail">
-                                                                                        <img alt="..." [src]="rightPan.placeholder3">
+                                                                                        <img alt="..." [src]="rightPan.imgurl3">
                                                                                     </div>
                                                                                     <span class="btn custom-btn btn-round btn-file">
                                                                                         <span class="fileinput-new">Change</span>
@@ -965,7 +965,7 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl3" [(ngModel)]="rightPan.imgurl3" (input)="onGridImgUrl3Change()">
+                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl3" [(ngModel)]="rightPan.imgurl3" (input)="onGridImgUrl3Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                                
@@ -977,13 +977,13 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl3" [(ngModel)]="rightPan.videourl3" (input)="onGridVideoUrl3Change()">
+                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl3" [(ngModel)]="rightPan.videourl3" (input)="onGridVideoUrl3Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                              <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
-                                                                                    <span class="fileinput-new">Change Audio</span>
-                                                                                    <input type="file" class="file-type" (change)=onGridVideoData3Change($event,rightPan); />
+                                                                                    <span class="fileinput-new">Change Video</span>
+                                                                                    <input type="file" class="file-type" (change)=onGridVideoData3Change($event,rightPan); accept="video/*" />
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -995,13 +995,13 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl3" [(ngModel)]="rightPan.audiourl3" (input)="onGridAudioUrl3Change()">
+                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl3" [(ngModel)]="rightPan.audiourl3" (input)="onGridAudioUrl3Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Audio</span>
-                                                                                    <input type="file" class="file-type" (change)=onGridAudioData3Change($event,rightPan); />
+                                                                                    <input type="file" class="file-type" (change)=onGridAudioData3Change($event,rightPan); accept="audio/*" />
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -1013,13 +1013,13 @@
                                                                         <div class="block-properties">
                                                                             <div class="form-row text-inputs">
                                                                                 <mat-form-field>
-                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl3" [(ngModel)]="rightPan.documenturl3" (input)="onGridDocumentUrl3Change()">
+                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl3" [(ngModel)]="rightPan.documenturl3" (input)="onGridDocumentUrl3Change(rightPan)">
                                                                                 </mat-form-field>
                                                                             </div>
                                                                             <div class="fileinput" data-provides="fileinput">
                                                                                 <span class="btn custom-btn btn-round btn-file">
                                                                                     <span class="fileinput-new">Change Document</span>
-                                                                                    <input type="file" class="file-type" (change)=onGridDocumentData3Change($event,rightPan); />
+                                                                                    <input type="file" class="file-type" (change)=onGridDocumentData3Change($event,rightPan);  accept=" .pdf , .doc ,.docx"/>
                                                                                 </span>
                                                                             </div>
                                                                                
@@ -1304,7 +1304,7 @@
                                                 <div class="fileinput-new thumbnail">
                                                     <img alt="..."  [src]="imageToDisplayThumbnail">
                                                 </div>
-                                                <div class="fileinput-preview fileinput-exists" style="display:none;">
+                                                <div class="fileinput-preview fileinput-exists" style="display:none;" >
                                                      <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieThumbnail(myForm)">
                                                     Save
                                                     <div class="ripple-container"></div>

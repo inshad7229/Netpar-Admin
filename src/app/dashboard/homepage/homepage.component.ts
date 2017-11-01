@@ -14,6 +14,8 @@ import {AddContentRequest} from '../../models/content.modal'
 import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
+
+import {ContentViewHomeDialogComponent} from './content-view-home-dialog/content-view-home-dialog.component';
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -64,5 +66,14 @@ export class HomepageComponent implements OnInit {
                     alert(error)
            })
 	}
+  onView(content){
+     let dialogRef = this.dialog.open(ContentViewHomeDialogComponent, {
+            width: '400px',
+            data:{forContent:content}
+        });
 
+        dialogRef.afterClosed().subscribe(result => {
+          
+        });
+  }
 }

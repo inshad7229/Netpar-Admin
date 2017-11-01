@@ -248,7 +248,7 @@ export class AddContentComponent implements OnInit {
 			$(this).closest('.li').remove();
 		});
 		 $('.file-type').on('change',function(e){
-		    // var tmppath = URL.createObjectURL(e.target.files[0]);
+		    // let tmppath = URL.createObjectURL(e.target.files[0]);
 		    // //console.log($(this));
 		    // $(this).closest('.fileinput').find('img').attr('src',tmppath);
 		    $(this).closest('.fileinput-noexists').hide();
@@ -272,8 +272,8 @@ export class AddContentComponent implements OnInit {
              this.listOne=this.appProvider.current.currentContentData.contentBody;
              this.userEngaButton=this.appProvider.current.currentContentData.userEngagementButton;
              this.callToActionButton=this.appProvider.current.currentContentData.callToActionButton;
-             this.croppieImageHorigontal=this.appProvider.current.currentContentData.horizontalPicture;
-             this.croppieImageThumbnail=this.appProvider.current.currentContentData.thumbnailPicture;
+             //this.croppieImageHorigontal=this.appProvider.current.currentContentData.horizontalPicture;
+             //this.croppieImageThumbnail=this.appProvider.current.currentContentData.thumbnailPicture;
              this.currentImageHorigontal=this.appProvider.current.currentContentData.horizontalPicture;
              this.currentImageThumbnail=this.appProvider.current.currentContentData.thumbnailPicture;
              this.suggestedArticleList=this.appProvider.current.currentContentData.suggestedArticleList
@@ -281,6 +281,28 @@ export class AddContentComponent implements OnInit {
            	    this.googleFromatata.tag="form";
            	    this.googleFromatata.url=this.appProvider.current.currentContentData.googleFormUrl;
            	    this.googleFromatata.formURL=this.sanitizer.bypassSecurityTrustResourceUrl(this.appProvider.current.currentContentData.googleFormUrl);
+           }
+           for (let i= 0;i<this.appProvider.current.currentContentData.contentBody.length; i++) {
+           	  if (this.appProvider.current.currentContentData.contentBody[i].tag=='audio') {
+           	  	 if (this.appProvider.current.currentContentData.contentBody[i].count>this.audioCount) {
+           	  	 	this.audioCount=this.appProvider.current.currentContentData.contentBody[i].count
+           	  	 }
+           	  }
+           	  if (this.appProvider.current.currentContentData.contentBody[i].tag=='video') {
+           	  	 if (this.appProvider.current.currentContentData.contentBody[i].count>this.videoCount) {
+           	  	 	this.videoCount=this.appProvider.current.currentContentData.contentBody[i].count
+           	  	 }
+           	  }
+           	   if (this.appProvider.current.currentContentData.contentBody[i].tag=='document') {
+           	  	 if (this.appProvider.current.currentContentData.contentBody[i].count>this.documentCount) {
+           	  	 	this.documentCount=this.appProvider.current.currentContentData.contentBody[i].count
+           	  	 }
+           	  }
+           	  if (this.appProvider.current.currentContentData.contentBody[i].tag=='grid') {
+           	  	 if (this.appProvider.current.currentContentData.contentBody[i].count>this.gridCount) {
+           	  	 	this.gridCount=this.appProvider.current.currentContentData.contentBody[i].count
+           	  	 }
+           	  }
            }
 			 this.getSectionList()
 			 this.getCategory()
@@ -294,12 +316,14 @@ export class AddContentComponent implements OnInit {
 	}		
 	
 
-
+    safeURL(url){
+     return this.sanitizer.bypassSecurityTrustResourceUrl(url); 
+    }
      onAddTags(event){
         console.log('add'+event)
      }
     addText(){
-    	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block',text:'Dummy Text'}) 
+    	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',title:'Title',aligment:'center', display:'inline-block',text:'Dummy Text'}) 
     	//  tinymce.init({
 	    //   selector: '#' + this.elementId,
 	    //   plugins: ['link', 'paste', 'table'],
@@ -314,38 +338,41 @@ export class AddContentComponent implements OnInit {
 	    // });
     }
 	addImage(){
-        this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',tempUrl:'./assets/img/cover.jpeg',url:null,altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block',downloadable:true})
+        this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block',downloadable:true})
 	}
 	addAudio(){
 		 this.audioCount=this.audioCount+1;
 		 console.log(this.audioCount)
-        this.listOne.push({tag:"audio",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',tempUrl:'./assets/img/cover.jpeg',url:null,altTag:'file not found',title:'Title', caption:'Audio',aligment:'center', display:'inline-block',count:this.audioCount,downloadable:true})
+        this.listOne.push({tag:"audio",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button'
+        	,width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Audio',aligment:'center', display:'inline-block',count:this.audioCount,downloadable:true})
 	}
 	addVideo(){
 		this.videoCount=this.videoCount+1;
-		this.listOne.push({tag:"video",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',tempUrl:'./assets/videos/SampleVideo.mp4',url:null,altTag:'file not found',title:'Title', caption:'Video',aligment:'center', display:'inline-block',count:this.videoCount,downloadable:true})
+		console.log(this.videoCount)
+		this.listOne.push({tag:"video",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',
+			width:'75%',url:'./assets/videos/SampleVideo.mp4',altTag:'file not found',title:'Title', caption:'Video',aligment:'center', display:'inline-block',count:this.videoCount,downloadable:true})
 	}
 	addFile(){
 		this.documentCount=this.documentCount+1;
-		this.listOne.push({tag:"document",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'110px',tempUrl:'./assets/img/JAVA.png',url:null,altTag:'file not found',title:'Title', caption:'File',aligment:'center', display:'inline-block',count:this.documentCount,downloadable:true})
+		 console.log(this.documentCount)
+		this.listOne.push({tag:"document",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',
+			width:'110px',url:'./assets/img/JAVA.png',altTag:'file not found',title:'Title', caption:'File',aligment:'center', display:'inline-block',count:this.documentCount,downloadable:true})
 	}
 	addGrid(){
 		   this.gridCount=this.gridCount+1;
+		   console.log(this.gridCount)
 		   this.listOne.push({tag:"grid",tags:'grid, grid',top:null,bottom:null,right:null,left:null,aligment:'center',title:'Title',caption:'File',activeIndex:null,
-		    placeholder1:'./assets/img/placeholder5.png' ,audiourl1:null,videourl1:null,imgurl1:'./assets/img/placeholder5.png',documenturl1:null,
-			placeholder2:'./assets/img/placeholder5.png' ,audiourl2:null,videourl2:null,imgurl2:'./assets/img/placeholder5.png',documenturl2:null,
-			placeholder3:'./assets/img/placeholder5.png' ,audiourl3:null,videourl3:null,imgurl3:'./assets/img/placeholder5.png',documenturl3:null,
+		    audiourl1:null,videourl1:null,imgurl1:'./assets/img/placeholder5.png',documenturl1:null,
+			audiourl2:null,videourl2:null,imgurl2:'./assets/img/placeholder5.png',documenturl2:null,
+			audiourl3:null,videourl3:null,imgurl3:'./assets/img/placeholder5.png',documenturl3:null,
 			count:this.gridCount,
-			data1:"fromUrl",
-			data2:"fromUrl",
-			data3:"fromUrl",
 			downloadable:true
 
 	})
 	}
 	addForm(){
 		this.googleFromatata.tag="form"; 
-		// this.googleFromatata.url='null';
+		// this.googleFromatata.url=null;
 	}
 
 
@@ -440,9 +467,9 @@ export class AddContentComponent implements OnInit {
       this.listOne[this.currentIndex].width=this.rightPan.width
 	}
 	onUrlChange(right:any){
-	  this.listOne[this.currentIndex].tempUrl=this.rightPan.url
+	  //this.listOne[this.currentIndex].tempUrl=this.rightPan.url
       this.listOne[this.currentIndex].url=this.rightPan.url
-      this.listOne[this.currentIndex].placeHolder=this.rightPan.url
+    //  this.listOne[this.currentIndex].placeHolder=this.rightPan.url
   	  //console.log(this.ref);
 
   	  if (this.listOne[this.currentIndex].tag=='audio') {
@@ -498,8 +525,6 @@ export class AddContentComponent implements OnInit {
       	 this.listOne[this.currentIndex].activeIndex=1;
       	if (this.listOne[this.currentIndex].imgurl1==null &&  this.listOne[this.currentIndex].audiourl1==null && this.listOne[this.currentIndex].videourl1==null && this.listOne[this.currentIndex].documenturl1==null) {
 	      	// code...
-	     
-	      this.listOne[this.currentIndex].placeholder1='./assets/img/placeholder5.png' ;
 	      this.listOne[this.currentIndex].imgurl1='./assets/img/placeholder5.png' ;
 	      this.listOne[this.currentIndex].audiourl1=null;
 	      this.listOne[this.currentIndex].videourl1=null;
@@ -515,7 +540,6 @@ export class AddContentComponent implements OnInit {
 	      this.listOne[this.currentIndex].activeIndex=2;
 	      if (this.listOne[this.currentIndex].imgurl2==null &&  this.listOne[this.currentIndex].audiourl2==null && this.listOne[this.currentIndex].videourl2==null && this.listOne[this.currentIndex].documenturl2==null) {
 	      	// code...
-		      this.listOne[this.currentIndex].placeholder2='./assets/img/placeholder5.png' ;
 		      this.listOne[this.currentIndex].imgurl2='./assets/img/placeholder5.png' ;
 		      this.listOne[this.currentIndex].audiourl2=null;
 		      this.listOne[this.currentIndex].videourl2=null;
@@ -532,7 +556,6 @@ export class AddContentComponent implements OnInit {
 	      this.listOne[this.currentIndex].activeIndex=3;
 	       if (this.listOne[this.currentIndex].imgurl3==null &&  this.listOne[this.currentIndex].audiourl3==null && this.listOne[this.currentIndex].videourl3==null && this.listOne[this.currentIndex].documenturl3==null) {
 	      	// code...
-	      this.listOne[this.currentIndex].placeholder3='./assets/img/placeholder5.png' ;
 	      this.listOne[this.currentIndex].imgurl3='./assets/img/placeholder5.png' ;
 	      this.listOne[this.currentIndex].audiourl3=null;
 	      this.listOne[this.currentIndex].videourl3=null;
@@ -584,7 +607,6 @@ export class AddContentComponent implements OnInit {
         const fr = new FileReader();
         fr.onloadend = (loadEvent) => {
             this.rightPan.imgurl1 = fr.result;
-            this.rightPan.placeholder1=fr.result;
             this.listOne[this.currentIndex].imgurl1=fr.result;
 			this.listOne[this.currentIndex].audiourl1=null;
 			this.listOne[this.currentIndex].videourl1=null;
@@ -656,7 +678,6 @@ export class AddContentComponent implements OnInit {
         const fr = new FileReader();
         fr.onloadend = (loadEvent) => {
             this.rightPan.imgurl2 = fr.result;
-            this.rightPan.placeholder2=fr.result;
             this.listOne[this.currentIndex].imgurl2=fr.result;
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=null;
@@ -726,7 +747,6 @@ export class AddContentComponent implements OnInit {
         const fr = new FileReader();
         fr.onloadend = (loadEvent) => {
             this.rightPan.imgurl3 = fr.result;
-            this.rightPan.placeholder3=fr.result;
             this.listOne[this.currentIndex].imgurl3=fr.result;
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=null;
@@ -817,7 +837,7 @@ export class AddContentComponent implements OnInit {
 	/*imagChange(){
 
 	    $('.file-type').on('change',function(e){
-	    	var tmppath = URL.createObjectURL(e.target.files[0]);
+	    	let tmppath = URL.createObjectURL(e.target.files[0]);
 	    	
 		    //console.log($(this));
 		    $(this).closest('.fileinput').find('img').attr('src',tmppath);
@@ -828,7 +848,7 @@ export class AddContentComponent implements OnInit {
  	
  	formimage(){
  		$('.file-type').on('change',function(e){
-		    var tmppath = URL.createObjectURL(e.target.files[0]);
+		    let tmppath = URL.createObjectURL(e.target.files[0]);
 		    //console.log($(this));
 		    $(this).closest('.btn-file').hide();
 		    $(this).closest('.file_upload').find('img').attr('src',tmppath);
@@ -2256,6 +2276,8 @@ export class AddContentComponent implements OnInit {
 	  }
   onAudioChange(event: any, right: any) {
         let files = [].slice.call(event.target.files);
+         let tmppath = URL.createObjectURL(event.target.files[0]);
+        this.listOne[this.currentIndex].url=tmppath
         this.newUploadFiles=files;
         console.log(this.newUploadFiles[0])
         this.length = this.newUploadFiles.length;
@@ -2321,13 +2343,17 @@ export class AddContentComponent implements OnInit {
         // if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif' && file.type !== 'image/jpg') {
         //     return;
         // }
-        const fr = new FileReader();
-        fr.onloadend = (loadEvent) => {
-            this.rightPan.url = fr.result;
-            this.rightPan.placeHolder=fr.result;
-            this.listOne[this.currentIndex].url=fr.result
-        };
-        fr.readAsDataURL(file);
+        let tmppath = URL.createObjectURL(event.target.files[0]);
+        this.listOne[this.currentIndex].url=tmppath
+       // const fr = new FileReader();
+        // fr.onloadend = (loadEvent) => {
+        //     this.rightPan.url = fr.result;
+        //     this.rightPan.placeHolder=fr.result;
+        //     this.listOne[this.currentIndex].url=fr.result
+        // };
+        // fr.readAsDataURL(file);
+        this.ref.load();
+    	this.ref.play();
         let files = [].slice.call(event.target.files);
         this.newUploadFiles=files;
        // console.log(this.newUploadFiles[0])
@@ -2416,7 +2442,8 @@ export class AddContentComponent implements OnInit {
 
             this.listOne[this.currentIndex].imgurl1=null;
 			this.listOne[this.currentIndex].audiourl1=null;
-			this.listOne[this.currentIndex].videourl1=null;
+			let tmppath = URL.createObjectURL(event.target.files[0]);
+			this.listOne[this.currentIndex].videourl1=tmppath;
 			this.listOne[this.currentIndex].documenturl1=null;
 			let files = [].slice.call(event.target.files);
 	        this.newUploadFiles=files;
@@ -2447,7 +2474,8 @@ export class AddContentComponent implements OnInit {
        }
 	onGridAudioData1Change(event: any, right: any){
 		    this.listOne[this.currentIndex].imgurl1=null;
-			this.listOne[this.currentIndex].audiourl1=null;
+		    let tmppath = URL.createObjectURL(event.target.files[0]);
+			this.listOne[this.currentIndex].audiourl1=tmppath;
 			this.listOne[this.currentIndex].videourl1=null;
 			this.listOne[this.currentIndex].documenturl1=null;
 	        let files = [].slice.call(event.target.files);
@@ -2481,7 +2509,8 @@ export class AddContentComponent implements OnInit {
             this.listOne[this.currentIndex].imgurl1=null;
 			this.listOne[this.currentIndex].audiourl1=null;
 			this.listOne[this.currentIndex].videourl1=null;
-			this.listOne[this.currentIndex].documenturl1=null;
+			let tmppath = URL.createObjectURL(event.target.files[0]);
+			this.listOne[this.currentIndex].documenturl1=tmppath;
 			let files = [].slice.call(event.target.files);
 	        this.newUploadFiles=files;
 	        console.log(this.newUploadFiles[0])
@@ -2513,7 +2542,8 @@ export class AddContentComponent implements OnInit {
 	onGridVideoData2Change(event: any, right: any){
             this.listOne[this.currentIndex].imgurl2=null;
 			this.listOne[this.currentIndex].audiourl2=null;
-			this.listOne[this.currentIndex].videourl2=null;
+			let tmppath = URL.createObjectURL(event.target.files[0]);
+			this.listOne[this.currentIndex].videourl2=tmppath;
 			this.listOne[this.currentIndex].documenturl2=null;
 	        let files = [].slice.call(event.target.files);
 	        this.newUploadFiles=files;
@@ -2544,7 +2574,8 @@ export class AddContentComponent implements OnInit {
        }
 	onGridAudioData2Change(event: any, right: any){
             this.listOne[this.currentIndex].imgurl2=null;
-			this.listOne[this.currentIndex].audiourl2=null;
+            let tmppath = URL.createObjectURL(event.target.files[0]);
+			this.listOne[this.currentIndex].audiourl2=tmppath;
 			this.listOne[this.currentIndex].videourl2=null;
 			this.listOne[this.currentIndex].documenturl2=null;
             let files = [].slice.call(event.target.files);
@@ -2578,7 +2609,8 @@ export class AddContentComponent implements OnInit {
              this.listOne[this.currentIndex].imgurl2=null;
 			this.listOne[this.currentIndex].audiourl2=null;
 			this.listOne[this.currentIndex].videourl2=null;
-			this.listOne[this.currentIndex].documenturl2=null;
+			let tmppath = URL.createObjectURL(event.target.files[0]);
+			this.listOne[this.currentIndex].documenturl2=tmppath;
 			let files = [].slice.call(event.target.files);
 	        this.newUploadFiles=files;
 	        console.log(this.newUploadFiles[0])
@@ -2607,10 +2639,11 @@ export class AddContentComponent implements OnInit {
         }
        }
    	onGridVideoData3Change(event: any, right: any){
-            this.listOne[this.currentIndex].imgurl2=null;
-			this.listOne[this.currentIndex].audiourl2=null;
-			this.listOne[this.currentIndex].videourl2=null;
-			this.listOne[this.currentIndex].documenturl2=null;
+            this.listOne[this.currentIndex].imgurl3=null;
+			this.listOne[this.currentIndex].audiourl3=null;
+			let tmppath = URL.createObjectURL(event.target.files[0]);
+			this.listOne[this.currentIndex].videourl3=tmppath;
+			this.listOne[this.currentIndex].documenturl3=null;
 	        let files = [].slice.call(event.target.files);
 	        this.newUploadFiles=files;
 	        console.log(this.newUploadFiles[0])
@@ -2639,10 +2672,11 @@ export class AddContentComponent implements OnInit {
         }
        }
 	onGridAudioData3Change(event: any, right: any){
-            this.listOne[this.currentIndex].imgurl2=null;
-			this.listOne[this.currentIndex].audiourl2=null;
-			this.listOne[this.currentIndex].videourl2=null;
-			this.listOne[this.currentIndex].documenturl2=null;
+            this.listOne[this.currentIndex].imgurl3=null;
+            let tmppath = URL.createObjectURL(event.target.files[0]);
+			this.listOne[this.currentIndex].audiourl3=tmppath;
+			this.listOne[this.currentIndex].videourl3=null;
+			this.listOne[this.currentIndex].documenturl3=null;
             let files = [].slice.call(event.target.files);
 	        this.newUploadFiles=files;
 	        console.log(this.newUploadFiles[0])
@@ -2671,10 +2705,11 @@ export class AddContentComponent implements OnInit {
         }
        }
 	onGridDocumentData3Change(event: any, right: any){
-             this.listOne[this.currentIndex].imgurl2=null;
-			this.listOne[this.currentIndex].audiourl2=null;
-			this.listOne[this.currentIndex].videourl2=null;
-			this.listOne[this.currentIndex].documenturl2=null;
+             this.listOne[this.currentIndex].imgurl3=null;
+			this.listOne[this.currentIndex].audiourl3=null;
+			this.listOne[this.currentIndex].videourl3=null;
+			let tmppath = URL.createObjectURL(event.target.files[0]);
+			this.listOne[this.currentIndex].documenturl3=tmppath;
 			let files = [].slice.call(event.target.files);
 	        this.newUploadFiles=files;
 	        console.log(this.newUploadFiles[0])

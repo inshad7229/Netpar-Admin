@@ -64,29 +64,29 @@ export class StringResource {
 				];
 
 	     categoryTemplate=[
-	           {templateName:"Category-view Screen One"	, "template":"category-view1.png" ,status:"inactive"},
-	           {templateName:"Category-view Screen Two"	, "template":"category-view2.png" ,status:"inactive"},
-	           {templateName:"Category-view Screen Three", "template":"category-view3.png" ,status:"inactive"},
-	           {templateName:"Category-view Screen Four", "template":"category-view4.png" ,status:"inactive"},
+	           {templateName:"Category-view Template One"	, "template":"category-view1.png" ,status:"inactive"},
+	           {templateName:"Category-view Template Two"	, "template":"category-view2.png" ,status:"inactive"},
+	           {templateName:"Category-view Template Three", "template":"category-view3.png" ,status:"inactive"},
+	           {templateName:"Category-view Template Four", "template":"category-view4.png" ,status:"inactive"},
 
 	     ]
 
 	     listingTemplate=[
-	           {templateName:"Listing-view Screen One"	, "template":"listing-view1.png" , status:"inactive"},
-	           {templateName:"Listing-view Screen Two"	, "template":"listing-view2.png" , status:"inactive"},
-	           {templateName:"Listing-view Screen Three", "template":"listing-view3.png" , status:"inactive"},
-	           {templateName:"Listing-view Screen Five"	, "template":"listing-view5.png" , status:"inactive"},
-	           {templateName:"Listing-view Screen Six"	, "template":"listing-view6.png" , status:"inactive"},
-	           {templateName:"Listing-view Screen Seven", "template":"listing-view7.png" , status:"inactive"},
-	           {templateName:"Listing-view Screen Eight", "template":"listing-view8.png" , status:"inactive"},
+	           {templateName:"Listing-view Template One"	, "template":"listing-view1.png" , status:"inactive"},
+	           {templateName:"Listing-view Template Two"	, "template":"listing-view2.png" , status:"inactive"},
+	           {templateName:"Listing-view Template Three", "template":"listing-view3.png" , status:"inactive"},
+	           {templateName:"Listing-view Template Five"	, "template":"listing-view5.png" , status:"inactive"},
+	           {templateName:"Listing-view Template Six"	, "template":"listing-view6.png" , status:"inactive"},
+	           {templateName:"Listing-view Template Seven", "template":"listing-view7.png" , status:"inactive"},
+	           {templateName:"Listing-view Template Eight", "template":"listing-view8.png" , status:"inactive"},
 
 	     ]
 
 	    subCategoryTemplate=[
-	           {templateName:"SubCategory-view Screen One"	, "template":"category-view1.png" ,status:"inactive"},
-	           {templateName:"SubCategory-view Screen Two"	, "template":"category-view2.png" ,status:"inactive"},
-	           {templateName:"SubCategory-view Screen Three", "template":"category-view3.png" ,status:"inactive"},
-	           {templateName:"SubCategory-view Screen Four", "template":"category-view4.png" ,status:"inactive"},
+	           {templateName:"SubCategory-view Template One"	, "template":"category-view1.png" ,status:"inactive"},
+	           {templateName:"SubCategory-view Template Two"	, "template":"category-view2.png" ,status:"inactive"},
+	           {templateName:"SubCategory-view Template Three", "template":"category-view3.png" ,status:"inactive"},
+	           {templateName:"SubCategory-view Template Four", "template":"category-view4.png" ,status:"inactive"},
 
 	     ]
 }

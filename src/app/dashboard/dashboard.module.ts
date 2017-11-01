@@ -53,6 +53,8 @@ import { SuggestArticleDialogComponent } from './add-content/suggest-article-dia
 import { DragDropComponent } from './add-content/drag-drop/drag-drop.component';
 import { ContentViewComponent } from './add-content/content-view/content-view.component';
 import { ContentViewDialogComponent } from './view-content/content-view-dialog/content-view-dialog.component';
+import {ContentViewHomeDialogComponent} from './homepage/content-view-home-dialog/content-view-home-dialog.component';
+import {ContentViewPriorityDialogComponent } from './priority/content-view-priority-dialog/content-view-priority-dialog.component';
 import { ListingViewComponent } from './add-content/listing-view/listing-view.component';
 import {EditorComponent } from './add-content/editor/editor.component';
 import { SimpleTinyComponent } from './tiny/tiny.component';
@@ -122,6 +124,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               ContentViewComponent,
               ListingViewComponent,
               ContentViewDialogComponent,
+              ContentViewHomeDialogComponent,
+              ContentViewPriorityDialogComponent,
               ContentConfirmation,
               FilterDialogComponent,
               SimpleTinyComponent,
@@ -132,7 +136,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
-ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent ],
+ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent ],
 providers:[TrimPipe]
 })
 

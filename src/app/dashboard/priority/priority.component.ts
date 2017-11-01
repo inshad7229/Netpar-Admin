@@ -15,6 +15,8 @@ import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
 
+import {ContentViewPriorityDialogComponent } from './content-view-priority-dialog/content-view-priority-dialog.component';
+
 @Component({
   selector: 'app-priority',
   templateUrl: './priority.component.html',
@@ -71,5 +73,15 @@ export class PriorityComponent implements OnInit {
                     alert(error)
            })
        }
+   onView(content){
+     let dialogRef = this.dialog.open(ContentViewPriorityDialogComponent, {
+            width: '400px',
+            data:{forContent:content}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          
+        });
+  }
     
 }

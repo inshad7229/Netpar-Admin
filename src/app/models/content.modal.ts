@@ -24,7 +24,7 @@ export class AddContentRequest {
     horizontalPicture:string;
     sortlistForHomepage:boolean;
     sortlistForCategory:boolean;
-    applicableStateLists:object;
+    applicableStateLists:any;
     saveAsDraftStatus:boolean;
     startDateForDraft:string;
     endDateForDraft:string;
@@ -53,8 +53,5 @@ export class AddContentRequest {
     submitforrevisionDate:string;
     submitforreviewDate:string;
     saveAsDraftDate:string;
-
-
-
 
 }
