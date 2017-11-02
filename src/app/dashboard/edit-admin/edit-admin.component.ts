@@ -199,6 +199,8 @@ export class EditAdminComponent implements OnInit {
         if (this.appProvider.current.adminPageFlag == "allEdit") {
             this.register = this.appProvider.current.adminData;
             this.options = this.appProvider.current.adminData.sectionName;
+            console.log(JSON.stringify('on get'))
+            console.log(JSON.stringify(this.options))
             this.currentImage = this.appProvider.current.adminData.image
             this.register.password = window.atob(this.register.plain)
         }
@@ -645,6 +647,8 @@ export class EditAdminComponent implements OnInit {
              getSectionList(){
          this.sectionService.onGetSection()
                 .subscribe(data => {
+                    console.log('in get section ')
+                    console.log(JSON.stringify(this.options))
                     this.waitLoader = false;
                     this.sections=data;
                     for (let  i =0 ; i<this.sections.length; i++) {
@@ -655,7 +659,9 @@ export class EditAdminComponent implements OnInit {
                        //     obj2['value']=obj.sectionName;
                        //     obj2['checked']=false;
                         if (this.appProvider.current.adminPageFlag == "allEdit") {
+                            console.log('in edit')
                             if (this.options.map(function (img) { return img._id; }).indexOf(obj._id)==-1) {
+                                console.log('in efgdit')
                                this.options.push({_id:obj._id,name:obj.sectionName,value:obj.sectionName,checked:false})
                             }
                         }else{
