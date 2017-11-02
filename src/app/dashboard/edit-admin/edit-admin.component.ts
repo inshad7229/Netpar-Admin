@@ -203,16 +203,16 @@ export class EditAdminComponent implements OnInit {
             this.register.password = window.atob(this.register.plain)
         }
 
-        var options = {
-          sourceLanguage:
-              google.elements.transliteration.LanguageCode.ENGLISH,
-          destinationLanguage:
-              [google.elements.transliteration.LanguageCode.MARATHI],
-          shortcutKey: 'ctrl+g',
-          transliterationEnabled: true
-        };
-        var control = new google.elements.transliteration.TransliterationControl(options);
-        control.makeTransliteratable(['firstName','lastname']);
+        // var options = {
+        //   sourceLanguage:
+        //       google.elements.transliteration.LanguageCode.ENGLISH,
+        //   destinationLanguage:
+        //       [google.elements.transliteration.LanguageCode.MARATHI],
+        //   shortcutKey: 'ctrl+g',
+        //   transliterationEnabled: true
+        // };
+        // var control = new google.elements.transliteration.TransliterationControl(options);
+        // control.makeTransliteratable(['firstName','lastname']);
     }
     onRegister() {
         let languageArray=this.getLanguage()
@@ -242,6 +242,8 @@ export class EditAdminComponent implements OnInit {
                    
                     }
                    
+                },errr=>{
+                    this.waitLoader = false; 
                 })
         }
         else {
@@ -262,6 +264,8 @@ export class EditAdminComponent implements OnInit {
                     else if (data.success == true) {
                         this.router.navigate(['/home'],{ skipLocationChange: true });
                     }
+                },errr=>{
+                    this.waitLoader = false; 
                 })
         }
     }
@@ -650,7 +654,14 @@ export class EditAdminComponent implements OnInit {
                        //     obj2['name']=obj.sectionName;
                        //     obj2['value']=obj.sectionName;
                        //     obj2['checked']=false;
-                       this.options.push({_id:obj._id,name:obj.sectionName,value:obj.sectionName,checked:false})
+                        if (this.appProvider.current.adminPageFlag == "allEdit") {
+                            if (this.options.map(function (img) { return img._id; }).indexOf(obj._id)==-1) {
+                               this.options.push({_id:obj._id,name:obj.sectionName,value:obj.sectionName,checked:false})
+                            }
+                        }else{
+
+                               this.options.push({_id:obj._id,name:obj.sectionName,value:obj.sectionName,checked:false})
+                        }
                      console.log(JSON.stringify(this.options))
                     }
                 },error=>{

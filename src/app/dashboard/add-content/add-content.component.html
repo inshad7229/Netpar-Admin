@@ -1,4 +1,7 @@
 <div class="wrapper">
+     <div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
     <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
         <app-sidebar></app-sidebar>
         <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
@@ -766,7 +769,7 @@
                                                                     </div>
 
                                                                 </div>
-                                                                <div *ngIf="rightPan.activeIndex==1">
+                                                                <div *ngIf="rightPan.activeIndex==1 && rightPan.tag=='grid'">
                                                                         <div class="email-builder-element-edit-field" >
 
                                                                         <div class="block-properties">
@@ -853,7 +856,7 @@
 
                                                                     </div>
                                                                 </div>
-                                                                <div *ngIf="rightPan.activeIndex==2">
+                                                                <div *ngIf="rightPan.activeIndex==2 && rightPan.tag=='grid'">
                                                                         <div class="email-builder-element-edit-field" >
 
                                                                         <div class="block-properties">
@@ -940,7 +943,7 @@
 
                                                                     </div>
                                                                 </div>
-                                                                <div *ngIf="rightPan.activeIndex==3">
+                                                                <div *ngIf="rightPan.activeIndex==3 && rightPan.tag=='grid'">
                                                                     <div class="email-builder-element-edit-field" >
 
                                                                         <div class="block-properties">

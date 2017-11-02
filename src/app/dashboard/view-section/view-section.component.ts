@@ -77,6 +77,7 @@ export class ViewSectionComponent implements OnInit {
         this.getSectionList()
     }
     getSectionViewData() {
+        this.waitLoader = true;
         this.sectiondata = []
         this.sectionService.onGetSectionData()
             .subscribe(data => {
@@ -117,7 +118,7 @@ export class ViewSectionComponent implements OnInit {
                     console.log(JSON.stringify(this.sectiondata))
                 }
             }, error => {
-
+               this.waitLoader = false;
             })
     }
     openDiv(e, flag, data) {
@@ -202,6 +203,7 @@ export class ViewSectionComponent implements OnInit {
         });
     }
     deleteSection(data) {
+        this.waitLoader = true;
         let date=new Date().toISOString();
          data.deleteStatus=true;
         this.sectionService.onDeleteSection(data)
@@ -221,10 +223,12 @@ export class ViewSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
     }
     enableDisableSection(data) {
+        this.waitLoader = true;
          let date=new Date().toISOString();
          data.enableDisableDate=date;
         this.sectionService.onEnableDisableSection(data)
@@ -244,10 +248,12 @@ export class ViewSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
     }
     publishUnpublishSection(data) {
+        this.waitLoader =true;
         let date=new Date().toISOString();
          data.publishUnbuplishDate=date;
         this.sectionService.onPublishUnpublishSection(data)
@@ -267,6 +273,7 @@ export class ViewSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
     }
@@ -283,6 +290,7 @@ export class ViewSectionComponent implements OnInit {
         });
     }
     deleteCategory(data) {
+        this.waitLoader = true;
          let date=new Date().toISOString();
          data.deleteStatus=true;
         this.sectionService.onDeleteCategory(data)
@@ -302,10 +310,12 @@ export class ViewSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
     }
     enableDisableCategory(data) {
+        this.waitLoader = true;
         let date=new Date().toISOString();
          data.enableDisableDate=date;
         this.sectionService.onEnableDisableCategory(data)
@@ -325,11 +335,13 @@ export class ViewSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
 
     }
     publishUnpublishCategory(data) {
+        this.waitLoader = true;
          let date=new Date().toISOString();
          data.publishUnbuplishDate=date;
         this.sectionService.onPublishUnpublishCategory(data)
@@ -349,6 +361,7 @@ export class ViewSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
     }
@@ -361,6 +374,7 @@ export class ViewSectionComponent implements OnInit {
         });
     }
     deleteSubCategory(data) {
+        this.waitLoader = true;
         let date=new Date().toISOString();
          data.deleteStatus=true;
         this.sectionService.onDeleteSubCategory(data)
@@ -380,10 +394,12 @@ export class ViewSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
     }
     enableDisableSubCategory(data) {
+        this.waitLoader = true;
         let date=new Date().toISOString();
          data.enableDisableDate=date;
         this.sectionService.onEnableDisableSubCategory(data)
@@ -403,10 +419,12 @@ export class ViewSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
     }
     publishUnpublishSubCategory(data) {
+        this.waitLoader = true;
          let date=new Date().toISOString();
          data.publishUnbuplishDate=date;
         this.sectionService.onPublishUnpublishSubCategory(data)
@@ -426,10 +444,12 @@ export class ViewSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
     }
     getSectionData(id, e) {
+        this.waitLoader = true;
         this.sectionService.onGetSingleSectionData(id)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -444,11 +464,13 @@ export class ViewSectionComponent implements OnInit {
 
                 }
             }, error => {
+                this.waitLoader = false;
 
             })
     }
 
     getCategoryData(id, e) {
+        this.waitLoader = true;
         this.sectionService.onGetSingleSCategoryData(id)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -456,10 +478,12 @@ export class ViewSectionComponent implements OnInit {
                 $(e).closest('.dropdown').toggleClass('open');
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
     }
     getSubCategoryData(id, e) {
+        this.waitLoader = true;
         this.sectionService.onGetSingleSubCategoryData(id)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -467,17 +491,20 @@ export class ViewSectionComponent implements OnInit {
                 $(e).closest('.dropdown').toggleClass('open');
                 console.log(JSON.stringify(data))
             }, error => {
+                this.waitLoader = false;
                 alert(error)
             })
 
     }
      getSectionList(){
+         this.waitLoader = true;
          this.sectionService.onGetSection()
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.sections=data;
                     this.sectionDatabackup=data
                 },error=>{
+                    this.waitLoader = false;
                     alert(error)
                 })
      }

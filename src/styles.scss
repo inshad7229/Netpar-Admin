@@ -1349,4 +1349,24 @@ table tbody td.width170px{
 
 .cke_editable.cke_editable_themed.cke_contents_ltr.cke_show_borders p{
   margin: 0;
+} 
+.loader-box div {
+  display: inline-block;
+  margin: auto 0;
+}
+.loader-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  background-color: rgba(0,0,0,0.54);
+}
+.loader-box img {
+  width: 120px;
+  margin: auto 0;
 }

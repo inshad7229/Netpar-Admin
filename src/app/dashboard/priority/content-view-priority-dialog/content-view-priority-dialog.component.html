@@ -31,7 +31,7 @@
 		</li>
 	</ul>
 	<div class="inner-card dashed-brd" *ngFor="let content of forContent.contentBody">
-		<div class="form-group" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor}">
+		<div class="form-group col-md-12 col-sm-12 col-xs-12 p-0" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor}">
 			<img [src]="content.url" class="img-responsive rad-shad" />
 		</div>
 		<div [ngStyle]="{background:content.backgroundColor}" *ngIf="content.tag=='text'">

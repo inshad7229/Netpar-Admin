@@ -43,14 +43,14 @@ export class AddCategoryComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${this.widthPx}x${this.heightPx}`;
+        return `http://placehold.it/${300}x${180}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
-            width: parseInt(this.widthPx, 10),
-            height: parseInt(this.heightPx, 10)
+            width: parseInt('300', 10),
+            height: parseInt('180', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -240,6 +240,7 @@ export class AddCategoryComponent implements OnInit {
         fr.readAsDataURL(file);
     }
      onAddCategory(){
+      this.waitLoader =true;
       if (this.addCategoryRequest._id) {
                  let localsection=this.sections.filter(arg=>arg._id==this.addCategoryRequest.sectionId)
                  this.addCategoryRequest.sectionName=localsection[0].sectionName;
@@ -261,6 +262,7 @@ export class AddCategoryComponent implements OnInit {
                             }
                             console.log(JSON.stringify(data))
                         },error=>{
+                          this.waitLoader =false;
                             alert(error)
                         }) 
    }else{
@@ -292,12 +294,14 @@ export class AddCategoryComponent implements OnInit {
                     }
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader =false;
                     alert(error)
                 })
      }
          
         }
   getSectionList(){
+          this.waitLoader =true;
          this.sectionService.onGetSection()
                 .subscribe(data => {
                     this.waitLoader = false;
@@ -306,16 +310,24 @@ export class AddCategoryComponent implements OnInit {
                          this.sections=data.filter(arg=>arg.language==this.addCategoryRequest.language);;
                     }
                 },error=>{
+                    this.waitLoader =false;
                     alert(error)
                 })
   }
   getCategoryData(){
+           this.waitLoader =true;
             this.sectionService.onGetSingleSCategoryData(this.appProvider.current.currentId)
             .subscribe(data =>{
                         this.waitLoader = false;
                         this.addCategoryRequest=data.response[0]
+                        this.currentImageThumbnail=this.addCategoryRequest.thumbnailImage;
+                        this.currentImageHorigontal=this.addCategoryRequest.horigontalImage;
+                        if (this.addCategoryRequest.language) {
+                           this.sections=this.sectionsData.filter(arg=>arg.language==this.addCategoryRequest.language);;
+                          }
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader =false;
                     alert(error)
                 }) 
   }

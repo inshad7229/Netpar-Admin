@@ -34,7 +34,8 @@ export class AddSubcategoryComponent implements OnInit {
     croppieImageHorigontal: string;
     sections:any;
     categories:any;
-     sectionsData
+    sectionsData
+    categoriesData
     addSubCategoryRequest: AddSubCategoryRequest=new  AddSubCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -44,14 +45,14 @@ export class AddSubcategoryComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${this.widthPx}x${this.heightPx}`;
+        return `http://placehold.it/${300}x${180}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
-            width: parseInt(this.widthPx, 10),
-            height: parseInt(this.heightPx, 10)
+            width: parseInt('300', 10),
+            height: parseInt('180', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -161,6 +162,8 @@ export class AddSubcategoryComponent implements OnInit {
        //  control.makeTransliteratable(['subCategoryName']);
         this.appProvider.current.currentLanguage=language;
         this.sections=this.sectionsData.filter(arg=>arg.language==language);
+        this.categories=this.categoriesData.filter(arg=>arg.language==language);
+        
   }
   	 newImageResultFromCroppieHorigontal(img: string) {
         this.croppieImageHorigontal = img;
@@ -232,10 +235,15 @@ export class AddSubcategoryComponent implements OnInit {
     }
 
     getCategory(){
+         this.waitLoader = true;
          this.sectionService.onGetCategory(this.addSubCategoryRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categories=data.response;
+                    this.categoriesData=data.response;
+                    if (this.addSubCategoryRequest.language) {
+                         this.sections=this.sectionsData.filter(arg=>arg.language==this.addSubCategoryRequest.language);
+                         this.categories=data.response.filter(arg=>arg.language==this.addSubCategoryRequest.language);
+                    }
                     console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
@@ -243,7 +251,7 @@ export class AddSubcategoryComponent implements OnInit {
     }
     onAddSubcategory(){
 
-
+        this.waitLoader = true;
         if (this.addSubCategoryRequest._id) {
          let localsection=this.sections.filter(arg=>arg._id==this.addSubCategoryRequest.sectionId)
          let localcategory=this.categories.filter(arg=>arg._id==this.addSubCategoryRequest.categoryId)
@@ -267,6 +275,7 @@ export class AddSubcategoryComponent implements OnInit {
                     }
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 }) 
    }else{
@@ -301,12 +310,14 @@ export class AddSubcategoryComponent implements OnInit {
                     }
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 })
      }
          
         }
      getSectionList(){
+                    this.waitLoader = true;
                       this.sectionService.onGetSection()
                     .subscribe(data => {
                         this.waitLoader = false;
@@ -315,17 +326,22 @@ export class AddSubcategoryComponent implements OnInit {
                          this.sections=data.filter(arg=>arg.language==this.addSubCategoryRequest.language);;
                     }
                     },error=>{
+                      this.waitLoader = false;
                         alert(error)
                     })
       }
    getSubCategoryData(){
+            this.waitLoader = true;
             this.sectionService.onGetSingleSubCategoryData(this.appProvider.current.currentId)
             .subscribe(data =>{
                         this.waitLoader = false;
                         this.addSubCategoryRequest=data.response[0]
+                        this.currentImageThumbnail=this.addSubCategoryRequest.thumbnailImage;
+                        this.currentImageHorigontal=this.addSubCategoryRequest.horigontalImage;
                         this.getCategory()
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 }) 
   }

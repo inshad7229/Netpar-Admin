@@ -40,14 +40,14 @@ export class AddSectionComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${this.widthPx}x${this.heightPx}`;
+        return `http://placehold.it/${300}x${180}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
-            width: parseInt(this.widthPx, 10),
-            height: parseInt(this.heightPx, 10)
+            width: parseInt('300', 10),
+            height: parseInt('180', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -132,6 +132,7 @@ export class AddSectionComponent implements OnInit {
 		});
 
    if (this.appProvider.current.actionFlag=='editSection') {
+       this.waitLoader = true;
        this.sectionService.onGetSingleSectionData(this.appProvider.current.currentId)
         .subscribe(data => {
                     this.waitLoader = false;
@@ -143,13 +144,13 @@ export class AddSectionComponent implements OnInit {
                     }
                     else if (data.success == true) {
                      this.addSectionModel=data.response[0];
-                     this.croppieImageThumbnail =data.response[0].thumbnailImage;
+                     //this.croppieImageThumbnail =data.response[0].thumbnailImage;
                      this.currentImageThumbnail =data.response[0].thumbnailImage 
-                     this.croppieImageHorigontal =data.response[0].horigontalImage;
+                    // this.croppieImageHorigontal =data.response[0].horigontalImage;
                      this.currentImageHorigontal =data.response[0].horigontalImage;   
                     }                 
                 },error=>{
-                  
+                  this.waitLoader = false;
                 })
        // code...
    }
@@ -244,7 +245,7 @@ export class AddSectionComponent implements OnInit {
         fr.readAsDataURL(file);
     }
   onAddSection(){
-
+     this.waitLoader = true;
 
    //   if(this.app)
    if (this.addSectionModel._id) {
@@ -266,6 +267,7 @@ export class AddSectionComponent implements OnInit {
                 }
                 console.log(JSON.stringify(data))
             },error=>{
+              this.waitLoader = false;
             alert(error)
             }) 
    }else{
@@ -297,6 +299,7 @@ export class AddSectionComponent implements OnInit {
                     }
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 })  
    }

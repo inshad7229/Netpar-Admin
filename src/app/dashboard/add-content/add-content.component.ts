@@ -1411,13 +1411,13 @@ export class AddContentComponent implements OnInit {
                         this.waitLoader = false;
                         if (data.success == false) {
 
-                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                this.toastr.error(data.msg, 'Edit Content  Failed. ', {
                                     toastLife: 3000,
                                     showCloseButton: true
                                 });
                             }
                             else if (data.success == true) {
-                                this.contentId=data.response._id
+                                this.contentId=this.addContentRequest._id
                                 this.onupload()
                                 // this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
@@ -1565,13 +1565,13 @@ export class AddContentComponent implements OnInit {
                         this.waitLoader = false;
                         if (data.success == false) {
 
-                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                this.toastr.error(data.msg, 'Edit Content  Failed. ', {
                                     toastLife: 3000,
                                     showCloseButton: true
                                 });
                             }
                             else if (data.success == true) {
-                                  this.contentId=data.response._id
+                                  this.contentId=this.addContentRequest._id
                                   this.onupload()
                                 // this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
@@ -1718,13 +1718,13 @@ export class AddContentComponent implements OnInit {
                         this.waitLoader = false;
                         if (data.success == false) {
 
-                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                this.toastr.error(data.msg, 'Edit Content  Failed. ', {
                                     toastLife: 3000,
                                     showCloseButton: true
                                 });
                             }
                             else if (data.success == true) {
-                                  this.contentId=data.response._id
+                                  this.contentId=this.addContentRequest._id
                                   this.onupload()
                                  //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
@@ -1872,13 +1872,13 @@ export class AddContentComponent implements OnInit {
                         this.waitLoader = false;
                         if (data.success == false) {
 
-                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                this.toastr.error(data.msg, 'Edit Content  Failed. ', {
                                     toastLife: 3000,
                                     showCloseButton: true
                                 });
                             }
                             else if (data.success == true) {
-                                  this.contentId=data.response._id
+                                  this.contentId=this.addContentRequest._id
                                   this.onupload()
                                  ///this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
@@ -2026,13 +2026,13 @@ export class AddContentComponent implements OnInit {
                         this.waitLoader = false;
                         if (data.success == false) {
 
-                                this.toastr.error(data.msg, 'Add Content  Failed. ', {
+                                this.toastr.error(data.msg, 'Edit Content  Failed. ', {
                                     toastLife: 3000,
                                     showCloseButton: true
                                 });
                             }
                             else if (data.success == true) {
-                                   this.contentId=data.response._id
+                                   this.contentId=this.addContentRequest._id
                                    this.onupload()
                                  //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }

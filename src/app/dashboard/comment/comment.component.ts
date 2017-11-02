@@ -151,6 +151,7 @@ export class CommentComponent implements OnInit {
    console.log(JSON.stringify(data))
   }
   onReviewed(){
+     this.waitLoader = true;
     let a={
       _id:this.id
     }
@@ -170,6 +171,7 @@ export class CommentComponent implements OnInit {
   }
 
   onDelete(data){
+     this.waitLoader = true;
     let b=[]
     b.push(data._id)
    let a={
@@ -189,6 +191,7 @@ export class CommentComponent implements OnInit {
                 })
    }
     getSectionList(){
+        this.waitLoader = true;
                 this.waitLoader = true;
                 this.sectionService.onGetSection()
               .subscribe(data => {
@@ -201,6 +204,7 @@ export class CommentComponent implements OnInit {
               })
   }
   getCategory(secId){
+       this.waitLoader = true;
          this.waitLoader = true;
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
@@ -214,6 +218,7 @@ export class CommentComponent implements OnInit {
                 }) 
     }
    getsubCategory(secId,catId){
+     this.waitLoader = true;
      this.waitLoader = true;
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {

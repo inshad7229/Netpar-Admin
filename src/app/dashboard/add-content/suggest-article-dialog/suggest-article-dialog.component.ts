@@ -37,41 +37,49 @@ export class SuggestArticleDialogComponent implements OnInit {
   }
 
  getSectionList(){
+               this.waitLoader = true;
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
                   this.sections=data;
               },error=>{
+                this.waitLoader = false;
                   alert(error)
               })
   }
   getCategory(){
+        this.waitLoader =true;
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.categories=data.response;
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 }) 
     }
    getsubCategory(){
+     this.waitLoader =true;
      this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.subCategories=data.response;
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 }) 
    }
    getSuggestedArtical(){
+     this.waitLoader = true;
       this.contentProvider.ongetSuggestedArticle(this.addContentRequest)
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.suggestedArticalList=data.response;
                     this.suggestedArticalListBackup=data.response;
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 })
    }
