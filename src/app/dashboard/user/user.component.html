@@ -1,4 +1,7 @@
 <div class="wrapper">
+    <div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
     <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
         <app-sidebar></app-sidebar>
         <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
@@ -34,6 +37,7 @@
                                 <div class="row">
                                     <div class="col-md-5 col-sm-5 col-xs-12 p-0">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <mat-form-field>
                                             <mat-select placeholder="Items per page">
                                                 <mat-option value="1"> 25 </mat-option>
                                                 <mat-option value="2"> 50 </mat-option>
@@ -41,21 +45,25 @@
                                                 <mat-option value="4"> 200 </mat-option>
                                                 <mat-option value="4"> All </mat-option>
                                             </mat-select>
+                                        </mat-form-field>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <mat-select placeholder="Time Range">
-                                                <mat-option value="1"> 7d </mat-option>
-                                                <mat-option value="2"> 15d </mat-option>
-                                                <mat-option value="3"> 1m </mat-option>
-                                                <mat-option value="4"> 3m </mat-option>
-                                                <mat-option value="4"> 6m </mat-option>
-                                                <mat-option value="4"> 1y </mat-option>
-                                                <mat-option value="4"> all </mat-option>
-                                            </mat-select>
+                                            <mat-form-field>
+                                                <mat-select placeholder="Time Range">
+                                                    <mat-option value="1"> 7d </mat-option>
+                                                    <mat-option value="2"> 15d </mat-option>
+                                                    <mat-option value="3"> 1m </mat-option>
+                                                    <mat-option value="4"> 3m </mat-option>
+                                                    <mat-option value="4"> 6m </mat-option>
+                                                    <mat-option value="4"> 1y </mat-option>
+                                                    <mat-option value="4"> all </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
                                     </div>
                                     <div class="col-md-7 col-sm-7 col-xs-12 p-0">
                                         <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <mat-form-field>
                                             <mat-select placeholder="State" multiple>
                                                 <mat-option value="1"> State1 </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
@@ -63,6 +71,7 @@
                                                 <mat-option value="4"> State4 </mat-option>
                                                 <mat-option value="4"> State5 </mat-option>
                                             </mat-select>
+                                        </mat-form-field>
                                         </div>
                                         <div class="col-md-3 col-sm-3 col-xs-12">
                                             <button class="btn btn-success" (click)="openDialog2()"> District + </button>
@@ -169,60 +178,60 @@
                                                 </tr>
 		                                    </thead>
 		                                    <tbody>
-		                                        <tr>
+		                                        <tr *ngFor="let user of userData">
 		                                            <td class="text-left">
                                                         <div class="cont-img dp">
-                                                            <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                            <img [src]="user.userImage" class="img-responsive" />
                                                             <div class="text-switch text-center">
                                                                 <span>Enable </span>
                                                                 <span class="cus-switch">
                                                                     <label class="switch m-b-0">
-                                                                        <input type="checkbox" />
+                                                                        <input type="checkbox" [(ngModel)]="user.status"  (change)="onStatusChange(user)"/>
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         <div class="media-box cont-dtl">
-                                                            <p> Jay Sinha </p>
-                                                            <p> MH | Raigad | Panvel </p>
-                                                            <p class="text-success"> 9874563210 </p>
+                                                            <p> {{user.firstName}}{{user.lastNmae}}</p>
+                                                            <p> {{user.block}} | {{user.district}} | {{user.state}} </p>
+                                                            <p class="{{mobileVerification(user.mobileVerified)}}"> {{user.mobileNumber}} </p>
                                                         </div>
                                                     </td>
-		                                            <td> 56 </td>
-		                                            <td> 250 Hours 30 Min </td>
-		                                            <td> 250 Hours 30 Min </td>
-                                                    <td> 250 Hours 30 Min </td>
-		                                            <td> 44 </td>
-		                                            <td> 125 </td>
-		                                            <td class="width10px"> <p> 10:00 AM </p> <p> 18-08-2017 </p> </td>
-		                                            <td> 40 </td>
-		                                            <td> 150 </td>
-		                                            <td> 80 </td>
-		                                            <td> 50 </td>
-		                                            <td> 50 </td>
-		                                            <td> 68 </td>
-                                                    <td> 40 </td>
-                                                    <td> 150 </td>
-		                                            <td> 75 </td>
+		                                            <td> {{user.totalSessions}} </td>
+		                                            <td> {{getTotalTime(user.totalTime)}} </td>
+		                                            <td> {{avgTimePerSession(user.totalTime,user.totalSessions)}} </td>
+                                                    <td>{{avgTimePerDay(user.totalTime,user.dayCount)}} </td>
+		                                            <td>{{user.totalPageViews}}</td>
+		                                            <td> {{avgPageViewPerSession(user.totalPageViews,user.totalSessions)}} </td>
+		                                            <td class="width10px"> <p> {{getTime(user.lastlogin)}} </p> <p>{{getDate(user.lastlogin)}}</p> </td>
+		                                            <td> {{user.totalLikes}}</td>
+		                                            <td> {{user.totalShares}} </td>
+		                                            <td> {{user.totalComments}}</td>
+		                                            <td> {{user.totalSaves}} </td>
+		                                            <td> {{user.totalDownloads}}</td>
+		                                            <td> {{user.totalSubmissions}}</td>
+                                                    <td> {{user.totalsCalls}}</td>
+                                                    <td> {{user.totalCallBacks}} </td>
+		                                            <td>{{user.totalPublications}} </td>
 		                                            <td> 
                                                     	<div class="cus-switch user">
                                                             <span>Enable</span>
                                                             <label class="switch m-b-0">
-                                                                <input type="checkbox" />
+                                                                <input type="checkbox" [(ngModel)]="user.influencer"  (change)="onInfluencerStatusChange(user)"/>
                                                                 <span class="slider round"></span>
                                                             </label>
                                                         </div>
-                                                        <a routerLink="/user" (click)="openDialog()"> View </a>
+                                                        <a  (click)="openDialog(user)"> View </a>
                                                     </td>
                                                     <td class="media-box width20">
-                                                    	<p> Referral code: UNXHIS0 </p>
-                                                        <p> No. of invites: 4 </p>
-                                                        <p> No. of conversation: 3 </p>
+                                                    	<p> Referral code: {{user.referralCode}} </p>
+                                                        <p> No. of invites: {{user.totalInvites}}</p>
+                                                        <p> No. of conversation:{{user.totalConversations}} </p>
                                                     </td>
 
 		                                        </tr>
-                                                <tr>
+                                               <!--  <tr>
                                                     <td class="text-left">
                                                         <div class="cont-img dp">
                                                             <img src="./assets/img/profile_user.jpg" class="img-responsive" />
@@ -327,7 +336,7 @@
                                                         <p> No. of conversation: 3 </p>
                                                     </td>
 
-                                                </tr>
+                                                </tr> -->
 
 		                                    </tbody>
 		                                    <tfoot>

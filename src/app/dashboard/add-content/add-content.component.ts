@@ -2769,11 +2769,11 @@ export class AddContentComponent implements OnInit {
                 headers: headers
             });
             if (this.audioFileData[i].file!=null) {
-               // this.waitloader=true
+              this.waitLoader = true;
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.audioFileData[i].tag+'/'+this.audioFileData[i].count+'/'+this.audioFileData[i].for,this.audioFileData[i].file, options)
                 .subscribe(
                     data => {
-                    	//this.waitloader=false
+                    	 this.waitLoader = false;
                     	let demo=data.json()
                         if (demo.success==true) {
                         	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
@@ -2782,6 +2782,7 @@ export class AddContentComponent implements OnInit {
                         }
                     },
                     error => {
+                    	 this.waitLoader = false;
                     	console.log(error)
 
                     })
@@ -2797,18 +2798,23 @@ export class AddContentComponent implements OnInit {
                 headers: headers
             });
             if (this.videoFileData[i].file!=null) {
+            	 this.waitLoader = true;
             	console.log(JSON.stringify(this.videoFileData[i]))
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.videoFileData[i].tag+'/'+this.videoFileData[i].count+'/'+this.videoFileData[i].for,this.videoFileData[i].file, options)
                 .subscribe(
                     data => {
                         let demo=data.json()
                         if (demo.success==true) {
+                        	 this.waitLoader = false;
                         	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
                         		this.router.navigate(['/view-content'],{ skipLocationChange: true });
                         	}
                         }
                     },
-                    error => {console.log(error)})
+                    error => {
+                         this.waitLoader = false;
+                    	console.log(error)
+                    })
             }
             
         }
@@ -2821,17 +2827,20 @@ export class AddContentComponent implements OnInit {
                 headers: headers
             });
             if (this.documentFileData[i].file!=null) {
+            	 this.waitLoader = true;
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.documentFileData[i].tag+'/'+this.documentFileData[i].count+'/'+this.documentFileData[i].for,this.documentFileData[i].file, options)
                 .subscribe(
                     data => {
                         let demo=data.json()
                         if (demo.success==true) {
+                        	 this.waitLoader = false;
                         	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
                         		this.router.navigate(['/view-content'],{ skipLocationChange: true });
                         	}
                         } 
                     },
                     error => {
+                    	 this.waitLoader = false;
                     	console.log(error)})
             }
             
@@ -2844,46 +2853,57 @@ export class AddContentComponent implements OnInit {
                 headers: headers
             });
             if (this.gridFileData[i].file1!=null) {
+            	 this.waitLoader = true;
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file1, options)
                 .subscribe(
                     data => {
                          let demo=data.json()
                         if (demo.success==true) {
+                        	 this.waitLoader = false;
                         	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
                         		this.router.navigate(['/view-content'],{ skipLocationChange: true });
                         	}
                         }
                     },
                     error => { 
+                    	 this.waitLoader = false;
                     	console.log(error)
                     })
             }
             if (this.gridFileData[i].file2!=null) {
+            	 this.waitLoader = true;
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file2, options)
                 .subscribe(
                     data => {
                          let demo=data.json()
                         if (demo.success==true) {
+                        	 this.waitLoader = false;
                         	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
                         		// code...
                         	}
                         }
                     },
                     error => {
-                    	console.log(error)})
+                    	 this.waitLoader = false;
+                    	console.log(error)
+                    })
             }
             if (this.gridFileData[i].file3!=null) {
+            	 this.waitLoader = true;
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file3, options)
                 .subscribe(
                     data => {
                          let demo=data.json()
                         if (demo.success==true) {
+                        	 this.waitLoader = false;
                         	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
                         		// code...
                         	}
                         }
                     },
-                    error => { console.log(error)})
+                    error => { 
+                    	 this.waitLoader = false;
+                    	console.log(error)})
             }
             
         }
