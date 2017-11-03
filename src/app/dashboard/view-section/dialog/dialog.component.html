@@ -3,17 +3,13 @@
 	<a (click)="onClosed()"><i class="fa fa-times"></i></a>
 </div>
 <div class="modal-body">
-    <mat-list *ngIf="adminData">
-		<mat-list-item *ngFor="let name of adminData"><span *ngIf="validate(name.sectionName)==true">{{name.firstName}} {{name.lastName}} </span> </mat-list-item>
-		<!-- <mat-list-item> Admin2 </mat-list-item>
-		<mat-list-item> Admin3 </mat-list-item>
-		<mat-list-item> Admin3 </mat-list-item>
-		<mat-list-item> Admin3 </mat-list-item>
-		<mat-list-item> Admin3 </mat-list-item>
-		<mat-list-item> Admin3 </mat-list-item>
- -->
+	<div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
+    <mat-list *ngIf="adminName.length>0">
+		<mat-list-item *ngFor="let name of adminName"><span>{{name.firstName}} {{name.lastName}} </span> </mat-list-item>
+	</mat-list>
+	<mat-list *ngIf="adminName.length==0">
+		<mat-list-item ><span>Admin List Not Available</span> </mat-list-item>
 	</mat-list>
 </div>
-<!-- <div class="modal-footer">
-    <a class="btn btn-danger"> Cancel </a>
-</div> -->
