@@ -57,6 +57,8 @@ export class TrimDirective {
              this.lang='tamil'
         }else if (this.appProvider.current.currentLanguage=="Punjabi") {
              this.lang='punjabi'
+        }else if (this.appProvider.current.currentLanguage=="English") {
+             this.lang='english'
         }else {
              this.lang='marathi'
         }

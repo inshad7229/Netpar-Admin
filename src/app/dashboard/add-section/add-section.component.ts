@@ -94,8 +94,8 @@ export class AddSectionComponent implements OnInit {
       ) {   this.addSectionForm = fb.group({
             'sectionName': [null, Validators.compose([Validators.required, Validators.maxLength(30)])],
             'categoryView': [null, Validators.compose([Validators.required])],
-            'orderNo':[null,Validators.compose([Validators.pattern(/[0-9]*/)])],
-            'language':[null]
+            'orderNo':[null],
+            'language':[null, Validators.compose([Validators.required])]
         
             
         })
