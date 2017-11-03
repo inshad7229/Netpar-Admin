@@ -222,7 +222,7 @@ export class EditAdminComponent implements AfterViewInit {
        // console.log(JSON.stringify(this.options))
         this.register.sectionName = this.options
         let img= this.currentImage
-        this.register.image = img.replace("data:image/png;base64,","");
+        this.register.image = this.currentImage;
         this.register.langDetails=languageArray;
         if (this.appProvider.current.adminPageFlag == "allEdit") {
             this.register.plain = window.btoa(this.register.password);
