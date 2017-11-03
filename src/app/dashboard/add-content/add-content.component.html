@@ -376,7 +376,7 @@
                                                                                             <source [src]="safeURL(item.videourl1)" type="video/mp4">
                                                                                         </video>
                                                                                          <img [src]="item.imgurl1" *ngIf="item.imgurl1!=null ">
-                                                                                         <img [src]="item.documenturl1" *ngIf="item.documenturl1!=null ">
+                                                                                         <img src="./assets/img/JAVA.png" *ngIf="item.documenturl1!=null ">
                                                                                      
                                                                                         
                                                                                     </td>
@@ -390,7 +390,7 @@
                                                                                             <source [src]="safeURL(item.videourl2)" type="video/mp4">
                                                                                         </video>
                                                                                          <img [src]="item.imgurl2" *ngIf="item.imgurl2!=null">
-                                                                                         <img [src]="item.documenturl2" *ngIf="item.documenturl2!=null">
+                                                                                         <img src="./assets/img/JAVA.png" *ngIf="item.documenturl2!=null">
                                                                                      
                                                                                         
                                                                                     </td>
@@ -404,7 +404,7 @@
                                                                                             <source [src]="safeURL(item.videourl3)" type="video/mp4">
                                                                                         </video>
                                                                                          <img [src]="item.imgurl3" *ngIf="item.imgurl3!=null">
-                                                                                         <img [src]="item.documenturl3" *ngIf="item.documenturl3!=null">
+                                                                                         <img src="./assets/img/JAVA.png" *ngIf="item.documenturl3!=null">
                                                                                         
                                                                                     </td>
                                                                                     
@@ -528,7 +528,7 @@
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
                                                                                     <td  [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
+                                                                                        <img src="./assets/img/JAVA.png" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
@@ -1418,11 +1418,11 @@
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn btn-warning" (click)="saveAsDraft()" [disabled]="!addContentForm.valid"> Save as draft </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser' "  (click)="submitForReview()" [disabled]="!addContentForm.valid"> Submit for review </button>
-                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="publish('Publish')" > Publish </button>
+                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" [disabled]="!addContentForm.valid" (click)="publish('Publish')" > Publish </button>
                                             <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" [disabled]="!addContentForm.valid"> Publish later </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" [disabled]="!addContentForm.valid"> Send for revision </button>
-                                            <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" [disabled]="!addContentForm.valid"> Reject </button>
-                                             <button class="btn btn-danger"  (click)="onupload()" > Reject </button>
+                                            <!-- <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" [disabled]="!addContentForm.valid"> Reject </button>
+                                             <button class="btn btn-danger"  (click)="onupload()" > Reject </button> -->
                                         </div>
                                     </form>
                                 </div>

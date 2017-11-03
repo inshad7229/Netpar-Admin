@@ -117,7 +117,11 @@ export class AddContentComponent implements OnInit {
     videoFileData=[];
     documentFileData=[];
     gridFileData=[];
-    
+    addServiceStatus:boolean=false;
+    audioFileDataLength:number=0;
+    videoFileDataLength:number=0;
+    documentFileDataLength:number=0;
+    gridFileDataLength:number=0;
     stringResource:StringResource=new  StringResource()
     contentId
     public get imageToDisplayHorigontal() {
@@ -1257,6 +1261,7 @@ export class AddContentComponent implements OnInit {
             this.contentService.onEditContent(this.addContentRequest)
             .subscribe(data =>{
                         this.waitLoader = false;
+
                         if (data.success == false) {
 
                                 this.toastr.error(data.msg, 'Add Content  Failed. ', {
@@ -1265,7 +1270,8 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                               this.contentId=data.response._id
+                            	this.addServiceStatus=true
+                               this.contentId=this.addContentRequest._id
                                this.onupload()
                                  //this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
@@ -1350,6 +1356,7 @@ export class AddContentComponent implements OnInit {
                             }
                             else if (data.success == true) {
                                   this.contentId=data.response._id
+                                  this.addServiceStatus=true
                                   this.onupload()
                                 // this.router.navigate(['/view-content'],{ skipLocationChange: true });
                             }
@@ -1417,6 +1424,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                            	this.addServiceStatus=true
                                 this.contentId=this.addContentRequest._id
                                 this.onupload()
                                 // this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -1502,6 +1510,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                            	 this.addServiceStatus=true
                                  this.contentId=data.response._id
                                  this.onupload()
                                  //this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -1571,6 +1580,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                            	  this.addServiceStatus=true
                                   this.contentId=this.addContentRequest._id
                                   this.onupload()
                                 // this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -1655,6 +1665,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                            	   this.addServiceStatus=true
                                    this.contentId=data.response._id
                                    this.onupload()
                                  //this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -1724,6 +1735,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                            	  this.addServiceStatus=true
                                   this.contentId=this.addContentRequest._id
                                   this.onupload()
                                  //this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -1809,6 +1821,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                            	   this.addServiceStatus=true
                                    this.contentId=data.response._id
                                    this.onupload()
                                  //this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -1878,6 +1891,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                            	  this.addServiceStatus=true
                                   this.contentId=this.addContentRequest._id
                                   this.onupload()
                                  ///this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -1962,6 +1976,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                            	   this.addServiceStatus=true
                                    this.contentId=data.response._id
                                    this.onupload()
                                  //this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -2032,6 +2047,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                            	   this.addServiceStatus=true
                                    this.contentId=this.addContentRequest._id
                                    this.onupload()
                                  //this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -2116,6 +2132,7 @@ export class AddContentComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
+                               this.addServiceStatus=true
                                this.contentId=data.response._id
                                this.onupload()
                                 // this.router.navigate(['/view-content'],{ skipLocationChange: true });
@@ -2436,6 +2453,7 @@ export class AddContentComponent implements OnInit {
             }else{
               this.documentFileData.push({tag:right.tag,count:right.count,file:formData,for:'url'})
             }
+           
         }
     }
     onGridVideoData1Change(event: any, right: any){
@@ -2468,6 +2486,7 @@ export class AddContentComponent implements OnInit {
             }else{
               this.gridFileData.push({tag:right.tag,count:right.count,for:"videourl1",file1:formData,file2:null,file3:null})
             }
+            
 
 
         }
@@ -2501,7 +2520,7 @@ export class AddContentComponent implements OnInit {
             }else{
               this.gridFileData.push({tag:right.tag,count:right.count,for:"audiourl1",file1:formData,file2:null,file3:null})
             }
-
+            
 
         }
        }
@@ -2534,7 +2553,7 @@ export class AddContentComponent implements OnInit {
             }else{
               this.gridFileData.push({tag:right.tag,count:right.count,for:"documenturl1",file1:formData,file2:null,file3:null})
             }
-
+            
 
         }
        }
@@ -2569,7 +2588,7 @@ export class AddContentComponent implements OnInit {
               this.gridFileData.push({tag:right.tag,count:right.count,for:"videourl2",file1:null,file2:formData,file3:null})
             }
 
-
+            
         }
        }
 	onGridAudioData2Change(event: any, right: any){
@@ -2601,7 +2620,7 @@ export class AddContentComponent implements OnInit {
             }else{
               this.gridFileData.push({tag:right.tag,count:right.count,for:"audiourl2",file1:null,file2:formData,file3:null})
             }
-
+             
 
         }
        }
@@ -2634,7 +2653,7 @@ export class AddContentComponent implements OnInit {
             }else{
               this.gridFileData.push({tag:right.tag,count:right.count,for:"documenturl2",file1:null,file2:formData,file3:null})
             }
-
+             
 
         }
        }
@@ -2667,7 +2686,7 @@ export class AddContentComponent implements OnInit {
             }else{
               this.gridFileData.push({tag:right.tag,count:right.count,for:"videourl3",file1:null,file2:null,file3:formData})
             }
-
+             
 
         }
        }
@@ -2700,7 +2719,7 @@ export class AddContentComponent implements OnInit {
             }else{
               this.gridFileData.push({tag:right.tag,count:right.count,for:"audiourl3",file1:null,file2:null,file3:formData})
             }
-
+             
 
         }
        }
@@ -2733,36 +2752,45 @@ export class AddContentComponent implements OnInit {
             }else{
               this.gridFileData.push({tag:right.tag,count:right.count,for:"documenturl3",file1:null,file2:null,file3:formData})
             }
-
+             
 
         }
        }
     onupload(){
-    	for (var i = 0; i < this.audioFileData.length; i++) {
-           
+
+    	if (this.audioFileData.length==0 && this.videoFileData.length==0 && this.documentFileData.length==0 && this.gridFileData.length==0) {
+    		this.router.navigate(['/view-content'],{ skipLocationChange: true });
+    	}else{
+    		for (var i = 0; i < this.audioFileData.length; i++) {
+              this.audioFileDataLength=i+1
             let headers = new Headers();
 
             let options = new RequestOptions({
                 headers: headers
             });
             if (this.audioFileData[i].file!=null) {
-
+               // this.waitloader=true
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.audioFileData[i].tag+'/'+this.audioFileData[i].count+'/'+this.audioFileData[i].for,this.audioFileData[i].file, options)
                 .subscribe(
                     data => {
-                        data = data.json().base64String;
-                        this.tempCustomerBase64.push(data);
-                        setTimeout(() => {
-
-                        }, 10000);
+                    	//this.waitloader=false
+                    	let demo=data.json()
+                        if (demo.success==true) {
+                        	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
+                        		this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                        	}
+                        }
                     },
-                    error => console.log(error))
+                    error => {
+                    	console.log(error)
+
+                    })
             }
             
         }
     
     for (var i = 0; i < this.videoFileData.length; i++) {
-           
+            this.videoFileDataLength=i+1
             let headers = new Headers();
 
             let options = new RequestOptions({
@@ -2773,19 +2801,20 @@ export class AddContentComponent implements OnInit {
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.videoFileData[i].tag+'/'+this.videoFileData[i].count+'/'+this.videoFileData[i].for,this.videoFileData[i].file, options)
                 .subscribe(
                     data => {
-                        data = data.json().base64String;
-                        this.tempCustomerBase64.push(data);
-                        setTimeout(() => {
-
-                        }, 10000);
+                        let demo=data.json()
+                        if (demo.success==true) {
+                        	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
+                        		this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                        	}
+                        }
                     },
-                    error => console.log(error))
+                    error => {console.log(error)})
             }
             
         }
     
     for (var i = 0; i < this.documentFileData.length; i++) {
-           
+             this.documentFileDataLength=i+1
             let headers = new Headers();
 
             let options = new RequestOptions({
@@ -2795,18 +2824,20 @@ export class AddContentComponent implements OnInit {
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.documentFileData[i].tag+'/'+this.documentFileData[i].count+'/'+this.documentFileData[i].for,this.documentFileData[i].file, options)
                 .subscribe(
                     data => {
-                        data = data.json().base64String;
-                        this.tempCustomerBase64.push(data);
-                        setTimeout(() => {
-
-                        }, 10000);
+                        let demo=data.json()
+                        if (demo.success==true) {
+                        	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
+                        		this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                        	}
+                        } 
                     },
-                    error => console.log(error))
+                    error => {
+                    	console.log(error)})
             }
             
         }
     for (var i = 0; i < this.gridFileData.length; i++) {
-           
+            this.gridFileDataLength=i+1
             let headers = new Headers();
 
             let options = new RequestOptions({
@@ -2816,40 +2847,48 @@ export class AddContentComponent implements OnInit {
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file1, options)
                 .subscribe(
                     data => {
-                        data = data.json().base64String;
-                        this.tempCustomerBase64.push(data);
-                        setTimeout(() => {
-
-                        }, 10000);
+                         let demo=data.json()
+                        if (demo.success==true) {
+                        	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
+                        		this.router.navigate(['/view-content'],{ skipLocationChange: true });
+                        	}
+                        }
                     },
-                    error => console.log(error))
+                    error => { 
+                    	console.log(error)
+                    })
             }
             if (this.gridFileData[i].file2!=null) {
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file2, options)
                 .subscribe(
                     data => {
-                        data = data.json().base64String;
-                        this.tempCustomerBase64.push(data);
-                        setTimeout(() => {
-
-                        }, 10000);
+                         let demo=data.json()
+                        if (demo.success==true) {
+                        	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
+                        		// code...
+                        	}
+                        }
                     },
-                    error => console.log(error))
+                    error => {
+                    	console.log(error)})
             }
             if (this.gridFileData[i].file3!=null) {
             	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file3, options)
                 .subscribe(
                     data => {
-                        data = data.json().base64String;
-                        this.tempCustomerBase64.push(data);
-                        setTimeout(() => {
-
-                        }, 10000);
+                         let demo=data.json()
+                        if (demo.success==true) {
+                        	if (this.audioFileData.length==this.audioFileDataLength && this.videoFileData.length==this.videoFileDataLength && this.documentFileData.length==this.documentFileDataLength && this.gridFileData.length==this.gridFileDataLength) {
+                        		// code...
+                        	}
+                        }
                     },
-                    error => console.log(error))
+                    error => { console.log(error)})
             }
             
         }
+    	}
+    	
     
   }
 }

@@ -884,7 +884,8 @@ label{
 } */
 .input-group.cus-input {
   margin-top: 9px;
-  max-width: 180px;
+  /* max-width: 180px; */ /* 3 nov */
+  min-width: 175px;
 }
 .cus-input .txtfield {
   background-color: #fff;
@@ -1369,4 +1370,46 @@ table tbody td.width170px{
 .loader-box img {
   width: 120px;
   margin: auto 0;
+}
+
+
+
+
+
+@media screen and (max-width: 991px){
+  .navbar-nav > li {
+    float: left;
+  }
+  .navbar .navbar-collapse.collapse, .navbar .navbar-collapse.collapse.in, .navbar .navbar-collapse.collapsing {
+    display: block !important;
+  }
+  .navbar-nav {
+    float: right;
+  }
+  .main-panel .main-content{
+    padding: 60px 15px;  
+  }
+  .login-logo img {
+    width: 160px;
+    display: inline-block;
+  }
+}
+@media screen and (max-width: 640px){
+  .login-sec .flex{
+    flex-direction: column;
+    -webkit-flex-direction: column;
+  }
+  .login-panel::after{
+    display: none;
+  }
+  .login-logo{
+    margin-top: 30px;
+  }
+
+}
+
+@media screen and (max-width: 420px){
+  .cr-boundary{
+    width: 220px !important;
+  }
 }

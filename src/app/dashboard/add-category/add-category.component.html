@@ -72,7 +72,7 @@
                                         <legend>Category Display Photo:</legend>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-6 col-sm-6 col-xs-12 text-center">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
                                             <p> Thumbnail Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
@@ -97,7 +97,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-6 col-sm-6 col-xs-12 text-center">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
                                             <p> Horizontal Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
@@ -302,10 +302,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <mat-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnApply']" name="callToActBtnApply" [(ngModel)]="addCategoryRequest.callToActBtnApply">Apply</mat-checkbox>
-                                            <mat-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnCallMe']" name="callToActBtnCallMe" [(ngModel)]="addCategoryRequest.callToActBtnCallMe">Call Me Back</mat-checkbox>
-                                            <mat-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnInterested']" name="callToActBtnInterested" [(ngModel)]="addCategoryRequest.callToActBtnInterested">I'm Interested</mat-checkbox>
-                                            <mat-checkbox class="col-md-2 col-sm-2 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnCall']" name="callToActBtnCall" [(ngModel)]="addCategoryRequest.callToActBtnCall">Call</mat-checkbox>
+                                            <mat-checkbox class="col-md-2 col-sm-3 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnApply']" name="callToActBtnApply" [(ngModel)]="addCategoryRequest.callToActBtnApply">Apply</mat-checkbox>
+                                            <mat-checkbox class="col-md-2 col-sm-3 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnCallMe']" name="callToActBtnCallMe" [(ngModel)]="addCategoryRequest.callToActBtnCallMe">Call Me Back</mat-checkbox>
+                                            <mat-checkbox class="col-md-2 col-sm-3 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnInterested']" name="callToActBtnInterested" [(ngModel)]="addCategoryRequest.callToActBtnInterested">I'm Interested</mat-checkbox>
+                                            <mat-checkbox class="col-md-2 col-sm-3 col-xs-12" [formControl]="addCategoryForm.controls['callToActBtnCall']" name="callToActBtnCall" [(ngModel)]="addCategoryRequest.callToActBtnCall">Call</mat-checkbox>
                                         </div>
                                     </div>
                                 

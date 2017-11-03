@@ -325,7 +325,17 @@ export class AddCategoryComponent implements OnInit {
                         if (this.addCategoryRequest.language) {
                            this.sections=this.sectionsData.filter(arg=>arg.language==this.addCategoryRequest.language);;
                           }
-                    console.log(JSON.stringify(data))
+                         for (let i=0;i<this.stringResource.categoryTemplate.length;i++) {
+                               if (this.stringResource.categoryTemplate[i].templateName==this.addCategoryRequest.categoryFormat) {
+                                 this.stringResource.categoryTemplate[i].status="active"
+                               }
+                            }
+                        for (let i=0;i<this.stringResource.listingTemplate.length;i++) {
+                               if (this.stringResource.listingTemplate[i].templateName==this.addCategoryRequest.listViewFormat) {
+                                 this.stringResource.listingTemplate[i].status="active"
+                               }
+                            }
+                                           
                 },error=>{
                   this.waitLoader =false;
                     alert(error)

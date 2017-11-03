@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewContainerRef,ViewChild,AfterViewInit } from '@angular/core';
 import { ToastsManager , Toast} from 'ng2-toastr';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 
 
 })
-export class EditAdminComponent implements OnInit {
+export class EditAdminComponent implements AfterViewInit {
     @ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
     complexForm: FormGroup;
     register: Admin = new Admin();
@@ -182,7 +182,7 @@ export class EditAdminComponent implements OnInit {
         this.data = {};
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         this.currentImage = this.imageUrl;
         this.croppieImage = this.imageUrl;
         var a;

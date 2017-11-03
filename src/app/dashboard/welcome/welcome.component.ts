@@ -8,7 +8,10 @@ import {AppProvider} from '../../providers/app.provider'
 export class WelcomeComponent implements OnInit {
 
   constructor(
-      private appProvider:AppProvider) { }
+
+      private appProvider:AppProvider) { 
+        //window.history.go(-1);
+}
 
   ngOnInit() {
   }

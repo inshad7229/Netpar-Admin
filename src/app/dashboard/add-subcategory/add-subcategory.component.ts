@@ -338,6 +338,11 @@ export class AddSubcategoryComponent implements OnInit {
                         this.addSubCategoryRequest=data.response[0]
                         this.currentImageThumbnail=this.addSubCategoryRequest.thumbnailImage;
                         this.currentImageHorigontal=this.addSubCategoryRequest.horigontalImage;
+                        for (let i=0;i<this.stringResource.subCategoryTemplate.length;i++) {
+                               if (this.stringResource.subCategoryTemplate[i].templateName==this.addSubCategoryRequest.subCategoryFormat) {
+                                 this.stringResource.subCategoryTemplate[i].status="active"
+                               }
+                            }
                         this.getCategory()
                     console.log(JSON.stringify(data))
                 },error=>{

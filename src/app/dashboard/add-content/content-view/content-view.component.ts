@@ -26,4 +26,9 @@ export class ContentViewComponent implements OnInit {
       let urlsantizer=this.sanitizer.bypassSecurityTrustResourceUrl(url);
       return urlsantizer;
     }
+     getHtml(code){
+    	let codesantizer=this.sanitizer.bypassSecurityTrustHtml(code);
+      return codesantizer;
+    }
+
 }

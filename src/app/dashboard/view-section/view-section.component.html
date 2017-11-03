@@ -676,7 +676,7 @@
                             <ul class="filters-ul" type="none">
                                 <li *ngFor="let sec of sections"><mat-checkbox [(ngModel)]="sec.check" (change)="onChangefilter(sec)">{{sec.sectionName}}</mat-checkbox></li>
                                 <div class="btns-filter">
-				                    <a class="btn custom-btn" (click)="applyFilter(sections)">Apply Filter </a>
+				                    <a class="btn custom-btn close-filter" (click)="applyFilter(sections)">Apply Filter </a>
 				                	
 				                </div>
                             </ul>
