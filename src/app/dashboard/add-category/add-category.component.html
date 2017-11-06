@@ -151,15 +151,17 @@
                                                        Category View Template Applicable is <strong>required</strong>
                                             </mat-error>
                                         </div>
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            
-                                            <span>Choose Category Template Format</span>
-                                        </div>
-                                        <div class="templt-div" *ngFor="let cat of stringResource.categoryTemplate;let i=index">
-                                            <div class="templt-img {{cat.status}}">
-                                                <img class="img-responsive" src="./assets/img/category-view/{{cat.template}}" (click)="onClickCatTemp(i)">
+                                        <div *ngIf="addCategoryRequest.categoryView=='yes'">
+                                            <div class="col-md-12 col-sm-12 col-xs-12" >
+                                                
+                                                <span>Choose Category Template Format</span>
                                             </div>
-                                             <span>{{cat.templateName}}</span>
+                                            <div  class="templt-div" *ngFor="let cat of stringResource.categoryTemplate;let i=index">
+                                                <div class="templt-img {{cat.status}}">
+                                                    <img class="img-responsive" src="./assets/img/category-view/{{cat.template}}" (click)="onClickCatTemp(i)">
+                                                </div>
+                                                 <span>{{cat.templateName}}</span>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -213,16 +215,19 @@
     	                                    </mat-select>
                                         </mat-form-field>
 	                                </div> -->
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                            
-                                            <span>Choose Listing View Template</span>
+                                    <div *ngIf="addCategoryRequest.listView=='yes'">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                           <span>Choose Listing View Template</span>
                                         </div>
                                         <div class="templt-div" *ngFor="let list of stringResource.listingTemplate;let i=index">
                                             <div class="templt-img {{list.status}}">
-                                                <img class="img-responsive" src="./assets/img/listing-view/{{list.template}}" (click)="onClickListTemp(i)">
+                                            <img class="img-responsive" src="./assets/img/listing-view/{{list.template}}" (click)="onClickListTemp(i)">
                                             </div>
-                                             <span>{{list.templateName}}</span>
+                                            <span>{{list.templateName}}</span>
                                         </div>
+                                    </div>
+                                 
 
                                 </div>
                             </div>
