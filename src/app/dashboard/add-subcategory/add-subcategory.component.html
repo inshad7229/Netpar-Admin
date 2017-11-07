@@ -62,7 +62,7 @@
 
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <input matInput placeholder="Name Of Subcategory  *" type="text" [formControl]="addSubCategoryForm.controls['subCategoryName']" name="subCategoryName" id="subCategoryName" [(ngModel)]="addSubCategoryRequest.subCategoryName" appTrim>
+                                            <input matInput placeholder="Name Of Subcategory  *" type="text" [matAutocomplete]="subCategoryName" [formControl]="addSubCategoryForm.controls['subCategoryName']" name="subCategoryName" id="subCategoryName" [(ngModel)]="addSubCategoryRequest.subCategoryName" >
                                             <mat-error  *ngIf="addSubCategoryForm.controls['subCategoryName'].hasError('required') && addSubCategoryForm.controls['subCategoryName'].touched">
                                                        Name Of Subcategory is <strong>required</strong>
                                             </mat-error>
@@ -72,6 +72,13 @@
                                             <mat-error  *ngIf="addSubCategoryForm.controls['subCategoryName'].hasError('maxlength')">
                                                        max length is 30
                                             </mat-error>
+                                            <mat-autocomplete #subCategoryName="matAutocomplete">
+                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state">
+                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                    <span>{{ state }}</span> 
+                                                   <!--  <small>Population: {{sta;kj;kjte.population}}</small> -->
+                                                    </mat-option>
+                                                </mat-autocomplete> 
                                         </mat-form-field>
                                     </div>
                                     

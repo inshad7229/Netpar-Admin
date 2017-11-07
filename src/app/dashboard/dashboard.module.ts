@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { MatTooltipModule, MatTableModule, MatPaginator ,
          MatProgressBarModule,MatDialogModule,MatDatepickerModule,
          MatNativeDateModule,MatCheckboxModule,MatProgressSpinnerModule,
-         MatSelectModule,MatRadioModule,MatInputModule, MatChipsModule
+         MatSelectModule,MatRadioModule,MatInputModule, MatChipsModule,MatAutocompleteModule
        } from '@angular/material';
 import {MatListModule} from '@angular/material';
 import {DataTableModule} from "angular2-datatable";
@@ -82,6 +82,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatRadioModule,
         MatInputModule,
         MatSelectModule,
+        MatAutocompleteModule,
         MatChipsModule,
         NgxCroppieModule,
         DataTableModule,

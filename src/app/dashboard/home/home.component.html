@@ -56,8 +56,8 @@
                                                         <div> Role: {{admin.role}} </div>
                                                        
                                                         <div class="cus-switch">
-                                                            <span *ngIf="admin.status==false">Enable</span>
-                                                            <span *ngIf="admin.status==true" >Disable</span>
+                                                            <span *ngIf="admin.status==true">Enable</span>
+                                                            <span *ngIf="admin.status==false" >Disable</span>
                                                             <label class="switch m-b-0">
                                                                 <input type="checkbox"  [(ngModel)]="admin.status"  (change)="onStatusChange(admin)" />
                                                                 <span class="slider round"></span>

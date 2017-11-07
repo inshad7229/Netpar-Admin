@@ -11,6 +11,7 @@ import { CroppieOptions } from 'croppie';
 import {AddSectionRequest} from '../../models/section.modal'
 import {SectionService} from '../../providers/section.service'
 import {AppProvider} from '../../providers/app.provider'
+import {TranslationService} from '../../providers/translation.service'
 import {StringResource} from '../../models/saredResources'
 declare var jquery:any;
 declare var $ :any;
@@ -20,7 +21,7 @@ declare var google:any;
   selector: 'app-add-section',
   templateUrl: './add-section.component.html',
   styleUrls: ['./add-section.component.scss'],
-  providers:[FormControlDirective,SectionService]
+  providers:[FormControlDirective,SectionService,TranslationService]
 })
 export class AddSectionComponent implements OnInit {
      @ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
@@ -33,6 +34,8 @@ export class AddSectionComponent implements OnInit {
     addSectionModel:AddSectionRequest=new AddSectionRequest();
     stringResource:StringResource=new  StringResource()
     waitLoader: boolean;
+    currentString:any;
+    sendString:any;
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -90,7 +93,8 @@ export class AddSectionComponent implements OnInit {
         public toastr: ToastsManager,
         private http: Http,
         private sectionService:SectionService,
-        private appProvider: AppProvider
+        private appProvider: AppProvider,
+        private translationService:TranslationService
       ) {   this.addSectionForm = fb.group({
             'sectionName': [null, Validators.compose([Validators.required, Validators.maxLength(30)])],
             'categoryView': [null, Validators.compose([Validators.required])],
@@ -305,5 +309,30 @@ export class AddSectionComponent implements OnInit {
    }
 
         }
-  
+ onTransliteration(value){
+   this.currentString=value
+   let localValue=value.split(' ')
+   let length=localValue.length
+   let stringForSend=localValue[length-1]
+   this.sendString=stringForSend.toString()
+      console.log(stringForSend)
+   // if(length>1) {
+   //    localValue.pop()
+   //  }
+   console.log(localValue)
+   // this.currentString=localValue
+        this.translationService.onGetSuggetiion(stringForSend)
+        .subscribe(data => {     
+            this.appProvider.current.suggestedString=data                    
+                },error=>{
+                  
+                })
+ }
+ selectString(state){
+   this.currentString=this.currentString.toString()
+   let output=this.currentString.replace(this.sendString ,state)
+   this.addSectionModel.sectionName=output+' '
+   this.appProvider.current.suggestedString=[]
+  console.log(output)
+ }
 }

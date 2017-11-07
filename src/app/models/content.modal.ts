@@ -10,6 +10,7 @@ export class AddContentRequest {
     headline:string;
     tagline:string;
     tags:any;
+    tag:any
     dateOfCreation:string;
     deleteStatus:boolean;
     googleForm:boolean;

@@ -24,7 +24,9 @@ import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service';
 import {ENTER} from '@angular/cdk/keycodes';
 import {SPACE} from '@angular/cdk/keycodes';
-
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
 const COMMA = 188;
 
 declare var jQuery:any;
@@ -52,7 +54,7 @@ export class AddContentComponent implements OnInit {
 	visible: boolean = true;
 	selectable: boolean = true;
 	removable: boolean = true;
-	addOnBlur: boolean = true;
+	addOnBlur: boolean = false;
 
 	// Enter, comma
 	separatorKeysCodes = [ENTER, COMMA,SPACE];
@@ -173,6 +175,35 @@ export class AddContentComponent implements OnInit {
         opts.enforceBoundary = true;
         return opts;
     }
+     stateCtrl: FormControl;
+  filteredStates: Observable<any[]>;
+
+  states: any[] = [
+    {
+      name: 'Arkansas',
+      population: '2.978M',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
+      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
+    },
+    {
+      name: 'California',
+      population: '39.14M',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
+      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
+    },
+    {
+      name: 'Florida',
+      population: '20.27M',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
+      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
+    },
+    {
+      name: 'Texas',
+      population: '27.47M',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
+      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
+    }
+  ];
 	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
 		        private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
 		        vcr: ViewContainerRef,
@@ -183,6 +214,7 @@ export class AddContentComponent implements OnInit {
 		        private adminService:AdminService,
 
 		        private contentService:ContentService) {
+		
 		this.ckeditorContent = `<p>My HTML</p>`;
 				this.addContentRequest.tags=[]
 				/*tinymce.init({
@@ -191,9 +223,9 @@ export class AddContentComponent implements OnInit {
 				});*/
 
  
-		this.appProvider.current.loginData={
-			role:'sectionAdministrator'
-		}
+		// this.appProvider.current.loginData={
+		// 	role:'sectionAdministrator'
+		// }
 		this.rightPan={ }
 		this.googleFromatata={ }
 		this.forContent={}
@@ -219,9 +251,16 @@ export class AddContentComponent implements OnInit {
 								'applicableStateLists':[null, Validators.compose([Validators.required])]
 			
 							})
+		// this.filteredStates = this.addContentForm.controls['headline'].valueChanges
+  //       .startWith(null)
+  //       .map(state => state ? this.filterStates(state) : this.appProvider.current.suggestedString.slice());
                  
           }
-		
+		// filterStates(name: string) {
+  //   return this.appProvider.current.suggestedString.filter(state =>
+  //     state.toLowerCase().indexOf(name.toLowerCase()) === 0);
+  // }
+
     ngOnInit() {
     	// tinymce.init({
 	    //    selector: 'div.editable',
@@ -323,8 +362,13 @@ export class AddContentComponent implements OnInit {
     safeURL(url){
      return this.sanitizer.bypassSecurityTrustResourceUrl(url); 
     }
-     onAddTags(event){
+     onAddTags(event,b){
         console.log('add'+event)
+         console.log('add',b)
+       // this.addContentForm.controls['tags'].setValue(event)
+        this.addContentForm.controls['tags'].updateValueAndValidity()
+        //this.addContentRequest.tag=event
+       
      }
     addText(){
     	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',title:'Title',aligment:'center', display:'inline-block',text:'Dummy Text'}) 
@@ -2167,6 +2211,7 @@ export class AddContentComponent implements OnInit {
 	console.log('blur')	
 	}
 	add(event: MatChipInputEvent){
+		console.log(event)
 	    let input = event.input;
 	    let value = event.value;
         let lang
@@ -2197,7 +2242,7 @@ export class AddContentComponent implements OnInit {
             data:a
         }
 	    if ((value || '').trim()) {
-	    let api =  "https://api-gw.revup.reverieinc.com/apiman-gateway/PROMATICS/transliteration/1.0?source_lang=english&target_lang="+lang+"&content_lang=&abbreviate=&noOfsuggestions=1&domain=1";
+	    let api =  "https://api-gw.revup.reverieinc.com/apiman-gateway/PROMATICS/transliteration/1.0?source_lang=english&target_lang="+lang+"&content_lang=&abbreviate=&noOfsuggestions=10&domain=1";
          let params: URLSearchParams = new URLSearchParams();
          params.set('source_lang','english'); 
          params.set('target_lang','hindi'); 
@@ -2223,8 +2268,8 @@ export class AddContentComponent implements OnInit {
 
         },error => {
             let errorr=error;
-        });
-	     // this.addContentRequest.tags.push({ name: value.trim() });
+       });
+	    // this.addContentRequest.tags.push({ name: value.trim() });
 	    }
 
 	    // Reset the input value

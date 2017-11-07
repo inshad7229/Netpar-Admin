@@ -37,8 +37,8 @@ export class TrimDirective {
         // }
     }
 ///// target_lang=hindi&domain=3&mt_context=generic_english_proper"
-    @HostListener("blur", ["$event.target.value"])
-    onBlur(value) {
+    @HostListener("input", ["$event.target.value"])
+    onInput(value) {
         if (this.appProvider.current.currentLanguage=="Hindi") {
             this.lang='hindi'
         }else if (this.appProvider.current.currentLanguage=="Bengali") {
@@ -71,7 +71,8 @@ export class TrimDirective {
         if (!this.ngControl) {
             return;
         }
-        let api =  "https://api-gw.revup.reverieinc.com/apiman-gateway/PROMATICS/transliteration/1.0?source_lang=english&target_lang="+this.lang+"&content_lang=&abbreviate=&noOfsuggestions=1&domain=1";
+        this.appProvider.current.suggestedString=[]
+        let api =  "https://api-gw.revup.reverieinc.com/apiman-gateway/PROMATICS/transliteration/1.0?source_lang=english&target_lang="+this.lang+"&content_lang=&abbreviate=&noOfsuggestions=10&domain=1";
          let params: URLSearchParams = new URLSearchParams();
          params.set('source_lang','english'); 
          params.set('target_lang','hindi'); 
@@ -88,8 +89,9 @@ export class TrimDirective {
         return this.http.post(api,JSON.stringify(b),options).subscribe(response => {
             console.log("customer Info datais " + response);
             let responsee=response.json();
-            this.ngControl.valueAccessor.writeValue(responsee.responseList[0].outString[0]);
-            this.ngControl.viewToModelUpdate(responsee.responseList[0].outString[0]);
+            this.appProvider.current.suggestedString=responsee.responseList[0].outString
+            // this.ngControl.valueAccessor.writeValue(responsee.responseList[0].outString);
+            // this.ngControl.viewToModelUpdate(responsee.responseList[0].outString);
 
         },error => {
             let errorr=error;
