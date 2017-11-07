@@ -2992,6 +2992,15 @@ export class AddContentComponent implements OnInit {
      this.addContentRequest.tagline=output+' '
    }else if (this.currentInputTag=='tag') {
      this.addContentRequest.tag=output+' '
+   }else if (this.currentInputTag=='title') {
+     this.rightPan.title=output+' '
+     this.onTitleChange()
+   }else if (this.currentInputTag=='altTag') {
+     this.rightPan.altTag=output+' '
+     this.onaltTagChange()
+   }else if (this.currentInputTag=='caption') {
+     this.rightPan.caption=output+' '
+     this.onCaptionChange()
    }
 
  //  this.addSubCategoryRequest.subCategoryName=output+' '

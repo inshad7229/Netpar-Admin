@@ -727,7 +727,14 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Alt Tag" type="text" name="altTag" id="altTag" [(ngModel)]="rightPan.altTag" (input)="onaltTagChange()" (input)="onTransliteration(addSectionModel.sectionName)">
+                                                                                <input matInput placeholder="Alt Tag" type="text" name="altTag" id="altTag" [(ngModel)]="rightPan.altTag" [matAutocomplete]="altTag"  (input)="onTransliteration(rightPan.altTag,'altTag')">
+                                                                                 <mat-autocomplete #altTag="matAutocomplete">
+                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
+                                                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                                                    <span>{{ state }}</span> 
+                                                                                   <!--  <small>Population: {{state.population}}</small> -->
+                                                                                    </mat-option>
+                                                                                </mat-autocomplete>
                                                                             </mat-form-field>
                                                                         </div>
                                                                            
@@ -743,7 +750,14 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Title" type="text" name="title" id="title" [(ngModel)]="rightPan.title"  (input)="onTitleChange()" (input)="onTransliteration(addSectionModel.sectionName)">
+                                                                                <input matInput placeholder="Title" type="text" name="title" id="title" [(ngModel)]="rightPan.title" [matAutocomplete]="title"  (input)="onTransliteration(rightPan.title,'title')">
+                                                                                 <mat-autocomplete #title="matAutocomplete">
+                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
+                                                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                                                    <span>{{ state }}</span> 
+                                                                                   <!--  <small>Population: {{state.population}}</small> -->
+                                                                                    </mat-option>
+                                                                                </mat-autocomplete>
                                                                             </mat-form-field>
                                                                         </div>
                                                                            
@@ -764,7 +778,14 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Caption" type="text" name="caption" id="caption" [(ngModel)]="rightPan.caption" (input)="onCaptionChange()" (input)="onTransliteration(addSectionModel.sectionName)">
+                                                                                <input matInput placeholder="Caption" type="text" name="caption" id="caption" [(ngModel)]="rightPan.caption"  [matAutocomplete]="caption" (input)="onTransliteration(rightPan.caption,'caption')">
+                                                                                 <mat-autocomplete #caption="matAutocomplete">
+                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
+                                                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                                                    <span>{{ state }}</span> 
+                                                                                   <!--  <small>Population: {{state.population}}</small> -->
+                                                                                    </mat-option>
+                                                                                </mat-autocomplete>
                                                                             </mat-form-field>
                                                                         </div>
                                                                            
