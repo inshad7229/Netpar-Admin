@@ -22,6 +22,8 @@ import {AddContentRequest} from '../../models/content.modal'
 import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service';
+import {TranslationService} from '../../providers/translation.service'
+
 import {ENTER} from '@angular/cdk/keycodes';
 import {SPACE} from '@angular/cdk/keycodes';
 import {Observable} from 'rxjs/Observable';
@@ -39,7 +41,7 @@ declare var  google:any;
   selector: 'app-add-content',
   templateUrl: './add-content.component.html',
   styleUrls: ['./add-content.component.scss'], 
-  providers:[FormControlDirective,SectionService,AdminService,ContentService]
+  providers:[FormControlDirective,SectionService,AdminService,ContentService,TranslationService]
 })
 
 export class AddContentComponent implements OnInit {
@@ -124,6 +126,9 @@ export class AddContentComponent implements OnInit {
     videoFileDataLength:number=0;
     documentFileDataLength:number=0;
     gridFileDataLength:number=0;
+    currentString:any;
+    sendString:any;
+    currentInputTag:any;
     stringResource:StringResource=new  StringResource()
     contentId
     public get imageToDisplayHorigontal() {
@@ -211,8 +216,8 @@ export class AddContentComponent implements OnInit {
 		        private http: Http,
 		        private sectionService:SectionService,
 		        private appProvider: AppProvider,
-		        private adminService:AdminService,
-
+		        private adminService:AdminService, 
+            private translationService:TranslationService,
 		        private contentService:ContentService) {
 		
 		this.ckeditorContent = `<p>My HTML</p>`;
@@ -223,9 +228,9 @@ export class AddContentComponent implements OnInit {
 				});*/
 
  
-		// this.appProvider.current.loginData={
-		// 	role:'sectionAdministrator'
-		// }
+		this.appProvider.current.loginData={
+			role:'sectionAdministrator'
+		}
 		this.rightPan={ }
 		this.googleFromatata={ }
 		this.forContent={}
@@ -362,11 +367,13 @@ export class AddContentComponent implements OnInit {
     safeURL(url){
      return this.sanitizer.bypassSecurityTrustResourceUrl(url); 
     }
-     onAddTags(event,b){
-        console.log('add'+event)
-         console.log('add',b)
+     onAddTags(tags){
+        console.log('add'+tags)
+        this.addContentRequest.tags.push({name:tags.trim()})
+        this.addContentRequest.tag=''
+         //console.log('add',b)
        // this.addContentForm.controls['tags'].setValue(event)
-        this.addContentForm.controls['tags'].updateValueAndValidity()
+        //this.addContentForm.controls['tags'].updateValueAndValidity()
         //this.addContentRequest.tag=event
        
      }
@@ -2956,4 +2963,39 @@ export class AddContentComponent implements OnInit {
     	
     
   }
+  onTransliteration(value,tag){
+    this.currentInputTag=tag
+   this.currentString=value
+   let localValue=value.split(' ')
+   let length=localValue.length
+   let stringForSend=localValue[length-1]
+   this.sendString=stringForSend.toString()
+      console.log(stringForSend)
+   // if(length>1) {
+   //    localValue.pop()
+   //  }
+   console.log(localValue)
+   // this.currentString=localValue
+        this.translationService.onGetSuggetiion(stringForSend)
+        .subscribe(data => {     
+            this.appProvider.current.suggestedString=data                    
+                },error=>{
+                  
+                })
+ }
+ selectString(state){
+   this.currentString=this.currentString.toString()
+   let output=this.currentString.replace(this.sendString ,state)
+   if ( this.currentInputTag=='headline') {
+     this.addContentRequest.headline=output+' '
+   }else if(this.currentInputTag=='tagline'){
+     this.addContentRequest.tagline=output+' '
+   }else if (this.currentInputTag=='tag') {
+     this.addContentRequest.tag=output+' '
+   }
+
+ //  this.addSubCategoryRequest.subCategoryName=output+' '
+   this.appProvider.current.suggestedString=[]
+  console.log(output)
+ }
 }

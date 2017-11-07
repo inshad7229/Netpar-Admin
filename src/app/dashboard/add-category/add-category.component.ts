@@ -11,6 +11,7 @@ import { AddCategoryRequest} from '../../models/section.modal'
 import {SectionService} from '../../providers/section.service'
 import {AdminService} from '../../providers/admin.service'
 import {StringResource} from '../../models/saredResources'
+import {TranslationService} from '../../providers/translation.service'
 import {AppProvider} from '../../providers/app.provider'
 import {Observable} from "rxjs";
 declare var jquery:any;
@@ -20,7 +21,7 @@ declare var google:any
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
   styleUrls: ['./add-category.component.scss'],
-  providers:[FormControlDirective,SectionService,AdminService]
+  providers:[FormControlDirective,SectionService,AdminService,TranslationService]
 })
 export class AddCategoryComponent implements OnInit {
     @ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
@@ -34,6 +35,8 @@ export class AddCategoryComponent implements OnInit {
     sections:any;
     adminList:any;
     sectionsData
+    currentString:any;
+    sendString:any;
     addCategoryRequest:AddCategoryRequest=new AddCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -93,7 +96,8 @@ export class AddCategoryComponent implements OnInit {
         private http: Http,
         private sectionService:SectionService,
         private appProvider: AppProvider,
-        private adminService:AdminService
+        private adminService:AdminService,
+        private translationService:TranslationService
       ) {   
 
             this.addCategoryForm = fb.group({
@@ -355,4 +359,30 @@ onClickListTemp(j){
     this.stringResource.listingTemplate[j].status="active"
     this.addCategoryRequest.listViewFormat=this.stringResource.listingTemplate[j].templateName
 }
+onTransliteration(value){
+   this.currentString=value
+   let localValue=value.split(' ')
+   let length=localValue.length
+   let stringForSend=localValue[length-1]
+   this.sendString=stringForSend.toString()
+      console.log(stringForSend)
+   // if(length>1) {
+   //    localValue.pop()
+   //  }
+   console.log(localValue)
+   // this.currentString=localValue
+        this.translationService.onGetSuggetiion(stringForSend)
+        .subscribe(data => {     
+            this.appProvider.current.suggestedString=data                    
+                },error=>{
+                  
+                })
+ }
+ selectString(state){
+   this.currentString=this.currentString.toString()
+   let output=this.currentString.replace(this.sendString ,state)
+   this.addCategoryRequest.categoryName=output+' '
+   this.appProvider.current.suggestedString=[]
+  console.log(output)
+ }
 }
