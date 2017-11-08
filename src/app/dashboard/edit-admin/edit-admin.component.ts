@@ -12,6 +12,7 @@ import { NgxCroppieComponent } from 'ngx-croppie';
 import { CroppieOptions } from 'croppie';
 import {AppProvider} from '../../providers/app.provider';
 import {SectionService} from '../../providers/section.service'
+import {TranslationService} from '../../providers/translation.service'
 
 
 
@@ -27,7 +28,7 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
     selector: 'app-edit-admin',
     templateUrl: './edit-admin.component.html',
     styleUrls: ['./edit-admin.component.scss'],
-    providers: [FormControlDirective, AdminService,SectionService],
+    providers: [FormControlDirective, AdminService,SectionService,TranslationService],
 
 
 })
@@ -70,6 +71,9 @@ export class EditAdminComponent implements AfterViewInit {
     croppieImage: string;
     showsecondary:number=0;
     sections
+    currentString:any;
+    sendString:any;
+    currentInputTag:any;
 
     public get imageToDisplay() {
         if (this.currentImage) {
@@ -104,7 +108,8 @@ export class EditAdminComponent implements AfterViewInit {
         private adminService: AdminService,
         private http: Http,
         private appProvider: AppProvider,
-        private sectionService:SectionService
+        private sectionService:SectionService,
+        private translationService:TranslationService,
 
     ) {
         this.complexForm = fb.group({
@@ -674,5 +679,81 @@ export class EditAdminComponent implements AfterViewInit {
                     alert(error)
                 })
      }
+    onselectLang(lang){
+         this.appProvider.current.currentLanguage=lang;
+    }
+      onTransliteration(value,tag){
+   this.currentInputTag=tag
+   this.currentString=value
+   let localValue=value.split(' ')
+   let length=localValue.length
+   let stringForSend=localValue[length-1]
+   this.sendString=stringForSend.toString()
+      console.log(stringForSend)
+   // if(length>1) {
+   //    localValue.pop()
+   //  }
+   console.log(localValue)
+   // this.currentString=localValue
+        this.translationService.onGetSuggetiion(stringForSend)
+        .subscribe(data => {     
+            this.appProvider.current.suggestedString=data                    
+                },error=>{
+                  
+                })
+ }
+ selectString(state){
+   this.currentString=this.currentString.toString()
+   let output=this.currentString.replace(this.sendString ,state)
+   if (this.currentInputTag=='firstName1') {
+     this.register.firstName1=output+' '
+   }else if(this.currentInputTag=='lastName1'){
+     this.register.lastName1=output+' '
+   }else if (this.currentInputTag=='firstName2') {
+     this.register.firstName2=output+' '
+   }else if(this.currentInputTag=='lastName2'){
+     this.register.lastName2=output+' '
+   }else if (this.currentInputTag=='firstName3') {
+     this.register.firstName3=output+' '
+   }else if(this.currentInputTag=='lastName3'){
+     this.register.lastName3=output+' '
+   }else if (this.currentInputTag=='firstName4') {
+     this.register.firstName4=output+' '
+   }else if(this.currentInputTag=='lastName4'){
+     this.register.lastName4=output+' '
+   }else if (this.currentInputTag=='firstName5') {
+     this.register.firstName5=output+' '
+   }else if(this.currentInputTag=='lastName5'){
+     this.register.lastName5=output+' '
+   }else if (this.currentInputTag=='firstName6') {
+     this.register.firstName6=output+' '
+   }else if(this.currentInputTag=='lastName6'){
+     this.register.lastName6=output+' '
+   }else if (this.currentInputTag=='firstName7') {
+     this.register.firstName7=output+' '
+   }else if(this.currentInputTag=='lastName7'){
+     this.register.lastName7=output+' '
+   }else if (this.currentInputTag=='firstName8') {
+     this.register.firstName8=output+' '
+   }else if(this.currentInputTag=='lastName8'){
+     this.register.lastName8=output+' '
+   }else if (this.currentInputTag=='firstName9') {
+     this.register.firstName9=output+' '
+   }else if(this.currentInputTag=='lastName9'){
+     this.register.lastName9=output+' '
+   }else if (this.currentInputTag=='firstName10') {
+     this.register.firstName10=output+' '
+   }else if(this.currentInputTag=='lastName10'){
+     this.register.lastName10=output+' '
+   }else if (this.currentInputTag=='firstName11') {
+     this.register.firstName11=output+' '
+   }else if(this.currentInputTag=='lastName11'){
+     this.register.lastName11=output+' '
+   }
+
+ //  this.addSubCategoryRequest.subCategoryName=output+' '
+   this.appProvider.current.suggestedString=[]
+  console.log(output)
+ }
 }
 

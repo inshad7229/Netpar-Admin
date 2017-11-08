@@ -1413,3 +1413,58 @@ table tbody td.width170px{
     width: 220px !important;
   }
 }
+
+.cus-responsive{
+  overflow-x: unset;
+}
+.mat-form-field-infix {
+  padding: 0.4375em 0 0.23em;
+}
+.mat-input-element{
+  height: 22px;
+}
+.mat-select-trigger {
+  line-height: 20px;
+}
+.slide img{
+ width: 100%; 
+}
+
+.iframe-suggestion {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+  float: left;
+  max-height: 170px;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+  width: 100%;
+}
+.iframe-suggestion li {
+  float: left;
+  padding: 5px 10px;
+  width: 100%;
+}
+.iframe-suggestion li:hover {
+  background-color: rgb(238, 238, 238);
+  color: rgb(65, 112, 248);
+}
+.mat-autocomplete-panel .mat-option:hover:not(.mat-option-disabled), .mat-autocomplete-panel .mat-option:focus:not(.mat-option-disabled){
+  color: rgb(65, 112, 248);
+}
+
+.mat-sort-header-button a{
+  color: #f44336;
+}
+
+.mat-sort-header-container {
+  display: block;
+  position: relative;
+}
+.mat-sort-header-button{
+  display: inline-block;
+}
+.mat-sort-header-arrow {
+  position: absolute;
+  right: 0;
+  top: 3px;
+}

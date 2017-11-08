@@ -399,7 +399,7 @@ export class AddContentComponent implements OnInit {
 		 this.audioCount=this.audioCount+1;
 		 console.log(this.audioCount)
         this.listOne.push({tag:"audio",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button'
-        	,width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Audio',aligment:'center', display:'inline-block',count:this.audioCount,downloadable:true})
+        	,width:'75%',url:'./assets/videos/songs.mp3',altTag:'file not found',title:'Title', caption:'Audio',aligment:'center', display:'inline-block',count:this.audioCount,downloadable:true})
 	}
 	addVideo(){
 		this.videoCount=this.videoCount+1;
@@ -411,7 +411,7 @@ export class AddContentComponent implements OnInit {
 		this.documentCount=this.documentCount+1;
 		 console.log(this.documentCount)
 		this.listOne.push({tag:"document",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',
-			width:'110px',url:'./assets/img/JAVA.png',altTag:'file not found',title:'Title', caption:'File',aligment:'center', display:'inline-block',count:this.documentCount,downloadable:true})
+			width:'110px',url:'',altTag:'file not found',title:'Title', caption:'File',aligment:'center', display:'inline-block',count:this.documentCount,downloadable:true})
 	}
 	addGrid(){
 		   this.gridCount=this.gridCount+1;
@@ -2345,8 +2345,12 @@ export class AddContentComponent implements OnInit {
 	  }
   onAudioChange(event: any, right: any) {
         let files = [].slice.call(event.target.files);
-         let tmppath = URL.createObjectURL(event.target.files[0]);
+        let tmppath = URL.createObjectURL(event.target.files[0]);
+       // alert(tmppath)
         this.listOne[this.currentIndex].url=tmppath
+       // this.rightPan.url=tmppath
+        this.ref.load();
+       // this.ref.play();
         this.newUploadFiles=files;
         console.log(this.newUploadFiles[0])
         this.length = this.newUploadFiles.length;
@@ -2365,7 +2369,6 @@ export class AddContentComponent implements OnInit {
             formData.append('file', this.uploadFile);
             // formData.append('tag', right.tag);
             //formData.append('count', right.count);
-            this.listOne[this.currentIndex].url=formData.get('file')
             if (this.audioFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.audioFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.audioFileData[index].file=formData
@@ -2422,7 +2425,7 @@ export class AddContentComponent implements OnInit {
         // };
         // fr.readAsDataURL(file);
         this.ref.load();
-    	this.ref.play();
+    	//this.ref.play();
         let files = [].slice.call(event.target.files);
         this.newUploadFiles=files;
        // console.log(this.newUploadFiles[0])
@@ -2483,6 +2486,8 @@ export class AddContentComponent implements OnInit {
         let files = [].slice.call(event.target.files);
         this.newUploadFiles=files;
         console.log(this.newUploadFiles[0])
+         let tmppath = URL.createObjectURL(event.target.files[0]);
+        this.listOne[this.currentIndex].url=tmppath
         this.length = this.newUploadFiles.length;
 
         this.makeVideoFile(right);
@@ -2992,6 +2997,8 @@ export class AddContentComponent implements OnInit {
      this.addContentRequest.tagline=output+' '
    }else if (this.currentInputTag=='tag') {
      this.addContentRequest.tag=output+' '
+   }else if (this.currentInputTag=='searchUser') {
+     this.searchUser=output+' '
    }else if (this.currentInputTag=='title') {
      this.rightPan.title=output+' '
      this.onTitleChange()

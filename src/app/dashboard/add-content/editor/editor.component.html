@@ -4,12 +4,18 @@
 </div>
 <div class="modal-body">
     <div class="">
-           <ckeditor  
+            <mat-autocomplete #editor="matAutocomplete">
+                <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
+                <span>{{ state }}</span> 
+                </mat-option>
+          </mat-autocomplete> 
+          <div>
+            <ckeditor  
                 [(ngModel)]="ckeditorContent"
                 [config]="ckEditorConfig"
                 [readonly]="false"
                 (change)="onChange($event)"
-                debounce="500">
+                debounce="50" style="height: 40px" >
                <!--  <ckbutton [name]="'saveButton'"
                   [command]="'saveCmd'"
                   (click)="save($event)"
@@ -17,7 +23,17 @@
                   [label]="'Save Document'"
                   [toolbar]="'clipboard,1'">
                 </ckbutton> -->
-        </ckeditor>
+            </ckeditor>
+          </div>
+          <ul class="iframe-suggestion">
+      <!--       <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
+                                                    <span>{{ state }}</span> 
+                                                    </mat-option> -->
+            <li *ngFor="let state of appProvider.current.suggestedString" (click)="selectString(state)">
+                 <span>{{ state }}</span> 
+            </li>
+          </ul>
+          
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
              <button class="btn custom-btn" (click)="save()" [disabled]="showMessage"> Save</button>
            

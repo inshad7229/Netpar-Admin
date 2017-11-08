@@ -175,8 +175,16 @@
                                         </div>  
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="localAdminList">
                                             <mat-form-field>
-                                                <input matInput placeholder="Search user" type="text" name="serchUser"   [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onsearchuser(searchUser)">
+                                                <input matInput placeholder="Search user" type="text" name="searchUser" [matAutocomplete]="searchUserTag"  [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onTransliteration(searchUser,'searchUser')">
+                                                <!-- (input)="onsearchuser(searchUser)" -->
+                                                 <mat-autocomplete #searchUserTag="matAutocomplete">
+                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                    <span>{{ state }}</span> 
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                                <mat-icon matSuffix><i class="material-icons">search</i></mat-icon>
                                             </mat-form-field>
+                                           
                                         </div>
                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="users-panel">
@@ -446,7 +454,8 @@
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody (click)="onText(i,item.text)">
                                                                                 <tr  >
-                                                                                    <td [ngStyle]="{textAlign:item.aligment}">
+                                                                                    <!-- <td [ngStyle]="{textAlign:item.aligment}"> -->
+                                                                                    <td>
                                                                                         <div [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
                                                                                            <!--  <textarea matInput  [(ngModel)]="item.text" [ngModelOptions]="{standalone: true}" >
                                                                                             </textarea> -->

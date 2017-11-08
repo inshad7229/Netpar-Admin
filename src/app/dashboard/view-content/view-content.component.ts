@@ -28,6 +28,7 @@ import {AddContentRequest} from '../../models/content.modal'
 import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
+import { Sort } from '@angular/material';
 
 declare var jquery:any;
 declare var $ :any;
@@ -513,7 +514,38 @@ export class ViewContentComponent implements OnInit {
             this.publishStatus=false;
             this.contentList=this.contentBackup.slice(0)
         }
+
+
+   sortData(sort: Sort) {
+    //  this.contentBackup
+    // this.contentList
+    const data =this.contentBackup.slice();
+    if (!sort.active || sort.direction == '') {
+      this.contentList = data;
       
+      return;
+    }
+
+    this.contentList = data.sort((a, b) => {
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'Kadak': return compare(a.likeCount, b.likeCount, isAsc);
+        case 'share': return compare(a.shareCount, b.shareCount, isAsc);
+        case 'comment': return compare(a.commentCount, b.commentCount, isAsc);
+        case 'save': return compare(a.saveCount, b.saveCount, isAsc);
+        case 'download': return compare(a.downloadCount, b.downloadCount, isAsc);
+        case 'apply': return compare(a.applyCount, b.applyCount, isAsc);
+        case 'call': return compare(a.callCount, b.callCount, isAsc);
+        case 'call_Me_Back': return compare(a.callMeBackCount, b.callMeBackCount, isAsc);
+        case 'interested': return compare(a.imIntrestedCount, b.imIntrestedCount, isAsc);
+        default: return 0;
+      }
+    });
+  }
+      
+}
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
 
 /** Constants used to fill up our data base. */
