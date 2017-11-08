@@ -1115,11 +1115,12 @@ export class AddContentComponent implements OnInit {
   
   onsearchuser(searchUser){
       // alert(searchUser)
-      if (searchUser == '') {
+      let searchData=searchUser.trim()
+      if (searchData == '') {
             this.localAdminList = this.adminList;
             return;
        }
-       let ev= searchUser
+       let ev= searchData
        if (ev && ev.trim() != '') {
         this.localAdminList = this.adminList.filter((value) => {
             return (value.firstName.toUpperCase().indexOf(ev.toUpperCase()) > -1 || value.lastName.toUpperCase().indexOf(ev.toUpperCase()) > -1);
@@ -2969,11 +2970,17 @@ export class AddContentComponent implements OnInit {
     
   }
   onTransliteration(value,tag){
+     if (value==' ') {
+       return 
+     }
     this.currentInputTag=tag
    this.currentString=value
    let localValue=value.split(' ')
    let length=localValue.length
    let stringForSend=localValue[length-1]
+   if (stringForSend=='') {
+       return 
+     }
    this.sendString=stringForSend.toString()
       console.log(stringForSend)
    // if(length>1) {
