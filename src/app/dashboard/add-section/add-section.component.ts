@@ -344,4 +344,17 @@ export class AddSectionComponent implements OnInit {
     this.stringResource.sectionTemplate[j].status="active"
     this.addSectionModel.sectionViewFormat=this.stringResource.sectionTemplate[j].templateName
 }
+onKeyUp(event,a){
+ console.log(a.json())
+  if(event.keyCode==32){
+    this.currentString=this.currentString.toString()
+    let output=this.currentString.replace(this.sendString ,this.appProvider.current.suggestedString[0])
+   this.addSectionModel.sectionName=output.trim()+' '
+
+  }
+
+}
+onSuugestionkeyup(state){
+  alert(state)
+}
 }
