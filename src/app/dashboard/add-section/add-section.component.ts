@@ -36,6 +36,10 @@ export class AddSectionComponent implements OnInit {
     waitLoader: boolean;
     currentString:any;
     sendString:any;
+    selectedValue:any;
+    currentActiveIndex:number;
+    outputStringArrayLength:number;
+    caretPos
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -314,7 +318,10 @@ export class AddSectionComponent implements OnInit {
    }
 
         }
- onTransliteration(value){
+ onTransliteration(value,event){
+   console.log('vvv',event.target)
+   var myEl=event.target
+   this.getCaretPos(event)
    this.currentString=value
    let localValue=value.split(' ')
    let length=localValue.length
@@ -325,7 +332,10 @@ export class AddSectionComponent implements OnInit {
    this.sendString=stringForSend.toString()
     this.translationService.onGetSuggetiion(stringForSend)
         .subscribe(data => {     
-            this.appProvider.current.suggestedString=data                    
+            this.appProvider.current.suggestedString=data
+            this.outputStringArrayLength=this.appProvider.current.suggestedString.length
+            this.currentActiveIndex=-1;
+
                 },error=>{
                   
                 })
@@ -344,17 +354,62 @@ export class AddSectionComponent implements OnInit {
     this.stringResource.sectionTemplate[j].status="active"
     this.addSectionModel.sectionViewFormat=this.stringResource.sectionTemplate[j].templateName
 }
-onKeyUp(event,a){
- console.log(a.json())
+onKeyUp(event){
+  console.log(event.keyCode )
   if(event.keyCode==32){
     this.currentString=this.currentString.toString()
-    let output=this.currentString.replace(this.sendString ,this.appProvider.current.suggestedString[0])
-   this.addSectionModel.sectionName=output.trim()+' '
+    if (this.outputStringArrayLength>0) {
+        if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+         let output=this.currentString.replace(this.sendString ,this.appProvider.current.suggestedString[0])
+        this.addSectionModel.sectionName=output.trim()+' '
+        this.appProvider.current.suggestedString=[]
+        }else{
+         let output=this.currentString.replace(this.sendString ,this.appProvider.current.suggestedString[this.currentActiveIndex])
+        this.addSectionModel.sectionName=output.trim()+' '
+         this.appProvider.current.suggestedString=[]
+        }
+        
+      // code...
+    }
 
+  }else if (this.selectedValue && event.keyCode==13) {
+   this.currentString=this.currentString.toString()
+   if (this.outputStringArrayLength>0) {
+        let output=this.currentString.replace(this.sendString ,this.selectedValue)
+        this.addSectionModel.sectionName=output.trim()+' '
+        this.appProvider.current.suggestedString=[]
+    }
+   console.log(this.addSectionModel.sectionName)
+   //this.appProvider.current.suggestedString=[]
+  }else if (event.keyCode==38) {
+     if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+       this.currentActiveIndex=this.outputStringArrayLength-1
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex-1
+     }
+  }else if (event.keyCode==40) {
+     if (this.currentActiveIndex==this.currentActiveIndex-1) {
+       this.currentActiveIndex=0
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex+1
+     }
   }
 
 }
 onSuugestionkeyup(state){
-  alert(state)
+  this.selectedValue=state
+  // this.currentString=this.currentString.toString()
+  //  let output=this.currentString.replace(this.sendString ,state)
+  //  this.addSectionModel.sectionName=output+' '
+  //  console.log(this.addSectionModel.sectionName)
+  //  this.appProvider.current.suggestedString=[]
 }
+getCaretPos(oField) {
+    if (oField.selectionStart || oField.selectionStart == '0') {
+       this.caretPos = oField.selectionStart;
+       console.log('postion',this.caretPos)
+    }
+  }
+
+
 }
