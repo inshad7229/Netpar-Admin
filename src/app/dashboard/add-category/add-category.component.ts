@@ -364,13 +364,10 @@ onTransliteration(value){
    let localValue=value.split(' ')
    let length=localValue.length
    let stringForSend=localValue[length-1]
+   if(stringForSend=='') {
+       return 
+     }
    this.sendString=stringForSend.toString()
-      console.log(stringForSend)
-   // if(length>1) {
-   //    localValue.pop()
-   //  }
-   console.log(localValue)
-   // this.currentString=localValue
         this.translationService.onGetSuggetiion(stringForSend)
         .subscribe(data => {     
             this.appProvider.current.suggestedString=data                    

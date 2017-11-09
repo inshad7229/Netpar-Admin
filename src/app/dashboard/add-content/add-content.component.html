@@ -1460,7 +1460,6 @@
                                             <button class="btn custom-btn" (click)="listView()" [disabled]="!addContentForm.valid"> Listing View </button>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            {{appProvider.current.loginData.role}}
                                             <button class="btn btn-warning" (click)="saveAsDraft()" [disabled]="!addContentForm.valid"> Save as draft </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser'"  (click)="submitForReview()" [disabled]="!addContentForm.valid"> Submit for review </button>
                                             <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" [disabled]="!addContentForm.valid" (click)="publish('Publish')" > Publish </button>

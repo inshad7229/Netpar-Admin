@@ -28,8 +28,7 @@ export const DEV: Environment = {
 
 
 export const PROD: Environment = {
-    mainApi: 'https://bpmapi.vib.com.vn/esb/api/fsp',
-    analytics: 'UA-23573610-12',
+    mainApi: 'http://52.15.178.19:3001/api/',
     timeout: HTTP_TIMEOUT,
     debug: false,
     bypass: false,

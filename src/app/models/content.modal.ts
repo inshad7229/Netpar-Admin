@@ -35,6 +35,7 @@ export class AddContentRequest {
     endDateOfpublish:string;
     publishLaterStatus:boolean;
     startDateForPublishLater:string;
+    endDateForPublishLater:string;
     endDateForPublish:string;
     sendForRevisionStatus:boolean;
     rejectStatus:boolean;

@@ -205,9 +205,54 @@ export class EditAdminComponent implements AfterViewInit {
             this.register = this.appProvider.current.adminData;
             this.options = this.appProvider.current.adminData.sectionName;
             console.log(JSON.stringify('on get'))
-            console.log(JSON.stringify(this.options))
+            console.log(JSON.stringify(this.register))
             this.currentImage = this.appProvider.current.adminData.image
             this.register.password = window.atob(this.register.plain)
+            let field1='register.language'
+            let field2='register.firstName'
+            let field3='register.lastName'
+            if(this.register.langDetails)
+                for (let i = 0; i <this.register.langDetails.length; i++) {
+                    let obj=this.register.langDetails[i]
+                  if (i==0) {
+                    this.register.language1=obj.language
+                    this.register.firstName1=obj.firstName
+                    this.register.lastName1=obj.firstName
+                  }else if (i==1) {
+                    this.register.language2=obj.language
+                    this.register.firstName2=obj.firstName
+                    this.register.lastName2=obj.firstName
+                  }else if (i==2) {
+                    this.register.language3=obj.language
+                    this.register.firstName3=obj.firstName
+                    this.register.lastName3=obj.firstName
+                  }else if (i==3) {
+                    this.register.language4=obj.language
+                    this.register.firstName4=obj.firstName
+                    this.register.lastName4=obj.firstName
+                  }else if (i==5) {
+                    this.register.language5=obj.language
+                    this.register.firstName5=obj.firstName
+                    this.register.lastName5=obj.firstName
+                  }else if (i==6) {
+                    this.register.language6=obj.language
+                    this.register.firstName6=obj.firstName
+                    this.register.lastName6=obj.firstName
+                  }else if (i==7) {
+                    this.register.language8=obj.language
+                    this.register.firstName8=obj.firstName
+                    this.register.lastName8=obj.firstName
+                  }else if (i==9) {
+                    this.register.language10=obj.language
+                    this.register.firstName10=obj.firstName
+                    this.register.lastName10=obj.firstName
+                  }else if (i==10) {
+                    this.register.language11=obj.language
+                    this.register.firstName11=obj.firstName
+                    this.register.lastName11=obj.firstName
+                  }
+                  this.showsecondary=i+1
+                }
         }
 
         // var options = {
@@ -395,7 +440,7 @@ export class EditAdminComponent implements AfterViewInit {
        // input.value = files.map(f => f.name).join(',');
         this.length = files.length;
 
-        this.convertToBase64();
+      //  this.convertToBase64();
     }
 
 
@@ -406,7 +451,7 @@ export class EditAdminComponent implements AfterViewInit {
         input.value = files.map(f => f.name).join(',');
         this.length = files.length;
 
-        this.convertToBase64();
+       // this.convertToBase64();
     }
 
 

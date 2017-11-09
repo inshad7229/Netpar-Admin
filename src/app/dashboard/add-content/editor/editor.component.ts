@@ -187,13 +187,10 @@ onChange(event){
         stringForSend=String(stringForSend).replace('  ','')
         stringForSend=String(stringForSend).replace('   ','')
         stringForSend=String(stringForSend).replace('    ','')
-   this.sendString=stringForSend.toString()
-      console.log(stringForSend)
-   // if(length>1) {
-   //    localValue.pop()
-   //  }
-   console.log(localValue)
-   // this.currentString=localValue
+    if(stringForSend=='') {
+       return 
+     }
+        this.sendString=stringForSend.toString()
         this.translationService.onGetSuggetiion(stringForSend)
         .subscribe(data => {     
             this.appProvider.current.suggestedString=data                    

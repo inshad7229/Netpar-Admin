@@ -152,6 +152,11 @@ export class AddSectionComponent implements OnInit {
                      this.currentImageThumbnail =data.response[0].thumbnailImage 
                     // this.croppieImageHorigontal =data.response[0].horigontalImage;
                      this.currentImageHorigontal =data.response[0].horigontalImage;   
+                     for (let i=0;i<this.stringResource.sectionTemplate.length;i++) {
+                               if (this.stringResource.sectionTemplate[i].templateName==this.addSectionModel.sectionViewFormat) {
+                                 this.stringResource.sectionTemplate[i].status="active"
+                               }
+                            }
                     }                 
                 },error=>{
                   this.waitLoader = false;
@@ -314,14 +319,11 @@ export class AddSectionComponent implements OnInit {
    let localValue=value.split(' ')
    let length=localValue.length
    let stringForSend=localValue[length-1]
+   if(stringForSend=='') {
+       return 
+     }
    this.sendString=stringForSend.toString()
-      console.log(stringForSend)
-   // if(length>1) {
-   //    localValue.pop()
-   //  }
-   console.log(localValue)
-   // this.currentString=localValue
-        this.translationService.onGetSuggetiion(stringForSend)
+    this.translationService.onGetSuggetiion(stringForSend)
         .subscribe(data => {     
             this.appProvider.current.suggestedString=data                    
                 },error=>{
@@ -335,4 +337,11 @@ export class AddSectionComponent implements OnInit {
    this.appProvider.current.suggestedString=[]
   console.log(output)
  }
+ onClickSecTemp(j){
+    for (let i=0;i<this.stringResource.sectionTemplate.length;i++) {
+        this.stringResource.sectionTemplate[i].status="inactive"
+    }
+    this.stringResource.sectionTemplate[j].status="active"
+    this.addSectionModel.sectionViewFormat=this.stringResource.sectionTemplate[j].templateName
+}
 }

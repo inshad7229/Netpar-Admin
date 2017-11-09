@@ -23,6 +23,7 @@ import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service';
 import {TranslationService} from '../../providers/translation.service'
+import  {ENV,Environment} from '../../env'
 
 import {ENTER} from '@angular/cdk/keycodes';
 import {SPACE} from '@angular/cdk/keycodes';
@@ -227,10 +228,12 @@ export class AddContentComponent implements OnInit {
 				  // other settings
 				});*/
 
- 
-		this.appProvider.current.loginData={
-			role:'sectionAdministrator'
-		}
+ if (ENV.debug==true) {
+       this.appProvider.current.loginData={
+          role:'sectionAdministrator'
+        }
+ }
+
 		this.rightPan={ }
 		this.googleFromatata={ }
 		this.forContent={}
@@ -1116,17 +1119,35 @@ export class AddContentComponent implements OnInit {
   onsearchuser(searchUser){
       // alert(searchUser)
       let searchData=searchUser.trim()
-      if (searchData == '') {
-            this.localAdminList = this.adminList;
-            return;
-       }
-       let ev= searchData
-       if (ev && ev.trim() != '') {
-        this.localAdminList = this.adminList.filter((value) => {
-            return (value.firstName.toUpperCase().indexOf(ev.toUpperCase()) > -1 || value.lastName.toUpperCase().indexOf(ev.toUpperCase()) > -1);
-          
-       })
+      let searchArray=searchData.split(' ')
+      console.log(searchArray)
+      if (searchArray.legth==1) {
+         if (searchData == '') {
+              this.localAdminList = this.adminList;
+              return;
+         }
+         let ev= searchData
+         if (ev && ev.trim() != '') {
+          this.localAdminList = this.adminList.filter((value) => {
+              return (value.firstName.toUpperCase().indexOf(ev.toUpperCase()) > -1 || value.lastName.toUpperCase().indexOf(ev.toUpperCase()) > -1);
+            
+         })
+        }
+      }else{
+           if (searchData == '') {
+              this.localAdminList = this.adminList;
+              return;
+         }
+         let ev  = searchArray[0]
+         let ev2 = searchArray[1]
+         if (ev && ev.trim() != '' || ev2 && ev2.trim() != '') {
+          this.localAdminList = this.adminList.filter((value) => {
+              return (value.firstName.toUpperCase().indexOf(ev.toUpperCase()) > -1 || value.lastName.toUpperCase().indexOf(ev2.toUpperCase()) > -1);
+            
+         })
+        }
       }
+     
      
 
   }
@@ -1176,17 +1197,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -1216,6 +1246,7 @@ export class AddContentComponent implements OnInit {
         });
     }
     listView(): void {
+        let ListViewFormat:any;
     	  this.forContent=this.addContentRequest
            if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
@@ -1224,31 +1255,50 @@ export class AddContentComponent implements OnInit {
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+		if (this.sections.length>0) {
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+            if (localcategory[0].listViewFormat) {
+                 ListViewFormat=localcategory[0].listViewFormat;
+            }else{
+                 ListViewFormat='Not Applicable';
+            }
+         }else{
+                ListViewFormat='Not Applicable';
+         }
+       }else{
+             ListViewFormat='Not Applicable';
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
 		   	this.addContentRequest.userList=this.localAdminList.filter(arg=>arg.check=='active')
 		   }else{
 		   	this.addContentRequest.userList=[];
-		   }
-           this.forContent.callToActionButton=this.callToActionButton;
-           this.forContent.userEngagementButton=this.userEngaButton;
-           this.forContent.suggestedArticleList=this.suggestedArticleList
+		   }    
            this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
            this.addContentRequest.horizontalPicture=this.currentImageHorigontal;
            this.addContentRequest.publishDate=this.addContentRequest.dateOfCreation;
+            this.forContent=this.addContentRequest
+           this.forContent.callToActionButton=this.callToActionButton;
+           this.forContent.userEngagementButton=this.userEngaButton;
+           this.forContent.suggestedArticleList=this.suggestedArticleList
            if (this.googleFromatata.tag=="form") {
              this.forContent.googleForm=true;
              this.forContent.googleFormUrl=this.googleFromatata.url;
@@ -1257,7 +1307,7 @@ export class AddContentComponent implements OnInit {
            }
         let dialogRef = this.dialog.open(ListingViewComponent, {
             width: '400px',
-             data:{forContent:this.forContent}
+             data:{forContent:this.forContent,layout:ListViewFormat}
         });
         dialogRef.afterClosed().subscribe(result => {
       
@@ -1276,15 +1326,24 @@ export class AddContentComponent implements OnInit {
 		   }
 		   if (this.sections.length>0) {
 		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
+          if (localsection.length>0) {
+		        this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
 		   }
 		   if (this.categories.length>0) {
 		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
+         if (localcategory.length>0) {
+           // code...
+		        this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
 		   }
 		  if (this.subCategory.length>0) {
 		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+		     
 		  } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
@@ -1339,18 +1398,27 @@ export class AddContentComponent implements OnInit {
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+		 if (this.sections.length>0) {
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -1429,17 +1497,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -1494,17 +1571,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -1584,17 +1670,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -1610,7 +1705,7 @@ export class AddContentComponent implements OnInit {
            this.addContentRequest.publishStatus=false;
            this.addContentRequest.publishLaterStatus=true;
            this.addContentRequest.startDateForPublishLater=result.startDate;
-           this.addContentRequest.endDateForPublish=result.endDate;
+           this.addContentRequest.endDateForPublishLater=result.endDate;
            this.addContentRequest.sendForRevisionStatus=false;
            this.addContentRequest.rejectStatus=false;
            this.addContentRequest.thumbnailPicture=this.currentImageThumbnail;
@@ -1650,17 +1745,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -1740,17 +1844,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -1805,17 +1918,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 
 		   if (this.localAdminList) {
@@ -1896,17 +2018,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -1961,17 +2092,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -2052,17 +2192,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -2117,17 +2266,26 @@ export class AddContentComponent implements OnInit {
 		   	 }
 		   }
 		   if (this.sections.length>0) {
-		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
-		   this.addContentRequest.sectionName=localsection[0].sectionName;
-		   }
-		   if (this.categories.length>0) {
-		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
-		   this.addContentRequest.categoryName=localcategory[0].categoryName;
-		   }
-		  if (this.subCategory.length>0) {
-		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
-		     this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
-		  }
+          let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
+          if (localsection.length>0) {
+            this.addContentRequest.sectionName=localsection[0].sectionName;
+          }
+       }
+       if (this.categories.length>0) {
+         let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
+         if (localcategory.length>0) {
+           // code...
+            this.addContentRequest.categoryName=localcategory[0].categoryName;
+         }
+       }
+      if (this.subCategory.length>0) {
+         let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
+         if (localsubcategory.length>0) {
+           // code...
+            this.addContentRequest.subCategoryName=localsubcategory[0].subCategoryName;
+         }
+         
+      } 
 		   this.addContentRequest.contentBody=this.listOne;
 		   if (this.localAdminList) {
 		   	// code...
@@ -2982,12 +3140,7 @@ export class AddContentComponent implements OnInit {
        return 
      }
    this.sendString=stringForSend.toString()
-      console.log(stringForSend)
-   // if(length>1) {
-   //    localValue.pop()
-   //  }
-   console.log(localValue)
-   // this.currentString=localValue
+
         this.translationService.onGetSuggetiion(stringForSend)
         .subscribe(data => {     
             this.appProvider.current.suggestedString=data                    
