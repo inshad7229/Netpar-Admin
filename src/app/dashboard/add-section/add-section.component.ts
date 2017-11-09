@@ -321,15 +321,18 @@ export class AddSectionComponent implements OnInit {
  onTransliteration(value,event){
    console.log('vvv',event.target)
    var myEl=event.target
-   this.getCaretPos(event)
+   let post =this.getCaretPos(event)
    this.currentString=value
-   let localValue=value.split(' ')
+   let subValue=value.substring(0, post)
+   console.log(subValue)
+   let localValue=subValue.split(' ')
    let length=localValue.length
    let stringForSend=localValue[length-1]
    if(stringForSend=='') {
        return 
      }
-   this.sendString=stringForSend.toString()
+   else if (/^[a-zA-Z]+$/.test(stringForSend)) {
+    this.sendString=stringForSend.toString()
     this.translationService.onGetSuggetiion(stringForSend)
         .subscribe(data => {     
             this.appProvider.current.suggestedString=data
@@ -338,9 +341,12 @@ export class AddSectionComponent implements OnInit {
 
                 },error=>{
                   
-                })
+     })
+   }
+
  }
  selectString(state){
+
    this.currentString=this.currentString.toString()
    let output=this.currentString.replace(this.sendString ,state)
    this.addSectionModel.sectionName=output+' '
@@ -358,7 +364,7 @@ onKeyUp(event){
   console.log(event.keyCode )
   if(event.keyCode==32){
     this.currentString=this.currentString.toString()
-    if (this.outputStringArrayLength>0) {
+    if (this.appProvider.current.suggestedString.length>0) {
         if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
          let output=this.currentString.replace(this.sendString ,this.appProvider.current.suggestedString[0])
         this.addSectionModel.sectionName=output.trim()+' '
@@ -408,8 +414,12 @@ getCaretPos(oField) {
     if (oField.selectionStart || oField.selectionStart == '0') {
        this.caretPos = oField.selectionStart;
        console.log('postion',this.caretPos)
+       return this.caretPos
     }
   }
+clearSuggstion(){
+  this.appProvider.current.suggestedString=[]
+}
 
 
 }
