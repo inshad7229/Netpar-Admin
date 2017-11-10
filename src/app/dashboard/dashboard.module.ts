@@ -57,6 +57,7 @@ import {ContentViewHomeDialogComponent} from './homepage/content-view-home-dialo
 import {ContentViewPriorityDialogComponent } from './priority/content-view-priority-dialog/content-view-priority-dialog.component';
 import { ListingViewComponent } from './add-content/listing-view/listing-view.component';
 import {EditorComponent } from './add-content/editor/editor.component';
+import { ImageResizerComponent} from './add-content/imageResizer/imageResizer.component';
 import { SimpleTinyComponent } from './tiny/tiny.component';
 import { TrimPipe } from '../pipes/trim/trim.pipe';
 import {TrimDirective  } from '../directives/trim/trim.directive';
@@ -133,12 +134,13 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               SimpleTinyComponent,
               EditorComponent,
               TrimPipe,
-              TrimDirective 
+              TrimDirective,
+              ImageResizerComponent 
 
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
-ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent ],
+ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent ],
 providers:[TrimPipe]
 })
 

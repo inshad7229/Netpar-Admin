@@ -11,6 +11,7 @@ import {DndModule} from 'ng2-dnd';
 import {ColorPickerService} from 'angular4-color-picker';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { EditorComponent } from './editor/editor.component';
+import { ImageResizerComponent } from './imageResizer/imageResizer.component';
 import { SuggestArticleDialogComponent } from './suggest-article-dialog/suggest-article-dialog.component';
 import { ContentViewComponent } from './content-view/content-view.component';
 import { ListingViewComponent } from './listing-view/listing-view.component';
@@ -303,119 +304,119 @@ export class AddContentComponent implements OnInit {
   //   return this.appProvider.current.suggestedString.filter(state =>
   //     state.toLowerCase().indexOf(name.toLowerCase()) === 0);
   // }
-    area() {
-      return this.width * this.height;
-    }
+   //  area() {
+   //    return this.width * this.height;
+   //  }
 
-    onWindowPress(event: MouseEvent) {
-      if (this.currentIndex) {
-      if (this.currentIndex) {
-      this.draggingWindow = true;
-      this.px = event.clientX;
-      this.py = event.clientY;
-     }
-   }
-    }
+   //  onWindowPress(event: MouseEvent) {
+   //    if (this.currentIndex) {
+   //    if (this.currentIndex) {
+   //    this.draggingWindow = true;
+   //    this.px = event.clientX;
+   //    this.py = event.clientY;
+   //   }
+   // }
+   //  }
 
-    onWindowDrag(event: MouseEvent) {
-      if (this.currentIndex) {
-       if (!this.draggingWindow) {
-          return;
-      }
-      let offsetX = event.clientX - this.px;
-      let offsetY = event.clientY - this.py;
+   //  onWindowDrag(event: MouseEvent) {
+   //    if (this.currentIndex) {
+   //     if (!this.draggingWindow) {
+   //        return;
+   //    }
+   //    let offsetX = event.clientX - this.px;
+   //    let offsetY = event.clientY - this.py;
 
-      this.x += offsetX;
-      this.y += offsetY;
-      this.px = event.clientX;
-      this.py = event.clientY;
-    }
-    }
+   //    this.x += offsetX;
+   //    this.y += offsetY;
+   //    this.px = event.clientX;
+   //    this.py = event.clientY;
+   //  }
+   //  }
 
-    topLeftResize(offsetX: number, offsetY: number) {
-      if (this.currentIndex) {
-      this.x += offsetX;
-      this.y += offsetY;
-      this.width -= offsetX;
-      this.height -= offsetY;
-    }
-    }
+   //  topLeftResize(offsetX: number, offsetY: number) {
+   //    if (this.currentIndex) {
+   //    this.x += offsetX;
+   //    this.y += offsetY;
+   //    this.width -= offsetX;
+   //    this.height -= offsetY;
+   //  }
+   //  }
 
-    topRightResize(offsetX: number, offsetY: number) {
-      if (this.currentIndex) {
-      this.y += offsetY;
-      this.width += offsetX;
-      this.height -= offsetY;
-     }
-    }
+   //  topRightResize(offsetX: number, offsetY: number) {
+   //    if (this.currentIndex) {
+   //    this.y += offsetY;
+   //    this.width += offsetX;
+   //    this.height -= offsetY;
+   //   }
+   //  }
 
-    bottomLeftResize(offsetX: number, offsetY: number) {
-      if (this.currentIndex) {
-      this.x += offsetX;
-      this.width -= offsetX;
-      this.height += offsetY;
-    }
-    }
+   //  bottomLeftResize(offsetX: number, offsetY: number) {
+   //    if (this.currentIndex) {
+   //    this.x += offsetX;
+   //    this.width -= offsetX;
+   //    this.height += offsetY;
+   //  }
+   //  }
 
-    bottomRightResize(offsetX: number, offsetY: number) {
-      if (this.currentIndex) {
-      this.width += offsetX;
-      this.height += offsetY;
-    }
-    }
+   //  bottomRightResize(offsetX: number, offsetY: number) {
+   //    if (this.currentIndex) {
+   //    this.width += offsetX;
+   //    this.height += offsetY;
+   //  }
+   //  }
 
-    onCornerClick(event: MouseEvent, resizer?: Function) {
-      console.log(this.currentIndex)
-      if (this.currentIndex) {
-        console.log('onCornerClick');
-        this.draggingCorner = true;
-        this.px = event.clientX;
-        this.py = event.clientY;
-        this.resizer = resizer;
-        event.preventDefault();
-        event.stopPropagation();
-      }
+   //  onCornerClick(event: MouseEvent, resizer?: Function) {
+   //    console.log(this.currentIndex)
+   //    if (this.currentIndex) {
+   //      console.log('onCornerClick');
+   //      this.draggingCorner = true;
+   //      this.px = event.clientX;
+   //      this.py = event.clientY;
+   //      this.resizer = resizer;
+   //      event.preventDefault();
+   //      event.stopPropagation();
+   //    }
      
-    }
+   //  }
 
-    @HostListener('document:mousemove', ['$event'])
-    onCornerMove(event: MouseEvent) {
-      if (this.currentIndex) {
-         console.log('onCornerMove');
-      console.log(this.currentIndex)
-      if (!this.draggingCorner) {
-          return;
-      }
-      let offsetX = event.clientX - this.px;
-      let offsetY = event.clientY - this.py;
+   //  @HostListener('document:mousemove', ['$event'])
+   //  onCornerMove(event: MouseEvent) {
+   //    if (this.currentIndex) {
+   //       console.log('onCornerMove');
+   //    console.log(this.currentIndex)
+   //    if (!this.draggingCorner) {
+   //        return;
+   //    }
+   //    let offsetX = event.clientX - this.px;
+   //    let offsetY = event.clientY - this.py;
 
-      let lastX = this.x;
-      let lastY = this.y;
-      let pWidth = this.width;
-      let pHeight = this.height;
+   //    let lastX = this.x;
+   //    let lastY = this.y;
+   //    let pWidth = this.width;
+   //    let pHeight = this.height;
 
-      this.resizer(offsetX, offsetY);
-      if (this.area() < this.minArea) {
-          this.x = lastX;
-          this.y = lastY;
-          this.width = pWidth;
-          this.height = pHeight;
-      }
-      this.px = event.clientX;
-      this.py = event.clientY;
-      }
+   //    this.resizer(offsetX, offsetY);
+   //    if (this.area() < this.minArea) {
+   //        this.x = lastX;
+   //        this.y = lastY;
+   //        this.width = pWidth;
+   //        this.height = pHeight;
+   //    }
+   //    this.px = event.clientX;
+   //    this.py = event.clientY;
+   //    }
      
-    }
+   //  }
 
-    @HostListener('document:mouseup', ['$event'])
-    onCornerRelease(event: MouseEvent) {
-      if (this.currentIndex) {
-        console.log('onCornerRelease');
-        this.draggingWindow = false;
-        this.draggingCorner = false;
-      }
+   //  @HostListener('document:mouseup', ['$event'])
+   //  onCornerRelease(event: MouseEvent) {
+   //    if (this.currentIndex) {
+   //      console.log('onCornerRelease');
+   //      this.draggingWindow = false;
+   //      this.draggingCorner = false;
+   //    }
      
-    }
+   //  }
 
     /*--end resize*/
 
@@ -2700,7 +2701,19 @@ export class AddContentComponent implements OnInit {
       
         });
 	  }
-
+    onImage(i,item){
+        let dialogRef = this.dialog.open(ImageResizerComponent, {
+            width: '400px',
+            data:{item:item,lang:this.addContentRequest.language}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          //alert(JSON.stringify(result))
+          if (result) {
+             this.listOne[i].text=result.text;
+          }
+      
+        });
+    }
 	  getHtml(value){
         return this.sanitizer.bypassSecurityTrustHtml(value);
 	  }

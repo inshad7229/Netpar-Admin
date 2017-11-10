@@ -512,8 +512,8 @@
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                       <!--  <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" > -->
-                                                                                          <div class="chat-wrap">
+                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" (click)="onImage(i,item)">
+                                                                                         <!--  <div class="chat-wrap">
                                                                                                 <div id='chat' [style.top.px]='y'
                                                                                                    [style.left.px]='x'
                                                                                                    [style.width.px]='width'
@@ -526,7 +526,7 @@
                                                                                                     <div (mousedown)='onCornerClick($event, bottomLeftResize)' id='chat-bottom-left-resize' class='chat-corner-resize'></div>    
                                                                                                     <div (mousedown)='onCornerClick($event, bottomRightResize)' id='chat-bottom-right-resize' class='chat-corner-resize'></div>    
                                                                                                 </div> 
-                                                                                            </div>
+                                                                                            </div> -->
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
