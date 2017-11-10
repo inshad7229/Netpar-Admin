@@ -92,7 +92,7 @@
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Add headline *" type="text" name="headline" id="headline" [matAutocomplete]="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline" (input)="onTransliteration(addContentRequest.headline,'headline')" >
+                                                <input matInput placeholder="Add headline *" type="text" name="headline" id="headline" #headlinInput [matAutocomplete]="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline" (input)="onTransliteration(addContentRequest.headline,headlinInput,'headline')"  (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-error  *ngIf="addContentForm.controls['headline'].hasError('required') && addContentForm.controls['headline'].touched">
                                                 Headline is <strong>required</strong>
                                                 </mat-error>
@@ -103,7 +103,7 @@
                                                 max length is 200
                                                 </mat-error>
                                                 <mat-autocomplete #headline="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -113,7 +113,7 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Add tagline *"  type="text" name="tagline" id="tagline"   [formControl]="addContentForm.controls['tagline']" [(ngModel)]="addContentRequest.tagline"  [matAutocomplete]="tagline" (input)="onTransliteration(addContentRequest.tagline,'tagline')">
+                                                <input matInput placeholder="Add tagline *"  type="text" name="tagline" id="tagline" #taglineInput  [formControl]="addContentForm.controls['tagline']" [(ngModel)]="addContentRequest.tagline"  [matAutocomplete]="tagline" (input)="onTransliteration(addContentRequest.tagline,taglineInput,'tagline')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('required') && addContentForm.controls['tagline'].touched">
                                                 TagLine is <strong>required</strong>
                                                 </mat-error>
@@ -121,7 +121,7 @@
                                                 max length is 100
                                                 </mat-error>
                                                  <mat-autocomplete #tagline="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -131,10 +131,12 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field class="demo-chip-list">
-                                              <input  matInput placeholder="Add tags" type="text" name="tags" id="tags"   [formControl]="addContentForm.controls['tags']" [(ngModel)]="addContentRequest.tag"  [matAutocomplete]="tag" (input)="onTransliteration(addContentRequest.tag,'tag')" (keyup.enter)="onAddTags(addContentRequest.tag)">
+                                              <input  matInput placeholder="Add tags" type="text" name="tags" id="tags" #tagInput  [formControl]="addContentForm.controls['tags']" [(ngModel)]="addContentRequest.tag"  [matAutocomplete]="tag" (input)="onTransliteration(addContentRequest.tag,tagInput,'tag')" (keyup.enter)="onAddTags(addContentRequest.tag)" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                               <mat-autocomplete #tag="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
+                                                   <!--  <small>Population: {{state.population}}</small> -->
                                                     </mat-option>
                                                 </mat-autocomplete>
                                             </mat-form-field>
@@ -175,11 +177,13 @@
                                         </div>  
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="localAdminList">
                                             <mat-form-field>
-                                                <input matInput placeholder="Search user" type="text" name="searchUser" [matAutocomplete]="searchUserTag"  [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onTransliteration(searchUser,'searchUser')">
+                                                <input matInput placeholder="Search user" type="text" name="searchUser" #userInput [matAutocomplete]="searchUserTag"  [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onTransliteration(searchUser,userInput,'searchUser')"  (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <!-- (input)="onsearchuser(searchUser)" -->
                                                  <mat-autocomplete #searchUserTag="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
+                                                   <!--  <small>Population: {{state.population}}</small> -->
                                                     </mat-option>
                                                 </mat-autocomplete>
                                                 <mat-icon matSuffix (click)="onsearchuser(searchUser)"><i class="material-icons">search</i></mat-icon>
@@ -189,9 +193,13 @@
                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="users-panel">
                                                 <div class="users-box" *ngFor="let user of localAdminList;let i=index" (click)="toggleHighlight(i)" [ngClass]="{'active': user.check=='active' }" >
-                                                    <div class="cont-img dp">
+                                                    <div class="cont-img dp" *ngIf="addContentRequest.typeOfUser!='platformUser'">
                                                         <img *ngIf="user.image==' ' || !user.image" src="./assets/img/profile_user.jpg" class="img-responsive" />
                                                         <img *ngIf="user.image" [src]="user.image" class="img-responsive" />
+                                                    </div>
+                                                     <div class="cont-img dp" *ngIf="addContentRequest.typeOfUser=='platformUser'">
+                                                        <img *ngIf="user.userImage==' ' || !user.userImage" src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                        <img *ngIf="user.userImage" [src]="user.userImage" class="img-responsive" />
                                                     </div>
                                                     <div class="dis-inlblk">
                                                         <p>{{user.firstName}}  {{user.lastName}}</p>
@@ -504,12 +512,40 @@
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
+                                                                                       <!--  <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" > -->
+                                                                                          <div class="chat-wrap">
+                                                                                                <div id='chat' [style.top.px]='y'
+                                                                                                   [style.left.px]='x'
+                                                                                                   [style.width.px]='width'
+                                                                                                   [style.height.px]='height'
+                                                                                                   (mousedown)='onWindowPress($event)'
+                                                                                                   (mousemove)='onWindowDrag($event)'>
+                                                                                                    <img [src]="item.url" class="img-responsive" />
+                                                                                                    <div (mousedown)='onCornerClick($event, topLeftResize)' id='chat-top-left-resize' class='chat-corner-resize'></div>
+                                                                                                    <div (mousedown)='onCornerClick($event, topRightResize)' id='chat-top-right-resize' class='chat-corner-resize'></div>
+                                                                                                    <div (mousedown)='onCornerClick($event, bottomLeftResize)' id='chat-bottom-left-resize' class='chat-corner-resize'></div>    
+                                                                                                    <div (mousedown)='onCornerClick($event, bottomRightResize)' id='chat-bottom-right-resize' class='chat-corner-resize'></div>    
+                                                                                                </div> 
+                                                                                            </div>
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
+                                                                        <!-- <div class="chat-wrap">
+                                                                            <div id='chat' [style.top.px]='y'
+                                                                               [style.left.px]='x'
+                                                                               [style.width.px]='width'
+                                                                               [style.height.px]='height'
+                                                                               (mousedown)='onWindowPress($event)'
+                                                                               (mousemove)='onWindowDrag($event)'>
+                                                                                <img src="./assets/img/img-5.jpg" class="img-responsive" />
+                                                                                <div (mousedown)='onCornerClick($event, topLeftResize)' id='chat-top-left-resize' class='chat-corner-resize'></div>
+                                                                                <div (mousedown)='onCornerClick($event, topRightResize)' id='chat-top-right-resize' class='chat-corner-resize'></div>
+                                                                                <div (mousedown)='onCornerClick($event, bottomLeftResize)' id='chat-bottom-left-resize' class='chat-corner-resize'></div>    
+                                                                                <div (mousedown)='onCornerClick($event, bottomRightResize)' id='chat-bottom-right-resize' class='chat-corner-resize'></div>    
+                                                                            </div> 
+                                                                        </div> -->
                                                                         
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='video'">
@@ -736,13 +772,13 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Alt Tag" type="text" name="altTag" id="altTag" [(ngModel)]="rightPan.altTag" [matAutocomplete]="altTag"  (input)="onTransliteration(rightPan.altTag,'altTag')">
+                                                                                <input matInput placeholder="Alt Tag" type="text" name="altTag" id="altTag" #altTagInput [(ngModel)]="rightPan.altTag" [matAutocomplete]="altTag"  (input)="onTransliteration(rightPan.altTag,altTagInput,'altTag')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                                                  <mat-autocomplete #altTag="matAutocomplete">
-                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
-                                                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
-                                                                                    <span>{{ state }}</span> 
-                                                                                   <!--  <small>Population: {{state.population}}</small> -->
-                                                                                    </mat-option>
+                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                    <span>{{ state }}</span> 
+                                                   <!--  <small>Population: {{state.population}}</small> -->
+                                                    </mat-option>
                                                                                 </mat-autocomplete>
                                                                             </mat-form-field>
                                                                         </div>
@@ -759,13 +795,13 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Title" type="text" name="title" id="title" [(ngModel)]="rightPan.title" [matAutocomplete]="title"  (input)="onTransliteration(rightPan.title,'title')">
+                                                                                <input matInput placeholder="Title" type="text" name="title" id="title" #titleInput [(ngModel)]="rightPan.title" [matAutocomplete]="title"  (input)="onTransliteration(rightPan.title,titleInput,'title')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                                                  <mat-autocomplete #title="matAutocomplete">
-                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
-                                                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
-                                                                                    <span>{{ state }}</span> 
-                                                                                   <!--  <small>Population: {{state.population}}</small> -->
-                                                                                    </mat-option>
+                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                    <span>{{ state }}</span> 
+                                                   <!--  <small>Population: {{state.population}}</small> -->
+                                                    </mat-option>
                                                                                 </mat-autocomplete>
                                                                             </mat-form-field>
                                                                         </div>
@@ -787,13 +823,13 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Caption" type="text" name="caption" id="caption" [(ngModel)]="rightPan.caption"  [matAutocomplete]="caption" (input)="onTransliteration(rightPan.caption,'caption')">
+                                                                                <input matInput placeholder="Caption" type="text" name="caption" id="caption" #captionInput [(ngModel)]="rightPan.caption"  [matAutocomplete]="caption" (input)="onTransliteration(rightPan.caption,captionInput,'caption')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                                                  <mat-autocomplete #caption="matAutocomplete">
-                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
-                                                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
-                                                                                    <span>{{ state }}</span> 
-                                                                                   <!--  <small>Population: {{state.population}}</small> -->
-                                                                                    </mat-option>
+                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                                                                      <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                                                        <span>{{ state }}</span> 
+                                                                                       <!--  <small>Population: {{state.population}}</small> -->
+                                                                                        </mat-option>
                                                                                 </mat-autocomplete>
                                                                             </mat-form-field>
                                                                         </div>
@@ -1348,7 +1384,7 @@
                                             <p> Thumbnail Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
-                                                <div class="fileinput-new thumbnail">
+                                                <div class="fileinput-new thumbnail" *ngIf="!croppieImageThumbnail">
                                                     <img alt="..."  [src]="imageToDisplayThumbnail">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists" style="display:none;" >
@@ -1373,7 +1409,7 @@
                                             <p> Horizontal Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
-                                                <div class="fileinput-new thumbnail">
+                                                <div class="fileinput-new thumbnail" *ngIf="!croppieImageHorigontal">
                                                     <img alt="..."  [src]="imageToDisplayHorigontal">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists" style="display:none;">

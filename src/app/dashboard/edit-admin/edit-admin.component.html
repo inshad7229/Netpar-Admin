@@ -155,9 +155,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName1']" [(ngModel)]="register.firstName1" name="firstName1" [matAutocomplete]="firstName1" (input)="onTransliteration(register.firstName1,'firstName1')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput1 [formControl]="complexForm.controls['firstName1']" [(ngModel)]="register.firstName1" name="firstName1" [matAutocomplete]="firstName1" (input)="onTransliteration(register.firstName1,firstNameInput1,'firstName1')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName1="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -167,9 +167,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName1']" [(ngModel)]="register.lastName1" name="lastName1" [matAutocomplete]="lastName1" (input)="onTransliteration(register.lastName1,'lastName1')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput1 [formControl]="complexForm.controls['lastName1']" [(ngModel)]="register.lastName1" name="lastName1" [matAutocomplete]="lastName1" (input)="onTransliteration(register.lastName1,lastNameInput1,'lastName1')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName1="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -199,9 +199,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName2']" [(ngModel)]="register.firstName2" name="firstName2"  [matAutocomplete]="firstName2" (input)="onTransliteration(register.firstName2,'firstName2')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput2 [formControl]="complexForm.controls['firstName2']" [(ngModel)]="register.firstName2" name="firstName2"  [matAutocomplete]="firstName2" (input)="onTransliteration(register.firstName2,firstNameInput2,'firstName2')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName2="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -211,9 +211,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName2']" [(ngModel)]="register.lastName2" name="lastName2" [matAutocomplete]="lastName2" (input)="onTransliteration(register.lastName2,'lastName2')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput2 [formControl]="complexForm.controls['lastName2']" [(ngModel)]="register.lastName2" name="lastName2" [matAutocomplete]="lastName2" (input)="onTransliteration(register.lastName2,lastNameInput2,'lastName2')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName2="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -243,9 +243,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName3']" [(ngModel)]="register.firstName3" name="firstName3" [matAutocomplete]="firstName3" (input)="onTransliteration(register.firstName3,'firstName3')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput3 [formControl]="complexForm.controls['firstName3']" [(ngModel)]="register.firstName3" name="firstName3" [matAutocomplete]="firstName3" (input)="onTransliteration(register.firstName3,firstNameInput3,'firstName3')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName3="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -257,7 +257,7 @@
                                             <mat-form-field>
                                                 <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName3']" [(ngModel)]="register.lastName3" name="lastName3"  [matAutocomplete]="lastName3" (input)="onTransliteration(register.lastName3,'lastName3')">
                                                 <mat-autocomplete #lastName3="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -287,9 +287,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName4']" [(ngModel)]="register.firstName4" name="firstName4" [matAutocomplete]="firstName4" (input)="onTransliteration(register.firstName4,'firstName4')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput4 [formControl]="complexForm.controls['firstName4']" [(ngModel)]="register.firstName4" name="firstName4" [matAutocomplete]="firstName4" (input)="onTransliteration(register.firstName4,firstNameInput4,'firstName4')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName4="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -299,9 +299,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName4']" [(ngModel)]="register.lastName4" name="lastName4" [matAutocomplete]="lastName4" (input)="onTransliteration(register.lastName4,'lastName4')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput4 [formControl]="complexForm.controls['lastName4']" [(ngModel)]="register.lastName4" name="lastName4" [matAutocomplete]="lastName4" (input)="onTransliteration(register.lastName4,lastNameInput4,'lastName4')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName4="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -331,9 +331,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName5']" [(ngModel)]="register.firstName5" name="firstName5" [matAutocomplete]="firstName5" (input)="onTransliteration(register.firstName5,'firstName5')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput5 [formControl]="complexForm.controls['firstName5']" [(ngModel)]="register.firstName5" name="firstName5" [matAutocomplete]="firstName5" (input)="onTransliteration(register.firstName5,firstNameInput5,'firstName5')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName5="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -343,9 +343,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName5']" [(ngModel)]="register.lastName5" name="lastName5" [matAutocomplete]="lastName5" (input)="onTransliteration(register.lastName5,'lastName5')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput5 [formControl]="complexForm.controls['lastName5']" [(ngModel)]="register.lastName5" name="lastName5" [matAutocomplete]="lastName5" (input)="onTransliteration(register.lastName5,lastNameInput5,'lastName5')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName5="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -375,9 +375,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName6']" [(ngModel)]="register.firstName6" name="firstName6"  [matAutocomplete]="firstName6" (input)="onTransliteration(register.firstName6,'firstName6')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput6 [formControl]="complexForm.controls['firstName6']" [(ngModel)]="register.firstName6" name="firstName6"  [matAutocomplete]="firstName6" (input)="onTransliteration(register.firstName6,firstNameInput6,'firstName6')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName6="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -387,9 +387,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName6']" [(ngModel)]="register.lastName6" name="lastName6"  [matAutocomplete]="lastName6" (input)="onTransliteration(register.lastName6,'lastName6')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput6 [formControl]="complexForm.controls['lastName6']" [(ngModel)]="register.lastName6" name="lastName6"  [matAutocomplete]="lastName6" (input)="onTransliteration(register.lastName6,lastNameInput6,'lastName6')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName6="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -419,9 +419,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName7']" [(ngModel)]="register.firstName7" name="firstName7" [matAutocomplete]="firstName7" (input)="onTransliteration(register.firstName7,'firstName7')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput7 [formControl]="complexForm.controls['firstName7']" [(ngModel)]="register.firstName7" name="firstName7" [matAutocomplete]="firstName7" (input)="onTransliteration(register.firstName7,firstNameInput7,'firstName7')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName7="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -431,9 +431,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName7']" [(ngModel)]="register.lastName7" name="lastName7"  [matAutocomplete]="lastName7" (input)="onTransliteration(register.lastName7,'lastName7')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput7 [formControl]="complexForm.controls['lastName7']" [(ngModel)]="register.lastName7" name="lastName7"  [matAutocomplete]="lastName7" (input)="onTransliteration(register.lastName7,lastNameInput7,'lastName7')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName7="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -463,9 +463,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName8']" [(ngModel)]="register.firstName8" name="firstName8" [matAutocomplete]="firstName8" (input)="onTransliteration(register.firstName8,'firstName8')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput8 [formControl]="complexForm.controls['firstName8']" [(ngModel)]="register.firstName8" name="firstName8" [matAutocomplete]="firstName8" (input)="onTransliteration(register.firstName8,firstNameInput8,'firstName8')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName8="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -475,9 +475,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName8']" [(ngModel)]="register.lastName8" name="lastName8" [matAutocomplete]="lastName8" (input)="onTransliteration(register.lastName8,'lastName8')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput8 [formControl]="complexForm.controls['lastName8']" [(ngModel)]="register.lastName8" name="lastName8" [matAutocomplete]="lastName8" (input)="onTransliteration(register.lastName8,lastNameInput8,'lastName8')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName8="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -507,9 +507,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName9']" [(ngModel)]="register.firstName9" name="firstName9"  [matAutocomplete]="firstName9" (input)="onTransliteration(register.firstName9,'firstName9')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput9 [formControl]="complexForm.controls['firstName9']" [(ngModel)]="register.firstName9" name="firstName9"  [matAutocomplete]="firstName9" (input)="onTransliteration(register.firstName9,firstNameInput9,'firstName9')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName9="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -519,9 +519,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName9']" [(ngModel)]="register.lastName9" name="lastName9"  [matAutocomplete]="lastName9" (input)="onTransliteration(register.lastName9,'lastName9')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput9 [formControl]="complexForm.controls['lastName9']" [(ngModel)]="register.lastName9" name="lastName9"  [matAutocomplete]="lastName9" (input)="onTransliteration(register.lastName9,lastNameInput9,'lastName9')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName9="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -551,9 +551,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName10']" [(ngModel)]="register.firstName10" name="firstName10" [matAutocomplete]="firstName10" (input)="onTransliteration(register.firstName10,'firstName10')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput10 [formControl]="complexForm.controls['firstName10']" [(ngModel)]="register.firstName10" name="firstName10" [matAutocomplete]="firstName10" (input)="onTransliteration(register.firstName10,firstNameInput10,'firstName10')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName10="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -563,9 +563,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName10']" [(ngModel)]="register.lastName10" name="lastName10" [matAutocomplete]="lastName10" (input)="onTransliteration(register.lastName10,'lastName10')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput10 [formControl]="complexForm.controls['lastName10']" [(ngModel)]="register.lastName10" name="lastName10" [matAutocomplete]="lastName10" (input)="onTransliteration(register.lastName10,lastNameInput10,'lastName10')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName10="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -595,9 +595,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="First Name" type="text" [formControl]="complexForm.controls['firstName11']" [(ngModel)]="register.firstName11" name="firstName11"  [matAutocomplete]="firstName11" (input)="onTransliteration(register.firstName11,'firstName11')">
+                                                <input matInput placeholder="First Name" type="text" #firstNameInput11 [formControl]="complexForm.controls['firstName11']" [(ngModel)]="register.firstName11" name="firstName11"  [matAutocomplete]="firstName11" (input)="onTransliteration(register.firstName11,firstNameInput11,'firstName11')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #firstName11="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->
@@ -607,9 +607,9 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
-                                                <input matInput placeholder="Last Name" type="text" [formControl]="complexForm.controls['lastName11']" [(ngModel)]="register.lastName11" name="lastName11" [matAutocomplete]="lastName11" (input)="onTransliteration(register.lastName11,'lastName11')">
+                                                <input matInput placeholder="Last Name" type="text" #lastNameInput11 [formControl]="complexForm.controls['lastName11']" [(ngModel)]="register.lastName11" name="lastName11" [matAutocomplete]="lastName11" (input)="onTransliteration(register.lastName11,lastNameInput11,'lastName11')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                 <mat-autocomplete #lastName11="matAutocomplete">
-                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString " [value]="state" (click)="selectString(state)">
+                                                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
                                                   <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
                                                     <span>{{ state }}</span> 
                                                    <!--  <small>Population: {{state.population}}</small> -->

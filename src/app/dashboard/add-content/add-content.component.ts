@@ -46,6 +46,8 @@ declare var  google:any;
 })
 
 export class AddContentComponent implements OnInit {
+
+
 	@ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
 	@ViewChild('fixedBox') fixedBox: ElementRef;
 
@@ -81,6 +83,7 @@ export class AddContentComponent implements OnInit {
 	userEngaButton=[];
 	callToActionButton=[];
 	ref
+  localAdminListData
 	addContentForm: FormGroup;
 	addContentRequest:AddContentRequest=new  AddContentRequest()
 	private color: string = "#FFFFFF";
@@ -129,7 +132,29 @@ export class AddContentComponent implements OnInit {
     gridFileDataLength:number=0;
     currentString:any;
     sendString:any;
+    selectedValue:any;
+    currentActiveIndex:number;
+    outputStringArrayLength:number;
+    caretPos
+    elementRefrence:any;
+    inputStringLength:number
+    outputStringLength:number
     currentInputTag:any;
+
+
+
+    x: number;
+    y: number;
+    px: number;
+    py: number;
+    width: number;
+    height: number;
+    minArea: number;
+    draggingCorner: boolean;
+    draggingWindow: boolean;
+    resizer: Function;
+
+
     stringResource:StringResource=new  StringResource()
     contentId
     public get imageToDisplayHorigontal() {
@@ -227,6 +252,16 @@ export class AddContentComponent implements OnInit {
 				  skin_url: 'assets/skins/lightgray'
 				  // other settings
 				});*/
+      this.x = 0;
+      this.y = 0;
+      this.px = 0;
+      this.py = 0;
+      this.width = 300;
+      this.height = 100; 
+      this.draggingCorner = false;
+      this.draggingWindow = false;
+      this.minArea = 20000
+
 
  if (ENV.debug==true) {
        this.appProvider.current.loginData={
@@ -268,6 +303,122 @@ export class AddContentComponent implements OnInit {
   //   return this.appProvider.current.suggestedString.filter(state =>
   //     state.toLowerCase().indexOf(name.toLowerCase()) === 0);
   // }
+    area() {
+      return this.width * this.height;
+    }
+
+    onWindowPress(event: MouseEvent) {
+      if (this.currentIndex) {
+      if (this.currentIndex) {
+      this.draggingWindow = true;
+      this.px = event.clientX;
+      this.py = event.clientY;
+     }
+   }
+    }
+
+    onWindowDrag(event: MouseEvent) {
+      if (this.currentIndex) {
+       if (!this.draggingWindow) {
+          return;
+      }
+      let offsetX = event.clientX - this.px;
+      let offsetY = event.clientY - this.py;
+
+      this.x += offsetX;
+      this.y += offsetY;
+      this.px = event.clientX;
+      this.py = event.clientY;
+    }
+    }
+
+    topLeftResize(offsetX: number, offsetY: number) {
+      if (this.currentIndex) {
+      this.x += offsetX;
+      this.y += offsetY;
+      this.width -= offsetX;
+      this.height -= offsetY;
+    }
+    }
+
+    topRightResize(offsetX: number, offsetY: number) {
+      if (this.currentIndex) {
+      this.y += offsetY;
+      this.width += offsetX;
+      this.height -= offsetY;
+     }
+    }
+
+    bottomLeftResize(offsetX: number, offsetY: number) {
+      if (this.currentIndex) {
+      this.x += offsetX;
+      this.width -= offsetX;
+      this.height += offsetY;
+    }
+    }
+
+    bottomRightResize(offsetX: number, offsetY: number) {
+      if (this.currentIndex) {
+      this.width += offsetX;
+      this.height += offsetY;
+    }
+    }
+
+    onCornerClick(event: MouseEvent, resizer?: Function) {
+      console.log(this.currentIndex)
+      if (this.currentIndex) {
+        console.log('onCornerClick');
+        this.draggingCorner = true;
+        this.px = event.clientX;
+        this.py = event.clientY;
+        this.resizer = resizer;
+        event.preventDefault();
+        event.stopPropagation();
+      }
+     
+    }
+
+    @HostListener('document:mousemove', ['$event'])
+    onCornerMove(event: MouseEvent) {
+      if (this.currentIndex) {
+         console.log('onCornerMove');
+      console.log(this.currentIndex)
+      if (!this.draggingCorner) {
+          return;
+      }
+      let offsetX = event.clientX - this.px;
+      let offsetY = event.clientY - this.py;
+
+      let lastX = this.x;
+      let lastY = this.y;
+      let pWidth = this.width;
+      let pHeight = this.height;
+
+      this.resizer(offsetX, offsetY);
+      if (this.area() < this.minArea) {
+          this.x = lastX;
+          this.y = lastY;
+          this.width = pWidth;
+          this.height = pHeight;
+      }
+      this.px = event.clientX;
+      this.py = event.clientY;
+      }
+     
+    }
+
+    @HostListener('document:mouseup', ['$event'])
+    onCornerRelease(event: MouseEvent) {
+      if (this.currentIndex) {
+        console.log('onCornerRelease');
+        this.draggingWindow = false;
+        this.draggingCorner = false;
+      }
+     
+    }
+
+    /*--end resize*/
+
 
     ngOnInit() {
     	// tinymce.init({
@@ -381,7 +532,7 @@ export class AddContentComponent implements OnInit {
        
      }
     addText(){
-    	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',title:'Title',aligment:'center', display:'inline-block',text:'Dummy Text'}) 
+    	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'100%',title:'Title',aligment:'center', display:'inline-block',text:'Dummy Text'}) 
     	//  tinymce.init({
 	    //   selector: '#' + this.elementId,
 	    //   plugins: ['link', 'paste', 'table'],
@@ -396,7 +547,24 @@ export class AddContentComponent implements OnInit {
 	    // });
     }
 	addImage(){
-        this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'75%',url:'./assets/img/cover.jpeg',altTag:'file not found',title:'Title', caption:'Image',aligment:'center', display:'inline-block',downloadable:true})
+        this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',
+          top:'10px',bottom:'10px',
+          right:'10px',left:'10px',
+          buttonText:'button',width:'75%',
+          url:'./assets/img/cover.jpeg',
+          altTag:'file not found',title:'Title', 
+          caption:'Image',aligment:'center', 
+          display:'inline-block',
+          downloadable:true,
+          x : 0,
+          y : 0,
+          px : 0,
+          py : 0,
+          widthImg : 300,
+          heightImg : 100, 
+          draggingCorner : false,
+          draggingWindow : false,
+          minArea : 20000})
 	}
 	addAudio(){
 		 this.audioCount=this.audioCount+1;
@@ -1094,14 +1262,36 @@ export class AddContentComponent implements OnInit {
     if (this.subCategoryData && this.subCategoryData.length>0) {
          this.subCategory=this.subCategoryData.filter(arg=>arg.language==lang);;
     }
+    if (this.localAdminList && this.localAdminList.length>0 && this.addContentRequest.typeOfUser!='platformUser') {
+                            for (let i=0;i<this.localAdminList.length;i++) {
+                                let obj=this.localAdminList[i]
+                                if (lang=='English') {
+                                    console.log('langif',lang)
+                                    console.log('langif',this.localAdminListData[i].firstName)
+                                   obj.firstName=this.localAdminListData[i].firstName
+                                   obj.lastName=this.localAdminListData[i].lastName
+                                }else{
+                                  console.log('langelseif',lang)
+                                  if (obj.langDetails ) {
+                                        let resionalLanguageList=obj.langDetails.filter(arg=>arg.language==lang)
+                                        if (resionalLanguageList.length>0) {
+                                          obj.firstName=resionalLanguageList[0].firstName
+                                          obj.lastName=resionalLanguageList[0].lastName
+                                        }
+                                 }
+                                }
+                                
+                            }
+        }
    }
      getUserList(role:any){
      	 this.waitLoader = true;
          this.adminService.onGetUserOnBasisOfROle(role)
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.adminList=data.response
-                        this.localAdminList=data.response;
+                        this.adminList=data.response.slice(0)
+                        this.localAdminList=data.response.slice(0);
+                        this.localAdminListData=data.response.slice(0);
                         if (this.appProvider.current.actionFlag=="editContent") {
                            for (let i=0;i<this.localAdminList.length;i++) {
                            	     if (this.appProvider.current.currentContentData.userList.map(function (img) { return img._id; }).indexOf(this.localAdminList[i]._id)!=-1) {
@@ -1109,6 +1299,18 @@ export class AddContentComponent implements OnInit {
                            	        }   
                                                                           
                                	}
+                        }
+                        if (this.addContentRequest.language && role!='platformUser') {
+                            for (let i=0;i<this.localAdminList.length;i++) {
+                                let obj=this.localAdminList[i]
+                                if (obj.langDetails ) {
+                                        let resionalLanguageList=obj.langDetails.filter(arg=>arg.language==this.addContentRequest.language)
+                                        if (resionalLanguageList.length>0) {
+                                          obj.firstName=resionalLanguageList[0].firstName
+                                          obj.lastName=resionalLanguageList[0].lastName
+                                        }
+                                }
+                            }
                         }
                 },error=>{
                 	 this.waitLoader = false;
@@ -2607,8 +2809,8 @@ export class AddContentComponent implements OnInit {
             //this.uploadFile.newName=
             console.log(this.uploadFile)
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
+            //formData.append('tag', right.tag);
+           // formData.append('count', right.count);
             if (this.videoFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.videoFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.videoFileData[index].file=formData
@@ -2661,8 +2863,8 @@ export class AddContentComponent implements OnInit {
             console.log(this.newUploadFiles[i])
             this.uploadFile = this.newUploadFiles[i];
             formData.append('file', this.uploadFile);
-            formData.append('tag', right.tag);
-            formData.append('count', right.count);
+            //formData.append('tag', right.tag);
+            //formData.append('count', right.count);
             if (this.documentFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.documentFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.documentFileData[index].file=formData
@@ -2674,7 +2876,7 @@ export class AddContentComponent implements OnInit {
     }
     onGridVideoData1Change(event: any, right: any){
 
-            this.listOne[this.currentIndex].imgurl1=null;
+       this.listOne[this.currentIndex].imgurl1=null;
 			this.listOne[this.currentIndex].audiourl1=null;
 			let tmppath = URL.createObjectURL(event.target.files[0]);
 			this.listOne[this.currentIndex].videourl1=tmppath;
@@ -3127,51 +3329,236 @@ export class AddContentComponent implements OnInit {
     	
     
   }
-  onTransliteration(value,tag){
-     if (value==' ') {
-       return 
-     }
-    this.currentInputTag=tag
-   this.currentString=value
-   let localValue=value.split(' ')
-   let length=localValue.length
-   let stringForSend=localValue[length-1]
-   if (stringForSend=='') {
-       return 
-     }
-   this.sendString=stringForSend.toString()
+ //  onTransliteration(value,tag){
+ //     if (value==' ') {
+ //       return 
+ //     }
+ //    this.currentInputTag=tag
+ //   this.currentString=value
+ //   let localValue=value.split(' ')
+ //   let length=localValue.length
+ //   let stringForSend=localValue[length-1]
+ //   if (stringForSend=='') {
+ //       return 
+ //     }
+ //   this.sendString=stringForSend.toString()
 
-        this.translationService.onGetSuggetiion(stringForSend)
-        .subscribe(data => {     
-            this.appProvider.current.suggestedString=data                    
-                },error=>{
+ //        this.translationService.onGetSuggetiion(stringForSend)
+ //        .subscribe(data => {     
+ //            this.appProvider.current.suggestedString=data                    
+ //                },error=>{
                   
-                })
- }
- selectString(state){
-   this.currentString=this.currentString.toString()
-   let output=this.currentString.replace(this.sendString ,state)
-   if ( this.currentInputTag=='headline') {
-     this.addContentRequest.headline=output+' '
-   }else if(this.currentInputTag=='tagline'){
-     this.addContentRequest.tagline=output+' '
-   }else if (this.currentInputTag=='tag') {
-     this.addContentRequest.tag=output+' '
-   }else if (this.currentInputTag=='searchUser') {
-     this.searchUser=output+' '
-   }else if (this.currentInputTag=='title') {
-     this.rightPan.title=output+' '
-     this.onTitleChange()
-   }else if (this.currentInputTag=='altTag') {
-     this.rightPan.altTag=output+' '
-     this.onaltTagChange()
-   }else if (this.currentInputTag=='caption') {
-     this.rightPan.caption=output+' '
-     this.onCaptionChange()
+ //                })
+ // }
+ // selectString(state){
+ //   this.currentString=this.currentString.toString()
+ //   let output=this.currentString.replace(this.sendString ,state)
+ //   if ( this.currentInputTag=='headline') {
+ //     this.addContentRequest.headline=output+' '
+ //   }else if(this.currentInputTag=='tagline'){
+ //     this.addContentRequest.tagline=output+' '
+ //   }else if (this.currentInputTag=='tag') {
+ //     this.addContentRequest.tag=output+' '
+ //   }else if (this.currentInputTag=='searchUser') {
+ //     this.searchUser=output+' '
+ //   }else if (this.currentInputTag=='title') {
+ //     this.rightPan.title=output+' '
+ //     this.onTitleChange()
+ //   }else if (this.currentInputTag=='altTag') {
+ //     this.rightPan.altTag=output+' '
+ //     this.onaltTagChange()
+ //   }else if (this.currentInputTag=='caption') {
+ //     this.rightPan.caption=output+' '
+ //     this.onCaptionChange()
+ //   }
+
+ // //  this.addSubCategoryRequest.subCategoryName=output+' '
+ //   this.appProvider.current.suggestedString=[]
+ //  console.log(output)
+ // }
+
+
+   onTransliteration(value,event,tag){
+   var myEl=event.target
+    this.currentInputTag=tag
+   this.elementRefrence=event
+   let post =this.getCaretPos(event)
+   this.currentString=value
+   let subValue=value.substring(0, post)
+   let localValue=subValue.split(' ')
+   let length=localValue.length
+   let letstring=localValue[length-1]
+   let replcedstring=letstring.match(/[a-zA-Z]+/g);
+   let stringForSend
+   if (replcedstring) {
+     stringForSend=replcedstring[0]
+   }
+   if (!stringForSend) {
+   return 
+   }
+   else if(stringForSend=='') {
+       return 
+     }
+   else if (/^[a-zA-Z]+$/.test(stringForSend)) {
+    this.sendString=stringForSend.toString()
+    this.translationService.onGetSuggetiion(stringForSend)
+        .subscribe(data => {     
+            this.appProvider.current.suggestedString=data
+            this.outputStringArrayLength=this.appProvider.current.suggestedString.length
+            this.currentActiveIndex=-1;
+            this.inputStringLength=this.sendString.length
+           },error=>{
+                  
+     })
    }
 
- //  this.addSubCategoryRequest.subCategoryName=output+' '
-   this.appProvider.current.suggestedString=[]
-  console.log(output)
  }
+
+ selectString(state){
+   this.currentString=this.currentString.toString()
+   this.outputStringLength=state.length
+   let replaceWith=state+' '
+   let output=this.currentString.replace(this.sendString ,replaceWith)
+   if ( this.currentInputTag=='headline') {
+     this.addContentRequest.headline=output
+   }else if(this.currentInputTag=='tagline'){
+     this.addContentRequest.tagline=output
+   }else if (this.currentInputTag=='tag') {
+     this.addContentRequest.tag=output
+   }else if (this.currentInputTag=='searchUser') {
+     this.searchUser=output
+   }else if (this.currentInputTag=='title') {
+     this.rightPan.title=output
+     this.onTitleChange()
+   }else if (this.currentInputTag=='altTag') {
+     this.rightPan.altTag=output
+     this.onaltTagChange()
+   }else if (this.currentInputTag=='caption') {
+     this.rightPan.caption=output
+     this.onCaptionChange()
+   }
+   //this.addCategoryRequest.categoryName=output
+   let sumIndex=(this.caretPos+this.outputStringLength)-this.inputStringLength
+   this.appProvider.current.suggestedString=[]
+ }
+onKeyUp(event){
+  console.log(event.keyCode )
+  if(event.keyCode==32){
+    this.currentString=this.currentString.toString()
+    if (this.appProvider.current.suggestedString.length>0) {
+        if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+         let replaceWith=this.appProvider.current.suggestedString[0]
+         let output=this.currentString.replace(this.sendString ,replaceWith)
+             if ( this.currentInputTag=='headline') {
+               this.addContentRequest.headline=output
+             }else if(this.currentInputTag=='tagline'){
+               this.addContentRequest.tagline=output
+             }else if (this.currentInputTag=='tag') {
+               this.addContentRequest.tag=output
+             }else if (this.currentInputTag=='searchUser') {
+               this.searchUser=output
+             }else if (this.currentInputTag=='title') {
+               this.rightPan.title=output
+               this.onTitleChange()
+             }else if (this.currentInputTag=='altTag') {
+               this.rightPan.altTag=output
+               this.onaltTagChange()
+             }else if (this.currentInputTag=='caption') {
+               this.rightPan.caption=output
+               this.onCaptionChange()
+             }
+        //this.addCategoryRequest.categoryName=output
+        this.appProvider.current.suggestedString=[]
+        }else{
+         let replaceWith=this.appProvider.current.suggestedString[this.currentActiveIndex]
+         let output=this.currentString.replace(this.sendString ,replaceWith)
+         if ( this.currentInputTag=='headline') {
+           this.addContentRequest.headline=output
+         }else if(this.currentInputTag=='tagline'){
+           this.addContentRequest.tagline=output
+         }else if (this.currentInputTag=='tag') {
+           this.addContentRequest.tag=output
+         }else if (this.currentInputTag=='searchUser') {
+           this.searchUser=output
+         }else if (this.currentInputTag=='title') {
+           this.rightPan.title=output
+           this.onTitleChange()
+         }else if (this.currentInputTag=='altTag') {
+           this.rightPan.altTag=output
+           this.onaltTagChange()
+         }else if (this.currentInputTag=='caption') {
+           this.rightPan.caption=output
+           this.onCaptionChange()
+         }
+        //this.addCategoryRequest.categoryName=output
+         this.appProvider.current.suggestedString=[]
+        }
+    }
+
+  }else if (this.selectedValue && event.keyCode==13) {
+   this.currentString=this.currentString.toString()
+   if (this.outputStringArrayLength>0) {
+        let replaceWith=this.selectedValue+' '
+        let output=this.currentString.replace(this.sendString ,replaceWith)
+        if ( this.currentInputTag=='headline') {
+           this.addContentRequest.headline=output
+         }else if(this.currentInputTag=='tagline'){
+           this.addContentRequest.tagline=output
+         }else if (this.currentInputTag=='tag') {
+           this.addContentRequest.tag=output
+         }else if (this.currentInputTag=='searchUser') {
+           this.searchUser=output
+         }else if (this.currentInputTag=='title') {
+           this.rightPan.title=output
+           this.onTitleChange()
+         }else if (this.currentInputTag=='altTag') {
+           this.rightPan.altTag=output
+           this.onaltTagChange()
+         }else if (this.currentInputTag=='caption') {
+           this.rightPan.caption=output
+           this.onCaptionChange()
+         }
+        //this.addCategoryRequest.categoryName=output
+        this.appProvider.current.suggestedString=[]
+    }
+  }else if (event.keyCode==38) {
+     if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+       this.currentActiveIndex=this.outputStringArrayLength-1
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex-1
+     }
+  }else if (event.keyCode==40) {
+     if (this.currentActiveIndex==this.currentActiveIndex-1) {
+       this.currentActiveIndex=0
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex+1
+     }
+  }
+
+}
+onSuugestionkeyup(state){
+  this.selectedValue=state
+}
+getCaretPos(oField) {
+    if (oField.selectionStart || oField.selectionStart == '0') {
+       this.caretPos = oField.selectionStart;
+       return this.caretPos
+    }
+  }
+clearSuggstion(){
+  this.appProvider.current.suggestedString=[]
+}
+
+setSelectionRangeCustome(input, selectionStart, selectionEnd) {
+    if (input.setSelectionRange) {
+      input.focus();
+      input.setSelectionRange(selectionStart, selectionEnd);
+    } else if (input.createTextRange) {
+      var range = input.createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', selectionEnd);
+      range.moveStart('character', selectionStart);
+      range.select();
+    }
+  }
 }

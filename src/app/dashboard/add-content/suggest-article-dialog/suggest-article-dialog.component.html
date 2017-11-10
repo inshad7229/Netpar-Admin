@@ -40,8 +40,16 @@
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="suggestedArticalList">
         <mat-form-field>
-        	<mat-icon matSuffix>mode_edit</mat-icon>
-            <input matInput placeholder="Search name of content item" type="text" [(ngModel)]="filter" (input)="onsearcArticle(filter)">
+        	<!-- //<mat-icon matSuffix>mode_edit</mat-icon> -->
+            <input matInput placeholder="Search name of content item" type="text" [(ngModel)]="filter" #filterNameInput [matAutocomplete]="filterName" (input)="onTransliteration(filter,filterNameInput)" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
+            <mat-icon matSuffix (click)="onsearcArticle(filter)"><i class="material-icons">search</i></mat-icon>
+            <mat-autocomplete #filterName="matAutocomplete">
+                                                <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                              <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                <span>{{ state }}</span> 
+                                               <!--  <small>Population: {{state.population}}</small> -->
+                                                </mat-option>
+          </mat-autocomplete> 
         </mat-form-field>
     </div>
 

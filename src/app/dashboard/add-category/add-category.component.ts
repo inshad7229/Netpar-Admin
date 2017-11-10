@@ -37,6 +37,13 @@ export class AddCategoryComponent implements OnInit {
     sectionsData
     currentString:any;
     sendString:any;
+    selectedValue:any;
+    currentActiveIndex:number;
+    outputStringArrayLength:number;
+    caretPos
+    elementRefrence:any;
+    inputStringLength:number
+    outputStringLength:number
     addCategoryRequest:AddCategoryRequest=new AddCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -359,27 +366,137 @@ onClickListTemp(j){
     this.stringResource.listingTemplate[j].status="active"
     this.addCategoryRequest.listViewFormat=this.stringResource.listingTemplate[j].templateName
 }
-onTransliteration(value){
+// onTransliteration(value){
+//    this.currentString=value
+//    let localValue=value.split(' ')
+//    let length=localValue.length
+//    let stringForSend=localValue[length-1]
+//    if(stringForSend=='') {
+//        return 
+//      }
+//    this.sendString=stringForSend.toString()
+//         this.translationService.onGetSuggetiion(stringForSend)
+//         .subscribe(data => {     
+//             this.appProvider.current.suggestedString=data                    
+//                 },error=>{
+                  
+//                 })
+//  }
+//  selectString(state){
+//    this.currentString=this.currentString.toString()
+//    let output=this.currentString.replace(this.sendString ,state)
+//    this.addCategoryRequest.categoryName=output+' '
+//    this.appProvider.current.suggestedString=[]
+//   console.log(output)
+//  }
+  onTransliteration(value,event){
+   var myEl=event.target
+   this.elementRefrence=event
+   let post =this.getCaretPos(event)
    this.currentString=value
-   let localValue=value.split(' ')
+   let subValue=value.substring(0, post)
+   let localValue=subValue.split(' ')
    let length=localValue.length
-   let stringForSend=localValue[length-1]
-   if(stringForSend=='') {
+   let letstring=localValue[length-1]
+   let replcedstring=letstring.match(/[a-zA-Z]+/g);
+   let stringForSend
+   if (replcedstring) {
+     stringForSend=replcedstring[0]
+   }
+   if (!stringForSend) {
+   return 
+   }
+   else if(stringForSend=='') {
        return 
      }
-   this.sendString=stringForSend.toString()
-        this.translationService.onGetSuggetiion(stringForSend)
+   else if (/^[a-zA-Z]+$/.test(stringForSend)) {
+    this.sendString=stringForSend.toString()
+    this.translationService.onGetSuggetiion(stringForSend)
         .subscribe(data => {     
-            this.appProvider.current.suggestedString=data                    
-                },error=>{
+            this.appProvider.current.suggestedString=data
+            this.outputStringArrayLength=this.appProvider.current.suggestedString.length
+            this.currentActiveIndex=-1;
+            this.inputStringLength=this.sendString.length
+           },error=>{
                   
-                })
+     })
+   }
+
  }
+
  selectString(state){
    this.currentString=this.currentString.toString()
-   let output=this.currentString.replace(this.sendString ,state)
-   this.addCategoryRequest.categoryName=output+' '
+   this.outputStringLength=state.length
+   let replaceWith=state+' '
+   let output=this.currentString.replace(this.sendString ,replaceWith)
+   this.addCategoryRequest.categoryName=output
+   let sumIndex=(this.caretPos+this.outputStringLength)-this.inputStringLength
    this.appProvider.current.suggestedString=[]
-  console.log(output)
  }
+onKeyUp(event){
+  console.log(event.keyCode )
+  if(event.keyCode==32){
+    this.currentString=this.currentString.toString()
+    if (this.appProvider.current.suggestedString.length>0) {
+        if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+         let replaceWith=this.appProvider.current.suggestedString[0]
+         let output=this.currentString.replace(this.sendString ,replaceWith)
+        this.addCategoryRequest.categoryName=output
+        this.appProvider.current.suggestedString=[]
+        }else{
+         let replaceWith=this.appProvider.current.suggestedString[this.currentActiveIndex]
+         let output=this.currentString.replace(this.sendString ,replaceWith)
+        this.addCategoryRequest.categoryName=output
+         this.appProvider.current.suggestedString=[]
+        }
+    }
+
+  }else if (this.selectedValue && event.keyCode==13) {
+   this.currentString=this.currentString.toString()
+   if (this.outputStringArrayLength>0) {
+        let replaceWith=this.selectedValue+' '
+        let output=this.currentString.replace(this.sendString ,replaceWith)
+        this.addCategoryRequest.categoryName=output
+        this.appProvider.current.suggestedString=[]
+    }
+  }else if (event.keyCode==38) {
+     if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+       this.currentActiveIndex=this.outputStringArrayLength-1
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex-1
+     }
+  }else if (event.keyCode==40) {
+     if (this.currentActiveIndex==this.currentActiveIndex-1) {
+       this.currentActiveIndex=0
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex+1
+     }
+  }
+
+}
+onSuugestionkeyup(state){
+  this.selectedValue=state
+}
+getCaretPos(oField) {
+    if (oField.selectionStart || oField.selectionStart == '0') {
+       this.caretPos = oField.selectionStart;
+       return this.caretPos
+    }
+  }
+clearSuggstion(){
+  this.appProvider.current.suggestedString=[]
+}
+
+setSelectionRangeCustome(input, selectionStart, selectionEnd) {
+    if (input.setSelectionRange) {
+      input.focus();
+      input.setSelectionRange(selectionStart, selectionEnd);
+    } else if (input.createTextRange) {
+      var range = input.createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', selectionEnd);
+      range.moveStart('character', selectionStart);
+      range.select();
+    }
+  }
 }

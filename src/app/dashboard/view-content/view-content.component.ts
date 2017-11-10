@@ -61,27 +61,32 @@ export class ViewContentComponent implements OnInit {
     status=[
       {
         _id:"saveAsDraftStatus",
-        value:"Draft"
+        value:"Draft",
+        check:false
 
       },
       {
         _id:"rejectStatus",
-        value:"Rejected"
+        value:"Rejected",
+        check:false
 
       },
       {
         _id:"sendForRevisionStatus",
-        value:"Revision"
+        value:"Revision",
+        check:false
 
       },
       {
         _id:"publishLaterStatus",
-        value:"Scheduled"
+        value:"Scheduled",
+        check:false
 
       },
       {
         _id:"publishStatus",
-        value:"Published"
+        value:"Published",
+        check:false
 
       }
     ]
@@ -513,6 +518,21 @@ export class ViewContentComponent implements OnInit {
             this.publishLaterStatus=false;
             this.publishStatus=false;
             this.contentList=this.contentBackup.slice(0)
+            for (let i=0;i<this.stringResource.language.length;i++) {
+               this.stringResource.language[i].check=false
+            }
+            for (let i=0;i<this.sections.length;i++) {
+               this.sections[i].check=false
+            }
+            for (let i=0;i<this.categories.length;i++) {
+               this.categories[i].check=false
+            }
+            for (let i=0;i<this.subCategory.length;i++) {
+               this.subCategory[i].check=false
+            }
+            for (let i=0;i<this.status.length;i++) {
+               this.status[i].check=false
+            }
         }
 
 
@@ -538,6 +558,7 @@ export class ViewContentComponent implements OnInit {
         case 'call': return compare(a.callCount, b.callCount, isAsc);
         case 'call_Me_Back': return compare(a.callMeBackCount, b.callMeBackCount, isAsc);
         case 'interested': return compare(a.imIntrestedCount, b.imIntrestedCount, isAsc);
+        case 'pageview': return compare(a.pageView, b.pageView, isAsc);
         default: return 0;
       }
     });
