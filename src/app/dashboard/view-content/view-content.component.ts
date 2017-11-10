@@ -58,6 +58,7 @@ export class ViewContentComponent implements OnInit {
     sortListToHomePage=[];
     sortListToCategoryPage=[];
     editContent=[];
+    selectedId=[]
     status=[
       {
         _id:"saveAsDraftStatus",
@@ -535,7 +536,25 @@ export class ViewContentComponent implements OnInit {
             }
         }
 
+onselectSate(state){
+  alert(state)
 
+}
+onselectLang(language){
+
+}
+onCheckBox(_id){
+ // alert(_id)
+      if (this.selectedId.indexOf(_id)==-1) {
+           this.selectedId.push(_id)
+       }else{
+         let index=this.selectedId.indexOf(_id)
+         console.log(index)
+         let a=this.selectedId.splice(index,1)
+       }
+  //this.selectedId.push(_id)
+
+}
    sortData(sort: Sort) {
     //  this.contentBackup
     // this.contentList
