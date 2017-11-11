@@ -54,6 +54,7 @@ export class ViewContentComponent implements OnInit {
     filterCategory=[]
     filterSubcategory=[]
     filterLanguage=[];
+    filterLanguageSingle;
     filterStatus=[]
     sortListToHomePage=[];
     sortListToCategoryPage=[];
@@ -92,8 +93,11 @@ export class ViewContentComponent implements OnInit {
       }
     ]
     contentBackup:any;
+    contentListBackup:any;
+    contentAfterState:any;
     filterData:any;
     filterRequest:any;
+    selectedSate:any;
     showFilterPan:boolean=false;
     filterLanguageFilterPan:any;
     filterSectionFilterPan:any;
@@ -157,6 +161,7 @@ export class ViewContentComponent implements OnInit {
                         this.waitLoader = false;
                         this.contentBackup=data.response;
                         this.contentList=data.response
+                        this.contentListBackup=this.contentList.slice(0);        
                         // this.localAdminList=data.response;
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -441,6 +446,7 @@ export class ViewContentComponent implements OnInit {
                         else if (data.success == true) {
                           this.waitLoader =false;
                            this.contentList=data.response;
+                           this.contentListBackup=this.contentList.slice(0);
                            this.filterLanguageFilterPan=this.filterLanguage.slice(0);
                            this.filterSectionFilterPan=this.filterSection.slice(0);
                            this.filterCategoryFilterPan=this.filterCategory.slice(0);
@@ -508,6 +514,33 @@ export class ViewContentComponent implements OnInit {
             this.contentList=this.contentList.filter(arg=>arg.publishStatus!=status)
             this.publishStatus=false;
         }
+        onClearSingleFilter(filterLanguageSingle){
+          this.filterLanguageSingle=null
+          this.filterValue.language=null
+          if (this.contentAfterState && this.contentAfterState.length>0) {
+             this.contentList=this.contentAfterState.slice(0)
+            // code...
+          }else{
+             this.contentList=this.contentListBackup.slice(0)
+          }
+        }
+        onClearStateFilter(state){
+          if (this.selectedSate.length>0) {
+                 if (this.contentAfterState && this.contentAfterState.length>0) {
+                     this.contentList=this.contentListBackup.filter(arg=>arg.applicableStateLists.indexOf(state)==-1)
+                  }else{
+                    this.contentList=this.contentList.filter(arg=>arg.applicableStateLists.indexOf(state)==-1)
+                 }
+                let index=this.selectedSate.indexOf(state)
+                let a=this.selectedSate.splice(index,1)
+                // let index2=this.filterValue.state.indexOf(state)
+                // let b=this.filterValue.state.splice(index2,1)
+                //this.filterValue.state=this.filterValue.state.toString()
+          }else{
+               this.contentList=this.contentListBackup
+          }
+         
+        }
         clearAll(){
             this.filterLanguageFilterPan=[]
             this.filterSectionFilterPan=[]
@@ -518,6 +551,10 @@ export class ViewContentComponent implements OnInit {
             this.sendForRevisionStatus=false;
             this.publishLaterStatus=false;
             this.publishStatus=false;
+            this.filterLanguageSingle=null
+            this.selectedSate=null
+            this.filterValue.state=null
+            this.filterValue.language=null
             this.contentList=this.contentBackup.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
@@ -537,11 +574,42 @@ export class ViewContentComponent implements OnInit {
         }
 
 onselectSate(state){
-  alert(state)
+ // alert(state)
+  let filterData=[]
+  this.selectedSate=state;
+  console.log(state)
+  if (state.length>0) {
+      for (let i =0 ;i<state.length;i++) {
+         filterData.push(this.contentListBackup.filter(arg=>arg.applicableStateLists.indexOf(state[i])!=-1))
+       }
+       this.contentList=filterData[0]
+       this.contentAfterState=this.contentList.slice(0)
+   }else{
+      this.contentList=this.contentListBackup
+      this.contentAfterState=this.contentList.slice(0)
+   }
+   if (this.filterValue.language) {
+       this.contentList=this.contentList.filter(arg=>arg.language==this.filterValue.language)
+   }
 
 }
 onselectLang(language){
-
+  let filterData=[]
+ if (this.filterValue.state && this.filterValue.state.length>0) {
+      for (let i =0 ;i<this.filterValue.state.length;i++) {
+         filterData.push(this.contentListBackup.filter(arg=>arg.applicableStateLists.indexOf(this.filterValue.state[i])!=-1))
+       }
+       this.contentList=filterData[0]
+       this.contentAfterState=this.contentList.slice(0)
+   }else{
+      this.contentList=this.contentListBackup
+       this.contentAfterState=this.contentList.slice(0)
+   }
+   if (this.filterValue.language) {
+       this.contentList=this.contentList.filter(arg=>arg.language==this.filterValue.language)
+   }
+  this.filterLanguageSingle=language;
+ // this.contentList=this.contentListBackup.filter(arg=>arg.language==language)
 }
 onCheckBox(_id){
  // alert(_id)
@@ -724,6 +792,12 @@ export class ContentConfirmation {
           }
           if(this.data.flag=='delete'){
           this.msg='Delete'
+          }
+          if (this.data.flag=='removefromHomepage') {
+            this.msg='Remove from shortlist from Homepage'
+          }
+          if (this.data.flag=='removefromCategory') {
+            this.msg='Remove from shortlist from CategoryPage'
           }
        }
 

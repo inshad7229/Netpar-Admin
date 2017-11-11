@@ -1,31 +1,33 @@
 <div class="modal-header">
 
-	<h4 class="modal-title">Select date and time</h4>
+    <h4 class="modal-title">Select date and time</h4>
 </div>
 <div class="modal-body">
     <div class="">
-    	<div class="form-group col-md-12 col-sm-12 col-xs-12">
-        	<!-- <mat-form-field>
-			  	<input matInput [matDatepicker]="picker" placeholder="Start Date">
-			  	<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-			  	<mat-datepicker #picker></mat-datepicker>
-			</mat-form-field> -->
-			<div>Start Date</div>
-			<owl-date-time [(ngModel)]="moment" ></owl-date-time>
-		</div>
-		<div class="form-group col-md-12 col-sm-12 col-xs-12">
-        	<!-- <mat-form-field>
-			  	<input matInput [matDatepicker]="picker1" placeholder="End Date">
-			  	<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-			  	<mat-datepicker #picker1></mat-datepicker>
-			</mat-form-field> -->
-			<div>End Date</div>
-			<owl-date-time [(ngModel)]="moment" ></owl-date-time>
-		</div>
-		<div class="form-group col-md-12 col-sm-12 col-xs-12">
-        	<!-- <timeselector [class]="'form-control'" [config]="{'format' :'hh:mm A','iconCls':'time-icon'}" [(ngModel)]="startTime" ></timeselector> -->
-		</div>
-			
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <div>Start Date</div>
+            <owl-date-time [(ngModel)]="date.start" (onBlur)="checkStartDate()" (onFocus)="checkStartDate()"></owl-date-time>
+           <!--  <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Start Date" [(ngModel)]="date.start" (dateChange)="checkStartDate()">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field> -->
+        </div>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <div>End Date</div>
+            <owl-date-time [(ngModel)]="date.end" (onBlur)="checkEndDate()"  (onFocus)="checkEndDate()"></owl-date-time>
+           <!--  <mat-form-field>
+                <input matInput [matDatepicker]="picker1" placeholder="End Date" [(ngModel)]="date.end" (dateChange)="checkEndDate()">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field> -->
+        </div>
+        <p *ngIf="showMessage">{{message}}</p>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+             <button class="btn custom-btn" (click)="submit()" [disabled]="showMessage"> Submit </button>
+        </div>
+
+        
 
     </div>
 </div>

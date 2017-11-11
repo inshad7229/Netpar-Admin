@@ -29,7 +29,11 @@
 	                                <li  *ngIf="sendForRevisionStatus"> Revision <span (click)="onClearRevisionFilter(sendForRevisionStatus)"> <i class="fa fa-times"></i> </span> </li>
                                     <li  *ngIf="publishLaterStatus"> Scheduled <span (click)="onClearScheduledFilter(publishLaterStatus)"> <i class="fa fa-times"></i> </span> </li>
                                     <li  *ngIf="publishStatus"> Published <span (click)="onClearPublishedFilter(publishStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="filterLanguageSingle"> {{filterLanguageSingle}}<span (click)="onClearSingleFilter(filterLanguageSingle)"> <i class="fa fa-times"></i> </span> </li>
 	                            </ul>
+                                <ul class="slctd-fltrli" type="none" *ngIf="selectedSate && selectedSate.length>0">
+                                    <li *ngFor="let state of selectedSate" > {{state}} <span (click)="onClearStateFilter(state)"> <i class="fa fa-times"></i> </span> </li>
+                                </ul>
                           	</div>
                         </div>
                         <div class="card" > 

@@ -155,7 +155,9 @@ export class AddContentComponent implements OnInit {
     draggingWindow: boolean;
     resizer: Function;
 
-
+    ///for call and user button active index////
+    currentCallActiveIndex
+    currenUserActiveIndex
     stringResource:StringResource=new  StringResource()
     contentId
     public get imageToDisplayHorigontal() {
@@ -597,6 +599,29 @@ export class AddContentComponent implements OnInit {
 
 	})
 	}
+    addUserEngBtn(){
+       this.listOne.push({tag:"userEngBtn",top:null,bottom:null,right:null,left:null,aligment:'center',title:'User Engagement',caption:'File',activeIndex:null,
+       btn1:null,
+       btn2:null,
+       btn3:null,
+       btn4:null,
+       btn5:null,
+      count:this.gridCount,
+      downloadable:true
+
+  })
+  }
+  addCallToActBtn(){
+       this.listOne.push({tag:"CallToActBtn",top:null,bottom:null,right:null,left:null,aligment:'center',title:'Call to action',caption:'File',activeIndex:null,
+       btn1:null,
+       btn2:null,
+       btn3:null,
+       btn4:null,
+       count:this.gridCount,
+       downloadable:true
+
+  })
+  }
 	addForm(){
 		this.googleFromatata.tag="form"; 
 		// this.googleFromatata.url=null;
@@ -659,6 +684,173 @@ export class AddContentComponent implements OnInit {
          this.userEngaButton.push({tag:'button',title:"Download",status:true})
       }
 	}
+
+OnFirstCall(i){
+  //alert(this.currentIndex)
+  this.currentIndex=i;
+  this.currentCallActiveIndex=1
+ console.log('currentIndex',this.currentIndex)
+ console.log('call index',this.currentCallActiveIndex)
+}
+OnSecondCall(i){
+  this.currentIndex=i;
+  this.currentCallActiveIndex=2
+   console.log('currentIndex',this.currentIndex)
+ console.log('call index',this.currentCallActiveIndex)
+}
+OnThirdCall(i){
+   this.currentIndex=i;
+   this.currentCallActiveIndex=3
+    console.log('currentIndex',this.currentIndex)
+ console.log('call index',this.currentCallActiveIndex)
+}
+OnFourthCall(i){
+  this.currentIndex=i;
+   this.currentCallActiveIndex=4
+    console.log('currentIndex',this.currentIndex)
+ console.log('call index',this.currentCallActiveIndex)
+}
+OnFirstUser(i){
+
+  this.currentIndex=i;
+  this.currenUserActiveIndex=1
+ console.log('currentIndex',this.currentIndex)
+ console.log('user index',this.currenUserActiveIndex)
+}
+OnSecondtUser(i){
+  this.currentIndex=i;
+  this.currenUserActiveIndex=2
+   console.log('currentIndex',this.currentIndex)
+ console.log('user index',this.currenUserActiveIndex)
+}
+OnThirdtUser(i){
+  this.currentIndex=i;
+  this.currenUserActiveIndex=3
+   console.log('currentIndex',this.currentIndex)
+ console.log('user index',this.currenUserActiveIndex)
+}
+OnFourUser(i){
+  this.currentIndex=i;
+  this.currenUserActiveIndex=4
+   console.log('currentIndex',this.currentIndex)
+ console.log('user index',this.currenUserActiveIndex)
+}
+OnFiveUser(i){
+  this.currentIndex=i;
+  this.currenUserActiveIndex=5
+   console.log('currentIndex',this.currentIndex)
+ console.log('user index',this.currenUserActiveIndex)
+}
+addApplyRight(Apply){
+  if (this.currentCallActiveIndex==1) {
+      this.listOne[this.currentIndex].btn1=Apply
+  }else if(this.currentCallActiveIndex==2){
+      this.listOne[this.currentIndex].btn2=Apply
+  }else if(this.currentCallActiveIndex==3){
+      this.listOne[this.currentIndex].btn3=Apply
+  }else if(this.currentCallActiveIndex==4){
+      this.listOne[this.currentIndex].btn4=Apply
+  }
+}
+addCallRight(Call){
+  if (this.currentCallActiveIndex==1) {
+      this.listOne[this.currentIndex].btn1=Call
+  }else if(this.currentCallActiveIndex==2){
+      this.listOne[this.currentIndex].btn2=Call
+  }else if(this.currentCallActiveIndex==3){
+      this.listOne[this.currentIndex].btn3=Call
+  }else if(this.currentCallActiveIndex==4){
+      this.listOne[this.currentIndex].btn4=Call
+  }
+}
+addCallMeRight(callmeback){
+  if (this.currentCallActiveIndex==1) {
+      this.listOne[this.currentIndex].btn1=callmeback
+  }else if(this.currentCallActiveIndex==2){
+      this.listOne[this.currentIndex].btn2=callmeback
+  }else if(this.currentCallActiveIndex==3){
+      this.listOne[this.currentIndex].btn3=callmeback
+  }else if(this.currentCallActiveIndex==4){
+      this.listOne[this.currentIndex].btn4=callmeback
+  }
+}
+addIntrestedRight(ImInterested){
+  if (this.currentCallActiveIndex==1) {
+      this.listOne[this.currentIndex].btn1=ImInterested
+  }else if(this.currentCallActiveIndex==2){
+      this.listOne[this.currentIndex].btn2=ImInterested
+  }else if(this.currentCallActiveIndex==3){
+      this.listOne[this.currentIndex].btn3=ImInterested
+  }else if(this.currentCallActiveIndex==4){
+      this.listOne[this.currentIndex].btn4=ImInterested
+  }
+}
+addlikeRight(Kadak){
+  alert(Kadak)
+  if (this.currenUserActiveIndex==1) {
+      this.listOne[this.currentIndex].btn1=Kadak
+  }else if(this.currenUserActiveIndex==2){
+      this.listOne[this.currentIndex].btn2=Kadak
+  }else if(this.currenUserActiveIndex==3){
+      this.listOne[this.currentIndex].btn3=Kadak
+  }else if(this.currenUserActiveIndex==4){
+      this.listOne[this.currentIndex].btn4=Kadak
+  }else if(this.currenUserActiveIndex==5){
+      this.listOne[this.currentIndex].btn5=Kadak
+  }
+}
+addshareRight(Share){
+ if (this.currenUserActiveIndex==1) {
+      this.listOne[this.currentIndex].btn1=Share
+  }else if(this.currenUserActiveIndex==2){
+      this.listOne[this.currentIndex].btn2=Share
+  }else if(this.currenUserActiveIndex==3){
+      this.listOne[this.currentIndex].btn3=Share
+  }else if(this.currenUserActiveIndex==4){
+      this.listOne[this.currentIndex].btn4=Share
+  }else if(this.currenUserActiveIndex==5){
+      this.listOne[this.currentIndex].btn5=Share
+  }
+}
+addcommentRight(Commentt){
+  if (this.currenUserActiveIndex==1) {
+      this.listOne[this.currentIndex].btn1=Commentt
+  }else if(this.currenUserActiveIndex==2){
+      this.listOne[this.currentIndex].btn2=Commentt
+  }else if(this.currenUserActiveIndex==3){
+      this.listOne[this.currentIndex].btn3=Commentt
+  }else if(this.currenUserActiveIndex==4){
+      this.listOne[this.currentIndex].btn4=Commentt
+  }else if(this.currenUserActiveIndex==5){
+      this.listOne[this.currentIndex].btn5=Commentt
+  }
+}
+addsaveRight(Save){
+   if (this.currenUserActiveIndex==1) {
+      this.listOne[this.currentIndex].btn1=Save
+  }else if(this.currenUserActiveIndex==2){
+      this.listOne[this.currentIndex].btn2=Save
+  }else if(this.currenUserActiveIndex==3){
+      this.listOne[this.currentIndex].btn3=Save
+  }else if(this.currenUserActiveIndex==4){
+      this.listOne[this.currentIndex].btn4=Save
+  }else if(this.currenUserActiveIndex==5){
+      this.listOne[this.currentIndex].btn5=Save
+  }
+}
+addownloadRight(Download){
+  if (this.currenUserActiveIndex==1) {
+      this.listOne[this.currentIndex].btn1=Download
+  }else if(this.currenUserActiveIndex==2){
+      this.listOne[this.currentIndex].btn2=Download
+  }else if(this.currenUserActiveIndex==3){
+      this.listOne[this.currentIndex].btn3=Download
+  }else if(this.currenUserActiveIndex==4){
+      this.listOne[this.currentIndex].btn4=Download
+  }else if(this.currenUserActiveIndex==5){
+      this.listOne[this.currentIndex].btn5=Download
+  }
+}
 	onClickOnDragItem(index,item,ref?){
       //alert(index)
       this.showRightpan=true;
@@ -2707,9 +2899,18 @@ export class AddContentComponent implements OnInit {
             data:{item:item,lang:this.addContentRequest.language}
         });
         dialogRef.afterClosed().subscribe(result => {
-          //alert(JSON.stringify(result))
+         // alert(JSON.stringify(result))
           if (result) {
-             this.listOne[i].text=result.text;
+          this.listOne[i].x = result.x
+          this.listOne[i].y = result.y
+          this.listOne[i].px = result.px
+          this.listOne[i].py = result.py
+          this.listOne[i].widthImg = result.width
+          this.listOne[i].heightImg = result.height 
+          this.listOne[i].draggingCorner = result.draggingCorner
+          this.listOne[i].draggingWindow = result.draggingWindow
+          this.listOne[i].minArea=result.minArea
+            // this.listOne[i].text=result.text;
           }
       
         });

@@ -34,9 +34,9 @@
                                 <h4 class="card-title">Category Priority Management</h4>
                                 <div class="row">
                                     <div class="col-md-8 col-sm-7 col-xs-12">
-                                        <a class="btn btn-round btn-mat btn-disabled btn-warning" (click)="openDialog()">Prioritise of homepage</a>
-                                        <a class="btn btn-round btn-mat btn-disabled btn-success" (click)="openDialog()">Prioritise of category</a>
-                                        <a class="btn btn-round btn-mat btn-disabled btn-danger">Remove from shortlist</a>
+                                        <button class="btn btn-round btn-mat btn-disabled btn-warning" (click)="openDialog('forhomepage')" [disabled]="selectedId.length==0">Prioritise of homepage</button>
+                                        <button class="btn btn-round btn-mat btn-disabled btn-success" (click)="openDialog('forcategorypage')" [disabled]="selectedId.length==0">Prioritise of category</button>
+                                        <button class="btn btn-round btn-mat btn-disabled btn-danger" [disabled]="selectedId.length==0" (click)="onEditMultipal('removefromCategory')">Remove from shortlist</button>
                                     </div>
                                     <div class="col-md-4 col-sm-5 col-xs-12">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -143,7 +143,7 @@
                                             <tbody>
                                                  <tr *ngFor="let content of contentList">
                                                     <td class="vertical-top">
-                                                        <mat-checkbox [(ngModel)]="content.editcheck"></mat-checkbox>
+                                                        <mat-checkbox [(ngModel)]="content.editcheck" (change)="onCheckBox(content._id)"></mat-checkbox>
                                                     </td>
                                                     <td class="td-wdth282 text-left">
                                                         <div class="cont-img">

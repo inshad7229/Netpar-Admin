@@ -332,7 +332,16 @@
                                                                     <i class="material-icons">view_array</i>
                                                                     <span>Media Grid</span>
                                                                 </li>
-                                                                <li data-type="apply" (click)="addApply('Apply')">
+                                                                <li data-type="apply" (click)="addUserEngBtn()">
+                                                                    <i class="material-icons">people</i>
+                                                                    <span>User Engagement</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addCallToActBtn()">
+                                                                    <i class="material-icons">settings</i>
+                                                                    <span>Call to action</span>
+                                                                </li>
+
+                                                            <!--     <li data-type="apply" (click)="addApply('Apply')">
                                                                     <i class="icon-check"></i>
                                                                     <span>Apply</span>
                                                                 </li>
@@ -367,7 +376,7 @@
                                                                 <li data-type="apply" (click)="addownload('Download')">
                                                                     <i class="icon-donload"></i>
                                                                     <span>Download</span>
-                                                                </li>
+                                                                </li> -->
                                                                 <li data-type="apply" (click)="addForm()">
                                                                     <i class="width-17 material-icons">assignments</i>
                                                                     <span>Form</span>
@@ -388,6 +397,9 @@
                                                     <div position-relative>
                                                         <div class="builder">
                                                             <div class="email-container list-group" dnd-sortable-container [sortableData]="listOne">
+                                                               
+
+
                                                                <div *ngFor="let item of listOne; let i = index" class="list-group-item"  (mousedown)="itemDragged(i)" (onDropSuccess)="itemSwapped(i)">
                                                                     <div class="builder-element" *ngIf="item.tag=='grid'">
                                                                         <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
@@ -445,6 +457,7 @@
                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                         
                                                                     </div>
+
                                                                     <div class="builder-element" *ngIf="item.tag=='button'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody>
@@ -512,8 +525,10 @@
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" (click)="onImage(i,item)">
-                                                                                         <!--  <div class="chat-wrap">
+                                                                                        <img [src]="item.url" [ngStyle]="{width:item.widthImg+'px',
+                                                                                          height:item.heightImg+'px',
+                                                                                          display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" (click)="onImage(i,item)">
+                                                                                        <!--  <div class="chat-wrap">
                                                                                                 <div id='chat' [style.top.px]='y'
                                                                                                    [style.left.px]='x'
                                                                                                    [style.width.px]='width'
@@ -526,7 +541,7 @@
                                                                                                     <div (mousedown)='onCornerClick($event, bottomLeftResize)' id='chat-bottom-left-resize' class='chat-corner-resize'></div>    
                                                                                                     <div (mousedown)='onCornerClick($event, bottomRightResize)' id='chat-bottom-right-resize' class='chat-corner-resize'></div>    
                                                                                                 </div> 
-                                                                                            </div> -->
+                                                                                        </div> -->
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
@@ -596,6 +611,89 @@
                                                                         
                                                                     </div>
 
+
+                                                                   <div class="builder-element" *ngIf="item.tag=='CallToActBtn'" (click)="onClickOnDragItem(i,item)">
+                                                                        <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr >
+                                                                                    <td style="width: 25%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFirstCall(i)">
+                                                                                        <i *ngIf="item.btn1=='ImInterested'" class="icon-click"></i>
+                                                                                        <i *ngIf="item.btn1=='Call'" class="icon-call"></i>
+                                                                                        <i *ngIf="item.btn1=='Apply'" class="icon-check"></i>
+                                                                                        <i *ngIf="item.btn1=='callmeback'" class="icon-callme"></i>
+                                                                                    </td>
+                                                                                    <td style="width: 25%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnSecondCall(i)">
+                                                                                        <i *ngIf="item.btn2=='ImInterested'" class="icon-click"></i>
+                                                                                        <i *ngIf="item.btn2=='Call'" class="icon-call"></i>
+                                                                                        <i *ngIf="item.btn2=='Apply'" class="icon-check"></i>
+                                                                                        <i *ngIf="item.btn2=='callmeback'" class="icon-callme"></i>
+                                                                                    </td>
+                                                                                    <td style="width: 25%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnThirdCall(i)">
+                                                                                        <i *ngIf="item.btn3=='ImInterested'" class="icon-click"></i>
+                                                                                        <i *ngIf="item.btn3=='Call'" class="icon-call"></i>
+                                                                                        <i *ngIf="item.btn3=='Apply'" class="icon-check"></i>
+                                                                                        <i *ngIf="item.btn3=='callmeback'" class="icon-callme"></i>
+                                                                                    </td>
+                                                                                    <td style="width: 25%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFourthCall(i)">
+                                                                                        <i *ngIf="item.btn4=='ImInterested'" class="icon-click"></i>
+                                                                                        <i *ngIf="item.btn4=='Call'" class="icon-call"></i>
+                                                                                        <i *ngIf="item.btn4=='Apply'" class="icon-check"></i>
+                                                                                        <i *ngIf="item.btn4=='callmeback'" class="icon-callme"></i>
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+
+                                                                    <div class="builder-element" *ngIf="item.tag=='userEngBtn'" (click)="onClickOnDragItem(i,item)">
+                                                                        <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr >
+                                                                                    <td style="width: 20%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFirstUser(i)">
+                                                                                        <i *ngIf="item.btn1=='Kadak'" class="icon-okay"></i>
+                                                                                        <i *ngIf="item.btn1=='Share'" class="fa fa-share-alt"></i>
+                                                                                        <i *ngIf="item.btn1=='Comment'" class="icon-msg"></i>
+                                                                                        <i *ngIf="item.btn1=='Save'" class="icon-badge"></i>
+                                                                                        <i *ngIf="item.btn1=='Download'" class="icon-donload"></i>
+                                                                                    </td>
+                                                                                    <td style="width: 20%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnSecondtUser(i)">
+                                                                                         <i *ngIf="item.btn2=='Kadak'" class="icon-okay"></i>
+                                                                                        <i *ngIf="item.btn2=='Share'" class="fa fa-share-alt"></i>
+                                                                                        <i *ngIf="item.btn2=='Comment'" class="icon-msg"></i>
+                                                                                        <i *ngIf="item.btn2=='Save'" class="icon-badge"></i>
+                                                                                        <i *ngIf="item.btn2=='Download'" class="icon-donload"></i>
+                                                                                    </td>
+                                                                                    <td style="width: 20%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnThirdtUser(i)">
+                                                                                         <i *ngIf="item.btn3=='Kadak'" class="icon-okay"></i>
+                                                                                        <i *ngIf="item.btn3=='Share'" class="fa fa-share-alt"></i>
+                                                                                        <i *ngIf="item.btn3=='Comment'" class="icon-msg"></i>
+                                                                                        <i *ngIf="item.btn3=='Save'" class="icon-badge"></i>
+                                                                                        <i *ngIf="item.btn3=='Download'" class="icon-donload"></i>
+                                                                                    </td>
+                                                                                    <td style="width: 20%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFourUser(i)">
+                                                                                         <i *ngIf="item.btn4=='Kadak'" class="icon-okay"></i>
+                                                                                        <i *ngIf="item.btn4=='Share'" class="fa fa-share-alt"></i>
+                                                                                        <i *ngIf="item.btn4=='Comment'" class="icon-msg"></i>
+                                                                                        <i *ngIf="item.btn4=='Save'" class="icon-badge"></i>
+                                                                                        <i *ngIf="item.btn4=='Download'" class="icon-donload"></i>
+                                                                                    </td>
+                                                                                    <td style="width: 20%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFiveUser(i)">
+                                                                                         <i *ngIf="item.btn5=='Kadak'" class="icon-okay"></i>
+                                                                                        <i *ngIf="item.btn5=='Share'" class="fa fa-share-alt"></i>
+                                                                                        <i *ngIf="item.btn5=='Comment'" class="icon-msg"></i>
+                                                                                        <i *ngIf="item.btn5=='Save'" class="icon-badge"></i>
+                                                                                        <i *ngIf="item.btn5=='Download'" class="icon-donload"></i>
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
                                                                     <!-- <div class="builder-element" *ngIf="item.tag=='form'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody>
@@ -624,7 +722,8 @@
                                                     <div class="mat-card" >
                                                         <div class="mat-card-content">
                                                             <form action="#" *ngIf="showRightpan">
-                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag!='grid'">
+                                                                {{rightPan.tag}}
+                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag!='grid' && rightPan.tag!='userEngBtn' && rightPan.tag!='CallToActBtn' ">
 
                                                                     <div class="block-properties">
                                                                         <div class="mat-btn-group mat-btn-group-justify">
@@ -637,7 +736,7 @@
 
                                                                 <div class="email-builder-element-edit-field">
 
-                                                                    <div class="block-properties" *ngIf="rightPan.tag!='grid'">
+                                                                    <div class="block-properties" *ngIf="rightPan.tag!='grid' && rightPan.tag!='userEngBtn' && rightPan.tag!='CallToActBtn' ">
                                                                         <h3>Padding</h3>
                                                                         <div class="form-row padding-inputs">
                                                                             <mat-form-field>
@@ -661,7 +760,7 @@
                                                                 </div>
 
 
-                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag!='grid'">
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag!='grid' && rightPan.tag!='userEngBtn' && rightPan.tag!='CallToActBtn' ">
 
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
@@ -798,10 +897,10 @@
                                                                                 <input matInput placeholder="Title" type="text" name="title" id="title" #titleInput [(ngModel)]="rightPan.title" [matAutocomplete]="title"  (input)="onTransliteration(rightPan.title,titleInput,'title')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                                                  <mat-autocomplete #title="matAutocomplete">
                                                                                     <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
-                                                  <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
-                                                    <span>{{ state }}</span> 
-                                                   <!--  <small>Population: {{state.population}}</small> -->
-                                                    </mat-option>
+                                                                                      <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                                                        <span>{{ state }}</span> 
+                                                                                       <!--  <small>Population: {{state.population}}</small> -->
+                                                                                        </mat-option>
                                                                                 </mat-autocomplete>
                                                                             </mat-form-field>
                                                                         </div>
@@ -1124,26 +1223,63 @@
                                                                     </div>
 
                                                                 </div>
-                                                            <div *ngIf="callToActionButton.length>0">
+                                                            <div *ngIf="rightPan.tag=='CallToActBtn'">
+                                                                
                                                                 <div class="block-properties">
                                                                     <div class="">
                                                                         <p>Call to Action Buttons</p>
-                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let callbtn of callToActionButton;let i=index" (click)="removeCallButton(i)">
-                                                                        <i class="{{getClass(callbtn.title)}}"></i>
-                                                                            {{callbtn.title}} 
-                                                                        <span class="badge" > <i class="fa fa-times"></i> </span></button>
+                                                                        <ul class="ul-element">
+                                                                            <li data-type="apply" (click)="addApplyRight('Apply')">
+                                                                                <i class="icon-check"></i>
+                                                                                <span>Apply</span>
+                                                                            </li>
+                                                                            <li data-type="apply" (click)="addCallRight('Call')">
+                                                                                <i class="icon-call"></i>
+                                                                                <span>Call</span>
+                                                                            </li>
+                                                                            <li data-type="apply" (click)="addCallMeRight('callmeback')">
+                                                                                <i class="icon-callme"></i>
+                                                                                <span>Call me back</span>
+                                                                            </li>
+                                                                            <li data-type="apply" (click)="addIntrestedRight('ImInterested')">
+                                                                                <i class="icon-click"></i>
+                                                                                <span>I'm Interested</span>
+                                                                            </li>
+                                                                        </ul>
                                                                             
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div *ngIf="userEngaButton.length>0">
+                                                            <div *ngIf="rightPan.tag=='userEngBtn'">
+                                                                
+                                                               
+
                                                                 <div class="block-properties">
                                                                     <div class="">
                                                                         <p>User Engagement Buttons</p>
-                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let userbtn of userEngaButton; let i=index" (click)="removeUerButton(i)">
-                                                                        <i class="{{getClass(userbtn.title)}}"></i>
-                                                                            {{userbtn.title}}
-                                                                        <span class="badge" > <i class="fa fa-times"  ></i> </span></button>
+                                                                        <ul class="ul-element">
+                                                                            <li data-type="apply" (click)="addlikeRight('Kadak')">
+                                                                            <i class="icon-okay"></i>
+                                                                                <span>Kadak</span>
+                                                                            </li>
+                                                                            <li data-type="apply" (click)="addshareRight('Share')">
+                                                                                <i class="fa fa-share-alt"></i>
+                                                                                <span>Share</span>
+                                                                            </li>
+                                                                            <li data-type="apply" (click)="addcommentRight('Comment')">
+                                                                                <i class="icon-msg"></i>
+                                                                                <span>Comment</span>
+                                                                            </li>
+                                                                            <li data-type="apply" (click)="addsaveRight('Save')">
+                                                                                <i class="icon-badge"></i>
+                                                                                <span>Save</span>
+                                                                            </li>
+                                                                            <li data-type="apply" (click)="addownloadRight('Download')">
+                                                                                <i class="icon-donload"></i>
+                                                                                <span>Download</span>
+                                                                            </li>
+
+                                                                        </ul>
                                                                         
                                                                     </div>
                                                                 </div>

@@ -175,4 +175,18 @@ export class ImageResizerComponent implements OnInit {
    this.appProvider.current.suggestedString=[]
   console.log(output)
  }
+ save(){
+    let a={
+        x:this.x,
+        y:this.y,
+        px:this.px,
+        py:this.py,
+        width:this.width,
+        height:this.height,
+        draggingCorner:this.draggingCorner,
+        draggingWindow:this.draggingWindow,
+        minArea:this.minArea
+    }
+    this.dialogRef.close(a)
+ }
 }

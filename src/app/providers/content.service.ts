@@ -128,4 +128,43 @@ export class ContentService {
             return error;
         });
     }
+
+    onPriorityHomepage(data): Observable <any> {
+        let api = ENV.mainApi + "setArticlePriority";
+        // let a={
+        //     _id:id
+        // }
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({
+            headers: headers
+        });
+        return this.http.put(api, JSON.stringify(data), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
+    onPriorityOnCategorypage(data): Observable <any> {
+        let api = ENV.mainApi + "setCategoryArticlePriority"
+        // let a={
+        //     _id:id
+        // }
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({
+            headers: headers
+        });
+        return this.http.put(api, JSON.stringify(data), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
 }
