@@ -786,7 +786,7 @@ addIntrestedRight(ImInterested){
   }
 }
 addlikeRight(Kadak){
-  alert(Kadak)
+  //alert(Kadak)
   if (this.currenUserActiveIndex==1) {
       this.listOne[this.currentIndex].btn1=Kadak
   }else if(this.currenUserActiveIndex==2){

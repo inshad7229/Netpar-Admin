@@ -30,9 +30,11 @@
 			<a class="text-orange" ><span class="span-icns"> <i class="icon-donload"></i></span> Download </a> 
 		</li>
 	</ul>
-	<div class="inner-card dashed-brd" *ngFor="let content of forContent.contentBody">
-		<div class="form-group col-md-12 col-sm-12 col-xs-12 p-0" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor}">
-			<img [src]="content.url" class="img-responsive rad-shad" />
+	<div class="inner-card " *ngFor="let content of forContent.contentBody">
+		<div class="form-group" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor,extAlign:content.aligment}">
+			<img [src]="content.url" class="img-responsive rad-shad" [ngStyle]="{width:content.widthImg+'px',
+                                                                                          height:content.heightImg+'px',
+                                                                                          display: content.display,paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" />
 		</div>
 		<div [ngStyle]="{background:content.backgroundColor}" *ngIf="content.tag=='text'">
 			<div class="text-light" [innerHTML]="getHtml(content.text)" ></div>
@@ -45,7 +47,8 @@
     	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.tag=='video'">
 	        <source [src]="content.url" type="video/mp4">
 	    </video>
-        <div style="text-align: center;" *ngIf="content.tag=='document'" document><img width="50%" style="display: inline-block;" src="./assets/img/JAVA.png"></div>
+        <div style="text-align: center;" *ngIf="content.tag=='document'" document>
+        	<img width="50%" style="display: inline-block;" src="./assets/img/JAVA.png"></div>
 	    <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" *ngIf="content.tag=='grid'">
             <tbody>
                 <tr style="text-align: center;">
@@ -87,6 +90,69 @@
                 </tr>
             </tbody>
         </table>
+          <ul class="like-bar no-brd" *ngIf="content.tag=='userEngBtn'">
+        	<li class="{{getClass1(content)}}">
+				<a *ngIf="content.btn1=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn1=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn1=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn1=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn1=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+			</li>
+			<li class="{{getClass2(content)}}">
+				<a *ngIf="content.btn2=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn2=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn2=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn2=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn2=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+			</li>
+			<li class="{{getClass3(content)}}">
+				<a *ngIf="content.btn3=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn3=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn3=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn3=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn3=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+			</li>
+			<li class="{{getClass4(content)}}">
+				<a *ngIf="content.btn4=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn4=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn4=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn4=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn4=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a> 
+			</li>
+			<li class="{{getClass5(content)}}">
+				<a *ngIf="content.btn5=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn5=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn5=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn5=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn5=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+			</li>
+		</ul>
+		<ul class="like-bar no-brd" *ngIf="content.tag=='CallToActBtn'">
+        	<li class="{{getClass6(content)}}">
+				<a *ngIf="content.btn1=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+				<a *ngIf="content.btn1=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+				<a *ngIf="content.btn1=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+				<a *ngIf="content.btn1=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a> 
+			</li>
+			<li class="{{getClass7(content)}}">
+				<a *ngIf="content.btn2=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+				<a *ngIf="content.btn2=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+				<a *ngIf="content.btn2=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+				<a *ngIf="content.btn2=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a>
+			</li>
+			<li class="{{getClass8(content)}}">
+				<a *ngIf="content.btn3=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+				<a *ngIf="content.btn3=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+				<a *ngIf="content.btn3=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+				<a *ngIf="content.btn3=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a> 
+			</li>
+			<li class="{{getClass9(content)}}">
+				<a *ngIf="content.btn4=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+				<a *ngIf="content.btn4=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+				<a *ngIf="content.btn4=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+				<a *ngIf="content.btn4=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a>
+			</li>
+		</ul>
 
 	</div>
     <div *ngIf="forContent.googleForm==true || forContent.googleForm=='true'">
