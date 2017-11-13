@@ -38,7 +38,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { HomeDialogComponent } from './homepage/home-dialog/home-dialog.component';
 import { PriorityComponent } from './priority/priority.component';
 import { PriorityDialogComponent } from './priority/priority-dialog/priority-dialog.component';
-import { CommentComponent } from './comment/comment.component';
+import { CommentComponent,CommentConfirmation } from './comment/comment.component';
 import { UserContributionComponent } from './user-contribution/user-contribution.component';
 import { UserComponent } from './user/user.component';
 import { FilterDialogComponent } from './user/filter-dialog/filter-dialog.component';
@@ -135,12 +135,13 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               EditorComponent,
               TrimPipe,
               TrimDirective,
-              ImageResizerComponent 
+              ImageResizerComponent,
+              CommentConfirmation 
 
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
-ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent ],
+ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent,CommentConfirmation ],
 providers:[TrimPipe]
 })
 

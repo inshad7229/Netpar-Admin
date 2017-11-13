@@ -333,16 +333,18 @@ export class AddCategoryComponent implements OnInit {
                         this.addCategoryRequest=data.response[0]
                         this.currentImageThumbnail=this.addCategoryRequest.thumbnailImage;
                         this.currentImageHorigontal=this.addCategoryRequest.horigontalImage;
-                        if (this.addCategoryRequest.language) {
+                        if (this.addCategoryRequest.language && this.sectionsData) {
                            this.sections=this.sectionsData.filter(arg=>arg.language==this.addCategoryRequest.language);;
                           }
                          for (let i=0;i<this.stringResource.categoryTemplate.length;i++) {
                                if (this.stringResource.categoryTemplate[i].templateName==this.addCategoryRequest.categoryFormat) {
                                  this.stringResource.categoryTemplate[i].status="active"
+                                 console.log(this.addCategoryRequest.categoryFormat)
                                }
                             }
                         for (let i=0;i<this.stringResource.listingTemplate.length;i++) {
                                if (this.stringResource.listingTemplate[i].templateName==this.addCategoryRequest.listViewFormat) {
+                                 console.log(this.addCategoryRequest.listViewFormat)
                                  this.stringResource.listingTemplate[i].status="active"
                                }
                             }
