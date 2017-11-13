@@ -4,7 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import {UserService} from '../../providers/user.service';
-
+import { Sort } from '@angular/material';
 declare var jquery:any;
 declare var $ :any;
 
@@ -17,6 +17,7 @@ declare var $ :any;
 export class UserComponent implements OnInit {
      userData
      waitLoader
+     userDataBackup
     constructor(private dialog: MatDialog,private userProvider:UserService) { }
     openDialog(): void {
         let dialogRef = this.dialog.open(UserDialogComponent, {
@@ -68,6 +69,7 @@ export class UserComponent implements OnInit {
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.userData=data.response;
+                    this.userDataBackup=data.response
                     
                 },error=>{
                      
@@ -213,5 +215,46 @@ this.waitLoader = true;
                     this.waitLoader = false;
                 }) 
 }
+sortData(sort: Sort) {
+    //  this.contentBackup
+    // this.contentList
+    // this.userData=data.response;
+    //                 this.userDataBackup=data.response
+    const data =this.userDataBackup.slice();
+    if (!sort.active || sort.direction == '') {
+      this.userData = data;
+      
+      return;
+    }
 
+    this.userData  = data.sort((a, b) => {
+      console.log(a)
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'session': return compare(a.totalSessions, b.totalSessions, isAsc);
+        case 'time': return compare(a.totalTime, b.totalTime, isAsc);
+        case 'avgs': return compare((a.totalTime/a.totalSessions), (b.totalTime/b.totalSessions), isAsc);
+        case 'avgd': return compare((a.totalTime/a.dayCount), (b.totalTime/b.dayCount), isAsc);
+        case 'page': return compare(a.totalPageViews, b.totalPageViews, isAsc);
+        case 'avgp': return compare((a.totalPageViews/a.totalSessions), (b.totalPageViews/b.totalSessions), isAsc);
+        case 'online': return compare(a.lastlogin, b.lastlogin, isAsc);
+        case 'Like': return compare(a.totalLikest, b.totalLikest, isAsc);
+        case 'share': return compare(a.totalShares, b.totalShares, isAsc);
+        case 'comment': return compare(a.totalComments, b.totalComments, isAsc);
+        case 'save': return compare(a.totalSaves, b.totalSaves, isAsc);
+        case 'download': return compare(a.totalDownloads, b.totalDownloads, isAsc);
+        case 'Submission': return compare(a.totalSubmissions, b.totalSubmissions, isAsc);
+        case 'Call': return compare(a.totalsCalls, b.totalsCalls, isAsc);
+        case 'CallMeBack': return compare(a.totalCallBacks, b.totalCallBacks, isAsc);
+        case 'Publications': return compare(a.totalPublications, b.totalPublications, isAsc);
+
+
+
+        default: return 0;
+      }
+    });
+  }
+}
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

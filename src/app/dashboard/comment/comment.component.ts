@@ -116,7 +116,7 @@ export class CommentComponent implements OnInit {
                     if (data.success==true) {
                       // code...
                       this.commentData=data.response;
-                      this.commentList=data.response
+                      this.commentList=data.response.filter(arg=>arg.deleteStatus==false)
                       this.commentListBackup=this.commentList.slice(0); 
                     }
                     
