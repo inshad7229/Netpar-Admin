@@ -25,8 +25,16 @@
 <div class="modal-body">
     <ul class="state-ul">
     	<!-- <li class="state-ulTitle">A</li> -->
-    	<li class="li"> <mat-checkbox>Jammu &amp; Kashmir</mat-checkbox> </li>
-    	<li class="sub-li"> <mat-checkbox> Kupwara                      </mat-checkbox> </li>
+    	<li class="li" *ngFor="let state of stateResource.state"> <mat-checkbox>{{state.name}}</mat-checkbox> 
+             <ul>
+                <li class="sub-li" *ngFor="let dist of state.dist"><mat-checkbox>{{dist.name}}</mat-checkbox>
+                    <ul>
+                        <li class="sub-li" *ngFor="let block of dist.block"><mat-checkbox>{{block.name}}</mat-checkbox></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    	<!-- <li class="sub-li"> <mat-checkbox> Kupwara                      </mat-checkbox> </li>
         <li class="sub-li"> <mat-checkbox> Bore                         </mat-checkbox> </li>
         <li class="sub-li"> <mat-checkbox> Keran                        </mat-checkbox> </li>
         <li class="sub-li"> <mat-checkbox> Bugna                        </mat-checkbox> </li>
@@ -133,7 +141,7 @@
         <li class="sub-li"> <mat-checkbox> Patrin                       </mat-checkbox> </li>
         <li class="sub-li"> <mat-checkbox> Juma Gund                    </mat-checkbox> </li>
         <li class="sub-li"> <mat-checkbox> Dudi                         </mat-checkbox> </li>
-        <li class="sub-li"> <mat-checkbox> Dab Bal                      </mat-checkbox> </li>
+        <li class="sub-li"> <mat-checkbox> Dab Bal                      </mat-checkbox> </li> -->
 
     </ul>
 </div>

@@ -268,5 +268,10 @@ setPriorityCategory(a) {
            }); 
              
       }
+  onEdit(data){
+    this.appProvider.current.actionFlag="editContent"
+    this.appProvider.current.currentContentData=data;
+    this.router.navigate(['/add-content'],{ skipLocationChange: true });
+  }
     
 }

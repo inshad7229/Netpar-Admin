@@ -35,8 +35,7 @@ declare var $ :any;
 export class CommentComponent implements OnInit {
    commentData:any;
    waitLoader:boolean
-   id=[]
-    contentList
+    id=[]
     filterValue:any;
     sections=[]
     categories=[]
@@ -48,35 +47,25 @@ export class CommentComponent implements OnInit {
     filterSection=[]
     filterCategory=[]
     filterSubcategory=[]
+    filterSectionName=[]
+    filterCategoryName=[]
+    filterSubcategoryName=[]
     filterLanguage=[];
     filterStatus=[]
-    sortListToHomePage=[];
-    sortListToCategoryPage=[];
-    editContent=[];
     status=[
       {
-        _id:"saveAsDraftStatus",
-        value:"Draft"
+        _id:"Needtoreview",
+        value:"Need to review"
 
       },
       {
-        _id:"rejectStatus",
-        value:"Rejected"
+        _id:"Reviewed",
+        value:"Reviewed"
 
       },
       {
-        _id:"sendForRevisionStatus",
-        value:"Revision"
-
-      },
-      {
-        _id:"publishLaterStatus",
-        value:"Scheduled"
-
-      },
-      {
-        _id:"publishStatus",
-        value:"Published"
+        _id:"Deleted",
+        value:"Deleted"
 
       }
     ]
@@ -88,11 +77,12 @@ export class CommentComponent implements OnInit {
     filterSectionFilterPan:any;
     filterCategoryFilterPan:any;
     filterSubcategoryFilterPan:any;
-    saveAsDraftStatus:boolean;
-    rejectStatus:boolean;
-    sendForRevisionStatus:boolean;
-    publishLaterStatus:boolean;
-    publishStatus:boolean;
+    Reviewed:boolean;
+    Deleted:boolean;
+    Needtoreview:boolean;
+    commentList
+    commentBackup
+    commentListBackup
     stringResource:StringResource=new  StringResource()
   constructor(private dialog: MatDialog, private cpService: ColorPickerService,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
@@ -102,7 +92,9 @@ export class CommentComponent implements OnInit {
             private sectionService:SectionService,
             private appProvider: AppProvider,
             private adminService:AdminService,
-            private commentService:CommentService) { }
+            private commentService:CommentService) {
+            this.filterValue={}
+                this.filterRequest={}  }
 
   	ngOnInit() {
        this.getAllComment()
@@ -124,6 +116,8 @@ export class CommentComponent implements OnInit {
                     if (data.success==true) {
                       // code...
                       this.commentData=data.response;
+                      this.commentList=data.response
+                      this.commentListBackup=this.commentList.slice(0); 
                     }
                     
                 },error=>{
@@ -169,7 +163,23 @@ export class CommentComponent implements OnInit {
                 })
     
   }
+  openDialog(data): void {
+    let dialogRef = this.dialog.open(CommentConfirmation, {
+      width: '250px',
+      data:{comment:data}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // alert('closed')
+      // alert(JSON.stringify(result))
+      if (result) {
+          // code...
+        this.onDelete(result)
+      }
+     // this.animal = result;
+    });
+  }
   onDelete(data){
      this.waitLoader = true;
     let b=[]
@@ -252,12 +262,14 @@ export class CommentComponent implements OnInit {
   forSection(sec){
 
     if (sec.check==true) {
-      this.filterSection.push(sec._id)
+      this.filterSection.push(sec)
+      this.filterSectionName.push(sec.sectionName)
       this.getCategory(sec._id)
     }else{
       this.categories=this.categories.filter(arg=>arg.sectionId != sec._id)
       this.subCategory=this.subCategory.filter(arg=>arg.sectionId != sec._id)
-      this.filterSection=this.filterSection.filter(arg=>arg != sec._id)
+      this.filterSection=this.filterSection.filter(arg=>arg._id != sec._id)
+      this.filterSectionName=this.filterSectionName.filter(arg=>arg != sec.sectionName)
       this.filterCategory.filter(arg=>arg.sectionId != sec._id)
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.sectionId != sec._id)
     }
@@ -265,21 +277,25 @@ export class CommentComponent implements OnInit {
   forCategory(cat){
     console.log(JSON.stringify(cat))
     if (cat.check==true) {
-      this.filterCategory.push({_id:cat._id,sectionId:cat.sectionId})
+      this.filterCategory.push({cat})
+      this.filterCategoryName.push(cat.categoryName)
       this.getsubCategory(cat.sectionId,cat._id)
     }else{
       this.filterCategory.filter(arg=>arg._id!=cat._id)
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.categoryId!=cat._id)
       this.subCategory=this.subCategory.filter(arg=>arg.categoryId!=cat._id)
+      this.filterCategoryName=this.filterCategoryName.filter(arg=>arg!=cat.categoryName)
 
     }
   }
   forSubCategory(subCat){
     if (subCat.check==true) {
-      this.filterSubcategory.push({_id:subCat._id,sectionId:subCat.sectionId,categoryId:subCat.categoryId})
+      this.filterSubcategory.push({subCat})
+      this.filterSubcategoryName.push(subCat.subCategoryName)
      //this.getCategory(subCat._id)
     }else{
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg._id!=subCat._id)
+      this.filterSubcategoryName=this.filterSubcategoryName.filter(arg=>arg!=subCat.subCategoryName)
     }
   }
   onSelectLang(lang){
@@ -297,90 +313,210 @@ export class CommentComponent implements OnInit {
   forStatus(stat){
     if (stat.check==true) {
       // this.filterStatus.push(stat._id)
-      if (stat._id=='saveAsDraftStatus') {
-        this.filterRequest.saveAsDraftStatus=true;
+      if (stat._id=='Reviewed') {
+        this.filterRequest.Reviewed='Reviewed';
       }
-      if (stat._id=='rejectStatus') {
-        this.filterRequest.rejectStatus=true;
+      if (stat._id=='Deleted') {
+        this.filterRequest.Deleted=true;
       }
-      if (stat._id=='sendForRevisionStatus') {
-        this.filterRequest.sendForRevisionStatus=true;
-      }
-      if (stat._id=='publishLaterStatus') {
-        this.filterRequest.publishLaterStatus=true;
-      }
-      if (stat._id=='publishStatus') {
-        this.filterRequest.publishStatus=true;
+      if (stat._id=='Needtoreview') {
+        this.filterRequest.Needtoreview='Need to review';
       }
      //this.getCategory(subCat._id)
     }else{
-      if (stat._id=='saveAsDraftStatus') {
-        delete(this.filterRequest.saveAsDraftStatus);
+      if (stat._id=='Reviewed') {
+        delete(this.filterRequest.Reviewed);
       }
-      if (stat._id=='rejectStatus') {
-        delete(this.filterRequest.rejectStatus);
+      if (stat._id=='Deleted') {
+        delete(this.filterRequest.Deleted);
       }
-      if (stat._id=='sendForRevisionStatus') {
-        delete(this.filterRequest.sendForRevisionStatus);
+      if (stat._id=='Needtoreview') {
+        delete(this.filterRequest.Needtoreview);
       }
-      if (stat._id=='publishLaterStatus') {
-        delete(this.filterRequest.publishLaterStatus);
-      }
-      if (stat._id=='publishStatus') {
-        delete(this.filterRequest.publishStatus);
-      }
+      
     }
   }
-  
+  onApplyFilter(){
+        let demo=[]
+        let status=[]
+          if (this.filterLanguage.length>0 ) {
+          this.filterRequest.language={
+             $in:this.filterLanguage
+           }
+            demo.push({language:this.filterRequest.language})
+          }else{
+            delete(this.filterRequest.language)
+          }
+
+          if (this.filterSectionName.length>0) {
+            // code...
+              this.filterRequest.sectionName={
+               $in:this.filterSectionName
+            }
+             demo.push({sectionName:this.filterRequest.sectionName})
+          }else{
+            delete(this.filterRequest.sectionName)
+          }
+          if (this.filterCategoryName.length>0) {
+            // code...
+            let categoryName=this.filterCategoryName
+            // for(let i=0;i<this.filterCategory.length;i++){
+            //   category.push(this.filterCategory[i]._id)
+            // }
+           this.filterRequest.categoryName={
+             $in:categoryName}
+              demo.push({categoryName:this.filterRequest.categoryName})
+          }else{
+            delete(this.filterRequest.categoryName)
+          }
+          if (this.filterSubcategoryName.length>0 ) {
+            let subCategory=this.filterSubcategoryName
+            // for(let i=0;i<this.filterSubcategory.length;i++){
+            //   subCategory.push(this.filterSubcategory[i]._id)
+            // }
+          this.filterRequest.subCategoryName=
+           {$in:subCategory}
+           demo.push({subCategoryName:this.filterRequest.subCategoryName})
+          }else{
+            delete(this.filterRequest.subCategoryName)
+          }
+
+           if(this.filterRequest.Needtoreview){
+                 status.push(this.filterRequest.Needtoreview)
+            }
+            if(this.filterRequest.Reviewed){
+               status.push(this.filterRequest.Reviewed)
+              
+            }
+          if (status.length>0) {
+           this.filterRequest.status=
+           {$in:status}
+           demo.push({status:this.filterRequest.status})
+          }else{
+            delete(this.filterRequest.status)
+          }
+          let demo2=[];
+          demo2.push({$or:demo})
+          if (this.filterRequest.Deleted) {
+           demo2.push({deleteStatus:true})
+            // code...
+          }else{
+            demo2.push({deleteStatus:false})
+          }
+           let demo3={
+             $and:demo2
+           }
+         this.waitLoader =true;
+              this.commentService.onApplyFilter(demo3)
+              .subscribe(data => {
+                     if (data.success == false) {
+                           this.waitLoader =false;
+                            this.toastr.error(data.msg, 'Data Filter Failed. ', {
+                                toastLife: 3000,
+                                showCloseButton: true
+                            });
+                        }
+                        else if (data.success == true) {
+                          this.waitLoader =false;
+                           this.commentList=data.response;
+                           this.commentListBackup=this.commentList.slice(0);
+                           this.filterLanguageFilterPan=this.filterLanguage.slice(0);
+                           this.filterSectionFilterPan=this.filterSection.slice(0);
+                           this.filterCategoryFilterPan=this.filterCategory.slice(0);
+                           this.filterSubcategoryFilterPan=this.filterSubcategory.slice(0);
+                            if(this.filterRequest.Needtoreview){
+                                 this.Needtoreview=true; 
+                            }
+                            if(this.filterRequest.Reviewed){
+                               this.Reviewed=true;
+                              
+                            }
+                            if(this.filterRequest.Deleted){
+                                   this.Deleted=true;
+                              
+                            }
+
+                        }
+                },error=>{
+                    this.waitLoader =false;
+                    alert(error)
+              })
+        }
       
         onClearLangFilter(lang){
-          this.contentList=this.contentList.filter(arg=>arg.language!=lang)
+          this.commentList=this.commentList.filter(arg=>arg.language!=lang)
           this.filterLanguageFilterPan=this.filterLanguageFilterPan.filter(arg=>arg!=lang)
         }
-        onClearSectionFilter(secId){
-            this.contentList=this.contentList.filter(arg=>arg.sectionId!=secId) 
-            this.filterSectionFilterPan=this.filterSectionFilterPan.filter(arg=>arg!=secId)         
+        onClearSectionFilter(sec){
+            this.commentList=this.commentList.filter(arg=>arg.sectionName!=sec.sectionName) 
+            this.filterSectionFilterPan=this.filterSectionFilterPan.filter(arg=>arg!=sec._id)         
         }
-        onClearCategoryFilter(catId){
+        onClearCategoryFilter(cat){
           console.log(JSON.stringify(this.filterCategoryFilterPan))
-            this.contentList=this.contentList.filter(arg=>arg.categoryId!=catId)
-            this.filterCategoryFilterPan=this.filterCategoryFilterPan.filter(arg=>arg._id!=catId)
+            this.commentList=this.commentList.filter(arg=>arg.categoryId!=cat.categoryName)
+            this.filterCategoryFilterPan=this.filterCategoryFilterPan.filter(arg=>arg._id!=cat._id)
         }
-        onClearSubCategoryFilter(subCatId){
-            this.contentList=this.contentList.filter(arg=>arg.subCategorId!=subCatId)
-            this.filterSubcategoryFilterPan=this.filterSubcategoryFilterPan.filter(arg=>arg._id!=subCatId)
+        onClearSubCategoryFilter(subCat){
+            this.commentList=this.commentList.filter(arg=>arg.subCategorId!=subCat.subCategoryName)
+            this.filterSubcategoryFilterPan=this.filterSubcategoryFilterPan.filter(arg=>arg._id!=subCat.subCategoryName)
         }
         onClearDraftFilter(status){
-            this.contentList=this.contentList.filter(arg=>arg.saveAsDraftStatus!=status)
-            this.saveAsDraftStatus=false;
+            this.commentList=this.commentList.filter(arg=>arg.Reviewed!=status)
+            this.Reviewed=false;
         }
         onClearRejectFilter(status){
-            this.contentList=this.contentList.filter(arg=>arg.rejectStatus!=status)
-            this.rejectStatus=false;
+            this.commentList=this.commentList.filter(arg=>arg.Deleted!=status)
+            this.Deleted=false;
         }
         onClearRevisionFilter(status){
-            this.contentList=this.contentList.filter(arg=>arg.sendForRevisionStatus!=status)
-            this.sendForRevisionStatus=false;
+            this.commentList=this.commentList.filter(arg=>arg.Needtoreview!=status)
+            this.Needtoreview=false;
         }
-        onClearScheduledFilter(status){
-            this.contentList=this.contentList.filter(arg=>arg.publishLaterStatus!=status)
-            this.publishLaterStatus=false;
-        }
-        onClearPublishedFilter(status){
-            this.contentList=this.contentList.filter(arg=>arg.publishStatus!=status)
-            this.publishStatus=false;
-        }
+       
         clearAll(){
             this.filterLanguageFilterPan=[]
             this.filterSectionFilterPan=[]
             this.filterCategoryFilterPan=[]
             this.filterSubcategoryFilterPan=[]
-            this.saveAsDraftStatus=false;
-            this.rejectStatus=false;
-            this.sendForRevisionStatus=false;
-            this.publishLaterStatus=false;
-            this.publishStatus=false;
-            this.contentList=this.contentBackup.slice(0)
+            this.Reviewed=false;
+            this.Deleted=false;
+            this.Needtoreview=false;
+            this.commentList=this.commentBackup.slice(0)
         }  
   
+}
+
+
+
+@Component({
+  selector: 'admin-confirmation-dialog',
+  templateUrl: 'confirmation.html',
+  providers: [CommentService,AdminService,SectionService]
+})
+
+export class CommentConfirmation {
+   
+
+  constructor(
+    public dialogRef: MatDialogRef<CommentConfirmation>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+        private router: Router,
+        private sectionService:SectionService,
+        private appProvider: AppProvider,
+        private adminService:AdminService,
+        private commentService:CommentService,
+        public dialog: MatDialog) {
+       }
+
+  onYesClick(): void {
+    this.dialogRef.close(this.data.comment);
+    // this.homePage.onDelete(this.data.admin)
+  }
+   onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+ 
+
 }

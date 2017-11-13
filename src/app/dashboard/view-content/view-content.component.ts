@@ -222,6 +222,18 @@ export class ViewContentComponent implements OnInit {
                     alert(error)
                 }) 
    }
+   openFilter(){
+     if (this.filterValue.language) {
+        for (let i=0;i<this.stringResource.language.length;i++) {
+               if (this.stringResource.language[i].language==this.filterValue.language) {
+                 // code...
+                   this.stringResource.language[i].check=true
+               }else{
+                   this.stringResource.language[i].check=false
+               }
+            }
+     }
+   }
    findSec(id){
      let sec =this.sections.filter(arg=>arg._id==id)
     if (sec.length>0) {

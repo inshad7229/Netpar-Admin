@@ -61,4 +61,21 @@ export class CommentService {
             return error;
         });
     }
+
+     onApplyFilter(flag): Observable <any> {
+        let api = ENV.mainApi + "listFilteredComment";
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({
+            headers: headers
+        });
+        return this.http.post(api,JSON.stringify(flag), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
 }
