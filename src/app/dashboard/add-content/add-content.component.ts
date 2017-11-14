@@ -958,8 +958,9 @@ addownloadRight(Download){
 	deleteFromArray(index){
 		let a=this.listOne.splice(index,1)
 	}
-    OnFirstGrid(audio,video){
-      if ( this.listOne[this.currentIndex]) {
+    OnFirstGrid(i,item,audio,video){
+         this.currentIndex=i;
+         this.rightPan=item
       	 this.listOne[this.currentIndex].activeIndex=1;
       	if (this.listOne[this.currentIndex].imgurl1==null &&  this.listOne[this.currentIndex].audiourl1==null && this.listOne[this.currentIndex].videourl1==null && this.listOne[this.currentIndex].documenturl1==null) {
 	      	// code...
@@ -971,10 +972,11 @@ addownloadRight(Download){
 	  }else{
 	  	 this.rightPan=this.listOne[this.currentIndex];
 	  }
-      }
+      
     }
-    OnSecondGrid(audio,video){
-     if ( this.listOne[this.currentIndex]) {
+    OnSecondGrid(i,item,audio,video){
+        this.currentIndex=i;
+         this.rightPan=item
 	      this.listOne[this.currentIndex].activeIndex=2;
 	      if (this.listOne[this.currentIndex].imgurl2==null &&  this.listOne[this.currentIndex].audiourl2==null && this.listOne[this.currentIndex].videourl2==null && this.listOne[this.currentIndex].documenturl2==null) {
 	      	// code...
@@ -986,11 +988,11 @@ addownloadRight(Download){
 	      }else{
 	      	 this.rightPan=this.listOne[this.currentIndex];
 	      }
-      }
+      
     }
-    OnThirdGrid(audio,video){
-      if (this.listOne[this.currentIndex]) {
-
+    OnThirdGrid(i,item,audio,video){
+        this.currentIndex=i;
+         this.rightPan=item
 	      this.listOne[this.currentIndex].activeIndex=3;
 	       if (this.listOne[this.currentIndex].imgurl3==null &&  this.listOne[this.currentIndex].audiourl3==null && this.listOne[this.currentIndex].videourl3==null && this.listOne[this.currentIndex].documenturl3==null) {
 	      	// code...
@@ -1002,7 +1004,7 @@ addownloadRight(Download){
 	  }else{
 	  	this.rightPan=this.listOne[this.currentIndex];
 	  }
-	  }
+	 
     }
 	 itemDragged(i){
 	 	// tinymce.init({
@@ -2899,10 +2901,12 @@ addownloadRight(Download){
 	      }	
 	  }
 
-	  onText(i,text,editedStatus){
+	  onText(i,item){
+         this.currentIndex=i;
+         this.rightPan=item
          let dialogRef = this.dialog.open(EditorComponent, {
             width: '400px',
-            data:{text:text,lang:this.addContentRequest.language,editedStatus:editedStatus}
+            data:{text:item.text,lang:this.addContentRequest.language,editedStatus:item.editedStatus}
         });
         dialogRef.afterClosed().subscribe(result => {
         	//alert(JSON.stringify(result))
@@ -2914,6 +2918,8 @@ addownloadRight(Download){
         });
 	  }
     onImage(i,item){
+         this.currentIndex=i;
+         this.rightPan=item
         let dialogRef = this.dialog.open(ImageResizerComponent, {
             width: '400px',
             data:{item:item,lang:this.addContentRequest.language}
