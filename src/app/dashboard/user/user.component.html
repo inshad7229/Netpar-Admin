@@ -17,13 +17,22 @@
                         <div class="card m-t-0">
                             <div class="card-content">
                                 <div class="select-head">
-                                    <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
+                                    <span class="hed"> Selected filter </span> | <span class="clar-filter" (click)="clearAll()"> Clear Filter </span>
                                 </div>
                                 <ul class="slctd-fltrli" type="none">
-                                    <li> District <span> <i class="fa fa-times"></i> </span> </li>
-                                    <li> Unverified mobile numbers <span> <i class="fa fa-times"></i> </span> </li>
-                                    <li> Active user <span> <i class="fa fa-times"></i> </span> </li>
-                                    <li> Male <span> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let lang of filterLanguageFilterPan" > {{lang}} <span (click)="onClearLangFilter(lang)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let sec of filterSectionFilterPan"> {{findSec(sec)}} <span (click)="onClearSectionFilter(sec)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let cat of filterCategoryFilterPan"> {{findCat(cat._id)}} <span (click)="onClearCategoryFilter(cat._id)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let subCat of filterSubcategoryFilterPan"> {{findSubCat(subCat._id)}} <span (click)="onClearSubCategoryFilter(subCat._id)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="saveAsDraftStatus"> Draft <span (click)="onClearDraftFilter(saveAsDraftStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="rejectStatus"> Rejected <span (click)="onClearRejectFilter(rejectStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="sendForRevisionStatus"> Revision <span (click)="onClearRevisionFilter(sendForRevisionStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="publishLaterStatus"> Scheduled <span (click)="onClearScheduledFilter(publishLaterStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="publishStatus"> Published <span (click)="onClearPublishedFilter(publishStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="activePriority"> Active priority content <span (click)="onClearactivePriorityFilter(activePriority)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="completed"> Completed priority content <span (click)="onClearcompletedFilter(completed)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="future"> Scheduled content <span (click)="onClearfutureFilter(future)"> <i class="fa fa-times"></i> </span> </li>
+                                    <!-- <li  *ngIf="filterLanguageSingle"> {{filterLanguageSingle}}<span (click)="onClearSingleFilter(filterLanguageSingle)"> <i class="fa fa-times"></i> </span> </li> -->
                                 </ul>
                             </div>
                         </div>

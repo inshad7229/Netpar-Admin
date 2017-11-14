@@ -658,6 +658,15 @@ export class HomepageComponent implements OnInit {
              this.contentList=this.contentListBackup.slice(0)
           }
         }
+        onClearactivePriorityFilter(activePriority){
+            this.activePriority=false
+        }
+        onClearcompletedFilter(completed){
+            this.completed=false
+        }
+        onClearfutureFilter(future){
+            this.future=false
+        }
         onClearStateFilter(state){
           if (this.selectedSate.length>0) {
                  if (this.contentAfterState && this.contentAfterState.length>0) {
@@ -689,6 +698,9 @@ export class HomepageComponent implements OnInit {
             this.selectedSate=null
             this.filterValue.state=null
             this.filterValue.language=null
+            this.activePriority=false
+            this.completed=false
+            this.future=false
             this.contentList=this.contentBackup.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
@@ -704,6 +716,9 @@ export class HomepageComponent implements OnInit {
             }
             for (let i=0;i<this.status.length;i++) {
                this.status[i].check=false
+            }
+            for (let i=0;i<this.statusPriority.length;i++) {
+               this.statusPriority[i].check=false
             }
         }
 }
