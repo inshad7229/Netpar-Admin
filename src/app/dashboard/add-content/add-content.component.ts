@@ -439,12 +439,12 @@ export class AddContentComponent implements OnInit {
 	    // });
 
   		this.todaydate=new Date().toISOString()
-		$('.selectize').selectize({
-		    plugins: ['remove_button'],
-		    persist: false,
-		    createOnBlur: true,
-		    create: true
-		});
+		// $('.selectize').selectize({
+		//     plugins: ['remove_button'],
+		//     persist: false,
+		//     createOnBlur: true,
+		//     create: true
+		// });
 
 		$(document).on('click','.for_edit',function(){
 			$(this).closest('.li').find('.to_edit').toggle('100');
@@ -535,7 +535,17 @@ export class AddContentComponent implements OnInit {
        
      }
     addText(){
-    	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',top:'10px',bottom:'10px',right:'10px',left:'10px',buttonText:'button',width:'100%',title:'Title',aligment:'center', display:'inline-block',text:'Dummy Text'}) 
+    	 this.listOne.push({tag:"text",backgroundColor:'#FFFFFF',
+         top:'10px',bottom:'10px',
+         right:'10px',left:'10px',
+         buttonText:'button',
+         width:'100%',
+         title:'Title',
+         aligment:'center',
+          display:'inline-block',
+          text:'Dummy Text',
+          editedStatus:false
+        }) 
     	//  tinymce.init({
 	    //   selector: '#' + this.elementId,
 	    //   plugins: ['link', 'paste', 'table'],
@@ -742,114 +752,123 @@ OnFiveUser(i){
  console.log('user index',this.currenUserActiveIndex)
 }
 addApplyRight(Apply){
-  if (this.currentCallActiveIndex==1) {
+  if (this.listOne[this.currentIndex].btn1==null) {
       this.listOne[this.currentIndex].btn1=Apply
-  }else if(this.currentCallActiveIndex==2){
+  }else if(this.listOne[this.currentIndex].btn2==null){
       this.listOne[this.currentIndex].btn2=Apply
-  }else if(this.currentCallActiveIndex==3){
+  }else if(this.listOne[this.currentIndex].btn3==null){
       this.listOne[this.currentIndex].btn3=Apply
-  }else if(this.currentCallActiveIndex==4){
-      this.listOne[this.currentIndex].btn4=Apply
   }
+  //else if(this.currentCallActiveIndex==4){
+  //     this.listOne[this.currentIndex].btn4=Apply
+  // }
 }
 addCallRight(Call){
-  if (this.currentCallActiveIndex==1) {
+   if (this.listOne[this.currentIndex].btn1==null) {
       this.listOne[this.currentIndex].btn1=Call
-  }else if(this.currentCallActiveIndex==2){
+  }else if(this.listOne[this.currentIndex].btn2==null){
       this.listOne[this.currentIndex].btn2=Call
-  }else if(this.currentCallActiveIndex==3){
+  }else if(this.listOne[this.currentIndex].btn3==null){
       this.listOne[this.currentIndex].btn3=Call
-  }else if(this.currentCallActiveIndex==4){
-      this.listOne[this.currentIndex].btn4=Call
   }
+  //else if(this.currentCallActiveIndex==4){
+  //     this.listOne[this.currentIndex].btn4=Apply
+  // }
 }
 addCallMeRight(callmeback){
-  if (this.currentCallActiveIndex==1) {
+  if (this.listOne[this.currentIndex].btn1==null) {
       this.listOne[this.currentIndex].btn1=callmeback
-  }else if(this.currentCallActiveIndex==2){
+  }else if(this.listOne[this.currentIndex].btn2==null){
       this.listOne[this.currentIndex].btn2=callmeback
-  }else if(this.currentCallActiveIndex==3){
+  }else if(this.listOne[this.currentIndex].btn3==null){
       this.listOne[this.currentIndex].btn3=callmeback
-  }else if(this.currentCallActiveIndex==4){
-      this.listOne[this.currentIndex].btn4=callmeback
   }
+  //else if(this.currentCallActiveIndex==4){
+  //     this.listOne[this.currentIndex].btn4=Apply
+  // }
 }
 addIntrestedRight(ImInterested){
-  if (this.currentCallActiveIndex==1) {
+   if (this.listOne[this.currentIndex].btn1==null) {
       this.listOne[this.currentIndex].btn1=ImInterested
-  }else if(this.currentCallActiveIndex==2){
+  }else if(this.listOne[this.currentIndex].btn2==null){
       this.listOne[this.currentIndex].btn2=ImInterested
-  }else if(this.currentCallActiveIndex==3){
+  }else if(this.listOne[this.currentIndex].btn3==null){
       this.listOne[this.currentIndex].btn3=ImInterested
-  }else if(this.currentCallActiveIndex==4){
-      this.listOne[this.currentIndex].btn4=ImInterested
   }
+  //else if(this.currentCallActiveIndex==4){
+  //     this.listOne[this.currentIndex].btn4=Apply
+  // }
 }
 addlikeRight(Kadak){
   //alert(Kadak)
-  if (this.currenUserActiveIndex==1) {
+  if (this.listOne[this.currentIndex].btn1==null) {
       this.listOne[this.currentIndex].btn1=Kadak
-  }else if(this.currenUserActiveIndex==2){
+  }else if( this.listOne[this.currentIndex].btn2==null){
       this.listOne[this.currentIndex].btn2=Kadak
-  }else if(this.currenUserActiveIndex==3){
+  }else if(this.listOne[this.currentIndex].btn3==null){
       this.listOne[this.currentIndex].btn3=Kadak
-  }else if(this.currenUserActiveIndex==4){
-      this.listOne[this.currentIndex].btn4=Kadak
-  }else if(this.currenUserActiveIndex==5){
-      this.listOne[this.currentIndex].btn5=Kadak
   }
+  // else if(this.currenUserActiveIndex==4){
+  //     this.listOne[this.currentIndex].btn4=Kadak
+  // }else if(this.currenUserActiveIndex==5){
+  //     this.listOne[this.currentIndex].btn5=Kadak
+  // }
 }
 addshareRight(Share){
- if (this.currenUserActiveIndex==1) {
+ if (this.listOne[this.currentIndex].btn1==null) {
       this.listOne[this.currentIndex].btn1=Share
-  }else if(this.currenUserActiveIndex==2){
+  }else if( this.listOne[this.currentIndex].btn2==null){
       this.listOne[this.currentIndex].btn2=Share
-  }else if(this.currenUserActiveIndex==3){
+  }else if(this.listOne[this.currentIndex].btn3==null){
       this.listOne[this.currentIndex].btn3=Share
-  }else if(this.currenUserActiveIndex==4){
-      this.listOne[this.currentIndex].btn4=Share
-  }else if(this.currenUserActiveIndex==5){
-      this.listOne[this.currentIndex].btn5=Share
   }
+  // else if(this.currenUserActiveIndex==4){
+  //     this.listOne[this.currentIndex].btn4=Kadak
+  // }else if(this.currenUserActiveIndex==5){
+  //     this.listOne[this.currentIndex].btn5=Kadak
+  // }
 }
 addcommentRight(Commentt){
-  if (this.currenUserActiveIndex==1) {
+   if (this.listOne[this.currentIndex].btn1==null) {
       this.listOne[this.currentIndex].btn1=Commentt
-  }else if(this.currenUserActiveIndex==2){
+  }else if( this.listOne[this.currentIndex].btn2==null){
       this.listOne[this.currentIndex].btn2=Commentt
-  }else if(this.currenUserActiveIndex==3){
+  }else if(this.listOne[this.currentIndex].btn3==null){
       this.listOne[this.currentIndex].btn3=Commentt
-  }else if(this.currenUserActiveIndex==4){
-      this.listOne[this.currentIndex].btn4=Commentt
-  }else if(this.currenUserActiveIndex==5){
-      this.listOne[this.currentIndex].btn5=Commentt
   }
+  // else if(this.currenUserActiveIndex==4){
+  //     this.listOne[this.currentIndex].btn4=Kadak
+  // }else if(this.currenUserActiveIndex==5){
+  //     this.listOne[this.currentIndex].btn5=Kadak
+  // }
 }
 addsaveRight(Save){
-   if (this.currenUserActiveIndex==1) {
+   if (this.listOne[this.currentIndex].btn1==null) {
       this.listOne[this.currentIndex].btn1=Save
-  }else if(this.currenUserActiveIndex==2){
+  }else if( this.listOne[this.currentIndex].btn2==null){
       this.listOne[this.currentIndex].btn2=Save
-  }else if(this.currenUserActiveIndex==3){
+  }else if(this.listOne[this.currentIndex].btn3==null){
       this.listOne[this.currentIndex].btn3=Save
-  }else if(this.currenUserActiveIndex==4){
-      this.listOne[this.currentIndex].btn4=Save
-  }else if(this.currenUserActiveIndex==5){
-      this.listOne[this.currentIndex].btn5=Save
   }
+  // else if(this.currenUserActiveIndex==4){
+  //     this.listOne[this.currentIndex].btn4=Kadak
+  // }else if(this.currenUserActiveIndex==5){
+  //     this.listOne[this.currentIndex].btn5=Kadak
+  // }
 }
 addownloadRight(Download){
-  if (this.currenUserActiveIndex==1) {
+   if (this.listOne[this.currentIndex].btn1==null) {
       this.listOne[this.currentIndex].btn1=Download
-  }else if(this.currenUserActiveIndex==2){
+  }else if( this.listOne[this.currentIndex].btn2==null){
       this.listOne[this.currentIndex].btn2=Download
-  }else if(this.currenUserActiveIndex==3){
+  }else if(this.listOne[this.currentIndex].btn3==null){
       this.listOne[this.currentIndex].btn3=Download
-  }else if(this.currenUserActiveIndex==4){
-      this.listOne[this.currentIndex].btn4=Download
-  }else if(this.currenUserActiveIndex==5){
-      this.listOne[this.currentIndex].btn5=Download
   }
+  // else if(this.currenUserActiveIndex==4){
+  //     this.listOne[this.currentIndex].btn4=Kadak
+  // }else if(this.currenUserActiveIndex==5){
+  //     this.listOne[this.currentIndex].btn5=Kadak
+  // }
 }
 	onClickOnDragItem(index,item,ref?){
       //alert(index)
@@ -2880,15 +2899,16 @@ addownloadRight(Download){
 	      }	
 	  }
 
-	  onText(i,text){
+	  onText(i,text,editedStatus){
          let dialogRef = this.dialog.open(EditorComponent, {
             width: '400px',
-            data:{text:text,lang:this.addContentRequest.language}
+            data:{text:text,lang:this.addContentRequest.language,editedStatus:editedStatus}
         });
         dialogRef.afterClosed().subscribe(result => {
         	//alert(JSON.stringify(result))
         	if (result) {
         		 this.listOne[i].text=result.text;
+             this.listOne[i].editedStatus=true
         	}
       
         });

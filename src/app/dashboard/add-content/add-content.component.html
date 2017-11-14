@@ -473,15 +473,15 @@
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='text'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
-                                                                            <tbody (click)="onText(i,item.text)">
+                                                                            <tbody (click)="onText(i,item.text,item.editedStatus)">
                                                                                 <tr  >
                                                                                     <!-- <td [ngStyle]="{textAlign:item.aligment}"> -->
                                                                                     <td>
                                                                                         <div [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
                                                                                            <!--  <textarea matInput  [(ngModel)]="item.text" [ngModelOptions]="{standalone: true}" >
                                                                                             </textarea> -->
-       
-                                                                                            <div [innerHTML]="getHtml(item.text)" ></div>
+                                                                                             <div [froalaView]="item.text"></div>
+                                                                                           <!--  <div [innerHTML]="getHtml(item.text)" ></div> -->
                                                                                         </div> 
                                                                                     </td>
                                                                                 </tr>
@@ -616,8 +616,26 @@
                                                                         <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
                                                                         <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                                                                             <tbody>
-                                                                                <tr >
-                                                                                    <td style="width: 25%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFirstCall(i)">
+                                                                                <tr class="btns">
+                                                                                     <td (click)="OnFirstCall(i)">
+                                                                                        <button *ngIf="item.btn1=='callmeback'" type="button" class="btn success"><i class="icon-callme"></i> Call me back </button>
+                                                                                        <button *ngIf="item.btn1=='Call'" type="button" class="btn info"><i class="icon-call"></i> Call </button>
+                                                                                        <button *ngIf="item.btn1=='ImInterested'" type="button" class="btn primary"><i class="icon-click"></i> I'm Interested </button>
+                                                                                        <button *ngIf="item.btn1=='Apply'" type="button" class="btn success"><i class="icon-check"></i> Apply </button>
+                                                                                    </td>
+                                                                                    <td (click)="OnSecondCall(i)">
+                                                                                        <button *ngIf="item.btn2=='callmeback'" type="button" class="btn success"><i class="icon-callme"></i> Call me back </button>
+                                                                                        <button *ngIf="item.btn2=='Call'" type="button" class="btn info"><i class="icon-call"></i> Call </button>
+                                                                                        <button *ngIf="item.btn2=='ImInterested'" type="button" class="btn primary"><i class="icon-click"></i> I'm Interested </button>
+                                                                                        <button *ngIf="item.btn2=='Apply'" type="button" class="btn success"><i class="icon-check"></i> Apply </button>
+                                                                                    </td>
+                                                                                    <td (click)="OnThirdCall(i)">
+                                                                                        <button *ngIf="item.btn3=='callmeback'" type="button" class="btn success"><i class="icon-callme"></i> Call me back </button>
+                                                                                        <button *ngIf="item.btn3=='Call'" type="button" class="btn info"><i class="icon-call"></i> Call </button>
+                                                                                        <button *ngIf="item.btn3=='ImInterested'" type="button" class="btn primary"><i class="icon-click"></i> I'm Interested </button>
+                                                                                        <button *ngIf="item.btn3=='Apply'" type="button" class="btn success"><i class="icon-check"></i> Apply </button>
+                                                                                    </td>
+                                                                                    <!-- <td style="width: 25%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFirstCall(i)">
                                                                                         <i *ngIf="item.btn1=='ImInterested'" class="icon-click"></i>
                                                                                         <i *ngIf="item.btn1=='Call'" class="icon-call"></i>
                                                                                         <i *ngIf="item.btn1=='Apply'" class="icon-check"></i>
@@ -640,7 +658,7 @@
                                                                                         <i *ngIf="item.btn4=='Call'" class="icon-call"></i>
                                                                                         <i *ngIf="item.btn4=='Apply'" class="icon-check"></i>
                                                                                         <i *ngIf="item.btn4=='callmeback'" class="icon-callme"></i>
-                                                                                    </td>
+                                                                                    </td> -->
 
                                                                                 </tr>
                                                                             </tbody>
@@ -652,8 +670,29 @@
                                                                         <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
                                                                         <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                                                                             <tbody>
-                                                                                <tr >
-                                                                                    <td style="width: 20%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFirstUser(i)">
+                                                                                <tr class="btns">
+                                                                                    <td style="" (click)="OnFirstUser(i)">
+                                                                                        <button *ngIf="item.btn1=='Kadak'" type="button" class="btn danger"><i class="icon-okay"></i> Kadak </button>
+                                                                                        <button *ngIf="item.btn1=='Comment'" type="button" class="btn rose"><i class="icon-msg"></i> Comment </button>
+                                                                                        <button *ngIf="item.btn1=='Save'" type="button" class="btn primary"><i class="icon-badge"></i> Save </button>
+                                                                                        <button *ngIf="item.btn1=='Download'" type="button" class="btn orange"><i class="icon-donload"></i> Download </button>
+                                                                                         <button *ngIf="item.btn1=='Share'" type="button" class="btn warning"><i class="fa fa-share-alt"></i> Share </button>
+                                                                                    </td>
+                                                                                    <td style="" (click)="OnSecondtUser(i)">
+                                                                                        <button *ngIf="item.btn2=='Kadak'" type="button" class="btn danger"><i class="icon-okay"></i> Kadak </button>
+                                                                                        <button *ngIf="item.btn2=='Comment'" type="button" class="btn rose"><i class="icon-msg"></i> Comment </button>
+                                                                                        <button *ngIf="item.btn2=='Save'" type="button" class="btn primary"><i class="icon-badge"></i> Save </button>
+                                                                                        <button *ngIf="item.btn2=='Download'" type="button" class="btn orange"><i class="icon-donload"></i> Download </button>
+                                                                                         <button *ngIf="item.btn2=='Share'" type="button" class="btn warning"><i class="fa fa-share-alt"></i> Share </button>
+                                                                                    </td>
+                                                                                    <td style="" (click)="OnThirdtUser(i)">
+                                                                                        <button *ngIf="item.btn3=='Kadak'" type="button" class="btn danger"><i class="icon-okay"></i> Kadak </button>
+                                                                                        <button *ngIf="item.btn3=='Comment'" type="button" class="btn rose"><i class="icon-msg"></i> Comment </button>
+                                                                                        <button *ngIf="item.btn3=='Save'" type="button" class="btn primary"><i class="icon-badge"></i> Save </button>
+                                                                                        <button *ngIf="item.btn3=='Download'" type="button" class="btn orange"><i class="icon-donload"></i> Download </button>
+                                                                                         <button *ngIf="item.btn3=='Share'" type="button" class="btn warning"><i class="fa fa-share-alt"></i> Share </button>
+                                                                                    </td>
+                                                                                    <!-- <td style="width: 20%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFirstUser(i)">
                                                                                         <i *ngIf="item.btn1=='Kadak'" class="icon-okay"></i>
                                                                                         <i *ngIf="item.btn1=='Share'" class="fa fa-share-alt"></i>
                                                                                         <i *ngIf="item.btn1=='Comment'" class="icon-msg"></i>
@@ -687,7 +726,7 @@
                                                                                         <i *ngIf="item.btn5=='Comment'" class="icon-msg"></i>
                                                                                         <i *ngIf="item.btn5=='Save'" class="icon-badge"></i>
                                                                                         <i *ngIf="item.btn5=='Download'" class="icon-donload"></i>
-                                                                                    </td>
+                                                                                    </td> -->
 
                                                                                 </tr>
                                                                             </tbody>

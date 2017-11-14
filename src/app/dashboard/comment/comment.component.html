@@ -24,11 +24,9 @@
                                     <li *ngFor="let sec of filterSectionFilterPan"> {{sec.sectionName}} <span (click)="onClearSectionFilter(sec)"> <i class="fa fa-times"></i> </span> </li>
                                     <li *ngFor="let cat of filterCategoryFilterPan"> {{cat.categoryName}} <span (click)="onClearCategoryFilter(cat)"> <i class="fa fa-times"></i> </span> </li>
                                     <li *ngFor="let subCat of filterSubcategoryFilterPan"> {{subCat.subCategoryName}} <span (click)="onClearSubCategoryFilter(subCat)"> <i class="fa fa-times"></i> </span> </li>
-                                    <!-- <li  *ngIf="saveAsDraftStatus"> Draft <span (click)="onClearDraftFilter(saveAsDraftStatus)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="rejectStatus"> Rejected <span (click)="onClearRejectFilter(rejectStatus)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="sendForRevisionStatus"> Revision <span (click)="onClearRevisionFilter(sendForRevisionStatus)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="publishLaterStatus"> Scheduled <span (click)="onClearScheduledFilter(publishLaterStatus)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="publishStatus"> Published <span (click)="onClearPublishedFilter(publishStatus)"> <i class="fa fa-times"></i> </span> </li> -->
+                                    <li  *ngIf="Reviewed"> Reviewed <span (click)="onClearReviewedFilter('Reviewed')"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="Deleted"> Deleted <span (click)="onClearDeletedFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="Needtoreview"> Need to review <span (click)="onClearNeedtoreviewFilter('Need to review')"> <i class="fa fa-times"></i> </span> </li>
                                 </ul>
                           	</div>
                         </div>

@@ -4,35 +4,46 @@
 </div>
 <div class="modal-body">
     <div class="">
-            <mat-autocomplete #editor="matAutocomplete">
-                <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
-                <span>{{ state }}</span> 
-                </mat-option>
-          </mat-autocomplete> 
+            
           <div>
-            <ckeditor  
+         <!--  <textarea [froalaEditor]  [(froalaModel)]="ckeditorContent"></textarea> -->
+          <mat-form-field>
+              <textarea  #textAreaTextInput [matAutocomplete]="textAreaTextTag" matInput placeholder="Text" rows="15"   name="guildTextForMedia" [(ngModel)]="textAreaText" (input)="onTransliteration(textAreaText,textAreaTextInput)" (keyup)="onKeyUp($event)" (click)="clearSuggstion()"></textarea>
+                <mat-autocomplete #textAreaTextTag="matAutocomplete">
+                  <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                  <span>{{ state }}</span> 
+                  </mat-option>
+               </mat-autocomplete>
+          </mat-form-field>
+          <div >
+             <button class="btn custom-btn" (click)="format()" [disabled]="showMessage">Format this text</button>
+           
+        </div>
+            <!-- <ckeditor  
                 [(ngModel)]="ckeditorContent"
                 [config]="ckEditorConfig"
                 [readonly]="false"
                 (change)="onChange($event)"
                 debounce="50" style="height: 40px" >
-               <!--  <ckbutton [name]="'saveButton'"
+                <ckbutton [name]="'saveButton'"
                   [command]="'saveCmd'"
                   (click)="save($event)"
                   [icon]="'save.png'"
                   [label]="'Save Document'"
                   [toolbar]="'clipboard,1'">
-                </ckbutton> -->
-            </ckeditor>
+                </ckbutton>
+            </ckeditor> -->
+            <textarea [froalaEditor]  [(froalaModel)]="ckeditorContent"></textarea>
+            <div [froalaView]="ckeditorContent"></div>
           </div>
-          <ul class="iframe-suggestion">
-      <!--       <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
+         <!--  <ul class="iframe-suggestion">
+            <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
                                                     <span>{{ state }}</span> 
-                                                    </mat-option> -->
+                                                    </mat-option>
             <li *ngFor="let state of appProvider.current.suggestedString" (click)="selectString(state)">
                  <span>{{ state }}</span> 
             </li>
-          </ul>
+          </ul> -->
           
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
              <button class="btn custom-btn" (click)="save()" [disabled]="showMessage"> Save</button>

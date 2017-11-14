@@ -129,6 +129,23 @@ export class ContentService {
         });
     }
 
+     onApplyFilterHome(flag): Observable <any> {
+        let api = ENV.mainApi + "filteredHomeContent";
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({
+            headers: headers
+        });
+        return this.http.post(api,JSON.stringify(flag), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
+
     onPriorityHomepage(data): Observable <any> {
         let api = ENV.mainApi + "setArticlePriority";
         // let a={

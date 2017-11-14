@@ -1507,7 +1507,7 @@ table tbody td.width170px{
 .top-brd{
   border-top: 1px dashed #777;
 }
-.user-icons i{
+/* .user-icons i{
   border-radius: 50px;
   border: 1px dashed #333;
   display: inline-block;
@@ -1517,7 +1517,7 @@ table tbody td.width170px{
   padding: 0;
   text-align: center;
   width: 26px;
-}
+} */
 table.user-icons td{
   padding: 5px;
 }
@@ -1565,3 +1565,36 @@ table.user-icons td{
 .like-bar.no-brd{
   border: 0;
 }
+
+.mat-input-placeholder-wrapper .mat-form-field-placeholder{
+ line-height: 1.52;
+}
+.btns .btn{
+  padding: 12px 6px;
+  min-width: 100px;
+}
+
+.btn.primary {
+  background-color: #9c27b0 ; }
+
+.btn.info {
+  background-color: #00bcd4 ; }
+
+.btn.warning {
+  background-color: #FFCC00 ; }
+
+.btn.success {
+  background-color: #4caf50 ; }
+
+.btn.danger {
+  background-color: #f44336 ; }
+
+.btn.rose {
+  background-color: #e91e63 ; }
+
+.btn.orange {
+  background-color: #ffa700 ; }
+
+.btns .btn {
+  padding: 12px 6px;
+  min-width: 100px; }

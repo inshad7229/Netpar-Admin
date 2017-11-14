@@ -139,6 +139,19 @@ export class ViewContentComponent implements OnInit {
         $('.close-filter').on('click',function(){
             $(this).closest('.filter-plugin').removeClass('open');
         });
+         $(window).on('click', function (e) {
+            e.stopPropagation();
+            var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
+            console.log($trigger);
+            if ($trigger !== e.target && !$trigger.has(e.target).length) {
+                $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
+            }
+            var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+            console.log($trigger);
+            if($trigger !== e.target && !$trigger.has(e.target).length){
+                $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+            }
+        });
         //this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator);
        // this.dataSource = new ExampleDataSourceSort(this.exampleDatabase, this.sort);
         this.getList()

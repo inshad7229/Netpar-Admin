@@ -19,10 +19,16 @@
 	                                <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
 	                            </div>
 	                            <ul class="slctd-fltrli" type="none">
-	                                <li> Rejected <span> <i class="fa fa-times"></i> </span> </li>
-	                                <li> Draft <span> <i class="fa fa-times"></i> </span> </li>
-	                                <li> News <span> <i class="fa fa-times"></i> </span> </li>
-	                                <li> Revision <span> <i class="fa fa-times"></i> </span> </li>
+	                                <li *ngFor="let lang of filterLanguageFilterPan" > {{lang}} <span (click)="onClearLangFilter(lang)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let sec of filterSectionFilterPan"> {{findSec(sec)}} <span (click)="onClearSectionFilter(sec)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let cat of filterCategoryFilterPan"> {{findCat(cat._id)}} <span (click)="onClearCategoryFilter(cat._id)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let subCat of filterSubcategoryFilterPan"> {{findSubCat(subCat._id)}} <span (click)="onClearSubCategoryFilter(subCat._id)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="saveAsDraftStatus"> Draft <span (click)="onClearDraftFilter(saveAsDraftStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="rejectStatus"> Rejected <span (click)="onClearRejectFilter(rejectStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="sendForRevisionStatus"> Revision <span (click)="onClearRevisionFilter(sendForRevisionStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="publishLaterStatus"> Scheduled <span (click)="onClearScheduledFilter(publishLaterStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="publishStatus"> Published <span (click)="onClearPublishedFilter(publishStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="filterLanguageSingle"> {{filterLanguageSingle}}<span (click)="onClearSingleFilter(filterLanguageSingle)"> <i class="fa fa-times"></i> </span> </li>
 	                            </ul>
                           	</div>
                         </div>
@@ -269,10 +275,7 @@
                         <div class="wrapFilter-div">
                             <h5 class="filter-heading"> Status</h5>
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Shortlist content</mat-checkbox></li>
-                                <li><mat-checkbox>Active priority content</mat-checkbox></li>
-                                <li><mat-checkbox>Completed priority content</mat-checkbox></li>
-                                <li><mat-checkbox>Scheduled content</mat-checkbox></li>
+                                  <li  *ngFor="let stat of statusPriority" ><mat-checkbox [(ngModel)]="stat.check" (change)="forstatusPriority(stat)">{{stat.value}}</mat-checkbox></li>                         
                             </ul>
                         </div>
                     </div>
@@ -281,10 +284,10 @@
                         <h5 class="filter-heading"> Select Language</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Language1</mat-checkbox></li>
-                                <li><mat-checkbox>Language2</mat-checkbox></li>
+                                <li *ngFor="let lang of stringResource.language" ><mat-checkbox [(ngModel)]="lang.check" (change)="onSelectLang(lang)">{{lang.language}}</mat-checkbox></li>
+                               <!--  <li><mat-checkbox>Language2</mat-checkbox></li>
                                 <li><mat-checkbox>Language3</mat-checkbox></li>
-                                <li><mat-checkbox>Language4</mat-checkbox></li>
+                                <li><mat-checkbox>Language4</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -293,8 +296,8 @@
                         <h5 class="filter-heading"> Section</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>News</mat-checkbox></li>
-                                <li><mat-checkbox>Jobs</mat-checkbox></li>
+                                <li  *ngFor="let sec of sections" ><mat-checkbox [(ngModel)]="sec.check" (change)="forSection(sec)">{{sec.sectionName}}</mat-checkbox></li>
+                                <!-- <li><mat-checkbox>Jobs</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -302,8 +305,8 @@
                         <h5 class="filter-heading"> Category </h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Sport News</mat-checkbox></li>
-                                <li><mat-checkbox>Technology News</mat-checkbox></li>
+                                <li  *ngFor="let cat of categories" ><mat-checkbox [(ngModel)]="cat.check" (change)="forCategory(cat)">{{cat.categoryName}}</mat-checkbox></li>
+                              <!--   <li><mat-checkbox>Technology News</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -311,8 +314,8 @@
                         <h5 class="filter-heading"> Sub-Category </h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Cricket</mat-checkbox></li>
-                                <li><mat-checkbox>Football</mat-checkbox></li>
+                                <li  *ngFor="let subcat of subCategory" ><mat-checkbox [(ngModel)]="subcat.check" (change)="forSubCategory(subcat)">{{subcat.subCategoryName}}</mat-checkbox></li>
+                               <!--  <li><mat-checkbox>Cricket</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -320,15 +323,12 @@
                         <h5 class="filter-heading"> Status</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Draft</mat-checkbox></li>
-                                <li><mat-checkbox>Rejected</mat-checkbox></li>
-                                <li><mat-checkbox>Revision</mat-checkbox></li>
-                                <li><mat-checkbox>Scheduled</mat-checkbox></li>
+                                  <li  *ngFor="let stat of status" ><mat-checkbox [(ngModel)]="stat.check" (change)="forStatus(stat)">{{stat.value}}</mat-checkbox></li>                         
                             </ul>
                         </div>
                     </div>
                     <div class="btns-filter">
-                        <a class="btn custom-btn close-filter">Apply Filter </a>
+                        <a class="btn custom-btn close-filter" (click)="onApplyFilter()">Apply Filter </a>
                         
                     </div>
 

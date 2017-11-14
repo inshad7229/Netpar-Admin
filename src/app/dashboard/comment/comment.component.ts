@@ -55,17 +55,20 @@ export class CommentComponent implements OnInit {
     status=[
       {
         _id:"Needtoreview",
-        value:"Need to review"
+        value:"Need to review",
+        check:false
 
       },
       {
         _id:"Reviewed",
-        value:"Reviewed"
+        value:"Reviewed",
+        check:false
 
       },
       {
         _id:"Deleted",
-        value:"Deleted"
+        value:"Deleted",
+        check:false
 
       }
     ]
@@ -105,6 +108,14 @@ export class CommentComponent implements OnInit {
         });
         $('.close-filter').on('click',function(){
             $(this).closest('.filter-plugin').removeClass('open');
+        });
+         $(window).on('click', function (e) {
+            e.stopPropagation();
+            var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+            console.log($trigger);
+            if($trigger !== e.target && !$trigger.has(e.target).length){
+                $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+            }
         });
 
   	}
@@ -277,7 +288,7 @@ export class CommentComponent implements OnInit {
   forCategory(cat){
     console.log(JSON.stringify(cat))
     if (cat.check==true) {
-      this.filterCategory.push({cat})
+      this.filterCategory.push(cat)
       this.filterCategoryName.push(cat.categoryName)
       this.getsubCategory(cat.sectionId,cat._id)
     }else{
@@ -290,7 +301,7 @@ export class CommentComponent implements OnInit {
   }
   forSubCategory(subCat){
     if (subCat.check==true) {
-      this.filterSubcategory.push({subCat})
+      this.filterSubcategory.push(subCat)
       this.filterSubcategoryName.push(subCat.subCategoryName)
      //this.getCategory(subCat._id)
     }else{
@@ -397,12 +408,12 @@ export class CommentComponent implements OnInit {
           }
           let demo2=[];
           demo2.push({$or:demo})
-          if (this.filterRequest.Deleted) {
-           demo2.push({deleteStatus:true})
-            // code...
-          }else{
-            demo2.push({deleteStatus:false})
-          }
+          // if (this.filterRequest.Deleted) {
+          //  demo2.push({deleteStatus:true})
+          //   // code...
+          // }else{
+          //   demo2.push({deleteStatus:false})
+          // }
            let demo3={
              $and:demo2
            }
@@ -418,8 +429,13 @@ export class CommentComponent implements OnInit {
                         }
                         else if (data.success == true) {
                           this.waitLoader =false;
-                           this.commentList=data.response;
-                           this.commentListBackup=this.commentList.slice(0);
+                           //this.commentList=data.response;
+                           if (this.filterRequest.Deleted) {
+                            this.commentList=data.response.filter(arg=>arg.deleteStatus==true)
+                           }else{
+                            this.commentList=data.response.filter(arg=>arg.deleteStatus==false)
+                           }
+                           this.commentListBackup=data.response.slice(0);
                            this.filterLanguageFilterPan=this.filterLanguage.slice(0);
                            this.filterSectionFilterPan=this.filterSection.slice(0);
                            this.filterCategoryFilterPan=this.filterCategory.slice(0);
@@ -449,27 +465,27 @@ export class CommentComponent implements OnInit {
         }
         onClearSectionFilter(sec){
             this.commentList=this.commentList.filter(arg=>arg.sectionName!=sec.sectionName) 
-            this.filterSectionFilterPan=this.filterSectionFilterPan.filter(arg=>arg!=sec._id)         
+            this.filterSectionFilterPan=this.filterSectionFilterPan.filter(arg=>arg._id!=sec._id)         
         }
         onClearCategoryFilter(cat){
           console.log(JSON.stringify(this.filterCategoryFilterPan))
-            this.commentList=this.commentList.filter(arg=>arg.categoryId!=cat.categoryName)
+            this.commentList=this.commentList.filter(arg=>arg.categoryName!=cat.categoryName)
             this.filterCategoryFilterPan=this.filterCategoryFilterPan.filter(arg=>arg._id!=cat._id)
         }
         onClearSubCategoryFilter(subCat){
-            this.commentList=this.commentList.filter(arg=>arg.subCategorId!=subCat.subCategoryName)
-            this.filterSubcategoryFilterPan=this.filterSubcategoryFilterPan.filter(arg=>arg._id!=subCat.subCategoryName)
+            this.commentList=this.commentList.filter(arg=>arg.subCategoryName!=subCat.subCategoryName)
+            this.filterSubcategoryFilterPan=this.filterSubcategoryFilterPan.filter(arg=>arg._id!=subCat._id)
         }
-        onClearDraftFilter(status){
-            this.commentList=this.commentList.filter(arg=>arg.Reviewed!=status)
+        onClearReviewedFilter(status){
+            this.commentList=this.commentList.filter(arg=>arg.status!=status)
             this.Reviewed=false;
         }
-        onClearRejectFilter(status){
-            this.commentList=this.commentList.filter(arg=>arg.Deleted!=status)
+        onClearDeletedFilter(status){
+            this.commentList=this.commentListBackup.filter(arg=>arg.deleteStatus==false)
             this.Deleted=false;
         }
-        onClearRevisionFilter(status){
-            this.commentList=this.commentList.filter(arg=>arg.Needtoreview!=status)
+        onClearNeedtoreviewFilter(status){
+            this.commentList=this.commentList.filter(arg=>arg.status!=status)
             this.Needtoreview=false;
         }
        
@@ -478,10 +494,32 @@ export class CommentComponent implements OnInit {
             this.filterSectionFilterPan=[]
             this.filterCategoryFilterPan=[]
             this.filterSubcategoryFilterPan=[]
+            this.filterLanguage=[]
+            this.filterSection=[]
+            this.filterCategory=[]
+            this.filterSubcategory=[]
+            this.filterSectionName=[]
+            this.filterCategoryName=[]
+            this.filterSubcategoryName=[]
             this.Reviewed=false;
             this.Deleted=false;
             this.Needtoreview=false;
             this.commentList=this.commentBackup.slice(0)
+             for (let i=0;i<this.stringResource.language.length;i++) {
+               this.stringResource.language[i].check=false
+            }
+            for (let i=0;i<this.sections.length;i++) {
+               this.sections[i].check=false
+            }
+            for (let i=0;i<this.categories.length;i++) {
+               this.categories[i].check=false
+            }
+            for (let i=0;i<this.subCategory.length;i++) {
+               this.subCategory[i].check=false
+            }
+            for (let i=0;i<this.status.length;i++) {
+               this.status[i].check=false
+            }
         }  
   
 }

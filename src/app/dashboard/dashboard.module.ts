@@ -15,6 +15,7 @@ import {DndModule} from 'ng2-dnd';
 import { SwiperModule } from 'angular2-useful-swiper';
 import {ColorPickerModule} from 'angular4-color-picker';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { DateTimePickerModule } from 'ng-pick-datetime';
 
 
@@ -94,6 +95,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         CKEditorModule,
         DateTimePickerModule,
         DndModule.forRoot(),
+        FroalaEditorModule.forRoot(), 
+        FroalaViewModule.forRoot(),
     ],
     declarations: [
              AdminConfirmation,///inshad
