@@ -15,6 +15,7 @@ export class DialogComponent implements OnInit {
 waitLoader
 adminData 
 adminName=[];
+callToActionButton=[]
   constructor(private dialog: MatDialog, 
               public dialogRef: MatDialogRef<DialogComponent>,
               private adminService:AdminService,
@@ -22,20 +23,36 @@ adminName=[];
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+    console.log(this.appProvider.current.currentSectionName)
   	 this.getAdminList()
   }
    getAdminList(){
-          this.waitLoader = true
-          this.adminService.onGetAdmin().subscribe(data => {
-            this.waitLoader = false
-            this.adminData = data.response;
-           // console.log(JSON.stringify(this.adminData))
-        }, error => {
-            this.waitLoader = false
-         //  this.toastr.error( 'Something went worng please try again after some time !!','Error !!. ',{toastLife: 3000, showCloseButton: true});
-        })
-
-    }
+      this.waitLoader = true
+      this.adminService.onGetAdmin().subscribe(data => {
+      this.waitLoader = false
+      this.adminData = data.response;
+      for (var i = 0; i<this.adminData.length ; i++) {
+        var obj=this.adminData[i];
+        console.log(obj)
+        if (obj.sectionName.length>0) {
+          for (var j = 0; j <obj.sectionName.length; j++) {
+            var  obj2=obj.sectionName[j]
+            console.log(obj2)
+            if (obj2) {
+              if (obj2.name==this.appProvider.current.currentSectionName && obj2.checked==true) {
+                if (this.adminName.map(function (img) { return img._id; }).indexOf(obj._id) ==-1) {
+                this.adminName.push({_id:obj._id,firstName:obj.firstName,lastName:obj.lastName})
+                }
+              }
+            }
+          }
+        }
+      }
+      console.log(JSON.stringify(this.adminName))
+      }, error => {
+      this.waitLoader = false
+      })
+      }
   onClosed(){
   	this.dialogRef.close();
   }
@@ -45,31 +62,26 @@ adminName=[];
    return value;
   }
  getvalue(){
- 
-          for (var i = 0; i<=this.adminData.length ; i++) {
-         var obj=this.adminData[0];
-         for (var j = 0; j <=obj.sectionName.length; j++) {
+  for (var i = 0; i<=this.adminData.length ; i++) {
+    var obj=this.adminData[0];
+        for (var j = 0; j <=obj.sectionName.length; j++) {
           var  obj2=obj.sectionName[j]
-          if (obj2) {
-             if (obj2.name==this.appProvider.current.currentSectionName) {
-               if (obj2.check==true) {
-                 this.adminName.push({firstName:obj.firstName,lastName:obj.lastNmae})
-               }
-           }
+            if (obj2) {
+            if (obj2.name==this.appProvider.current.currentSectionName) {
+              if (obj2.check==true) {
+              this.adminName.push({firstName:obj.firstName,lastName:obj.lastNmae})
+              }
           }
-          
-         }
+        }
       }
- 
+    }
  }
  validate(vale){
-  // alert(JSON.stringify(vale))
   for (let i = 0; i <vale.length; i++) {
       var obj=vale[i]
       if (obj.name==this.appProvider.current.currentSectionName && obj.checked==true) {
-        // code...
         return true
       }
-  }
+    }
  }
 }

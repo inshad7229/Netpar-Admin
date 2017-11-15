@@ -1,16 +1,19 @@
 export class AddContentRequest {
-	_id:string;
-	language:string;
-	sectionId:string;
-	sectionName:string;
+    _id:string;
+    language:string;
+    sectionId:string;
+    sectionName:string;
     categoryName:string;
     categoryId:string;
     subCategoryId:string;
     subCategoryName:string;
     headline:string;
     tagline:string;
-    tags:string;
+    tags:any;
+    tag:any
     dateOfCreation:string;
+    deleteStatus:boolean;
+    googleForm:boolean;
     typeOfUser:string;
     userList:object;
     contentBody:object;
@@ -22,7 +25,7 @@ export class AddContentRequest {
     horizontalPicture:string;
     sortlistForHomepage:boolean;
     sortlistForCategory:boolean;
-    applicableStateLists:object;
+    applicableStateLists:any;
     saveAsDraftStatus:boolean;
     startDateForDraft:string;
     endDateForDraft:string;
@@ -32,6 +35,7 @@ export class AddContentRequest {
     endDateOfpublish:string;
     publishLaterStatus:boolean;
     startDateForPublishLater:string;
+    endDateForPublishLater:string;
     endDateForPublish:string;
     sendForRevisionStatus:boolean;
     rejectStatus:boolean;
@@ -45,16 +49,11 @@ export class AddContentRequest {
     callMeBackCount:number;
     pageView:number;
     imIntrestedCount:number;
-    deleteStatus:boolean;
-    googleForm:boolean;
     googleFormUrl:string;
     publishDate:string;
     rejectDate:string;
     submitforrevisionDate:string;
     submitforreviewDate:string;
     saveAsDraftDate:string;
-
-
-
 
 }

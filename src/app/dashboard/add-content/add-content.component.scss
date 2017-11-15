@@ -180,7 +180,7 @@
 .list-group-item{
     padding: 0;
 }
-#email-builder .email-builder-content [position-relative] .builder .email-container .builder-element>.icons-actions {
+#email-builder .email-builder-content [position-relative] .builder .email-container .list-group-item .icons-actions {
     background-color: #fff;
     -webkit-transform: translateX(100%);
     -moz-transform: translateX(100%);
@@ -199,7 +199,7 @@
     flex-direction: column;
     left: 0;
 }
-#email-builder .email-builder-content [position-relative] .builder .email-container .builder-element:hover>.icons-actions {
+#email-builder .email-builder-content [position-relative] .builder .email-container .list-group-item:hover .icons-actions {
     opacity: 1;
     -webkit-transform: translateX(-100%);
     -moz-transform: translateX(-100%);
@@ -207,13 +207,13 @@
     -o-transform: translateX(-100%);
     transform: translateX(-100%);
 }
-#email-builder .email-builder-content [position-relative] .builder .email-container .builder-element>.icons-actions i.actions {
+#email-builder .email-builder-content [position-relative] .builder .email-container .list-group-item .icons-actions i.actions {
     margin: .2em;
     color: #4d4d4d;
     font-size: 1.5em;
     cursor: pointer;
 }
-#email-builder .email-builder-content [position-relative] .builder .email-container .builder-element>.icons-actions i.actions.move {
+#email-builder .email-builder-content [position-relative] .builder .email-container .list-group-item .icons-actions i.actions.move {
     cursor: move;
 }
 #email-builder .email-builder-content [position-relative] .builder .email-container .builder-element img {
@@ -264,4 +264,14 @@
   margin-top: -2px;
   position: relative;
   top: 0;
+}
+
+.form-row.padding-inputs .mat-form-field{
+    width: 50%;
+}
+.grayClass{
+    color: gray;
+}
+.form-group.grayClass label{
+    color: #afafaf;
 }

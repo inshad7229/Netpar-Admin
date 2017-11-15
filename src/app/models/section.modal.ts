@@ -13,6 +13,7 @@ export class AddSectionRequest {
 	 updatedDate:string;
 	 enableDisableDate:string;
 	 publishUnbuplishDate:string;
+	 sectionViewFormat:string;
 	 language:string;
 	 orderNo:number;
 

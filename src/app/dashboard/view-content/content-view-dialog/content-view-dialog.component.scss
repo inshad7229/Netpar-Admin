@@ -55,6 +55,9 @@ $color-whatsapp: #27AF2B;
 .dashed-brd{
   border-bottom: 1px dashed #777;
 }
+.top-brd{
+  border-top: 1px dashed #777;
+}
 .like-bar {
   width: 100%;
   float: left;
@@ -274,4 +277,7 @@ img.rad-shad{
   i{
     font-size: 18px;
   }
+}
+.like-bar.no-brd{
+  border: 0;
 }

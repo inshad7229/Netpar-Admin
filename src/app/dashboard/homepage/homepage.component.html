@@ -1,4 +1,7 @@
 <div class="wrapper">
+     <div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
     <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
         <app-sidebar></app-sidebar>
         <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
@@ -9,17 +12,26 @@
         <div class="main-content">
             <div class="container-fluid p-0">
                 <div class="row">
-                    <div class="col-lg-12 col-mat-12">
+                    <div class="col-lg-12 col-md-12">
                     	<div class="card m-t-0">
                     		<div class="card-content">
 	                            <div class="select-head">
-	                                <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
+	                                <span class="hed"> Selected filter </span> | <span class="clar-filter" (click)="clearAll()"> Clear Filter </span>
 	                            </div>
 	                            <ul class="slctd-fltrli" type="none">
-	                                <li> Rejected <span> <i class="fa fa-times"></i> </span> </li>
-	                                <li> Draft <span> <i class="fa fa-times"></i> </span> </li>
-	                                <li> News <span> <i class="fa fa-times"></i> </span> </li>
-	                                <li> Revision <span> <i class="fa fa-times"></i> </span> </li>
+	                                <li *ngFor="let lang of filterLanguageFilterPan" > {{lang}} <span (click)="onClearLangFilter(lang)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let sec of filterSectionFilterPan"> {{findSec(sec)}} <span (click)="onClearSectionFilter(sec)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let cat of filterCategoryFilterPan"> {{findCat(cat._id)}} <span (click)="onClearCategoryFilter(cat._id)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let subCat of filterSubcategoryFilterPan"> {{findSubCat(subCat._id)}} <span (click)="onClearSubCategoryFilter(subCat._id)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="saveAsDraftStatus"> Draft <span (click)="onClearDraftFilter(saveAsDraftStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="rejectStatus"> Rejected <span (click)="onClearRejectFilter(rejectStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="sendForRevisionStatus"> Revision <span (click)="onClearRevisionFilter(sendForRevisionStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="publishLaterStatus"> Scheduled <span (click)="onClearScheduledFilter(publishLaterStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="publishStatus"> Published <span (click)="onClearPublishedFilter(publishStatus)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="activePriority"> Active priority content <span (click)="onClearactivePriorityFilter(activePriority)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="completed"> Completed priority content <span (click)="onClearcompletedFilter(completed)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="future"> Scheduled content <span (click)="onClearfutureFilter(future)"> <i class="fa fa-times"></i> </span> </li>
+                                    <!-- <li  *ngIf="filterLanguageSingle"> {{filterLanguageSingle}}<span (click)="onClearSingleFilter(filterLanguageSingle)"> <i class="fa fa-times"></i> </span> </li> -->
 	                            </ul>
                           	</div>
                         </div>
@@ -30,87 +42,95 @@
                             <div class="card-content">
                                 <h4 class="card-title">Homepage Management</h4>
                                 <div class="row">
-                                    <div class="col-mat-7 col-sm-7 col-xs-12"></div>
-                                    <div class="col-mat-5 col-sm-5 col-xs-12">
-                                        <div class="col-mat-6 col-sm-6 col-xs-12">
-                                            <mat-select placeholder="Choose State">
-                                                <mat-option value="1"> State1 </mat-option>
-                                                <mat-option value="2"> State2 </mat-option>
-                                                <mat-option value="3"> State3 </mat-option>
-                                                <mat-option value="4"> State4 </mat-option>
-                                                <mat-option value="5"> State5 </mat-option>
-                                                <mat-option value="6"> State6 </mat-option>
-                                                <mat-option value="7"> State7 </mat-option>
-                                                <mat-option value="8"> State8 </mat-option>
-                                                <mat-option value="9"> State9 </mat-option>
-                                                <mat-option value="10"> State10 </mat-option>
-                                                <mat-option value="11"> State11 </mat-option>
-                                                <mat-option value="12"> State12 </mat-option>
-                                                <mat-option value="13"> State13 </mat-option>
-                                                <mat-option value="14"> State14 </mat-option>
-                                                <mat-option value="15"> State15 </mat-option>
-                                                <mat-option value="16"> State16 </mat-option>
-                                                <mat-option value="17"> State17 </mat-option>
-                                                <mat-option value="18"> State18 </mat-option>
-                                                <mat-option value="19"> State19 </mat-option>
-                                                <mat-option value="20"> State20 </mat-option>
-                                                <mat-option value="21"> State21 </mat-option>
-                                                <mat-option value="22"> State22 </mat-option>
-                                            </mat-select>
+                                    <div class="col-md-7 col-sm-7 col-xs-12"></div>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-select placeholder="Choose State" multiple>
+                                                    <mat-option value="1"> State1 </mat-option>
+                                                    <mat-option value="2"> State2 </mat-option>
+                                                    <mat-option value="3"> State3 </mat-option>
+                                                    <mat-option value="4"> State4 </mat-option>
+                                                    <mat-option value="5"> State5 </mat-option>
+                                                    <mat-option value="6"> State6 </mat-option>
+                                                    <mat-option value="7"> State7 </mat-option>
+                                                    <mat-option value="8"> State8 </mat-option>
+                                                    <mat-option value="9"> State9 </mat-option>
+                                                    <mat-option value="10"> State10 </mat-option>
+                                                    <mat-option value="11"> State11 </mat-option>
+                                                    <mat-option value="12"> State12 </mat-option>
+                                                    <mat-option value="13"> State13 </mat-option>
+                                                    <mat-option value="14"> State14 </mat-option>
+                                                    <mat-option value="15"> State15 </mat-option>
+                                                    <mat-option value="16"> State16 </mat-option>
+                                                    <mat-option value="17"> State17 </mat-option>
+                                                    <mat-option value="18"> State18 </mat-option>
+                                                    <mat-option value="19"> State19 </mat-option>
+                                                    <mat-option value="20"> State20 </mat-option>
+                                                    <mat-option value="21"> State21 </mat-option>
+                                                    <mat-option value="22"> State22 </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
-                                        <div class="col-mat-6 col-sm-6 col-xs-12">
-                                            <mat-select placeholder="Choose Language">
-                                                <mat-option value="1">  Hindi </mat-option>
-                                                <mat-option value="2">  Marathi </mat-option>
-                                                <mat-option value="3">  Assamese </mat-option>
-                                                <mat-option value="4">  Bengali </mat-option>
-                                                <mat-option value="5">  Dogri </mat-option>
-                                                <mat-option value="6">  Gujarati </mat-option>
-                                                <mat-option value="7">  Punjabi </mat-option>
-                                                <mat-option value="8">  Bodo </mat-option>
-                                                <mat-option value="9">  Kannada </mat-option>
-                                                <mat-option value="10"> Kashmiri </mat-option>
-                                                <mat-option value="11"> Urdu </mat-option>
-                                                <mat-option value="12"> Telegu </mat-option>
-                                                <mat-option value="13"> Konkani </mat-option>
-                                                <mat-option value="14"> Malayalam </mat-option>
-                                                <mat-option value="15"> Manipuri or Meithei </mat-option>
-                                                <mat-option value="16"> English </mat-option>
-                                                <mat-option value="17"> Nepali </mat-option>
-                                                <mat-option value="18"> Oriya </mat-option>
-                                                <mat-option value="19"> Sanskrit </mat-option>
-                                                <mat-option value="20"> Santali </mat-option>
-                                                <mat-option value="21"> Sindhi </mat-option>
-                                                <mat-option value="22"> Tamil </mat-option>
-                                            </mat-select>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-select placeholder="Choose Language">
+                                                    <mat-option value="1">  Hindi </mat-option>
+                                                    <mat-option value="2">  Marathi </mat-option>
+                                                    <mat-option value="3">  Assamese </mat-option>
+                                                    <mat-option value="4">  Bengali </mat-option>
+                                                    <mat-option value="5">  Dogri </mat-option>
+                                                    <mat-option value="6">  Gujarati </mat-option>
+                                                    <mat-option value="7">  Punjabi </mat-option>
+                                                    <mat-option value="8">  Bodo </mat-option>
+                                                    <mat-option value="9">  Kannada </mat-option>
+                                                    <mat-option value="10"> Kashmiri </mat-option>
+                                                    <mat-option value="11"> Urdu </mat-option>
+                                                    <mat-option value="12"> Telegu </mat-option>
+                                                    <mat-option value="13"> Konkani </mat-option>
+                                                    <mat-option value="14"> Malayalam </mat-option>
+                                                    <mat-option value="15"> Manipuri or Meithei </mat-option>
+                                                    <mat-option value="16"> English </mat-option>
+                                                    <mat-option value="17"> Nepali </mat-option>
+                                                    <mat-option value="18"> Oriya </mat-option>
+                                                    <mat-option value="19"> Sanskrit </mat-option>
+                                                    <mat-option value="20"> Santali </mat-option>
+                                                    <mat-option value="21"> Sindhi </mat-option>
+                                                    <mat-option value="22"> Tamil </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row homepage-btns">
-                                    <div class="col-mat-7 col-sm-7 col-xs-12">
-                                    	<a class="btn btn-round btn-mat btn-disabled btn-warning" (click)="openDialog()">Prioritise of homepage</a>
-                                    	<a class="btn btn-round btn-mat btn-disabled btn-success" (click)="openDialog()">Prioritise of category</a>
-                                    	<a class="btn btn-round btn-mat btn-disabled btn-danger">Remove from shortlist</a>
+                                    <div class="col-md-7 col-sm-7 col-xs-12">
+                                    	<button class="btn btn-round btn-mat btn-disabled btn-warning" (click)="openDialog('forhomepage')" [disabled]="selectedId.length==0">Prioritise to homepage</button>
+                                        <button class="btn btn-round btn-mat btn-disabled btn-success" (click)="openDialog('forcategorypage')" [disabled]="selectedId.length==0">Prioritise to category</button>
+                                        <button class="btn btn-round btn-mat btn-disabled btn-danger" [disabled]="selectedId.length==0" (click)="onEditMultipal('removefromHomepage')">Remove from shortlist</button>
                                     </div>
-                                    <div class="col-mat-5 col-sm-5 col-xs-12">
-                                        <div class="col-mat-6 col-sm-6 col-xs-12">
-                                            <mat-select placeholder="Items per page">
-                                                <mat-option value="1"> 25 </mat-option>
-                                                <mat-option value="2"> 50 </mat-option>
-                                                <mat-option value="3"> 100 </mat-option>
-                                                <mat-option value="4"> 200 </mat-option>
-                                                <mat-option value="4"> All </mat-option>
-                                            </mat-select>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-select placeholder="Items per page">
+                                                    <mat-option value="1"> 25 </mat-option>
+                                                    <mat-option value="2"> 50 </mat-option>
+                                                    <mat-option value="3"> 100 </mat-option>
+                                                    <mat-option value="4"> 200 </mat-option>
+                                                    <mat-option value="4"> All </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
-                                        <div class="col-mat-6 col-sm-6 col-xs-12">
-                                            <mat-select placeholder="Time Range">
-                                                <mat-option value="1"> 7d </mat-option>
-                                                <mat-option value="2"> 15d </mat-option>
-                                                <mat-option value="3"> 1m </mat-option>
-                                                <mat-option value="4"> 3m </mat-option>
-                                                <mat-option value="4"> 6m </mat-option>
-                                                <mat-option value="5"> All </mat-option>
-                                            </mat-select>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-select placeholder="Time Range">
+                                                    <mat-option value="1"> 7d </mat-option>
+                                                    <mat-option value="2"> 15d </mat-option>
+                                                    <mat-option value="3"> 1m </mat-option>
+                                                    <mat-option value="4"> 3m </mat-option>
+                                                    <mat-option value="4"> 6m </mat-option>
+                                                    <mat-option value="5"> All </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
                                     </div>
 
@@ -132,47 +152,47 @@
                                                     <th> </th>
                                                     <th> </th>
                                                     <th> </th>
-                                                    <th>
+                                                    <th class="icon-wdth">
                                                         <a matTooltipPosition="above" matTooltip="Kadak" class="tltip_ico">
                                                             <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth">
                                                         <a matTooltipPosition="above" matTooltip="Share" class="tltip_ico">
                                                             <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth">
                                                         <a matTooltipPosition="above" matTooltip="Comment" class="tltip_ico">
                                                             <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth">
                                                         <a matTooltipPosition="above" matTooltip="Save" class="tltip_ico">
                                                             <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth">
                                                         <a matTooltipPosition="above" matTooltip="Download" class="tltip_ico">
                                                             <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth">
                                                         <a matTooltipPosition="above" matTooltip="Apply" class="tltip_ico">
                                                             <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth">
                                                         <a matTooltipPosition="above" matTooltip="Call" class="tltip_ico">
                                                             <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth">
                                                         <a matTooltipPosition="above" matTooltip="Call Me Back" class="tltip_ico">
                                                             <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth">
                                                         <a matTooltipPosition="above" matTooltip="I'm Interested" class="tltip_ico">
                                                             <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
                                                         </a>
@@ -181,19 +201,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr *ngFor="let content of contentList">
                                                     <td class="vertical-top">
-                                                        <mat-checkbox></mat-checkbox>
+                                                        <mat-checkbox [(ngModel)]="content.editcheck" (change)="onCheckBox(content._id)"></mat-checkbox>
                                                     </td>
                                                     <td class="td-wdth282 text-left">
                                                         <div class="cont-img">
-                                                            <img src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                            <img *ngIf="!content.thumbnailPicture" src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                            <img *ngIf="content.thumbnailPicture" [src]="content.thumbnailPicture" class="img-responsive" />
                                                             <div>
-                                                                Status: <span class="text-success"><b>Approved</b></span>
+                                                                Status:
+                                                                <span class="text-success" *ngIf="content.saveAsDraftStatus==true"><b>Draft</b></span>
+                                                                <span class="text-success" *ngIf="content.submitForreview==true"><b>Under Review</b></span>
+                                                                <span class="text-success" *ngIf="content.publishStatus==true"><b>Published</b></span>
+                                                                <span class="text-success" *ngIf="content.sendForRevisionStatus==true"><b>Revision</b></span>
                                                             </div>
                                                         </div>
                                                         <div class="cont-dtl">
-                                                            <div> Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </div>
+                                                            <div>  {{content.headline}}</div>
                                                             <div> <strong> Posted by: </strong> Rohan Sen </div>
                                                             <div class=""> 
                                                                 <a href="javascript:;">
@@ -201,20 +226,21 @@
                                                                 </a>
                                                             </div>
                                                             <div class="m-t-5"> 
-                                                                <a href="javascript:;" class="text-success"> <i class="fa fa-eye"></i> View </a> |
-                                                                <a href="javascript:;" class="text-danger"> <i class="fa fa-pencil"></i> Edit </a>
+                                                                <a href="javascript:;" class="text-success" (click)="onView(content)"> <i class="fa fa-eye"></i> View </a> |
+                                                                <a href="javascript:;" class="text-danger" (click)="onEdit(content)"> <i class="fa fa-pencil" ></i> Edit </a>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="td-wdth155 text-left vertical-top">
-                                                        <p> <strong> Published </strong> /Rejected: 16/08/2017 </p>
-                                                        <p> Creation: 16/08/2017 </p>
-                                                        <p> Submit for Review: <strong> 16/08/2017 </strong> </p>
+                                                    <td class="td-wdth155 text-left">
+                                                        <p *ngIf="content.publishStatus==true"> <strong> Published </strong> /Rejected: {{content.publishDate}} </p>
+                                                        <p *ngIf="content.rejectStatus==true"> Published / <strong>Rejected </strong>: {{content.rejectDate}} </p>
+                                                        <p> Creation: {{content.dateOfCreation}}</p>
+                                                        <p *ngIf="content.submitForreview==true"> Submit for Review: <strong> {{content.submitforreviewDate}}</strong> </p>
                                                     </td>
-                                                    <td> 1,00,000 </td> <td> 5,00,000 </td> <td> 60,000 </td> <td> 
-                                                    2,000 </td> <td> 8,55,070 </td>
-                                                    <td> 1,00,000 </td> <td> 48,000 </td> <td> 40,024 </td> <td> 5,00,000 </td> 
-                                                    <td>10,00,000 </td>
+                                                    <td>{{content.likeCount}}</td> <td> {{content.shareCount}}</td> <td>{{content.commentCount}}</td> <td> 
+                                                    {{content.saveCount}}</td> <td> {{content.downloadCount}}</td>
+                                                    <td> {{content.applyCount}}</td> <td>{{content.callCount}}</td> <td>{{content.callMeBackCount}} </td> <td> {{content.imIntrestedCount}} </td> 
+                                                    <td>{{content.pageView}}</td>
 
                                                 </tr>
                                                 
@@ -252,10 +278,7 @@
                         <div class="wrapFilter-div">
                             <h5 class="filter-heading"> Status</h5>
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Shortlist content</mat-checkbox></li>
-                                <li><mat-checkbox>Active priority content</mat-checkbox></li>
-                                <li><mat-checkbox>Completed priority content</mat-checkbox></li>
-                                <li><mat-checkbox>Scheduled content</mat-checkbox></li>
+                                  <li  *ngFor="let stat of statusPriority" ><mat-checkbox [(ngModel)]="stat.check" (change)="forstatusPriority(stat)">{{stat.value}}</mat-checkbox></li>                         
                             </ul>
                         </div>
                     </div>
@@ -264,10 +287,10 @@
                         <h5 class="filter-heading"> Select Language</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Language1</mat-checkbox></li>
-                                <li><mat-checkbox>Language2</mat-checkbox></li>
+                                <li *ngFor="let lang of stringResource.language" ><mat-checkbox [(ngModel)]="lang.check" (change)="onSelectLang(lang)">{{lang.language}}</mat-checkbox></li>
+                               <!--  <li><mat-checkbox>Language2</mat-checkbox></li>
                                 <li><mat-checkbox>Language3</mat-checkbox></li>
-                                <li><mat-checkbox>Language4</mat-checkbox></li>
+                                <li><mat-checkbox>Language4</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -276,8 +299,8 @@
                         <h5 class="filter-heading"> Section</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>News</mat-checkbox></li>
-                                <li><mat-checkbox>Jobs</mat-checkbox></li>
+                                <li  *ngFor="let sec of sections" ><mat-checkbox [(ngModel)]="sec.check" (change)="forSection(sec)">{{sec.sectionName}}</mat-checkbox></li>
+                                <!-- <li><mat-checkbox>Jobs</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -285,8 +308,8 @@
                         <h5 class="filter-heading"> Category </h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Sport News</mat-checkbox></li>
-                                <li><mat-checkbox>Technology News</mat-checkbox></li>
+                                <li  *ngFor="let cat of categories" ><mat-checkbox [(ngModel)]="cat.check" (change)="forCategory(cat)">{{cat.categoryName}}</mat-checkbox></li>
+                              <!--   <li><mat-checkbox>Technology News</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -294,8 +317,8 @@
                         <h5 class="filter-heading"> Sub-Category </h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Cricket</mat-checkbox></li>
-                                <li><mat-checkbox>Football</mat-checkbox></li>
+                                <li  *ngFor="let subcat of subCategory" ><mat-checkbox [(ngModel)]="subcat.check" (change)="forSubCategory(subcat)">{{subcat.subCategoryName}}</mat-checkbox></li>
+                               <!--  <li><mat-checkbox>Cricket</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -303,15 +326,12 @@
                         <h5 class="filter-heading"> Status</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Draft</mat-checkbox></li>
-                                <li><mat-checkbox>Rejected</mat-checkbox></li>
-                                <li><mat-checkbox>Revision</mat-checkbox></li>
-                                <li><mat-checkbox>Scheduled</mat-checkbox></li>
+                                  <li  *ngFor="let stat of status" ><mat-checkbox [(ngModel)]="stat.check" (change)="forStatus(stat)">{{stat.value}}</mat-checkbox></li>                         
                             </ul>
                         </div>
                     </div>
                     <div class="btns-filter">
-                        <a class="btn custom-btn">Apply Filter </a>
+                        <a class="btn custom-btn close-filter" (click)="onApplyFilter()">Apply Filter </a>
                         
                     </div>
 

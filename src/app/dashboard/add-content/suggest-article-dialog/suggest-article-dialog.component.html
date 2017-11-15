@@ -2,7 +2,10 @@
 	<h4 class="modal-title" >Suggested Articles <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
 </div>
 <div class="modal-body">
-    <div class="form-group col-mat-3 col-sm-6 col-xs-12">
+    <div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
+    <div class="form-group col-md-3 col-sm-6 col-xs-12">
         <mat-form-field>
             <mat-select placeholder="Select Section" [(ngModel)]="addContentRequest.sectionId" (change)="getCategory()">
                 <mat-option  *ngFor="let section of sections"  [value]="section._id" > {{section.sectionName}}</mat-option>
@@ -12,7 +15,7 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <div class="form-group col-mat-3 col-sm-6 col-xs-12">
+    <div class="form-group col-md-3 col-sm-6 col-xs-12">
         <mat-form-field>
             <mat-select placeholder="Select Category" [(ngModel)]="addContentRequest.categoryId" (change)="getsubCategory()">
                 <mat-option *ngFor="let category of categories"  [value]="category._id" > {{category.categoryName}}</mat-option>
@@ -22,7 +25,7 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <div class="form-group col-mat-4 col-sm-6 col-xs-12">
+    <div class="form-group col-md-4 col-sm-6 col-xs-12">
         <mat-form-field>
             <mat-select placeholder="Select Sub-category" [(ngModel)]="addContentRequest.subCategoryId">
                 <mat-option *ngFor="let  subcate of subCategories"  [value]="subcate._id" > {{subcate.subCategoryName}}</mat-option>
@@ -32,17 +35,25 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <div class="form-group col-mat-3 col-sm-6 col-xs-12">
-        <button class="btn custom-btn" (click)="getSuggestedArtical()"> Filter </button>
+    <div class="form-group col-md-3 col-sm-6 col-xs-12">
+        <button class="btn custom-btn" (click)="getSuggestedArtical()"> Search </button>
     </div>
-    <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="suggestedArticalList">
+    <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="suggestedArticalList">
         <mat-form-field>
-        	<mat-icon matSuffix>mode_edit</mat-icon>
-            <input matInput placeholder="Search name of content item" type="text" [(ngModel)]="filter" (input)="onsearcArticle(filter)">
+        	<!-- //<mat-icon matSuffix>mode_edit</mat-icon> -->
+            <input matInput placeholder="Search name of content item" type="text" [(ngModel)]="filter" #filterNameInput [matAutocomplete]="filterName" (input)="onTransliteration(filter,filterNameInput)" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
+            <mat-icon matSuffix (click)="onsearcArticle(filter)"><i class="material-icons">search</i></mat-icon>
+            <mat-autocomplete #filterName="matAutocomplete">
+                                                <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                              <!--  // <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" /> -->
+                                                <span>{{ state }}</span> 
+                                               <!--  <small>Population: {{state.population}}</small> -->
+                                                </mat-option>
+          </mat-autocomplete> 
         </mat-form-field>
     </div>
 
-    <div class="col-mat-12 col-sm-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="dshbrd-table table-responsive">
                 <table class="table view-content-table m-b-0">

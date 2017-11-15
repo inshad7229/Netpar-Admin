@@ -1,4 +1,7 @@
 <div class="wrapper">
+         <div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
     <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
         <app-sidebar></app-sidebar>
         <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
@@ -9,7 +12,7 @@
         <div class="main-content">
             <div class="container-fluid p-0">
                 <div class="row">
-                    <div class="col-lg-12 col-mat-12">
+                    <div class="col-lg-12 col-md-12">
                         <div class="card" > 
                             <div class="card-header card-header-icon" data-background-color="orange">
                                 <i class="material-icons">show_chart</i>
@@ -30,18 +33,18 @@
                                                
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr *ngFor="let list of categortTemplateList">
                                                     <td class="text-center">
                                                         <div class="cont-img templt-img">
-                                                            <img class="img-responsive" src="./assets/img/template3.png" />
+                                                            <img class="img-responsive" src="./assets/img/category-view/{{getImagePath(list.templateName)}}" />
                                                         </div>
                                                     </td>
-                                                    <td> Listing View Screen1 </td>
-                                                    <td> Sports News </td>
-                                                    <td> 12:00 PM, 21-09-2017 </td>
-                                                    <td> 5:05 PM, 25-09-2017 </td>
+                                                    <td> {{list.templateName}} </td>
+                                                    <td> <ul *ngFor="let cat of list.categories"><li>{{cat}}</li></ul> </td>
+                                                    <td> {{getStartTime(list.startTime)}}, {{getStartDate(list.startTime)}}</td>
+                                                    <td> {{getEndTime(list.endTime)}}, {{getEndDate(list.endTime)}} </td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td class="text-center">
                                                         <div class="cont-img templt-img">
                                                             <img class="img-responsive" src="./assets/img/template1.png" />
@@ -73,7 +76,7 @@
                                                     <td> Sports News </td>
                                                     <td> 12:00 PM, 21-09-2017 </td>
                                                     <td> 5:05 PM, 25-09-2017 </td>
-                                                </tr>
+                                                </tr> -->
 
 
                                             </tbody>

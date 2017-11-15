@@ -7,35 +7,37 @@
     </div>
     <div class="inner-card dashed-brd">
     	<p> {{forContent.tagline}}  </p>
-    	<p>
+    	<p *ngIf="forContent.userList">
     		<strong> By: </strong>
-    		<span class="text-blue"> Peter Parker </span>
+    		<span class="text-blue" *ngIf="forContent.userList.length>0">{{forContent.userList[0].firstName}} {{forContent.userList[0].lastName}}</span>
     		<span class="text-light pull-right"> {{forContent.dateOfCreation}} </span>
     	</p>
     	<p class="m-0 text-right font_12">
-    		<i> 1500 Likes &#x25CF; 300 Comments </i>
+    		<i> {{forContent.likeCount}} Likes &#x25CF; {{forContent.commentCount}} Comments </i>
     	</p>
     </div>
 	<ul class="like-bar dashed-brd">
 		<li class="active">
-			<a class="text-danger" routerLink=""><span class="span-icns"> <i class="icon-okay"></i></span> Like </a>
+			<a class="text-danger" ><span class="span-icns"> <i class="icon-okay"></i></span> Like </a>
 		</li>
 		<li>
-			<a class="text-rose" routerLink=""><span class="span-icns"> <i class="icon-msg"></i></span> Comment </a> 
+			<a class="text-rose" ><span class="span-icns"> <i class="icon-msg"></i></span> Comment </a> 
 		</li>
 		<li>
-			<a class="text-primary" routerLink=""><span class="span-icns"> <i class="icon-badge"></i></span> Save </a> 
+			<a class="text-primary" ><span class="span-icns"> <i class="icon-badge"></i></span> Save </a> 
 		</li>
 		<li>
-			<a class="text-orange" routerLink=""><span class="span-icns"> <i class="icon-donload"></i></span> Download </a> 
+			<a class="text-orange" ><span class="span-icns"> <i class="icon-donload"></i></span> Download </a> 
 		</li>
 	</ul>
-	<div class="inner-card dashed-brd" *ngFor="let content of forContent.contentBody">
-		<div class="form-group" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor}">
-			<img [src]="content.url" class="img-responsive rad-shad" />
+	<div class="inner-card " *ngFor="let content of forContent.contentBody">
+		<div class="form-group" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor,extAlign:content.aligment}">
+			<img [src]="content.url" class="img-responsive rad-shad" [ngStyle]="{width:content.widthImg+'px',
+                                                                                          height:content.heightImg+'px',
+                                                                                          display: content.display,paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" />
 		</div>
 		<div [ngStyle]="{background:content.backgroundColor}" *ngIf="content.tag=='text'">
-			<p class="text-light">{{content.text}}</p>
+			<div class="text-light" [innerHTML]="getHtml(content.text)" ></div>
 		</div>
 		
 		<audio controls style="width:100%" *ngIf="content.tag=='audio'">
@@ -45,7 +47,8 @@
     	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.tag=='video'">
 	        <source [src]="content.url" type="video/mp4">
 	    </video>
-        <div style="text-align: center;" *ngIf="content.tag=='document'" document><img width="50%" style="display: inline-block;" [src]="content.url"></div>
+        <div style="text-align: center;" *ngIf="content.tag=='document'" document>
+        	<img width="50%" style="display: inline-block;" src="./assets/img/JAVA.png"></div>
 	    <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" *ngIf="content.tag=='grid'">
             <tbody>
                 <tr style="text-align: center;">
@@ -57,7 +60,7 @@
 				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl1!=null">
 					        <source [src]="content.videourl1" type="video/mp4">
 					    </video>
-                        <img *ngIf="content.documenturl1!=null" width="50%" style="display: inline-block;" [src]="content.documenturl1" >
+                        <img *ngIf="content.documenturl1!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
                         <img *ngIf="content.imgurl1!=null" style="width:100%" [src]="content.imgurl1">
                     </td>
                     <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
@@ -68,7 +71,7 @@
 				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl2!=null">
 					        <source [src]="content.videourl2" type="video/mp4">
 					    </video>
-                        <img *ngIf="content.documenturl2!=null" width="50%" style="display: inline-block;" [src]="content.documenturl2" >
+                        <img *ngIf="content.documenturl2!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
                         <img *ngIf="content.imgurl2!=null" style="width:100%" [src]="content.imgurl2">
                     </td>
                    <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
@@ -79,7 +82,7 @@
 				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl3!=null">
 					        <source [src]="content.videourl3" type="video/mp4">
 					    </video>
-                        <img *ngIf="content.documenturl3!=null" width="50%" style="display: inline-block;" [src]="content.documenturl3" >
+                        <img *ngIf="content.documenturl3!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
                         <img *ngIf="content.imgurl3!=null" style="width:100%" [src]="content.imgurl3">
                     </td>
                     
@@ -87,35 +90,98 @@
                 </tr>
             </tbody>
         </table>
+          <ul class="like-bar no-brd" *ngIf="content.tag=='userEngBtn'">
+        	<li class="{{getClass1(content)}}">
+				<a *ngIf="content.btn1=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn1=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn1=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn1=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn1=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+			</li>
+			<li class="{{getClass2(content)}}">
+				<a *ngIf="content.btn2=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn2=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn2=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn2=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn2=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+			</li>
+			<li class="{{getClass3(content)}}">
+				<a *ngIf="content.btn3=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn3=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn3=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn3=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn3=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+			</li>
+			<li class="{{getClass4(content)}}">
+				<a *ngIf="content.btn4=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn4=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn4=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn4=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn4=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a> 
+			</li>
+			<li class="{{getClass5(content)}}">
+				<a *ngIf="content.btn5=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+				<a *ngIf="content.btn5=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+				<a *ngIf="content.btn5=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+				<a *ngIf="content.btn5=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+				<a *ngIf="content.btn5=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+			</li>
+		</ul>
+		<ul class="like-bar no-brd" *ngIf="content.tag=='CallToActBtn'">
+        	<li class="{{getClass6(content)}}">
+				<a *ngIf="content.btn1=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+				<a *ngIf="content.btn1=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+				<a *ngIf="content.btn1=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+				<a *ngIf="content.btn1=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a> 
+			</li>
+			<li class="{{getClass7(content)}}">
+				<a *ngIf="content.btn2=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+				<a *ngIf="content.btn2=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+				<a *ngIf="content.btn2=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+				<a *ngIf="content.btn2=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a>
+			</li>
+			<li class="{{getClass8(content)}}">
+				<a *ngIf="content.btn3=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+				<a *ngIf="content.btn3=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+				<a *ngIf="content.btn3=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+				<a *ngIf="content.btn3=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a> 
+			</li>
+			<li class="{{getClass9(content)}}">
+				<a *ngIf="content.btn4=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+				<a *ngIf="content.btn4=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+				<a *ngIf="content.btn4=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+				<a *ngIf="content.btn4=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a>
+			</li>
+		</ul>
 
 	</div>
     <div *ngIf="forContent.googleForm==true || forContent.googleForm=='true'">
     	<iframe  [src]="googleFormUrl(forContent.googleFormUrl)" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
     </div>
 
-
-	<ul class="like-bar dashed-brd">
-		<li>
-			<a class="text-info" routerLink=""><span class="span-icns"> <i class="fa fa-eye"></i></span> 1500 </a> 
+   <!--  <div class="dashed-brd"></div> -->
+	<ul class="like-bar dashed-brd top-brd">
+	    <li>
+			<a class="text-info" ><span class="span-icns"> <i class="fa fa-eye"></i></span> {{forContent.pageView}} </a> 
 		</li>
 		<li>
-			<a class="text-danger" routerLink=""><span class="span-icns"> <i class="icon-okay"></i></span> 1100 </a>
+			<a class="text-danger" ><span class="span-icns"> <i class="icon-okay"></i></span> {{forContent.likeCount}} </a>
 		</li>
 		<li>
-			<a class="text-rose" routerLink=""><span class="span-icns"> <i class="icon-msg"></i></span> 500 </a> 
+			<a class="text-rose" ><span class="span-icns"> <i class="icon-msg"></i></span> {{forContent.commentCount}} </a> 
 		</li>
 		<li>
-			<a class="text-primary" routerLink=""><span class="span-icns"> <i class="icon-badge"></i></span> 200 </a> 
+			<a class="text-primary" ><span class="span-icns"> <i class="icon-badge"></i></span> {{forContent.saveCount}} </a> 
 		</li>
 	</ul>
 	<!-- <div class="inner-card dashed-brd"> <h4 class="font-16 m-0"> Comments </h4> </div>
 	<div class="inner-card dashed-brd">
-		<div class="col-mat-12 col-sm-12 col-xs-12 p-0">
+		<div class="col-md-12 col-sm-12 col-xs-12 p-0">
 			<mat-form-field>
 	            <textarea matInput placeholder="Write your comment here..." rows="3"></textarea>
 	        </mat-form-field>
 		</div>
-		<div class="col-mat-12 col-sm-12 col-xs-12 p-0 text-right form-group">
+		<div class="col-md-12 col-sm-12 col-xs-12 p-0 text-right form-group">
 			<button class="btn btn-info btn-sm">Send</button>
 		</div>
 		<div class="user-img">
@@ -125,7 +191,7 @@
 			<h5 class="m-0"> Ravi Kumar </h5>
 			<p>About 5 lakh commuters travel daily in the Delhi Metro, as well as 2 to 3 lakh workers working on them travel by metro train daily.</p>
 		</div>
-		<div class="col-mat-12 col-sm-12 col-xs-12 text-center">
+		<div class="col-md-12 col-sm-12 col-xs-12 text-center">
 			<a routerLink="/comments-page" class="text-primary"><u>See more</u></a>
 		</div>
 	</div> -->
@@ -144,7 +210,7 @@
 	    		
 	    	</div>
 	    	<!-- <div class="slide">
-		        <a routerLink=""><img src="./assets/img/img_r-2.jpg"> 
+		        <a ><img src="./assets/img/img_r-2.jpg"> 
 	    			<div class="suggested-div color-orange">
 	    				<div class="suggested-text">News </div>
 	    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>

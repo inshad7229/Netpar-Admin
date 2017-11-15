@@ -13,14 +13,16 @@ import { AddSubCategoryRequest} from '../../models/section.modal'
 import {SectionService} from '../../providers/section.service'
 import {StringResource} from '../../models/saredResources'
 import {AppProvider} from '../../providers/app.provider'
+import {TranslationService} from '../../providers/translation.service'
 declare var jquery:any;
 declare var $ :any;
+declare var google:any
 
 @Component({
   selector: 'app-add-subcategory',
   templateUrl: './add-subcategory.component.html',
   styleUrls: ['./add-subcategory.component.scss'],
-  providers:[FormControlDirective,SectionService]
+  providers:[FormControlDirective,SectionService,TranslationService]
 })
 export class AddSubcategoryComponent implements OnInit {
  @ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
@@ -33,6 +35,17 @@ export class AddSubcategoryComponent implements OnInit {
     croppieImageHorigontal: string;
     sections:any;
     categories:any;
+    sectionsData
+    categoriesData
+    currentString:any;
+    sendString:any;
+    selectedValue:any;
+    currentActiveIndex:number;
+    outputStringArrayLength:number;
+    caretPos
+    elementRefrence:any;
+    inputStringLength:number
+    outputStringLength:number
     addSubCategoryRequest: AddSubCategoryRequest=new  AddSubCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -42,14 +55,14 @@ export class AddSubcategoryComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${this.widthPx}x${this.heightPx}`;
+        return `http://placehold.it/${300}x${180}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
-            width: parseInt(this.widthPx, 10),
-            height: parseInt(this.heightPx, 10)
+            width: parseInt('300', 10),
+            height: parseInt('180', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -92,11 +105,12 @@ export class AddSubcategoryComponent implements OnInit {
         public toastr: ToastsManager,
         private http: Http,
         private sectionService:SectionService,
-         private appProvider: AppProvider
+         private appProvider: AppProvider,
+        private translationService:TranslationService
       ) {   this.addSubCategoryForm = fb.group({
                 'sectionName': [null, Validators.compose([Validators.required])],
-                'categoryName': [null, Validators.compose([Validators.required])],
-                'subCategoryName':[null, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])],
+                'categoryName': [null],
+                'subCategoryName':[null, Validators.compose([Validators.required,Validators.maxLength(30)])],
                 'subCategoryView':[null, Validators.compose([Validators.required])],
                 'subCategoryFormat':[null],
                 'userEngBtnLike':[null],
@@ -137,6 +151,31 @@ export class AddSubcategoryComponent implements OnInit {
         }
 
   	}
+
+     onLanguageChange(language){
+       // let selectedLang
+       // if(language=="Hindi"){
+       //    selectedLang=google.elements.transliteration.LanguageCode.HINDI
+       // }
+       // else if(language=="Marathi"){
+       //    selectedLang=google.elements.transliteration.LanguageCode.MARATHI
+       // }else{
+       //   selectedLang=google.elements.transliteration.LanguageCode.ENGLISH 
+       // }
+       //  var options = {
+       //    sourceLanguage:
+       //        google.elements.transliteration.LanguageCode.ENGLISH,
+       //    destinationLanguage:[selectedLang],
+       //    shortcutKey: 'ctrl+g',
+       //    transliterationEnabled: true
+       //  };
+       //  var control = new google.elements.transliteration.TransliterationControl(options);
+       //  control.makeTransliteratable(['subCategoryName']);
+        this.appProvider.current.currentLanguage=language;
+        this.sections=this.sectionsData.filter(arg=>arg.language==language);
+        this.categories=this.categoriesData.filter(arg=>arg.language==language);
+        
+  }
   	 newImageResultFromCroppieHorigontal(img: string) {
         this.croppieImageHorigontal = img;
         console.log(this.croppieImageHorigontal)
@@ -207,10 +246,15 @@ export class AddSubcategoryComponent implements OnInit {
     }
 
     getCategory(){
+         this.waitLoader = true;
          this.sectionService.onGetCategory(this.addSubCategoryRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categories=data.response;
+                    this.categoriesData=data.response;
+                    if (this.addSubCategoryRequest.language) {
+                         this.sections=this.sectionsData.filter(arg=>arg.language==this.addSubCategoryRequest.language);
+                         this.categories=data.response.filter(arg=>arg.language==this.addSubCategoryRequest.language);
+                    }
                     console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
@@ -218,7 +262,7 @@ export class AddSubcategoryComponent implements OnInit {
     }
     onAddSubcategory(){
 
-
+        this.waitLoader = true;
         if (this.addSubCategoryRequest._id) {
          let localsection=this.sections.filter(arg=>arg._id==this.addSubCategoryRequest.sectionId)
          let localcategory=this.categories.filter(arg=>arg._id==this.addSubCategoryRequest.categoryId)
@@ -242,6 +286,7 @@ export class AddSubcategoryComponent implements OnInit {
                     }
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 }) 
    }else{
@@ -276,30 +321,186 @@ export class AddSubcategoryComponent implements OnInit {
                     }
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 })
      }
          
         }
      getSectionList(){
+                    this.waitLoader = true;
                       this.sectionService.onGetSection()
                     .subscribe(data => {
                         this.waitLoader = false;
-                        this.sections=data;
+                        this.sectionsData=data;
+                    if (this.addSubCategoryRequest.language) {
+                         this.sections=data.filter(arg=>arg.language==this.addSubCategoryRequest.language);;
+                    }
                     },error=>{
+                      this.waitLoader = false;
                         alert(error)
                     })
       }
    getSubCategoryData(){
+            this.waitLoader = true;
             this.sectionService.onGetSingleSubCategoryData(this.appProvider.current.currentId)
             .subscribe(data =>{
                         this.waitLoader = false;
                         this.addSubCategoryRequest=data.response[0]
+                        this.currentImageThumbnail=this.addSubCategoryRequest.thumbnailImage;
+                        this.currentImageHorigontal=this.addSubCategoryRequest.horigontalImage;
+                        for (let i=0;i<this.stringResource.subCategoryTemplate.length;i++) {
+                               if (this.stringResource.subCategoryTemplate[i].templateName==this.addSubCategoryRequest.subCategoryFormat) {
+                                 this.stringResource.subCategoryTemplate[i].status="active"
+                               }
+                            }
                         this.getCategory()
                     console.log(JSON.stringify(data))
                 },error=>{
+                  this.waitLoader = false;
                     alert(error)
                 }) 
   }
-   
+   onClickSubCatTemp(j){
+    for (let i=0;i<this.stringResource.subCategoryTemplate.length;i++) {
+        this.stringResource.subCategoryTemplate[i].status="inactive"
+    }
+    this.stringResource.subCategoryTemplate[j].status="active"
+    this.addSubCategoryRequest.subCategoryFormat=this.stringResource.subCategoryTemplate[j].templateName
+}
+// onTransliteration(value){
+//    this.currentString=value
+//    let localValue=value.split(' ')
+//    let length=localValue.length
+//    let stringForSend=localValue[length-1]
+//    if(stringForSend=='') {
+//        return 
+//      }
+//    this.sendString=stringForSend.toString()
+//         this.translationService.onGetSuggetiion(stringForSend)
+//         .subscribe(data => {     
+//             this.appProvider.current.suggestedString=data                    
+//                 },error=>{
+                  
+//                 })
+//  }
+//  selectString(state){
+//    this.currentString=this.currentString.toString()
+//    let output=this.currentString.replace(this.sendString ,state)
+//    this.addSubCategoryRequest.subCategoryName=output+' '
+//    this.appProvider.current.suggestedString=[]
+//   console.log(output)
+//  }
+
+
+  onTransliteration(value,event){
+   var myEl=event.target
+   this.elementRefrence=event
+   let post =this.getCaretPos(event)
+   this.currentString=value
+   let subValue=value.substring(0, post)
+   let localValue=subValue.split(' ')
+   let length=localValue.length
+   let letstring=localValue[length-1]
+   let replcedstring=letstring.match(/[a-zA-Z]+/g);
+   let stringForSend
+   if (replcedstring) {
+     stringForSend=replcedstring[0]
+   }
+   if (!stringForSend) {
+   return 
+   }
+   else if(stringForSend=='') {
+       return 
+     }
+   else if (/^[a-zA-Z]+$/.test(stringForSend)) {
+    this.sendString=stringForSend.toString()
+    this.translationService.onGetSuggetiion(stringForSend)
+        .subscribe(data => {     
+            this.appProvider.current.suggestedString=data
+            this.outputStringArrayLength=this.appProvider.current.suggestedString.length
+            this.currentActiveIndex=-1;
+            this.inputStringLength=this.sendString.length
+           },error=>{
+                  
+     })
+   }
+
+ }
+
+ selectString(state){
+   this.currentString=this.currentString.toString()
+   this.outputStringLength=state.length
+   let replaceWith=state+' '
+   let output=this.currentString.replace(this.sendString ,replaceWith)
+   this.addSubCategoryRequest.subCategoryName=output
+   let sumIndex=(this.caretPos+this.outputStringLength)-this.inputStringLength
+   this.appProvider.current.suggestedString=[]
+ }
+onKeyUp(event){
+  console.log(event.keyCode )
+  if(event.keyCode==32){
+    this.currentString=this.currentString.toString()
+    if (this.appProvider.current.suggestedString.length>0) {
+        if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+         let replaceWith=this.appProvider.current.suggestedString[0]
+         let output=this.currentString.replace(this.sendString ,replaceWith)
+        this.addSubCategoryRequest.subCategoryName=output
+        this.appProvider.current.suggestedString=[]
+        }else{
+         let replaceWith=this.appProvider.current.suggestedString[this.currentActiveIndex]
+         let output=this.currentString.replace(this.sendString ,replaceWith)
+        this.addSubCategoryRequest.subCategoryName=output
+         this.appProvider.current.suggestedString=[]
+        }
+    }
+
+  }else if (this.selectedValue && event.keyCode==13) {
+   this.currentString=this.currentString.toString()
+   if (this.outputStringArrayLength>0) {
+        let replaceWith=this.selectedValue+' '
+        let output=this.currentString.replace(this.sendString ,replaceWith)
+        this.addSubCategoryRequest.subCategoryName=output
+        this.appProvider.current.suggestedString=[]
+    }
+  }else if (event.keyCode==38) {
+     if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+       this.currentActiveIndex=this.outputStringArrayLength-1
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex-1
+     }
+  }else if (event.keyCode==40) {
+     if (this.currentActiveIndex==this.currentActiveIndex-1) {
+       this.currentActiveIndex=0
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex+1
+     }
+  }
+
+}
+onSuugestionkeyup(state){
+  this.selectedValue=state
+}
+getCaretPos(oField) {
+    if (oField.selectionStart || oField.selectionStart == '0') {
+       this.caretPos = oField.selectionStart;
+       return this.caretPos
+    }
+  }
+clearSuggstion(){
+  this.appProvider.current.suggestedString=[]
+}
+
+setSelectionRangeCustome(input, selectionStart, selectionEnd) {
+    if (input.setSelectionRange) {
+      input.focus();
+      input.setSelectionRange(selectionStart, selectionEnd);
+    } else if (input.createTextRange) {
+      var range = input.createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', selectionEnd);
+      range.moveStart('character', selectionStart);
+      range.select();
+    }
+  }
 }

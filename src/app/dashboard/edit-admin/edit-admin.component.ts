@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewContainerRef,ViewChild,AfterViewInit } from '@angular/core';
 import { ToastsManager , Toast} from 'ng2-toastr';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Router } from '@angular/router';
@@ -12,12 +12,14 @@ import { NgxCroppieComponent } from 'ngx-croppie';
 import { CroppieOptions } from 'croppie';
 import {AppProvider} from '../../providers/app.provider';
 import {SectionService} from '../../providers/section.service'
+import {TranslationService} from '../../providers/translation.service'
 
 
 
 declare var jquery:any;
 declare var $ :any;
 declare var imageData:any;
+declare var google:any 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 
@@ -26,11 +28,11 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
     selector: 'app-edit-admin',
     templateUrl: './edit-admin.component.html',
     styleUrls: ['./edit-admin.component.scss'],
-    providers: [FormControlDirective, AdminService,SectionService],
+    providers: [FormControlDirective, AdminService,SectionService,TranslationService],
 
 
 })
-export class EditAdminComponent implements OnInit {
+export class EditAdminComponent implements AfterViewInit {
     @ViewChild('ngxCroppie') ngxCroppie: NgxCroppieComponent;
     complexForm: FormGroup;
     register: Admin = new Admin();
@@ -69,6 +71,17 @@ export class EditAdminComponent implements OnInit {
     croppieImage: string;
     showsecondary:number=0;
     sections
+    currentString:any;
+    sendString:any;
+    selectedValue:any;
+    currentActiveIndex:number;
+    outputStringArrayLength:number;
+    caretPos
+    elementRefrence:any;
+    inputStringLength:number
+    outputStringLength:number
+    currentInputTag:any;
+    //s//tringResource:StringResource
 
     public get imageToDisplay() {
         if (this.currentImage) {
@@ -103,7 +116,8 @@ export class EditAdminComponent implements OnInit {
         private adminService: AdminService,
         private http: Http,
         private appProvider: AppProvider,
-        private sectionService:SectionService
+        private sectionService:SectionService,
+        private translationService:TranslationService,
 
     ) {
         this.complexForm = fb.group({
@@ -181,7 +195,7 @@ export class EditAdminComponent implements OnInit {
         this.data = {};
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         this.currentImage = this.imageUrl;
         this.croppieImage = this.imageUrl;
         var a;
@@ -198,15 +212,74 @@ export class EditAdminComponent implements OnInit {
         if (this.appProvider.current.adminPageFlag == "allEdit") {
             this.register = this.appProvider.current.adminData;
             this.options = this.appProvider.current.adminData.sectionName;
+            console.log(JSON.stringify('on get'))
+            console.log(JSON.stringify(this.register))
             this.currentImage = this.appProvider.current.adminData.image
             this.register.password = window.atob(this.register.plain)
+            let field1='register.language'
+            let field2='register.firstName'
+            let field3='register.lastName'
+            if(this.register.langDetails)
+                for (let i = 0; i <this.register.langDetails.length; i++) {
+                    let obj=this.register.langDetails[i]
+                  if (i==0) {
+                    this.register.language1=obj.language
+                    this.register.firstName1=obj.firstName
+                    this.register.lastName1=obj.firstName
+                  }else if (i==1) {
+                    this.register.language2=obj.language
+                    this.register.firstName2=obj.firstName
+                    this.register.lastName2=obj.firstName
+                  }else if (i==2) {
+                    this.register.language3=obj.language
+                    this.register.firstName3=obj.firstName
+                    this.register.lastName3=obj.firstName
+                  }else if (i==3) {
+                    this.register.language4=obj.language
+                    this.register.firstName4=obj.firstName
+                    this.register.lastName4=obj.firstName
+                  }else if (i==5) {
+                    this.register.language5=obj.language
+                    this.register.firstName5=obj.firstName
+                    this.register.lastName5=obj.firstName
+                  }else if (i==6) {
+                    this.register.language6=obj.language
+                    this.register.firstName6=obj.firstName
+                    this.register.lastName6=obj.firstName
+                  }else if (i==7) {
+                    this.register.language8=obj.language
+                    this.register.firstName8=obj.firstName
+                    this.register.lastName8=obj.firstName
+                  }else if (i==9) {
+                    this.register.language10=obj.language
+                    this.register.firstName10=obj.firstName
+                    this.register.lastName10=obj.firstName
+                  }else if (i==10) {
+                    this.register.language11=obj.language
+                    this.register.firstName11=obj.firstName
+                    this.register.lastName11=obj.firstName
+                  }
+                  this.showsecondary=i+1
+                }
         }
+
+        // var options = {
+        //   sourceLanguage:
+        //       google.elements.transliteration.LanguageCode.ENGLISH,
+        //   destinationLanguage:
+        //       [google.elements.transliteration.LanguageCode.MARATHI],
+        //   shortcutKey: 'ctrl+g',
+        //   transliterationEnabled: true
+        // };
+        // var control = new google.elements.transliteration.TransliterationControl(options);
+        // control.makeTransliteratable(['firstName','lastname']);
     }
     onRegister() {
         let languageArray=this.getLanguage()
         this.waitLoader = true;
-        console.log(JSON.stringify(this.options))
+       // console.log(JSON.stringify(this.options))
         this.register.sectionName = this.options
+        let img= this.currentImage
         this.register.image = this.currentImage;
         this.register.langDetails=languageArray;
         if (this.appProvider.current.adminPageFlag == "allEdit") {
@@ -229,6 +302,8 @@ export class EditAdminComponent implements OnInit {
                    
                     }
                    
+                },errr=>{
+                    this.waitLoader = false; 
                 })
         }
         else {
@@ -249,6 +324,8 @@ export class EditAdminComponent implements OnInit {
                     else if (data.success == true) {
                         this.router.navigate(['/home'],{ skipLocationChange: true });
                     }
+                },errr=>{
+                    this.waitLoader = false; 
                 })
         }
     }
@@ -312,49 +389,7 @@ export class EditAdminComponent implements OnInit {
 
         }
     }
-    onChange(event: any, input: any) {
-        let files = [].slice.call(event.target.files);
-        this.uploadFile = files;
-        this.newUploadFiles = files;
-        input.value = files.map(f => f.name).join(',');
-        this.length = files.length;
 
-        this.convertToBase64();
-    }
-
-
-    convertToBase64() {
-
-        this.tempCustomerBase64 = [];
-        for (var i = 0; i < this.length; i++) {
-            let formData: FormData = new FormData();
-            this.uploadFile = this.newUploadFiles[i];
-            formData.append('photos', this.uploadFile);
-            this.register.image = formData
-
-            let headers = new Headers();
-
-            let options = new RequestOptions({
-                headers: headers
-            });
-            this.http.post('http://52.15.178.19:3001/api/test', this.register.image, options)
-                .subscribe(
-                    data => {
-
-
-                        data = data.json().base64String;
-                        this.tempCustomerBase64.push(data);
-                        setTimeout(() => {
-
-                            //this.patch_information = "Saved"
-
-                        }, 10000);
-                    },
-                    error => console.log(error))
-
-
-        }
-    }
 
     get selectedOptions() { // right now: ['1','3']
         return this.options
@@ -407,6 +442,57 @@ export class EditAdminComponent implements OnInit {
             this.croppieImage = fr.result;
         };
         fr.readAsDataURL(file);
+        let files = [].slice.call(evt.target.files);
+        this.uploadFile = files;
+        this.newUploadFiles = files;
+       // input.value = files.map(f => f.name).join(',');
+        this.length = files.length;
+
+      //  this.convertToBase64();
+    }
+
+
+        onChange(event: any, input: any) {
+        let files = [].slice.call(event.target.files);
+        this.uploadFile = files;
+        this.newUploadFiles = files;
+        input.value = files.map(f => f.name).join(',');
+        this.length = files.length;
+
+       // this.convertToBase64();
+    }
+
+
+    convertToBase64() {
+
+        this.tempCustomerBase64 = [];
+        for (var i = 0; i < this.length; i++) {
+            let formData: FormData = new FormData();
+            this.uploadFile = this.newUploadFiles[i];
+            formData.append('file', this.uploadFile);
+            this.register.image = formData
+            let headers = new Headers();
+
+            let options = new RequestOptions({
+                headers: headers
+            });
+            this.http.post('http://52.15.178.19:3002/api/test', this.register.image, options)
+                .subscribe(
+                    data => {
+
+
+                        data = data.json().base64String;
+                        this.tempCustomerBase64.push(data);
+                        setTimeout(() => {
+
+                            //this.patch_information = "Saved"
+
+                        }, 10000);
+                    },
+                    error => console.log(error))
+
+
+        }
     }
     addAppend(){
           this.showsecondary=this.showsecondary+1;
@@ -619,6 +705,8 @@ export class EditAdminComponent implements OnInit {
              getSectionList(){
          this.sectionService.onGetSection()
                 .subscribe(data => {
+                    console.log('in get section ')
+                    console.log(JSON.stringify(this.options))
                     this.waitLoader = false;
                     this.sections=data;
                     for (let  i =0 ; i<this.sections.length; i++) {
@@ -628,12 +716,389 @@ export class EditAdminComponent implements OnInit {
                        //     obj2['name']=obj.sectionName;
                        //     obj2['value']=obj.sectionName;
                        //     obj2['checked']=false;
-                       this.options.push({_id:obj._id,name:obj.sectionName,value:obj.sectionName,checked:false})
+                        if (this.appProvider.current.adminPageFlag == "allEdit") {
+                            console.log('in edit')
+                            if (this.options.map(function (img) { return img._id; }).indexOf(obj._id)==-1) {
+                                console.log('in efgdit')
+                               this.options.push({_id:obj._id,name:obj.sectionName,value:obj.sectionName,checked:false})
+                            }
+                        }else{
+
+                               this.options.push({_id:obj._id,name:obj.sectionName,value:obj.sectionName,checked:false})
+                        }
                      console.log(JSON.stringify(this.options))
                     }
                 },error=>{
                     alert(error)
                 })
      }
+    onselectLang(lang){
+         this.appProvider.current.currentLanguage=lang;
+    }
+ //      onTransliteration(value,tag){
+ //   this.currentInputTag=tag
+ //   this.currentString=value
+ //   let localValue=value.split(' ')
+ //   let length=localValue.length
+ //   let stringForSend=localValue[length-1]
+ //   this.sendString=stringForSend.toString()
+ //      console.log(stringForSend)
+ //   // if(length>1) {
+ //   //    localValue.pop()
+ //   //  }
+ //   console.log(localValue)
+ //   // this.currentString=localValue
+ //        this.translationService.onGetSuggetiion(stringForSend)
+ //        .subscribe(data => {     
+ //            this.appProvider.current.suggestedString=data                    
+ //                },error=>{
+                  
+ //                })
+ // }
+ // selectString(state){
+ //   this.currentString=this.currentString.toString()
+ //   let output=this.currentString.replace(this.sendString ,state)
+ //   if (this.currentInputTag=='firstName1') {
+ //     this.register.firstName1=output
+ //   }else if(this.currentInputTag=='lastName1'){
+ //     this.register.lastName1=output
+ //   }else if (this.currentInputTag=='firstName2') {
+ //     this.register.firstName2=output
+ //   }else if(this.currentInputTag=='lastName2'){
+ //     this.register.lastName2=output
+ //   }else if (this.currentInputTag=='firstName3') {
+ //     this.register.firstName3=output
+ //   }else if(this.currentInputTag=='lastName3'){
+ //     this.register.lastName3=output
+ //   }else if (this.currentInputTag=='firstName4') {
+ //     this.register.firstName4=output
+ //   }else if(this.currentInputTag=='lastName4'){
+ //     this.register.lastName4=output
+ //   }else if (this.currentInputTag=='firstName5') {
+ //     this.register.firstName5=output
+ //   }else if(this.currentInputTag=='lastName5'){
+ //     this.register.lastName5=output
+ //   }else if (this.currentInputTag=='firstName6') {
+ //     this.register.firstName6=output
+ //   }else if(this.currentInputTag=='lastName6'){
+ //     this.register.lastName6=output
+ //   }else if (this.currentInputTag=='firstName7') {
+ //     this.register.firstName7=output
+ //   }else if(this.currentInputTag=='lastName7'){
+ //     this.register.lastName7=output
+ //   }else if (this.currentInputTag=='firstName8') {
+ //     this.register.firstName8=output
+ //   }else if(this.currentInputTag=='lastName8'){
+ //     this.register.lastName8=output
+ //   }else if (this.currentInputTag=='firstName9') {
+ //     this.register.firstName9=output
+ //   }else if(this.currentInputTag=='lastName9'){
+ //     this.register.lastName9=output
+ //   }else if (this.currentInputTag=='firstName10') {
+ //     this.register.firstName10=output
+ //   }else if(this.currentInputTag=='lastName10'){
+ //     this.register.lastName10=output
+ //   }else if (this.currentInputTag=='firstName11') {
+ //     this.register.firstName11=output
+ //   }else if(this.currentInputTag=='lastName11'){
+ //     this.register.lastName11=output
+ //   }
+
+ // //  this.addSubCategoryRequest.subCategoryName=output
+ //   this.appProvider.current.suggestedString=[]
+ //  console.log(output)
+ // }
+
+    onTransliteration(value,event,tag){
+   var myEl=event.target
+    this.currentInputTag=tag
+   this.elementRefrence=event
+   let post =this.getCaretPos(event)
+   this.currentString=value
+   let subValue=value.substring(0, post)
+   let localValue=subValue.split(' ')
+   let length=localValue.length
+   let letstring=localValue[length-1]
+   let replcedstring=letstring.match(/[a-zA-Z]+/g);
+   let stringForSend
+   if (replcedstring) {
+     stringForSend=replcedstring[0]
+   }
+   if (!stringForSend) {
+   return 
+   }
+   else if(stringForSend=='') {
+       return 
+     }
+   else if (/^[a-zA-Z]+$/.test(stringForSend)) {
+    this.sendString=stringForSend.toString()
+    this.translationService.onGetSuggetiion(stringForSend)
+        .subscribe(data => {     
+            this.appProvider.current.suggestedString=data
+            this.outputStringArrayLength=this.appProvider.current.suggestedString.length
+            this.currentActiveIndex=-1;
+            this.inputStringLength=this.sendString.length
+           },error=>{
+                  
+     })
+   }
+
+ }
+
+ selectString(state){
+   this.currentString=this.currentString.toString()
+   this.outputStringLength=state.length
+   let replaceWith=state+' '
+   let output=this.currentString.replace(this.sendString ,replaceWith)
+   if (this.currentInputTag=='firstName1') {
+     this.register.firstName1=output
+   }else if(this.currentInputTag=='lastName1'){
+     this.register.lastName1=output
+   }else if (this.currentInputTag=='firstName2') {
+     this.register.firstName2=output
+   }else if(this.currentInputTag=='lastName2'){
+     this.register.lastName2=output
+   }else if (this.currentInputTag=='firstName3') {
+     this.register.firstName3=output
+   }else if(this.currentInputTag=='lastName3'){
+     this.register.lastName3=output
+   }else if (this.currentInputTag=='firstName4') {
+     this.register.firstName4=output
+   }else if(this.currentInputTag=='lastName4'){
+     this.register.lastName4=output
+   }else if (this.currentInputTag=='firstName5') {
+     this.register.firstName5=output
+   }else if(this.currentInputTag=='lastName5'){
+     this.register.lastName5=output
+   }else if (this.currentInputTag=='firstName6') {
+     this.register.firstName6=output
+   }else if(this.currentInputTag=='lastName6'){
+     this.register.lastName6=output
+   }else if (this.currentInputTag=='firstName7') {
+     this.register.firstName7=output
+   }else if(this.currentInputTag=='lastName7'){
+     this.register.lastName7=output
+   }else if (this.currentInputTag=='firstName8') {
+     this.register.firstName8=output
+   }else if(this.currentInputTag=='lastName8'){
+     this.register.lastName8=output
+   }else if (this.currentInputTag=='firstName9') {
+     this.register.firstName9=output
+   }else if(this.currentInputTag=='lastName9'){
+     this.register.lastName9=output
+   }else if (this.currentInputTag=='firstName10') {
+     this.register.firstName10=output
+   }else if(this.currentInputTag=='lastName10'){
+     this.register.lastName10=output
+   }else if (this.currentInputTag=='firstName11') {
+     this.register.firstName11=output
+   }else if(this.currentInputTag=='lastName11'){
+     this.register.lastName11=output
+   }
+   //this.addCategoryRequest.categoryName=output
+   let sumIndex=(this.caretPos+this.outputStringLength)-this.inputStringLength
+   this.appProvider.current.suggestedString=[]
+ }
+onKeyUp(event){
+  console.log(event.keyCode )
+  if(event.keyCode==32){
+    this.currentString=this.currentString.toString()
+    if (this.appProvider.current.suggestedString.length>0) {
+        if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+         let replaceWith=this.appProvider.current.suggestedString[0]
+         let output=this.currentString.replace(this.sendString ,replaceWith)
+              if (this.currentInputTag=='firstName1') {
+                 this.register.firstName1=output
+               }else if(this.currentInputTag=='lastName1'){
+                 this.register.lastName1=output
+               }else if (this.currentInputTag=='firstName2') {
+                 this.register.firstName2=output
+               }else if(this.currentInputTag=='lastName2'){
+                 this.register.lastName2=output
+               }else if (this.currentInputTag=='firstName3') {
+                 this.register.firstName3=output
+               }else if(this.currentInputTag=='lastName3'){
+                 this.register.lastName3=output
+               }else if (this.currentInputTag=='firstName4') {
+                 this.register.firstName4=output
+               }else if(this.currentInputTag=='lastName4'){
+                 this.register.lastName4=output
+               }else if (this.currentInputTag=='firstName5') {
+                 this.register.firstName5=output
+               }else if(this.currentInputTag=='lastName5'){
+                 this.register.lastName5=output
+               }else if (this.currentInputTag=='firstName6') {
+                 this.register.firstName6=output
+               }else if(this.currentInputTag=='lastName6'){
+                 this.register.lastName6=output
+               }else if (this.currentInputTag=='firstName7') {
+                 this.register.firstName7=output
+               }else if(this.currentInputTag=='lastName7'){
+                 this.register.lastName7=output
+               }else if (this.currentInputTag=='firstName8') {
+                 this.register.firstName8=output
+               }else if(this.currentInputTag=='lastName8'){
+                 this.register.lastName8=output
+               }else if (this.currentInputTag=='firstName9') {
+                 this.register.firstName9=output
+               }else if(this.currentInputTag=='lastName9'){
+                 this.register.lastName9=output
+               }else if (this.currentInputTag=='firstName10') {
+                 this.register.firstName10=output
+               }else if(this.currentInputTag=='lastName10'){
+                 this.register.lastName10=output
+               }else if (this.currentInputTag=='firstName11') {
+                 this.register.firstName11=output
+               }else if(this.currentInputTag=='lastName11'){
+                 this.register.lastName11=output
+               }
+        //this.addCategoryRequest.categoryName=output
+        this.appProvider.current.suggestedString=[]
+        }else{
+         let replaceWith=this.appProvider.current.suggestedString[this.currentActiveIndex]
+         let output=this.currentString.replace(this.sendString ,replaceWith)
+          if (this.currentInputTag=='firstName1') {
+             this.register.firstName1=output
+           }else if(this.currentInputTag=='lastName1'){
+             this.register.lastName1=output
+           }else if (this.currentInputTag=='firstName2') {
+             this.register.firstName2=output
+           }else if(this.currentInputTag=='lastName2'){
+             this.register.lastName2=output
+           }else if (this.currentInputTag=='firstName3') {
+             this.register.firstName3=output
+           }else if(this.currentInputTag=='lastName3'){
+             this.register.lastName3=output
+           }else if (this.currentInputTag=='firstName4') {
+             this.register.firstName4=output
+           }else if(this.currentInputTag=='lastName4'){
+             this.register.lastName4=output
+           }else if (this.currentInputTag=='firstName5') {
+             this.register.firstName5=output
+           }else if(this.currentInputTag=='lastName5'){
+             this.register.lastName5=output
+           }else if (this.currentInputTag=='firstName6') {
+             this.register.firstName6=output
+           }else if(this.currentInputTag=='lastName6'){
+             this.register.lastName6=output
+           }else if (this.currentInputTag=='firstName7') {
+             this.register.firstName7=output
+           }else if(this.currentInputTag=='lastName7'){
+             this.register.lastName7=output
+           }else if (this.currentInputTag=='firstName8') {
+             this.register.firstName8=output
+           }else if(this.currentInputTag=='lastName8'){
+             this.register.lastName8=output
+           }else if (this.currentInputTag=='firstName9') {
+             this.register.firstName9=output
+           }else if(this.currentInputTag=='lastName9'){
+             this.register.lastName9=output
+           }else if (this.currentInputTag=='firstName10') {
+             this.register.firstName10=output
+           }else if(this.currentInputTag=='lastName10'){
+             this.register.lastName10=output
+           }else if (this.currentInputTag=='firstName11') {
+             this.register.firstName11=output
+           }else if(this.currentInputTag=='lastName11'){
+             this.register.lastName11=output
+           }
+        //this.addCategoryRequest.categoryName=output
+         this.appProvider.current.suggestedString=[]
+        }
+    }
+
+  }else if (this.selectedValue && event.keyCode==13) {
+   this.currentString=this.currentString.toString()
+   if (this.outputStringArrayLength>0) {
+        let replaceWith=this.selectedValue+' '
+        let output=this.currentString.replace(this.sendString ,replaceWith)
+        if (this.currentInputTag=='firstName1') {
+         this.register.firstName1=output
+       }else if(this.currentInputTag=='lastName1'){
+         this.register.lastName1=output
+       }else if (this.currentInputTag=='firstName2') {
+         this.register.firstName2=output
+       }else if(this.currentInputTag=='lastName2'){
+         this.register.lastName2=output
+       }else if (this.currentInputTag=='firstName3') {
+         this.register.firstName3=output
+       }else if(this.currentInputTag=='lastName3'){
+         this.register.lastName3=output
+       }else if (this.currentInputTag=='firstName4') {
+         this.register.firstName4=output
+       }else if(this.currentInputTag=='lastName4'){
+         this.register.lastName4=output
+       }else if (this.currentInputTag=='firstName5') {
+         this.register.firstName5=output
+       }else if(this.currentInputTag=='lastName5'){
+         this.register.lastName5=output
+       }else if (this.currentInputTag=='firstName6') {
+         this.register.firstName6=output
+       }else if(this.currentInputTag=='lastName6'){
+         this.register.lastName6=output
+       }else if (this.currentInputTag=='firstName7') {
+         this.register.firstName7=output
+       }else if(this.currentInputTag=='lastName7'){
+         this.register.lastName7=output
+       }else if (this.currentInputTag=='firstName8') {
+         this.register.firstName8=output
+       }else if(this.currentInputTag=='lastName8'){
+         this.register.lastName8=output
+       }else if (this.currentInputTag=='firstName9') {
+         this.register.firstName9=output
+       }else if(this.currentInputTag=='lastName9'){
+         this.register.lastName9=output
+       }else if (this.currentInputTag=='firstName10') {
+         this.register.firstName10=output
+       }else if(this.currentInputTag=='lastName10'){
+         this.register.lastName10=output
+       }else if (this.currentInputTag=='firstName11') {
+         this.register.firstName11=output
+       }else if(this.currentInputTag=='lastName11'){
+         this.register.lastName11=output
+       }
+        //this.addCategoryRequest.categoryName=output
+        this.appProvider.current.suggestedString=[]
+    }
+  }else if (event.keyCode==38) {
+     if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
+       this.currentActiveIndex=this.outputStringArrayLength-1
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex-1
+     }
+  }else if (event.keyCode==40) {
+     if (this.currentActiveIndex==this.currentActiveIndex-1) {
+       this.currentActiveIndex=0
+     }else{
+       this.currentActiveIndex=this.currentActiveIndex+1
+     }
+  }
+
+}
+onSuugestionkeyup(state){
+  this.selectedValue=state
+}
+getCaretPos(oField) {
+    if (oField.selectionStart || oField.selectionStart == '0') {
+       this.caretPos = oField.selectionStart;
+       return this.caretPos
+    }
+  }
+clearSuggstion(){
+  this.appProvider.current.suggestedString=[]
+}
+
+setSelectionRangeCustome(input, selectionStart, selectionEnd) {
+    if (input.setSelectionRange) {
+      input.focus();
+      input.setSelectionRange(selectionStart, selectionEnd);
+    } else if (input.createTextRange) {
+      var range = input.createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', selectionEnd);
+      range.moveStart('character', selectionStart);
+      range.select();
+    }
+  }
 }
 

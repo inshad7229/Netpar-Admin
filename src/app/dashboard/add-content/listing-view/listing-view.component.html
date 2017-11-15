@@ -2,24 +2,229 @@
 	<h4 class="modal-title" >Listing View <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
 </div>
 <div class="modal-body">
-	<div class="inner-card">
-		<div class="suggested-ulist list-view7">
-			<div class="view-lists grid-1">
-            	<a routerLink="/homepage" class="color-red">
-             		<img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
-          			<div class="list-text-wrap one-heading">
-           				<div class="text-red">{{forContent.sectionName}} </div>
-           				<div class="suggested-div">
-            				<div class="suggested-text">{{forContent.categoryName}} </div>
-           				</div>
-           				<div class="detail-text">{{forContent.headline}} </div>
-      				</div>		
-          			<!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
-          			<div class="line"></div>
-         		</a>
-        	</div>
-	    	
-	    	
-	    </div>
-	</div>
+
+	<div class="inner-card" *ngIf="layout=='Listing-view Template Three' ||layout=='Not Applicable'">
+        <div class="suggested-ulist list-view7">
+            <div class="view-lists grid-1">
+                <a  class="color-red">
+                    <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+                    <div class="list-text-wrap one-heading">
+                        <div class="text-red"></div>
+                        <div class="suggested-div">
+                            <div class="suggested-text">{{forContent.categoryName}} </div>
+                        </div>
+                        <div class="detail-text">{{forContent.headline}} </div>
+                    </div>
+                    <!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
+                    <div class="line"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="view-lists" *ngIf="layout=='Listing-view Template Five'">
+        <a  class="color-red">
+            <div class="simple-list">
+                <div class="text-red">{{forContent.categoryName}} </div>
+                <div class="suggested-div">
+                    <div class="suggested-text">{{forContent.sectionName}} </div>
+                </div>
+                <div class="detail-text">{{forContent.headline}} </div>
+                <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+            </div>
+            <div class="line"></div>
+        </a>
+    </div>
+
+    <div *ngIf="layout=='Listing-view Template Seven'">
+       <!--  <div class="list-heading">
+            Listing View <span class="pull-right"> <i class="fa fa-angle-right"></i> </span>
+        </div> -->
+        <div class="list-view8">
+            <div class=""> <a ><img class="img-responsive"  [src]="forContent.thumbnailPicture" /> </a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-2.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-3.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-4.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-5.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-6.jpg" /></a> </div>
+        </div>
+        
+    </div>
+    
+ 
+   <div *ngIf="layout=='Listing-view Template Four'">
+       
+        <div class="view-lists grid-1">
+            <a  class="color-red">
+                <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+                <div class="list-text-wrap one-heading">
+                    <div class="text-red">{{forContent.sectionName}} </div>
+                    <div class="suggested-div">
+                        <div class="suggested-text">{{forContent.categoryName}} </div>
+                    </div>
+                    <div class="detail-text">{{forContent.headline}} </div>
+                </div>
+                <!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
+                <div class="line"></div>
+            </a>
+        </div>
+        <div class="view-lists grid-1">
+            <a  class="color-red">
+                <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+                <div class="list-text-wrap one-heading">
+                    <div class="text-red">{{forContent.sectionName}} </div>
+                    <div class="suggested-div">
+                        <div class="suggested-text">{{forContent.categoryName}} </div>
+                    </div>
+                    <div class="detail-text">{{forContent.headline}} </div>
+                </div>
+                <!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
+                <div class="line"></div>
+            </a>
+        </div>
+        <div class="view-lists grid-1">
+            <a  class="color-red">
+                <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+                <div class="list-text-wrap one-heading">
+                    <div class="text-red">{{forContent.sectionName}} </div>
+                    <div class="suggested-div">
+                        <div class="suggested-text">{{forContent.categoryName}} </div>
+                    </div>
+                    <div class="detail-text">{{forContent.headline}} </div>
+                </div>
+                <!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
+                <div class="line"></div>
+            </a>
+        </div>
+
+        <div class="view-lists grid-3">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
+        <div class="view-lists grid-3">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
+        <div class="view-lists grid-3">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
+   </div>
+
+   
+    <div *ngIf="layout=='Listing-view Template One'">
+        
+        <div class="view-lists grid-2" >
+            <a  class="color-blue">
+                <img [src]="forContent.thumbnailPicture"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">{{forContent.sectionName}} </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text">{{forContent.headline}}</div>
+            </a>
+        </div>
+
+        <div class="view-lists grid-2">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
+    </div>
+
+ 
+  <div *ngIf="layout=='Listing-view Template Six'"> 
+        <div class="list-view7">
+            <div class="view-lists grid-1">
+                <a  class="color-red">
+                    <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+                    <div class="list-text-wrap one-heading">
+                        <div class="text-red">{{forContent.sectionName}} </div>
+                        <div class="suggested-div">
+                            <div class="suggested-text">{{forContent.categoryName}} </div>
+                        </div>
+                        <div class="detail-text">{{forContent.headline}} </div>
+                    </div>
+                    <!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
+                    <div class="line"></div>
+                </a>
+            </div>
+            <div class="view-lists grid-1 right-view">
+                <a  class="color-orange">
+                    <div class="list-text-wrap one-heading">
+                        <div class="text-red"> Games </div>
+                        <div class="suggested-div">
+                            <div class="suggested-text">News </div>
+                        </div>
+                        <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do </div>
+                    </div>
+                    <img src="./assets/img/img_r-2.jpg" class="img-effect img-responsive"> 
+                    <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+                    <div class="line"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="view-lists grid-3">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
+        <div class="view-lists grid-3">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
+        <div class="view-lists grid-3">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
+  </div>
 </div>

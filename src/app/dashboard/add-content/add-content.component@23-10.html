@@ -1,0 +1,1307 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+
+    <div class="main-panel">
+        <app-navbar></app-navbar>
+        <div class="main-content">
+            <div class="container-fluid p-0">
+                <mat-progress-bar *ngIf="waitLoader" mode="indeterminate"></mat-progress-bar>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card" > 
+                            <div class="card-header card-header-icon" data-background-color="orange">
+                                <i class="material-icons">edit</i>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">Add Content</h4>
+                                <div class="cus-form">
+                                    <!-- <simple-tiny [elementId]="'my-editor-id'" (onEditorKeyup)="keyupHandlerFunction($event)"> </simple-tiny> -->
+
+                                    <form class="example-form" [formGroup]="addContentForm" >
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-select placeholder="Select Language *" name="language"   [formControl]="addContentForm.controls['language']" [(ngModel)]="addContentRequest.language">
+                                                    <mat-option  *ngFor="let lang of stringResource.language" [value]="lang.language">{{lang.language}}</mat-option>
+                                                    <!-- <mat-option value="2"> Language2 </mat-option>
+                                                    <mat-option value="3"> Language3 </mat-option>
+                                                    <mat-option value="4"> Language4 </mat-option> -->
+                                                </mat-select>
+                                                <mat-error  *ngIf="addContentForm.controls['language'].hasError('required') && addContentForm.controls['language'].touched">
+                                                Language is <strong>required</strong>
+                                                </mat-error>
+                                               <!--  <mat-error  *ngIf="addContentForm.controls['language'].hasError('pattern')">
+                                                only alphabets are acceptable 
+                                                </mat-error> -->
+                                                <!-- <mat-error  *ngIf="addContentForm.controls['language'].hasError('maxlength')">
+                                                max length is 30
+                                                </mat-error> -->
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-select placeholder="Select Section *" name="sectionId"   [formControl]="addContentForm.controls['sectionId']" [(ngModel)]="addContentRequest.sectionId" (change)="getCategory()">
+                                                 <mat-option  *ngFor="let section of sections"  [value]="section._id" > {{section.sectionName}}</mat-option>
+                                                    <!-- <mat-option value="2"> Section2 </mat-option>
+                                                    <mat-option value="3"> Section3 </mat-option>
+                                                    <mat-option value="4"> Section4 </mat-option> -->
+                                                </mat-select>
+                                                <mat-error  *ngIf="addContentForm.controls['sectionId'].hasError('required') && addContentForm.controls['sectionId'].touched">
+                                                Section name is <strong>required</strong>
+                                                </mat-error>
+                                               <!--  <mat-error  *ngIf="addContentForm.controls['sectionId'].hasError('pattern')">
+                                                only alphabets are acceptable 
+                                                </mat-error> -->
+                                                <!-- <mat-error  *ngIf="addContentForm.controls['sectionId'].hasError('maxlength')">
+                                                max length is 30
+                                                </mat-error> -->
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                        <mat-form-field>
+                                            <mat-select placeholder="Select Category" name="categoryId"   [formControl]="addContentForm.controls['categoryId']" [(ngModel)]="addContentRequest.categoryId" (change)="getsubCategory()">
+                                                <mat-option *ngFor="let category of categories"  [value]="category._id" > {{category.categoryName}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-select placeholder="Select Sub-category"  name="subCategoryId"   [formControl]="addContentForm.controls['subCategoryId']" [(ngModel)]="addContentRequest.subCategoryId" >
+                                                    <mat-option *ngFor="let  subcate of subCategory"  [value]="subcate._id" > {{subcate.subCategoryName}}</mat-option>
+                                                    <!-- <mat-option value="2"> Sub-category2 </mat-option>
+                                                    <mat-option value="3"> Sub-category3 </mat-option>
+                                                    <mat-option value="4"> Sub-category4 </mat-option> -->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Add headline *" type="text" name="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline">
+                                                <mat-error  *ngIf="addContentForm.controls['headline'].hasError('required') && addContentForm.controls['headline'].touched">
+                                                Headline is <strong>required</strong>
+                                                </mat-error>
+                                               <!--  <mat-error  *ngIf="addContentForm.controls['headline'].hasError('pattern')">
+                                                only alphabets are acceptable 
+                                                </mat-error> -->
+                                                <mat-error  *ngIf="addContentForm.controls['headline'].hasError('maxlength')">
+                                                max length is 200
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Add tagline *"  type="text" name="tagline"   [formControl]="addContentForm.controls['tagline']" [(ngModel)]="addContentRequest.tagline">
+                                                <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('required') && addContentForm.controls['tagline'].touched">
+                                                TagLine is <strong>required</strong>
+                                                </mat-error>
+                                               <!--  <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('pattern')">
+                                                only alphabets are acceptable 
+                                                </mat-error> -->
+                                                <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('maxlength')">
+                                                max length is 100
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <input type="text" placeholder="Add tags" class="selectize txtselectize" name="tags"   [formControl]="addContentForm.controls['tags']" [(ngModel)]="addContentRequest.tags">
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput [matDatepicker]="picker" placeholder="Date of creation" name="adc"  readonly="true" [formControl]="addContentForm.controls['dateOfCreation']" [(ngModel)]="addContentRequest.dateOfCreation">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-select placeholder="Type of user *" name="typeOfUser"   [formControl]="addContentForm.controls['typeOfUser']" [(ngModel)]="addContentRequest.typeOfUser" (change)="getUserList(addContentRequest.typeOfUser)">
+                                                    <mat-option value="platformUser"> Platform User </mat-option>
+                                                    <mat-option value="sectionAdministrator"> Section Administrator </mat-option>
+                                                    <mat-option value="contentWriter"> Content Writer </mat-option>
+                                                    <mat-option value="businessuser"> Business User </mat-option>
+                                                </mat-select>
+                                                <mat-error  *ngIf="addContentForm.controls['typeOfUser'].hasError('required') && addContentForm.controls['typeOfUser'].touched">
+                                                Type of user is <strong>required</strong>
+                                                </mat-error>
+                                               <!--  <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('pattern')">
+                                                only alphabets are acceptable 
+                                                </mat-error> -->
+                                                <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('maxlength')">
+                                                max length is 100
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>  
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="localAdminList">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Search user" type="text" name="serchUser"   [formControl]="addContentForm.controls['serchUser']" [(ngModel)]="searchUser" (input)="onsearchuser(searchUser)">
+                                            </mat-form-field>
+                                        </div>
+                                       <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="users-panel">
+                                                <div class="users-box" *ngFor="let user of localAdminList;let i=index" (click)="toggleHighlight(i)" [ngClass]="{'active': user.check=='active' }" >
+                                                    <div class="cont-img dp">
+                                                        <img *ngIf="user.image==' ' || !user.image" src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                        <img *ngIf="user.image" [src]="user.image" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p>{{user.firstName}}  {{user.lastName}}</p>
+                                                        <p *ngIf="addContentRequest.typeOfUser!='platformUser'">{{user.contactNo}}  </p>
+                                                        <p *ngIf="addContentRequest.typeOfUser=='platformUser'">{{user.mobileNumber}}  </p>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="users-box" (click)="toggleHighlight(1)" [ngClass]="{'active': highlightedDiv === 1 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div>
+                                                <div class="users-box" (click)="toggleHighlight(2)" [ngClass]="{'active': highlightedDiv === 2 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div>
+                                                <div class="users-box" (click)="toggleHighlight(3)" [ngClass]="{'active': highlightedDiv === 3 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div>
+                                                <div class="users-box" (click)="toggleHighlight(4)" [ngClass]="{'active': highlightedDiv === 4 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div>
+                                                <div class="users-box" (click)="toggleHighlight(5)" [ngClass]="{'active': highlightedDiv === 5 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div>
+                                                <div class="users-box" (click)="toggleHighlight(6)" [ngClass]="{'active': highlightedDiv === 6 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div>
+                                                <div class="users-box" (click)="toggleHighlight(7)" [ngClass]="{'active': highlightedDiv === 7 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div>
+                                                <div class="users-box" (click)="toggleHighlight(8)" [ngClass]="{'active': highlightedDiv === 8 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div>
+                                                <div class="users-box" (click)="toggleHighlight(9)" [ngClass]="{'active': highlightedDiv === 9 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div>
+                                                <div class="users-box" (click)="toggleHighlight(10)" [ngClass]="{'active': highlightedDiv === 10 }">
+                                                    <div class="cont-img dp">
+                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
+                                                    </div>
+                                                    <div class="dis-inlblk">
+                                                        <p> Jay Sinha </p>
+                                                        <p> 9874563210 </p>
+                                                    </div>
+                                                </div> -->
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div id="email-builder">
+                                                <div class="email-builder-content">
+                                                   
+                                                    <div class="mat-card">
+                                                        <div class="mat-card-content elements-list">
+                                                            <h3 class="m-t-0">Tools</h3>
+                                                            <ul>
+                                                                <li data-type="text" (click)="addText()"> 
+                                                                    <i class="material-icons"></i>
+                                                                    <span>Text</span>
+                                                                </li>
+                                                                <li data-type="image" (click)="addImage()">
+                                                                    <i class="material-icons"></i>
+                                                                    <span>Image</span>
+                                                                </li>
+                                                                <li data-type="audio" (click)="addAudio()">
+                                                                    <i class="material-icons">audiotrack</i>
+                                                                    <span>Audio</span>
+                                                                </li>
+                                                                <li data-type="video" (click)="addVideo()">
+                                                                    <i class="material-icons">videocam</i>
+                                                                    <span>Video</span>
+                                                                </li>
+                                                                <li data-type="document" (click)="addFile()">
+                                                                    <i class="material-icons">insert_drive_file</i>
+                                                                    <span>Document</span>
+                                                                </li>
+                                                                <li data-type="media" (click)="addGrid()">
+                                                                    <i class="material-icons">view_array</i>
+                                                                    <span>Media Grid</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addApply('Apply')">
+                                                                    <i class="icon-check"></i>
+                                                                    <span>Apply</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addCall('Call')">
+                                                                    <i class="icon-call"></i>
+                                                                    <span>Call</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addCallMe('Call me back')">
+                                                                    <i class="icon-callme"></i>
+                                                                    <span>Call me back</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addIntrested('Im Interested')">
+                                                                    <i class="icon-click"></i>
+                                                                    <span>I'm Interested</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addlike('Kadak')">
+                                                                    <i class="icon-okay"></i>
+                                                                    <span>Kadak</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addshare('Share')">
+                                                                    <i class="fa fa-share-alt"></i>
+                                                                    <span>Share</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addcomment('Comment')">
+                                                                    <i class="icon-msg"></i>
+                                                                    <span>Comment</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addsave('Save')">
+                                                                    <i class="icon-badge"></i>
+                                                                    <span>Save</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addownload('Download')">
+                                                                    <i class="icon-donload"></i>
+                                                                    <span>Download</span>
+                                                                </li>
+                                                                <li data-type="apply" (click)="addForm()">
+                                                                    <i class="width-17 material-icons">assignments</i>
+                                                                    <span>Form</span>
+                                                                </li>
+
+                                                            </ul>
+                                                            <button type="button" class="btn btn-success full-width">
+                                                                <i class="material-icons">save</i>
+                                                                Save changes
+                                                            </button>
+                                                            <button type="button" class="btn btn-danger full-width">
+                                                                <i class="material-icons" >delete</i> 
+                                                                Delete All Element
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div position-relative>
+                                                        <div class="builder">
+                                                            <div class="email-container list-group" dnd-sortable-container [sortableData]="listOne">
+                                                               <div *ngFor="let item of listOne; let i = index" class="list-group-item"  (mousedown)="itemDragged(i)" (onDropSuccess)="itemSwapped(i)">
+                                                                    <div class="builder-element" *ngIf="item.tag=='grid'">
+                                                                        <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
+                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
+                                                                            <tbody>
+                                                                                <tr (click)="onClickOnDragItem(i,item)">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnFirstGrid(audi01,video1)"
+                                                                                         
+                                                                                    >
+                                                                                       
+                                                                                        <audio #audi01 controls *ngIf="item.audiourl1!=null">
+                                                                                            <source [src]="item.audiourl1"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                        </audio>
+                                                                                        <video #video1 *ngIf="item.videourl1!=null "  id="my-video" controls preload="auto" width="80%" (click)="video(video1)">
+                                                                                            <source [src]="item.videourl1" type="video/mp4">
+                                                                                        </video>
+                                                                                         <img [src]="item.imgurl1" *ngIf="item.imgurl1!=null ">
+                                                                                         <img [src]="item.documenturl1" *ngIf="item.documenturl1!=null ">
+                                                                                     
+                                                                                        
+                                                                                    </td>
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnSecondGrid(audi02,video2)">
+                                                                                      
+                                                                                        <audio #audi02 controls *ngIf="item.audiourl2!=null">
+                                                                                            <source [src]="item.audiourl2"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                        </audio>
+                                                                                        <video #video2 *ngIf="item.videourl2!=null" #ref id="my-video" controls preload="auto" width="80%" >
+                                                                                            <source [src]="item.videourl2" type="video/mp4">
+                                                                                        </video>
+                                                                                         <img [src]="item.imgurl2" *ngIf="item.imgurl2!=null">
+                                                                                         <img [src]="item.documenturl2" *ngIf="item.documenturl2!=null">
+                                                                                     
+                                                                                        
+                                                                                    </td>
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnThirdGrid(audio3,video3)">
+                                                                                        
+                                                                                        <audio #audio3 controls *ngIf="item.audiourl3!=null">
+                                                                                            <source [src]="item.audiourl3"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                        </audio>
+                                                                                        <video #video3 *ngIf="item.videourl3!=null" #ref id="my-video" controls preload="auto" width="80%" >
+                                                                                            <source [src]="item.videourl3" type="video/mp4">
+                                                                                        </video>
+                                                                                         <img [src]="item.imgurl3" *ngIf="item.imgurl3!=null">
+                                                                                         <img [src]="item.documenturl3" *ngIf="item.documenturl3!=null">
+                                                                                        
+                                                                                    </td>
+                                                                                    
+
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <figcaption>{{item.caption}}</figcaption>
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="builder-element" *ngIf="item.tag=='button'">
+                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
+                                                                            <tbody>
+                                                                                <tr (click)="onClickOnDragItem(i,item)">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}">
+                                                                                        <button type="button" class="btn custom-btn btn-round">Click  me</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="builder-element" *ngIf="item.tag=='text'">
+                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
+                                                                            <tbody>
+                                                                                <tr (click)="onClickOnDragItem(i,item)">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}">
+                                                                                        <div [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}"><P>{{item.text}}</P></div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <simple-tiny [elementId]="'id_'+i" (onEditorKeyup)="keyupHandlerFunction($event)"> </simple-tiny>
+
+<!-- <app-tinymce [(ngModel)]='item.text' [ngModelOptions]="{standalone: true}"></app-tinymce> -->
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="builder-element" *ngIf="item.tag=='image'">
+                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
+                                                                            <tbody>
+                                                                                <tr (click)="onClickOnDragItem(i,item)">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}">
+                                                                                        <h5>{{item.title}}</h5>
+                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
+                                                                                        <figcaption>{{item.caption}}</figcaption>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="builder-element" *ngIf="item.tag=='video'">
+                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
+                                                                            <tbody>
+                                                                                <tr (click)="onClickOnDragItem(i,item,ref)">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}">
+                                                                                        <h5>{{item.title}}</h5>
+                                                                                        <video #ref id="my-video" controls preload="auto" width="80%" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
+                                                                                            <source [src]="item.url" type="video/mp4">
+                                                                                        </video>
+                                                                                        <figcaption>{{item.caption}}</figcaption>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="builder-element" *ngIf="item.tag=='audio'">
+                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
+                                                                            <tbody>
+                                                                                <tr (click)="onClickOnDragItem(i,item,ref2)">
+                                                                                    <td  [ngStyle]="{textAlign:item.aligment}">
+                                                                                        <h5>{{item.title}}</h5>
+                                                                                        <audio #ref2 controls [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
+                                                                                            <source [src]="item.url"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                        </audio>
+                                                                                        <figcaption [ngStyle]="{textAlign:item.aligment}">{{item.caption}}</figcaption>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="builder-element" *ngIf="item.tag=='document'">
+                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
+                                                                            <tbody>
+                                                                                <tr (click)="onClickOnDragItem(i,item)">
+                                                                                    <td  [ngStyle]="{textAlign:item.aligment}">
+                                                                                        <h5>{{item.title}}</h5>
+                                                                                        <img [src]="item.url" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" >
+                                                                                        <figcaption>{{item.caption}}</figcaption>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- <div class="builder-element" *ngIf="item.tag=='form'">
+                                                                        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
+                                                                            <tbody>
+                                                                                <tr (click)="onClickOnDragItem(i,item)">
+                                                                                    <td>
+                                                                                        <h5>{{item.formURL}}</h5>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div class="icons-actions">
+                                                                            <i title="Move element" class="material-icons">drag_handle</i>
+                                                                            <i class="material-icons" title="Delete element" (click)="deleteFromArray(i)" >delete</i>
+                                                                        </div>
+                                                                    </div> -->
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mat-card" >
+                                                        <div class="mat-card-content">
+                                                            <form action="#" *ngIf="showRightpan">
+                                                                 <div class="email-builder-element-edit-field" *ngIf="rightPan.tag!='grid'">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="mat-btn-group mat-btn-group-justify">
+                                                                            <button type="button" class="custom-btn btn" (click)="onAligmentChange('left')">Left</button>
+                                                                            <button type="button" class="custom-btn btn" (click)="onAligmentChange('center')">Center</button>
+                                                                            <button type="button" class="custom-btn btn active" (click)="onAligmentChange('right')">Right</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="email-builder-element-edit-field">
+
+                                                                    <div class="block-properties" *ngIf="rightPan.tag!='grid'">
+                                                                        <h3>Padding</h3>
+                                                                        <div class="form-row padding-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Top" type="text" name="top" [(ngModel)]="rightPan.top"  (input)="onTopChange()">
+                                                                            </mat-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Right" type="text" name="right" [(ngModel)]="rightPan.right"  (input)="onRigthChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                        <div class="form-row padding-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Bottom" type="text"  name="bottom" [(ngModel)]="rightPan.bottom"(input)="onBottonChange()">
+                                                                            </mat-form-field>
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Left" type="text"  name="left" [(ngModel)]="rightPan.left" (input)="onLeftChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag!='grid'">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Background Color" name="bgColor" type="text" (colorPickerChange)="color=oncolor(color)" [(colorPicker)]="color" [value]="color" [cpPosition]="'bottom'" [(ngModel)]="rightPan.bgColor" (input)="onbgChange()" autofocus/>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='text'">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Enter Text" type="text"  name="text" [(ngModel)]="rightPan.text" (input)="onTextChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='button'">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Button Text" type="text"  name="buttonText" [(ngModel)]="rightPan.buttonText" (input)="onButtonTextChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Width" type="text" name="width" [(ngModel)]="rightPan.width" (input)="onWidthChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <div class="fileinput" data-provides="fileinput">
+                                                                                <div class="fileinput-new thumbnail">
+                                                                                    <img alt="..." [src]="rightPan.placeHolder">
+                                                                                </div>
+                                                                                <span class="btn custom-btn btn-round btn-file">
+                                                                                    <span class="fileinput-new">Change</span>
+                                                                                    <input type="file" class="file-type" id="fileupload" (change)="imageUploadEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                    <div class="ripple-container"></div>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image' || rightPan.tag=='video' || rightPan.tag=='audio' || rightPan.tag=='document' ">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="URL" type="text" name="url" [(ngModel)]="rightPan.url" (input)="onUrlChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image'">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Alt Tag" type="text" name="altTag" [(ngModel)]="rightPan.altTag" (input)="onaltTagChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image' || rightPan.tag=='video' || rightPan.tag=='audio' || rightPan.tag=='document' || rightPan.tag=='grid' ">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Title" type="text" name="title" [(ngModel)]="rightPan.title"  (input)="onTitleChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+                                                                
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='image' || rightPan.tag=='video' || rightPan.tag=='audio' || rightPan.tag=='document' || rightPan.tag=='grid' ">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Caption" type="text" name="caption" [(ngModel)]="rightPan.caption" (input)="onCaptionChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="email-builder-element-edit-field" *ngIf="rightPan.tag=='grid' ">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Tags" type="text" name="tags" [(ngModel)]="rightPan.tags" (input)="ontagsChange()">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+                                                                  <div *ngIf="rightPan.activeIndex==1">
+                                                                        <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <div class="fileinput" data-provides="fileinput">
+                                                                                    <div class="fileinput-new thumbnail">
+                                                                                        <img alt="..." [src]="rightPan.placeholder1">
+                                                                                    </div>
+                                                                                    <span class="btn custom-btn btn-round btn-file">
+                                                                                        <span class="fileinput-new">Change</span>
+                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridOneIndexEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                        <div class="ripple-container"></div>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl1" [(ngModel)]="rightPan.imgurl1" (input)="onGridImgUrl1Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl1" [(ngModel)]="rightPan.videourl1" (input)="onGridVideoUrl1Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl1" [(ngModel)]="rightPan.audiourl1" (input)="onGridAudioUrl1Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl1" [(ngModel)]="rightPan.documenturl1" (input)="onGridDocumentUrl1Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div *ngIf="rightPan.activeIndex==2">
+                                                                        <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <div class="fileinput" data-provides="fileinput">
+                                                                                    <div class="fileinput-new thumbnail">
+                                                                                        <img alt="..." [src]="rightPan.placeholder2">
+                                                                                    </div>
+                                                                                    <span class="btn custom-btn btn-round btn-file">
+                                                                                        <span class="fileinput-new">Change</span>
+                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridTwoIndexEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                        <div class="ripple-container"></div>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl2" [(ngModel)]="rightPan.imgurl2" (input)="onGridImgUrl2Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl2" [(ngModel)]="rightPan.videourl2" (input)="onGridVideoUrl2Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl2" [(ngModel)]="rightPan.audiourl2" (input)="onGridAudioUrl2Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl2" [(ngModel)]="rightPan.documenturl2" (input)="onGridDocumentUrl2Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div *ngIf="rightPan.activeIndex==3">
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <div class="fileinput" data-provides="fileinput">
+                                                                                    <div class="fileinput-new thumbnail">
+                                                                                        <img alt="..." [src]="rightPan.placeholder3">
+                                                                                    </div>
+                                                                                    <span class="btn custom-btn btn-round btn-file">
+                                                                                        <span class="fileinput-new">Change</span>
+                                                                                        <input type="file" class="file-type" id="fileupload" (change)="imageUploadForGridThirdIndexEvent($event)" accept="image/gif, image/jpeg, image/png" />
+                                                                                        <div class="ripple-container"></div>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Image URL" type="text" name="gridimgurl3" [(ngModel)]="rightPan.imgurl3" (input)="onGridImgUrl3Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Video URL" type="text" name="gridvideourl3" [(ngModel)]="rightPan.videourl3" (input)="onGridVideoUrl3Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Audio URL" type="text" name="gridaudiourl3" [(ngModel)]="rightPan.audiourl3" (input)="onGridAudioUrl3Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="email-builder-element-edit-field" >
+
+                                                                        <div class="block-properties">
+                                                                            <div class="form-row text-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Document URL" type="text" name="griddocumenturl3" [(ngModel)]="rightPan.documenturl3" (input)="onGridDocumentUrl3Change()">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                               
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </form>
+                                                            <div class="email-builder-element-edit-field" *ngIf="googleFromatata.tag=='form'">
+
+                                                                    <div class="block-properties">
+                                                                        <div class="form-row text-inputs">
+                                                                            <mat-form-field>
+                                                                                <input matInput placeholder="Form Link" type="text" name="form" [(ngModel)]="googleFromatata.url" [ngModelOptions]="{standalone: true}" (input)="onFormUrlChange(googleFromatata.url)">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+                                                            <div *ngIf="callToActionButton.length>0">
+                                                                <div class="block-properties">
+                                                                    <div class="">
+                                                                        <p>Call to Action Buttons</p>
+                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let callbtn of callToActionButton;let i=index" (click)="removeCallButton(i)">{{callbtn.title}} 
+                                                                        <span class="badge" > <i class="fa fa-times"></i> </span></button>
+                                                                            
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="userEngaButton.length>0">
+                                                                <div class="block-properties">
+                                                                    <div class="">
+                                                                        <p>User Engagement Buttons</p>
+                                                                        <button type="button" class="btn-sm btn btn-round custom-btn" *ngFor="let userbtn of userEngaButton; let i=index" (click)="removeUerButton(i)">{{userbtn.title}}
+                                                                        <span class="badge" > <i class="fa fa-times"  ></i> </span></button>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-sm-3">
+                                                <div class="panel panel-success">
+                                                    <div class="panel-heading">Available to drag</div>
+                                                    <div class="panel-body">
+                                                        <div class="panel panel-default" dnd-draggable [dragEnabled]="true" [dragData]="transferData">
+                                                            <div class="panel-body">
+                                                                <div>Drag Me</div>
+                                                                <div>{{transferData | json}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div dnd-droppable class="panel panel-info" (onDropSuccess)="transferDataSuccess($event)">
+                                                    <div class="panel-heading">Place to drop (Items:{{receivedData.length}})</div>
+                                                    <div class="panel-body">
+                                                        <div [hidden]="!receivedData.length > 0" *ngFor="let data of receivedData">{{data | json}}</div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            
+                                            <!-- <div class="form-panel">
+                                                <div class="form-box left">
+                                                    <div dnd-droppable class="dnd-drop" (onDropSuccess)="transferDataSuccess($event)">
+                                                        <div class="place-to-drop">
+                                                            <div [hidden]="!receivedData.length > 0" *ngFor="let data of receivedData">
+                                                                <div class="li">
+                                                                    <div class="edit-box">
+                                                                        <a href="javascript:void(0);" class="btn btn-success for_edit"> <i class="material-icons">mode_edit</i> </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-danger for_delete"> <i class="material-icons" >delete</i> </a>
+                                                                    </div>
+                                                                    
+                                                                    <div *ngIf="data.dragData.name=='Textbox'">
+                                                                        <mat-form-field>
+                                                                            <input matInput placeholder="Textbox" type="text">
+                                                                        </mat-form-field>
+                                                                        <div class="to_edit">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="label" type="text">
+                                                                                </mat-form-field>    
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <div *ngIf="data.dragData.name=='Textarea'">
+                                                                        <mat-form-field>
+                                                                            <textarea matInput placeholder="Guide Text of Form" rows="5" mat-select-on-focus></textarea>
+                                                                        </mat-form-field>
+                                                                        <div class="to_edit">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="label" type="text">
+                                                                                </mat-form-field>    
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div *ngIf="data.dragData.name=='File_Upload'">
+                                                                        <div class="file_upload">
+                                                                            <span class="btn custom-btn btn-round btn-file">
+                                                                                <span class="fileinput-new">Upload</span>
+                                                                                <input type="file" class="file-type" (click)="formimage()" />
+                                                                                <div class="ripple-container"></div>
+                                                                            </span>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                <div class="file_img thumbnail" style="display:none;">
+                                                                                    <img alt="..." src="./assets/img/placeholder5.png">
+                                                                                    <span class="close"> <i (click)="close_img()" class="material-icons">cancel</i> </span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="to_edit">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="label" type="text">
+                                                                                </mat-form-field>    
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-box right">
+                                                    <div class="right-form">
+                                                        <div class="">
+                                                            <ul class="right-ul">
+                                                                <li *ngFor="let item of items" dnd-draggable [dragEnabled]="true" [dragData]="item">{{item.name}}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div> -->
+                                            <!-- <a class="btn custom-btn" (click)="openDialog()" > Add Content </a> -->
+                                       
+
+                                        </div>
+                                        <iframe *ngIf="googleFromatata.formURL" [src]="googleFromatata.formURL" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <legend>Add suggested articles *:</legend>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <mat-radio-group  name="suggestedArticle"  [formControl]="addContentForm.controls['suggestedArticle']" [(ngModel)]="addContentRequest.suggestedArticle" >
+                                                    <mat-radio-button value="true" class="col-md-2 col-sm-2 col-xs-12">Yes</mat-radio-button>
+                                                    <mat-radio-button value="false" class="col-md-2 col-sm-2 col-xs-12">No</mat-radio-button>
+                                                </mat-radio-group>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="addContentRequest.suggestedArticle=='true'">
+                                            <a class="btn btn-success m-0" (click)="openDialog2()" > Add Article + </a>
+                                        </div>
+                                        <!-- <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Select Section">
+                                                <mat-option value="1"> Section1 </mat-option>
+                                                <mat-option value="2"> Section2 </mat-option>
+                                                <mat-option value="3"> Section3 </mat-option>
+                                                <mat-option value="4"> Section4 </mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Select Category">
+                                                <mat-option value="1"> Category1 </mat-option>
+                                                <mat-option value="2"> Category2 </mat-option>
+                                                <mat-option value="3"> Category3 </mat-option>
+                                                <mat-option value="4"> Category4 </mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                                            <mat-select placeholder="Select Sub-category">
+                                                <mat-option value="1"> Sub-category1 </mat-option>
+                                                <mat-option value="2"> Sub-category2 </mat-option>
+                                                <mat-option value="3"> Sub-category3 </mat-option>
+                                                <mat-option value="4"> Sub-category4 </mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <mat-icon matSuffix>mode_edit</mat-icon>
+                                                <input matInput placeholder="Search name of content item" type="text">
+                                            </mat-form-field>
+                                        </div> -->
+
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="suggestedArticleList">
+                                            <div class="row">
+                                                <div class="dshbrd-table table-responsive">
+                                                    <table class="table view-content-table">
+                                                        <tbody>
+                                                            <tr *ngFor="let article of suggestedArticleList;let i=index">
+                                                                <td class="text-left">
+                                                                    <div class="cont-img">
+                                                                        <img *ngIf="!article.thumbnailPicture" src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                                        <img *ngIf="article.thumbnailPicture" [src]="article.thumbnailPicture" class="img-responsive" />
+                                                                    </div>
+                                                                    <div class="cont-dtl">
+                                                                        <div> {{article.headline}}</div>
+                                                                        <div> <strong> Posted by: </strong> Rohan Sen </div>
+                                                                        <div class=""> 
+                                                                            <a href="javascript:;">
+                                                                                {{article.sectionName}} | <span class="dark_ylw">{{article.categoryName}}</span>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="javascript:void(0);"> <i class="material-icons" (click)="deletesuggestedArticle(i)">delete</i> </a>
+                                                                </td>
+                                                            </tr>
+                                                            <!-- <tr>
+                                                                <td class="text-left">
+                                                                    <div class="cont-img">
+                                                                        <img src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                                    </div>
+                                                                    <div class="cont-dtl">
+                                                                        <div> Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </div>
+                                                                        <div> <strong> Posted by: </strong> Rohan Sen </div>
+                                                                        <div class=""> 
+                                                                            <a href="javascript:;">
+                                                                                News | <span class="dark_ylw">Sports News</span>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="javascript:void(0);"> <i class="material-icons" >delete</i> </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-left">
+                                                                    <div class="cont-img">
+                                                                        <img src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                                    </div>
+                                                                    <div class="cont-dtl">
+                                                                        <div> Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </div>
+                                                                        <div> <strong> Posted by: </strong> Rohan Sen </div>
+                                                                        <div class=""> 
+                                                                            <a href="javascript:;">
+                                                                                News | <span class="dark_ylw">Sports News</span>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="javascript:void(0);"> <i class="material-icons" >delete</i> </a>
+                                                                </td>
+                                                            </tr> -->
+                                                            
+                                                        </tbody>
+                                                        
+                                                    </table>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <legend>Picture of Subcategory:</legend>
+                                        </div>
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                            <p> Thumbnail Picture </p>
+                                            <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                                                 <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
+                                                <div class="fileinput-new thumbnail">
+                                                    <img alt="..."  [src]="imageToDisplayThumbnail">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists" style="display:none;">
+                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieThumbnail(myForm)">
+                                                    Save
+                                                    <div class="ripple-container"></div>
+                                                    </span>    
+                                                    <span class="btn btn-danger btn-round file_remove" data-dismiss="modal" (click)="cancelCroppieEditThumbnail()">
+                                                        <i class="fa fa-times"></i> Cancel
+                                                        <div class="ripple-container"></div>
+                                                    </span>
+                                                </div>
+                                                <span class="btn custom-btn btn-round btn-file fileinput-noexists">
+                                                    <span class="fileinput-new">Change</span>
+                                                    <input type="file" class="file-type" id="fileupload" #imageUploadThumbnail (change)="imageUploadEventThumbnail($event)" accept="image/gif, image/jpeg, image/png" />
+                                                    <div class="ripple-container"></div>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                            <p> Horizontal Picture </p>
+                                            <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                                                 <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
+                                                <div class="fileinput-new thumbnail">
+                                                    <img alt="..."  [src]="imageToDisplayHorigontal">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists" style="display:none;">
+                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieHorigontal(myForm)">
+                                                    Save
+                                                    <div class="ripple-container"></div>
+                                                    </span>    
+                                                    <span class="btn btn-danger btn-round file_remove" data-dismiss="modal" (click)="cancelCroppieEditHorigontal()">
+                                                        <i class="fa fa-times"></i> Cancel
+                                                        <div class="ripple-container"></div>
+                                                    </span>
+                                                </div>
+                                                <span class="btn custom-btn btn-round btn-file fileinput-noexists">
+                                                    <span class="fileinput-new">Change</span>
+                                                    <input type="file" class="file-type" id="fileupload" #imageUploadHorigontal (change)="imageUploadEventHorigontal($event)" accept="image/gif, image/jpeg, image/png" />
+                                                    <div class="ripple-container"></div>
+                                                </span>
+                                            </div>
+                                        </div>
+
+
+
+                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <legend>User engagement buttons:</legend>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Kadak</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Share</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Comment</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Save</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Download</mat-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <legend>Call to action buttons:</legend>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Apply</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Call me back</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">I'm interested</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12">Call</mat-checkbox>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <legend>Shortlist content for promotion:</legend>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12" name="sortlistForHomepage" [formControl]="addContentForm.controls['sortlistForHomepage']" [(ngModel)]="addContentRequest.sortlistForHomepage" >Homepage</mat-checkbox>
+                                                <mat-checkbox class="col-md-2 col-sm-2 col-xs-12"  name="sortlistForCategory" [formControl]="addContentForm.controls['sortlistForCategory']" [(ngModel)]="addContentRequest.sortlistForCategory">Category</mat-checkbox>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <label> This content is applicable for: </label>
+                                            <mat-form-field>
+                                                <mat-select placeholder="Select State *" multiple  name="applicableStateLists" [formControl]="addContentForm.controls['applicableStateLists']" [(ngModel)]="addContentRequest.applicableStateLists">
+                                                    <mat-option *ngFor="let state of stringResource.stateList" [value]="state.stateName"> {{state.stateName}}</mat-option>
+                                                    <!-- <mat-option value="2"> State2 </mat-option>
+                                                    <mat-option value="3"> State3 </mat-option>
+                                                    <mat-option value="4"> State4 </mat-option> -->
+                                                </mat-select>
+                                                <mat-error  *ngIf="addContentForm.controls['applicableStateLists'].hasError('required') && addContentForm.controls['applicableStateLists'].touched">
+                                                State is <strong>required</strong>
+                                                </mat-error>
+                                               <!--  <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('pattern')">
+                                                only alphabets are acceptable 
+                                                </mat-error> -->
+                                               <!--  <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('maxlength')">
+                                                max length is 100
+                                                </mat-error> -->
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <legend>Preview:</legend>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <button class="btn custom-btn" (click)="contentView()" [disabled]="!addContentForm.valid"> Content View </button>
+                                            <button class="btn custom-btn" (click)="listView()" [disabled]="!addContentForm.valid"> Listing View </button>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <button class="btn btn-warning" (click)="saveAsDraft()" [disabled]="!addContentForm.valid"> Save as draft </button>
+                                            <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser' "  (click)="submitForReview()" [disabled]="!addContentForm.valid"> Submit for review </button>
+                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="publish('Publish')" [disabled]="!addContentForm.valid"> Publish </button>
+                                            <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" [disabled]="!addContentForm.valid"> Publish later </button>
+                                            <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" [disabled]="!addContentForm.valid"> Send for revision </button>
+                                            <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" [disabled]="!addContentForm.valid"> Reject </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-footer></app-footer>
+    </div>
+</div>

@@ -12,6 +12,8 @@ import  {ENV} from '../env'
 export class SectionService {
     constructor(private http: Http) {}
 
+
+
     onAddSection(addSectionRequest:AddSectionRequest): Observable <any> {
         let api = ENV.mainApi + "addSection";
         let headers = new Headers({
