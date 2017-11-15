@@ -7,7 +7,7 @@
             
           <div>
          <!--  <textarea [froalaEditor]  [(froalaModel)]="ckeditorContent"></textarea> -->
-          <mat-form-field>
+        <!--   <mat-form-field>
               <textarea  #textAreaTextInput [matAutocomplete]="textAreaTextTag" matInput placeholder="Text" rows="15"   name="guildTextForMedia" [(ngModel)]="textAreaText" (input)="onTransliteration(textAreaText,textAreaTextInput)" (keyup)="onKeyUp($event)" (click)="clearSuggstion()"></textarea>
                 <mat-autocomplete #textAreaTextTag="matAutocomplete">
                   <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
@@ -18,7 +18,7 @@
           <div >
              <button class="btn custom-btn" (click)="format()" [disabled]="showMessage">Format this text</button>
            
-        </div>
+        </div> -->
             <!-- <ckeditor  
                 [(ngModel)]="ckeditorContent"
                 [config]="ckEditorConfig"
@@ -34,7 +34,7 @@
                 </ckbutton>
             </ckeditor> -->
             <textarea [froalaEditor]  [(froalaModel)]="ckeditorContent"></textarea>
-            <div [froalaView]="ckeditorContent"></div>
+            <!-- <div [froalaView]="ckeditorContent"></div> -->
           </div>
          <!--  <ul class="iframe-suggestion">
             <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">

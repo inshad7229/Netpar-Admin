@@ -473,8 +473,8 @@
                                                                     </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='text'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
-                                                                            <tbody (click)="onText(i,item)">
-                                                                                <tr  >
+                                                                            <tbody >
+                                                                                <tr  (click)="onClickOnDragItem(i,item)">
                                                                                     <!-- <td [ngStyle]="{textAlign:item.aligment}"> -->
                                                                                     <td>
                                                                                         <div [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
@@ -817,9 +817,17 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <input matInput placeholder="Enter Text" type="text"  name="text" [(ngModel)]="rightPan.text" (input)="onTextChange()">
+                                                                                <textarea matInput placeholder="Enter Text" type="text"  name="text" #textInput [matAutocomplete]="textTag" [(ngModel)]="rightPan.text" (input)="onTransliteration(rightPan.text,textInput,'textInput')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
+                                                                                </textarea>
+                                                                                <mat-autocomplete #textTag="matAutocomplete">
+                                                                                    <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                                                                        <span>{{ state }}</span>
+                                                                                    </mat-option>
+                                                                                </mat-autocomplete>
                                                                             </mat-form-field>
-                                                                            <!-- <simple-tiny [elementId]="'id_custome'" (onEditorKeyup)="keyupHandlerFunction($event)"> </simple-tiny> -->
+                                                                           <div >
+                                                                              <button class="btn custom-btn" (click)="format(rightPan)">Format this text</button>
+                                                                            </div>
                                                                         </div>
                                                                            
                                                                     </div>

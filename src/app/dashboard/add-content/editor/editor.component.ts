@@ -71,24 +71,24 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.data.editedStatus==false) {
-       this.textAreaText=this.data.text
-      // code...
-    }else{
+    // if (this.data.editedStatus==false) {
+    //    this.textAreaText=this.data.text
+    //   // code...
+    // }else{
       this.ckeditorContent=this.data.text;
-    }
+    // }
   }
-  format(){
-   if (this.ckeditorContent) {
+  // format(){
+  //  if (this.ckeditorContent) {
        
-       this.ckeditorContent=this.ckeditorContent+this.textAreaText;
-       this.textAreaText=null
-      // code...
-    }else{
-      this.ckeditorContent=this.textAreaText;
-      this.textAreaText=null
-    }
-  }
+  //      this.ckeditorContent=this.ckeditorContent+this.textAreaText;
+  //      this.textAreaText=null
+  //     // code...
+  //   }else{
+  //     this.ckeditorContent=this.textAreaText;
+  //     this.textAreaText=null
+  //   }
+  // }
   // onChange(event){
   //   let text=this.ckeditorContent
   //   let f

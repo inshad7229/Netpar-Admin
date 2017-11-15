@@ -2917,6 +2917,21 @@ addownloadRight(Download){
       
         });
 	  }
+
+    format(rightPan){
+      let dialogRef = this.dialog.open(EditorComponent, {
+            width: '400px',
+            data:{text:rightPan.text,lang:this.addContentRequest.language,editedStatus:rightPan.editedStatus}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          //alert(JSON.stringify(result))
+          if (result) {
+             this.listOne[this.currentIndex].text=result.text;
+             this.listOne[this.currentIndex].editedStatus=true
+          }
+      
+        });
+    }
     onImage(i,item){
          this.currentIndex=i;
          this.rightPan=item
@@ -3091,11 +3106,12 @@ addownloadRight(Download){
         this.listOne[this.currentIndex].url=tmppath
         this.length = this.newUploadFiles.length;
 
-        this.makeVideoFile(right);
+        this.makeDocumentFile(right);
     }
 
 
     makeDocumentFile(right:any) {
+      console.log(right)
         let b=[]
         this.tempCustomerBase64 = [];
         for (var i = 0; i < this.length; i++) {
@@ -3140,9 +3156,9 @@ addownloadRight(Download){
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file1=formData
-                this.gridFileData[index].for="videourl1"
+                this.gridFileData[index].for1="videourl1"
             }else{
-              this.gridFileData.push({tag:right.tag,count:right.count,for:"videourl1",file1:formData,file2:null,file3:null})
+              this.gridFileData.push({tag:right.tag,count:right.count,for1:"videourl1",file1:formData,file2:null,file3:null})
             }
             
 
@@ -3174,9 +3190,9 @@ addownloadRight(Download){
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file1=formData
-                this.gridFileData[index].for="audiourl1"
+                this.gridFileData[index].for1="audiourl1"
             }else{
-              this.gridFileData.push({tag:right.tag,count:right.count,for:"audiourl1",file1:formData,file2:null,file3:null})
+              this.gridFileData.push({tag:right.tag,count:right.count,for1:"audiourl1",file1:formData,file2:null,file3:null})
             }
             
 
@@ -3207,9 +3223,9 @@ addownloadRight(Download){
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file1=formData
-                this.gridFileData[index].for="documenturl1"
+                this.gridFileData[index].for1="documenturl1"
             }else{
-              this.gridFileData.push({tag:right.tag,count:right.count,for:"documenturl1",file1:formData,file2:null,file3:null})
+              this.gridFileData.push({tag:right.tag,count:right.count,for1:"documenturl1",file1:formData,file2:null,file3:null})
             }
             
 
@@ -3241,9 +3257,9 @@ addownloadRight(Download){
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file2=formData
-                this.gridFileData[index].for="videourl2"
+                this.gridFileData[index].for2="videourl2"
             }else{
-              this.gridFileData.push({tag:right.tag,count:right.count,for:"videourl2",file1:null,file2:formData,file3:null})
+              this.gridFileData.push({tag:right.tag,count:right.count,for2:"videourl2",file1:null,file2:formData,file3:null})
             }
 
             
@@ -3274,9 +3290,9 @@ addownloadRight(Download){
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file2=formData
-                this.gridFileData[index].for="audiourl2"
+                this.gridFileData[index].for2="audiourl2"
             }else{
-              this.gridFileData.push({tag:right.tag,count:right.count,for:"audiourl2",file1:null,file2:formData,file3:null})
+              this.gridFileData.push({tag:right.tag,count:right.count,for2:"audiourl2",file1:null,file2:formData,file3:null})
             }
              
 
@@ -3307,9 +3323,9 @@ addownloadRight(Download){
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file2=formData
-                this.gridFileData[index].for="documenturl2"
+                this.gridFileData[index].for2="documenturl2"
             }else{
-              this.gridFileData.push({tag:right.tag,count:right.count,for:"documenturl2",file1:null,file2:formData,file3:null})
+              this.gridFileData.push({tag:right.tag,count:right.count,for2:"documenturl2",file1:null,file2:formData,file3:null})
             }
              
 
@@ -3340,9 +3356,9 @@ addownloadRight(Download){
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file3=formData
-                this.gridFileData[index].for="videourl3"
+                this.gridFileData[index].for3="videourl3"
             }else{
-              this.gridFileData.push({tag:right.tag,count:right.count,for:"videourl3",file1:null,file2:null,file3:formData})
+              this.gridFileData.push({tag:right.tag,count:right.count,for3:"videourl3",file1:null,file2:null,file3:formData})
             }
              
 
@@ -3373,9 +3389,9 @@ addownloadRight(Download){
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file3=formData
-                this.gridFileData[index].for="audiourl3"
+                this.gridFileData[index].for3="audiourl3"
             }else{
-              this.gridFileData.push({tag:right.tag,count:right.count,for:"audiourl3",file1:null,file2:null,file3:formData})
+              this.gridFileData.push({tag:right.tag,count:right.count,for3:"audiourl3",file1:null,file2:null,file3:formData})
             }
              
 
@@ -3406,9 +3422,9 @@ addownloadRight(Download){
             if (this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)!=-1) {
             	let index=this.gridFileData.map(function (arg) { return arg.count; }).indexOf(right.count)
                 this.gridFileData[index].file3=formData
-                this.gridFileData[index].for="documenturl3"
+                this.gridFileData[index].for3="documenturl3"
             }else{
-              this.gridFileData.push({tag:right.tag,count:right.count,for:"documenturl3",file1:null,file2:null,file3:formData})
+              this.gridFileData.push({tag:right.tag,count:right.count,for3:"documenturl3",file1:null,file2:null,file3:formData})
             }
              
 
@@ -3505,6 +3521,7 @@ addownloadRight(Download){
         }
     for (var i = 0; i < this.gridFileData.length; i++) {
             this.gridFileDataLength=i+1
+            console.log(JSON.stringify(this.gridFileData))
             let headers = new Headers();
 
             let options = new RequestOptions({
@@ -3512,7 +3529,7 @@ addownloadRight(Download){
             });
             if (this.gridFileData[i].file1!=null) {
             	 this.waitLoader = true;
-            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file1, options)
+            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for1,this.gridFileData[i].file1, options)
                 .subscribe(
                     data => {
                          let demo=data.json()
@@ -3530,7 +3547,7 @@ addownloadRight(Download){
             }
             if (this.gridFileData[i].file2!=null) {
             	 this.waitLoader = true;
-            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file2, options)
+            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for2,this.gridFileData[i].file2, options)
                 .subscribe(
                     data => {
                          let demo=data.json()
@@ -3548,7 +3565,7 @@ addownloadRight(Download){
             }
             if (this.gridFileData[i].file3!=null) {
             	 this.waitLoader = true;
-            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for,this.gridFileData[i].file3, options)
+            	this.http.post('http://52.15.178.19:3001/api/uploadContentMeida/'+this.contentId+'/'+this.gridFileData[i].tag+'/'+this.gridFileData[i].count+'/'+this.gridFileData[i].for3,this.gridFileData[i].file3, options)
                 .subscribe(
                     data => {
                          let demo=data.json()
@@ -3677,6 +3694,10 @@ addownloadRight(Download){
      this.rightPan.caption=output
      this.onCaptionChange()
    }
+    else if (this.currentInputTag=='textInput') {
+       this.rightPan.text=output
+       //this.onTextChange()
+         }
    //this.addCategoryRequest.categoryName=output
    let sumIndex=(this.caretPos+this.outputStringLength)-this.inputStringLength
    this.appProvider.current.suggestedString=[]
@@ -3706,6 +3727,9 @@ onKeyUp(event){
              }else if (this.currentInputTag=='caption') {
                this.rightPan.caption=output
                this.onCaptionChange()
+             }else if (this.currentInputTag=='textInput') {
+                   this.rightPan.text=output
+                   //this.onTextChange()
              }
         //this.addCategoryRequest.categoryName=output
         this.appProvider.current.suggestedString=[]
@@ -3729,6 +3753,10 @@ onKeyUp(event){
          }else if (this.currentInputTag=='caption') {
            this.rightPan.caption=output
            this.onCaptionChange()
+         }
+         else if (this.currentInputTag=='textInput') {
+           this.rightPan.text=output
+            //this.onTextChange()
          }
         //this.addCategoryRequest.categoryName=output
          this.appProvider.current.suggestedString=[]
