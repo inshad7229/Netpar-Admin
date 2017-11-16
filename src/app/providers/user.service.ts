@@ -67,6 +67,43 @@ export class UserService {
     }
 
 
+    getAllContributions():  Observable<any> {
+        let api =  ENV.mainApi+"getAllContributions";
+         let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(api,options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
+   
+
+    onEditContentMultipal(Status,id): Observable <any> {
+        let api = ENV.mainApi + "updateContriStatus"
+        let a={
+            ids:id,
+            status:Status
+        }
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({
+            headers: headers
+        });
+        return this.http.put(api, JSON.stringify(a), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
+
 
     // private throwPromise(error: any): Promise<any> {
     //     let details = error.json().messages;
