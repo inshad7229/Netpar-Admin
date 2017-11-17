@@ -1288,9 +1288,9 @@ table tbody td.width170px{
   color: #282c3f
 }
 
-.cdk-global-overlay-wrapper {
+/* .cdk-global-overlay-wrapper {
   overflow: auto;
-}
+} */
 .cdk-overlay-pane {
   margin: auto 0;
 }
@@ -1598,3 +1598,24 @@ table.user-icons td{
 .btns .btn {
   padding: 12px 6px;
   min-width: 100px; }
+///////////////popup
+.cdk-overlay-pane {
+  overflow: auto;
+  max-height: 100%;
+}
+
+.modal-body.cus-height{
+  max-height: 85vh;
+}
+.builder-element.for_edit{
+  padding-top: 20px;
+}
+.edit-text {
+  border-color: transparent transparent  #000 #000;
+  border-style: none none solid solid;
+  border-radius: 0 0 0 4px;
+  border-width: 0 0 1px 1px;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+}

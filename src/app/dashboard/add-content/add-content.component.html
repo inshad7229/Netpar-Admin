@@ -334,14 +334,14 @@
                                                                 </li>
                                                                 <li data-type="apply" (click)="addUserEngBtn()">
                                                                     <i class="material-icons">people</i>
-                                                                    <span>User Engagement</span>
+                                                                    <span>Multi-User Engagement</span>
                                                                 </li>
                                                                 <li data-type="apply" (click)="addCallToActBtn()">
                                                                     <i class="material-icons">settings</i>
-                                                                    <span>Call to action</span>
+                                                                    <span>Multi-Call to action</span>
                                                                 </li>
 
-                                                            <!--     <li data-type="apply" (click)="addApply('Apply')">
+                                                                <li data-type="apply" (click)="addApply('Apply')">
                                                                     <i class="icon-check"></i>
                                                                     <span>Apply</span>
                                                                 </li>
@@ -376,7 +376,7 @@
                                                                 <li data-type="apply" (click)="addownload('Download')">
                                                                     <i class="icon-donload"></i>
                                                                     <span>Download</span>
-                                                                </li> -->
+                                                                </li>
                                                                 <li data-type="apply" (click)="addForm()">
                                                                     <i class="width-17 material-icons">assignments</i>
                                                                     <span>Form</span>
@@ -471,7 +471,8 @@
 
                                                                         
                                                                     </div>
-                                                                    <div class="builder-element" *ngIf="item.tag=='text'">
+                                                                    <div class="builder-element for_edit" *ngIf="item.tag=='text'">
+                                                                        <span *ngIf="item.text!='Dummy Text'" class="edit-text"> <i class="material-icons" (click)="format(item,item.text,'center',i)">edit</i> </span>
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody >
                                                                                 <tr  (click)="onClickOnDragItem(i,item)">
@@ -611,9 +612,56 @@
                                                                         
                                                                     </div>
 
+                                                                    <div class="builder-element"  *ngIf="item.tag=='callMeBack'" (click)="onClickOnDragItem(i,item)">
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr class="btns">
+                                                                                    <td>
+                                                                                        <button type="button" class="btn success"><i class="icon-check"></i> Call me back </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
 
-                                                                   <div class="builder-element" *ngIf="item.tag=='CallToActBtn'" (click)="onClickOnDragItem(i,item)">
-                                                                        <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
+                                                                    <div class="builder-element" *ngIf="item.tag=='call'"  (click)="onClickOnDragItem(i,item)">
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr class="btns">
+                                                                                    <td>
+                                                                                         <button  type="button" class="btn info"><i class="icon-call"></i> Call </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="builder-element" *ngIf="item.tag=='intrested'" (click)="onClickOnDragItem(i,item)">
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr class="btns">
+                                                                                    <td>
+                                                                                         <button  type="button" class="btn primary"><i class="icon-click"></i> I'm Interested </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="builder-element" *ngIf="item.tag=='apply'" (click)="onClickOnDragItem(i,item)">
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr class="btns">
+                                                                                    <td>
+                                                                                        <button  type="button" class="btn success"><i class="icon-check"></i> Apply </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+
+
+                                                                    <div class="builder-element" *ngIf="item.tag=='CallToActBtn'" (click)="onClickOnDragItem(i,item)">
+                                                                        <button *ngIf="item.btn1==null && item.btn2==null && item.btn3==null" type="button" class="btn custom-btn btn-round" (click)="onClickOnDragItem(i,item)">Click  me</button>
                                                                         <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                                                                             <tbody>
                                                                                 <tr class="btns">
@@ -665,9 +713,64 @@
                                                                         </table>
                                                                     </div>
 
-
+                                                                     <div class="builder-element" *ngIf="item.tag=='like'" (click)="onClickOnDragItem(i,item)">
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr class="btns">
+                                                                                    <td>
+                                                                                        <button  type="button" class="btn danger"><i class="icon-okay"></i> Kadak </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                     <div class="builder-element" *ngIf="item.tag=='comment'" (click)="onClickOnDragItem(i,item)">
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr class="btns">
+                                                                                    <td>
+                                                                                        <button  type="button" class="btn rose"><i class="icon-msg"></i> Comment </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="builder-element" *ngIf="item.tag=='save'" (click)="onClickOnDragItem(i,item)">
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr class="btns">
+                                                                                    <td>
+                                                                                        <button  type="button" class="btn primary"><i class="icon-badge"></i> Save </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                     <div class="builder-element" *ngIf="item.tag=='download'" (click)="onClickOnDragItem(i,item)">
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr class="btns">
+                                                                                    <td>
+                                                                                        <button  type="button" class="btn orange"><i class="icon-donload"></i> Download </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                     <div class="builder-element" *ngIf="item.tag=='share'"  (click)="onClickOnDragItem(i,item)">
+                                                                        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                                                                            <tbody>
+                                                                                <tr class="btns">
+                                                                                    <td>
+                                                                                        <button  type="button" class="btn warning"><i class="fa fa-share-alt"></i> Share </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
                                                                     <div class="builder-element" *ngIf="item.tag=='userEngBtn'" (click)="onClickOnDragItem(i,item)">
-                                                                        <h5 [ngStyle]="{textAlign:item.aligment}">{{item.title}}</h5>
+                                                                    <button *ngIf="item.btn1==null && item.btn2==null && item.btn3==null" type="button" class="btn custom-btn btn-round" (click)="onClickOnDragItem(i,item)">Click  me</button>
+                                                                                   
                                                                         <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                                                                             <tbody>
                                                                                 <tr class="btns">
@@ -817,7 +920,7 @@
                                                                     <div class="block-properties">
                                                                         <div class="form-row text-inputs">
                                                                             <mat-form-field>
-                                                                                <textarea matInput placeholder="Enter Text" type="text"  name="text" #textInput [matAutocomplete]="textTag" [(ngModel)]="rightPan.text" (input)="onTransliteration(rightPan.text,textInput,'textInput')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
+                                                                                <textarea matInput  matTextareaAutosize matAutosizeMinRows="3"placeholder="Enter Text" type="text"  name="text" #textInput [matAutocomplete]="textTag" [(ngModel)]="ckeditorContent" (input)="onTransliteration(ckeditorContent,textInput,'textInput')" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                                                 </textarea>
                                                                                 <mat-autocomplete #textTag="matAutocomplete">
                                                                                     <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
@@ -826,7 +929,8 @@
                                                                                 </mat-autocomplete>
                                                                             </mat-form-field>
                                                                            <div >
-                                                                              <button class="btn custom-btn" (click)="format(rightPan)">Format this text</button>
+                                                                              <button class="btn custom-btn" (click)="format(rightPan,ckeditorContent,'right')">Format this text</button>
+                                                                              <button class="btn custom-btn" (click)="saveText(rightPan,ckeditorContent)">Save this text</button>
                                                                             </div>
                                                                         </div>
                                                                            
