@@ -1,31 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastsManager , Toast} from 'ng2-toastr';
 import {TemplateService} from '../../providers/template.service'
+import { forkJoin } from "rxjs/observable/forkJoin";
+import {SectionService} from '../../providers/section.service'
 
 @Component({
   selector: 'app-section-templates',
   templateUrl: './section-templates.component.html',
   styleUrls: ['./section-templates.component.scss'],
-  providers:[TemplateService]
+  providers:[TemplateService,SectionService]
 })
 export class SectionTemplatesComponent implements OnInit {
 
   	waitLoader:boolean=false
     categortTemplateList
-    constructor(private templateService:TemplateService,public toastr: ToastsManager,) { }
+    categoryList
+    constructor(private templateService:TemplateService,public toastr: ToastsManager,private sectionService:SectionService) { }
 
   	ngOnInit() { this.waitLoader = true;
-      this.templateService.onGetTemplate('3')
+     //this.templateService.onGetTemplate('3')
+        forkJoin([this.templateService.onGetTemplate('3'), this.sectionService.onGetSection()])
         .subscribe(data => {
                     this.waitLoader = false;
-                    if (data.success == false) {                        
-                        this.toastr.error('Add Section  failed Please try again', 'Error !!. ', {
+                    if (data[0].success == false || data[1].success == false) {                        
+                        this.toastr.error('failed Please try again', 'Error !!. ', {
                             toastLife: 3000,
                             showCloseButton: true
                         });
                     }
-                    else if (data.success == true) {
-                     this.categortTemplateList=data.response;
+                    else if (data[0].success == true || data[1].success == true) {
+                     this.categortTemplateList=data[0].response;
+                     this.categoryList=data[1]
                   
                     }                 
                 },error=>{
@@ -53,5 +58,15 @@ getEndDate(timeString){
    return timeString.split('T')[0]
 }
 	
+getCategoryName(name){
+  let demo=this.categoryList.filter(arg=>arg.sectionViewFormat==name)
+  if (demo.length>0) {
+     return demo
+    // code...
+  }else{
+    let a=[{sectionName:'----'}]
+    return a
+  }
+}
 	
 }
