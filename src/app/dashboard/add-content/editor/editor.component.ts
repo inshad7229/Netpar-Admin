@@ -28,11 +28,27 @@ export class EditorComponent implements OnInit {
     inputStringLength:number
     outputStringLength:number
     textAreaText:any;
+    ckEditorConfig: {} = {
+    "toolbarGroups": [
+          { "name": 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+          { "name": 'links' },
+          { "name": 'paragraph',   groups: [ 'list', 'indent', 'align' ] },
+          { "name": 'styles' },
+          { "name": 'colors' },
+          { "name": 'insert',  groups: [ 'table' ] },
+          { "name": 'basicstyles',   groups: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
+      ],
+    /*"toolbar" : [
+      { "name": 'insert',  items: [ 'table' ] },
+    ],*/
+    "removeButtons":"Source,Save,Templates,Find,Replace,Scayt,SelectAll"
+  }
   constructor(private dialog: MatDialog, 
      private http: Http,
      private translationService:TranslationService,
     public dialogRef: MatDialogRef<EditorComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any, private appProvider: AppProvider) { 
+    this.ckeditorContent=this.data.text;
     // let selectedLang
     // let lang=data.lang
     //    if(lang=="Hindi"){
@@ -54,28 +70,14 @@ export class EditorComponent implements OnInit {
     //     control.makeTransliteratable(['editorText']);
   	this.date={}
   }
-  ckEditorConfig: {} = {
-    "toolbarGroups": [
-          { "name": 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-          { "name": 'links' },
-          { "name": 'paragraph',   groups: [ 'list', 'indent', 'align' ] },
-          { "name": 'styles' },
-          { "name": 'colors' },
-          { "name": 'insert',  groups: [ 'table' ] },
-          { "name": 'basicstyles',   groups: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
-      ],
-    /*"toolbar" : [
-      { "name": 'insert',  items: [ 'table' ] },
-    ],*/
-    "removeButtons":"Source,Save,Templates,Find,Replace,Scayt,SelectAll"
-  }
+  
 
   ngOnInit() {
     // if (this.data.editedStatus==false) {
     //    this.textAreaText=this.data.text
     //   // code...
     // }else{
-      this.ckeditorContent=this.data.text;
+      
     // }
   }
   // format(){

@@ -83,6 +83,7 @@
                                             <p> Thumbnail Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
+                                                  <p *ngIf="saveFlag1">Image Saved</p>
                                                 <div class="fileinput-new thumbnail" *ngIf="!croppieImageThumbnail">
                                                     <img alt="..."  [src]="imageToDisplayThumbnail">
                                                 </div>
@@ -108,6 +109,7 @@
                                             <p> Horizontal Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
+                                                 <p *ngIf="saveFlag2">Image Saved</p>
                                                 <div class="fileinput-new thumbnail" *ngIf="!croppieImageHorigontal">
                                                     <img alt="..."  [src]="imageToDisplayHorigontal">
                                                 </div>

@@ -1598,6 +1598,33 @@ table.user-icons td{
 .btns .btn {
   padding: 12px 6px;
   min-width: 100px; }
+
+.btns .btn.not_default{
+  background: none;
+}
+.btns .btn.not_default .span-icns{
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  line-height: 30px;
+  border: 1px solid;
+  border-radius: 60px;
+  display: inline-block;
+  text-align: center;
+}
+.btns .btn .badge{
+  border-radius: 75px;
+  font-size: 12px;
+  height: 20px;
+  line-height: 17px;
+  padding: 0;
+  width: 20px;
+}
+.btns .btn .badge i{
+  font-size: 12px;
+}
+
+
 ///////////////popup
 .cdk-overlay-pane {
   overflow: auto;
@@ -1611,11 +1638,15 @@ table.user-icons td{
   padding-top: 20px;
 }
 .edit-text {
-  border-color: transparent transparent  #000 #000;
-  border-style: none none solid solid;
-  border-radius: 0 0 0 4px;
-  border-width: 0 0 1px 1px;
   position: absolute;
   right: -1px;
   top: -1px;
+}
+
+.edit-text i {
+  border-color: transparent transparent  #000 #000;
+  border-style: none none solid solid;
+  border-width: 0 0 1px 1px;
+  float: left;
+  padding: 1px 3px;
 }

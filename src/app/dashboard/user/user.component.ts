@@ -19,9 +19,10 @@ export class UserComponent implements OnInit {
      waitLoader
      userDataBackup
     constructor(private dialog: MatDialog,private userProvider:UserService) { }
-    openDialog(): void {
+    openDialog(user): void {
         let dialogRef = this.dialog.open(UserDialogComponent, {
             width: '400px',
+            data:{user:user}
         });
         dialogRef.afterClosed().subscribe(result => {
       
@@ -169,7 +170,8 @@ avgTimePerDay(totalTime,dayCount){
 }
 avgPageViewPerSession(totalPageViews,totalSessions){
      if (totalPageViews>0&& totalSessions>0) {
-       return totalPageViews/totalSessions
+       let val=totalPageViews/totalSessions
+       return val.toFixed(2)
     }else{
 
      return 0;

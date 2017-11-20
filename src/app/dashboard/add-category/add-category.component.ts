@@ -44,6 +44,10 @@ export class AddCategoryComponent implements OnInit {
     elementRefrence:any;
     inputStringLength:number
     outputStringLength:number
+    saveFlag1:boolean
+    saveFlag2:boolean
+    oldCategoryView:string;
+    oldListingView:string
     addCategoryRequest:AddCategoryRequest=new AddCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -189,9 +193,13 @@ export class AddCategoryComponent implements OnInit {
 
     saveImageFromCroppieHorigontal() {
         this.currentImageHorigontal = this.croppieImageHorigontal;
+        if (this.currentImageHorigontal) {
+         this.saveFlag2=true
+        }
     }
 
     cancelCroppieEditHorigontal() {
+        this.saveFlag2=false
         this.croppieImageHorigontal = '';
         this.currentImageHorigontal = ''
     }
@@ -223,9 +231,13 @@ export class AddCategoryComponent implements OnInit {
 
     saveImageFromCroppieThumbnail() {
         this.currentImageThumbnail = this.croppieImageThumbnail;
+        if (this.currentImageThumbnail) {
+         this.saveFlag1=true
+        }
     }
 
     cancelCroppieEditThumbnail() {
+      this.saveFlag1=false
         this.croppieImageThumbnail = '';
         this.currentImageThumbnail = ''
     }
@@ -253,10 +265,68 @@ export class AddCategoryComponent implements OnInit {
      onAddCategory(){
       this.waitLoader =true;
       if (this.addCategoryRequest._id) {
+                 let date=new Date().toISOString()
                  let localsection=this.sections.filter(arg=>arg._id==this.addCategoryRequest.sectionId)
                  this.addCategoryRequest.sectionName=localsection[0].sectionName;
                  this.addCategoryRequest.thumbnailImage=this.currentImageThumbnail;
                  this.addCategoryRequest.horigontalImage=this.currentImageHorigontal;
+                 if (this.oldCategoryView!=this.addCategoryRequest.categoryFormat) {
+                     console.log(this.oldCategoryView)
+                     if (this.addCategoryRequest.categoryFormat=='Category-view Template One') {
+                         this.addCategoryRequest.templateoneStartDate=date
+                     }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Two') {
+                         this.addCategoryRequest.templatetwoStartDate=date
+                     }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Three') {
+                         this.addCategoryRequest.templatethreeStartDate=date
+                     }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Four') {
+                         this.addCategoryRequest.templatefourStartDate=date
+                     }
+
+                     if( this.oldCategoryView=='Category-view Template One') {
+                         this.addCategoryRequest.templateoneendDate=date
+                     }else if ( this.oldCategoryView=='Category-view Template Two') {
+                         this.addCategoryRequest.templatetwoendDate=date
+                     }else if ( this.oldCategoryView=='Category-view Template Three') {
+                         this.addCategoryRequest.templatethreeendDate=date
+                     }else if ( this.oldCategoryView=='Category-view Template Four') {
+                         this.addCategoryRequest.templatefourendDate=date
+                     }
+                 }
+                
+
+                 if (this.oldListingView!=this.addCategoryRequest.listViewFormat) {
+                     if (this.addCategoryRequest.listViewFormat=='Listing-view Template One') {
+                         this.addCategoryRequest.templateonelistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Two') {
+                         this.addCategoryRequest.templatetwolistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Three') {
+                         this.addCategoryRequest.templatethreelistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Four') {
+                         this.addCategoryRequest.templatefourlistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Five') {
+                         this.addCategoryRequest.templatefivelistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Six') {
+                         this.addCategoryRequest.templatesixlistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Seven') {
+                         this.addCategoryRequest.templatesevenlistingStartDate=date
+                     }
+
+                      if (this.oldListingView=='Listing-view Template One') {
+                         this.addCategoryRequest.templateonelistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Two') {
+                         this.addCategoryRequest.templatetwolistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Three') {
+                         this.addCategoryRequest.templatethreelistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Four') {
+                         this.addCategoryRequest.templatefourlistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Five') {
+                         this.addCategoryRequest.templatefivelistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Six') {
+                         this.addCategoryRequest.templatesixlistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Seven') {
+                         this.addCategoryRequest.templatesevenlistingendDate=date
+                     }
+                }
                  this.sectionService.onEditCategory(this.addCategoryRequest)
                         .subscribe(data => {
                             this.waitLoader = false;
@@ -289,6 +359,33 @@ export class AddCategoryComponent implements OnInit {
          this.addCategoryRequest.updatedDate=null;
          this.addCategoryRequest.enableDisableDate=null;
          this.addCategoryRequest.publishUnbuplishDate=null;
+         if ( this.addCategoryRequest.categoryFormat=='Category-view Template One') {
+             this.addCategoryRequest.templateoneStartDate=date
+         }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Two') {
+             this.addCategoryRequest.templatetwoStartDate=date
+         }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Three') {
+             this.addCategoryRequest.templatethreeStartDate=date
+         }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Four') {
+             this.addCategoryRequest.templatefourStartDate=date
+         }
+
+
+         if (this.addCategoryRequest.listViewFormat=='Listing-view Template One') {
+             this.addCategoryRequest.templateonelistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Two') {
+             this.addCategoryRequest.templatetwolistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Three') {
+             this.addCategoryRequest.templatethreelistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Four') {
+             this.addCategoryRequest.templatefourlistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Five') {
+             this.addCategoryRequest.templatefivelistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Six') {
+             this.addCategoryRequest.templatesixlistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Seven') {
+             this.addCategoryRequest.templatesevenlistingStartDate=date
+         }
+
          this.sectionService.onAddCategory(this.addCategoryRequest)
                 .subscribe(data => {
                     this.waitLoader = false;
@@ -333,6 +430,8 @@ export class AddCategoryComponent implements OnInit {
                         this.addCategoryRequest=data.response[0]
                         this.currentImageThumbnail=this.addCategoryRequest.thumbnailImage;
                         this.currentImageHorigontal=this.addCategoryRequest.horigontalImage;
+                        this.oldCategoryView=this.addCategoryRequest.categoryFormat
+                        this.oldListingView=this.addCategoryRequest.listViewFormat
                         if (this.addCategoryRequest.language && this.sectionsData) {
                            this.sections=this.sectionsData.filter(arg=>arg.language==this.addCategoryRequest.language);;
                           }

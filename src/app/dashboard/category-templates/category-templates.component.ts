@@ -53,20 +53,40 @@ getImagePath(templateName){
   }
 }
 getStartTime(timeString){
-  return timeString.split('T')[1].substring(0, 5);
+  if (timeString) {
+     return timeString.split('T')[1].substring(0, 5);
+    // code...
+  }else{
+    return '----'
+  }
 }
 getStartDate(timeString){
+  if (timeString) {
     return timeString.split('T')[0]
+    
+  }else{
+    return '----'
+  }
 }
 getEndTime(timeString){
+  if (timeString) {
+
   return timeString.split('T')[1].substring(0, 5);
+  }else{
+    return '----'
+  }
 }
 getEndDate(timeString){
+ if (timeString) {
    return timeString.split('T')[0]
+   
+ }else{
+    return '----'
+  }
 }
 
 getCategoryName(name){
-   let demo=this.categoryList.filter(arg=>arg.listViewFormat==name)
+   let demo=this.categoryList.filter(arg=>arg.categoryFormat==name)
   if (demo.length>0) {
      return demo
     // code...
