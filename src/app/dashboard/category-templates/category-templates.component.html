@@ -40,7 +40,8 @@
                                                         </div>
                                                     </td>
                                                     <td> {{list.templateName}} </td>
-                                                    <td> <ul *ngFor="let cat of getCategoryName(list.templateName)"><li>{{cat.categoryName}}</li></ul> </td>
+                                                    <td> <ul *ngFor="let cat of getCategoryName(list.templateName)"><li>
+                                                        {{cat.sectionName}} | <span class="dark_ylw"> {{cat.categoryName}}</span> </li></ul> </td>
                                                     <!-- <td> {{getStartTime(list.startTime)}}, {{getStartDate(list.startTime)}}</td>
                                                     <td> {{getEndTime(list.endTime)}}, {{getEndDate(list.endTime)}} </td> -->
                                                     <td>

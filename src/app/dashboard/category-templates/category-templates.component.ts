@@ -91,7 +91,7 @@ getCategoryName(name){
      return demo
     // code...
   }else{
-    let a=[{categoryName:'----'}]
+    let a=[{categoryName:'----',sectionName:'----'}]
     return a
   }
 }
