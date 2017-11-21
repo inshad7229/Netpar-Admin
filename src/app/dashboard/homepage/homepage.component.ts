@@ -196,6 +196,7 @@ export class HomepageComponent implements OnInit {
                         this.waitLoader = false;
                         this.contentList=data.response
                         this.contentBackup=data.response.slice(0)
+                        this.contentListBackup=data.response.slice(0)
                         // this.localAdminList=data.response;
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -329,6 +330,44 @@ export class HomepageComponent implements OnInit {
                     alert(error)
                 }) 
    }
+   onselectSate(state){
+ // alert(state)
+  let filterData=[]
+  this.selectedSate=state;
+  console.log(state)
+  if (state.length>0) {
+      for (let i =0 ;i<state.length;i++) {
+         filterData.push(this.contentListBackup.filter(arg=>arg.applicableStateLists.indexOf(state[i])!=-1))
+       }
+       this.contentList=filterData[0]
+       this.contentAfterState=this.contentList.slice(0)
+   }else{
+      this.contentList=this.contentListBackup
+      this.contentAfterState=this.contentList.slice(0)
+   }
+   if (this.filterValue.language) {
+       this.contentList=this.contentList.filter(arg=>arg.language==this.filterValue.language)
+   }
+
+}
+onselectLang(language){
+  let filterData=[]
+ if (this.filterValue.state && this.filterValue.state.length>0) {
+      for (let i =0 ;i<this.filterValue.state.length;i++) {
+         filterData.push(this.contentListBackup.filter(arg=>arg.applicableStateLists.indexOf(this.filterValue.state[i])!=-1))
+       }
+       this.contentList=filterData[0]
+       this.contentAfterState=this.contentList.slice(0)
+   }else{
+      this.contentList=this.contentListBackup
+       this.contentAfterState=this.contentList.slice(0)
+   }
+   if (this.filterValue.language) {
+       this.contentList=this.contentList.filter(arg=>arg.language==this.filterValue.language)
+   }
+  this.filterLanguageSingle=language;
+ // this.contentList=this.contentListBackup.filter(arg=>arg.language==language)
+}
    openFilter(){
      if (this.filterValue.language) {
         for (let i=0;i<this.stringResource.language.length;i++) {

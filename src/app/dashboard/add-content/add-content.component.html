@@ -406,7 +406,7 @@
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody>
                                                                                 <tr (click)="onClickOnDragItem(i,item)">
-                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnFirstGrid(i,item,audi01,video1)"
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;height: 100px;padding: 3px;" (click)="OnFirstGrid(i,item,audi01,video1)"
                                                                                          
                                                                                     >
                                                                                        
@@ -422,7 +422,7 @@
                                                                                      
                                                                                         
                                                                                     </td>
-                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnSecondGrid(i,item,audi02,video2)">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;height: 100px;padding: 3px;" (click)="OnSecondGrid(i,item,audi02,video2)">
                                                                                       
                                                                                         <audio #audi02 controls *ngIf="item.audiourl2!=null">
                                                                                             <source [src]="safeURL(item.audiourl2)"  type="audio/mpeg" />
@@ -436,7 +436,7 @@
                                                                                      
                                                                                         
                                                                                     </td>
-                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;border: 1px dashed #333;height: 100px;background-color: #f5f5f5;" (click)="OnThirdGrid(i,item,audio3,video3)">
+                                                                                    <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;height: 100px;padding: 3px;" (click)="OnThirdGrid(i,item,audio3,video3)">
                                                                                         
                                                                                         <audio #audio3 controls *ngIf="item.audiourl3!=null">
                                                                                             <source [src]="safeURL(item.audiourl3)"  type="audio/mpeg" />
@@ -621,9 +621,9 @@
                                                                             <tbody>
                                                                                 <tr class="btns">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
-                                                                                        <button *ngIf="item.outline==false" type="button" class="btn success"><i class="icon-callme"></i> Call me back </button>
+                                                                                        <button *ngIf="item.outline==false" [ngStyle]="{paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" type="button" class="btn success" ><i class="icon-callme"></i> Call me back </button>
                                                                                         
-                                                                                        <button *ngIf="item.outline==true" type="button" class="btn not_default">
+                                                                                        <button *ngIf="item.outline==true" [ngStyle]="{paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" type="button" class="btn not_default">
                                                                                             <span class="text-success">
                                                                                                 <span class="span-icns">
                                                                                                     <i class="icon-callme"></i>
@@ -643,9 +643,9 @@
                                                                             <tbody>
                                                                                 <tr class="btns">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
-                                                                                        <button *ngIf="item.outline==false"  type="button" class="btn info"><i class="icon-call"></i> Call </button>
+                                                                                        <button *ngIf="item.outline==false"  [ngStyle]="{paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" type="button" class="btn info"><i class="icon-call"></i> Call </button>
 
-                                                                                        <button *ngIf="item.outline==true" type="button" class="btn not_default">
+                                                                                        <button *ngIf="item.outline==true" [ngStyle]="{paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" type="button" class="btn not_default">
                                                                                             <span class="text-info">
                                                                                                 <span class="span-icns">
                                                                                                     <i class="icon-call"></i>
@@ -664,9 +664,9 @@
                                                                             <tbody>
                                                                                 <tr class="btns">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
-                                                                                        <button  *ngIf="item.outline==false" type="button" class="btn primary"><i class="icon-click"></i> I'm Interested </button>
+                                                                                        <button  *ngIf="item.outline==false" [ngStyle]="{paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" type="button" class="btn primary"><i class="icon-click"></i> I'm Interested </button>
 
-                                                                                        <button *ngIf="item.outline==true" type="button" class="btn not_default">
+                                                                                        <button *ngIf="item.outline==true" [ngStyle]="{paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" type="button" class="btn not_default">
                                                                                             <span class="text-primary">
                                                                                                 <span class="span-icns">
                                                                                                     <i class="icon-click"></i>
@@ -684,9 +684,9 @@
                                                                             <tbody>
                                                                                 <tr class="btns">
                                                                                     <td [ngStyle]="{textAlign:item.aligment}">
-                                                                                        <button *ngIf="item.outline==false"  type="button" class="btn success"><i class="icon-check"></i> Apply </button>
+                                                                                        <button *ngIf="item.outline==false"  [ngStyle]="{paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" type="button" class="btn success"><i class="icon-check"></i> Apply </button>
 
-                                                                                        <button *ngIf="item.outline==true" type="button" class="btn not_default">
+                                                                                        <button *ngIf="item.outline==true" [ngStyle]="{paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}" type="button" class="btn not_default">
                                                                                             <span class="text-success">
                                                                                                 <span class="span-icns">
                                                                                                     <i class="icon-check"></i>
@@ -708,70 +708,255 @@
                                                                             <tbody>
                                                                                 <tr class="btns">
                                                                                      <td (click)="OnFirstCall(i)">
-                                                                                        <span *ngIf="item.btn1=='callmeback'" class="btn success"><i class="icon-callme"></i> Call me back
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                        <span *ngIf="item.btn1=='callmeback'">
+                                                                                            <span class="btn success"><i class="icon-callme"></i> Call me back
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                </span>
+                                                                                            </span>
+
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-success">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-callme"></i>
+                                                                                                    </span>
+                                                                                                     Call me back
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </span>
+
+                                                                                        </span>
+
+                                                                                        <span *ngIf="item.btn1=='Call'">
+                                                                                            <span class="btn info">
+                                                                                                <i class="icon-call"></i> Call
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                </span>
+                                                                                            </span>
+
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-info">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-call"></i>
+                                                                                                    </span>
+                                                                                                    Call
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn1=='Call'" class="btn info"><i class="icon-call"></i> Call
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+
+
+                                                                                        <span *ngIf="item.btn1=='ImInterested'">
+                                                                                            <span class="btn primary">
+                                                                                                <i class="icon-click"></i> I'm Interested
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                </span>
+                                                                                            </span>
+
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-primary">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-click"></i>
+                                                                                                    </span>
+                                                                                                    I'm Interested
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn1=='ImInterested'" class="btn primary"><i class="icon-click"></i> I'm Interested
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+
+                                                                                        <span *ngIf="item.btn1=='Apply'">
+                                                                                            <span class="btn success">
+                                                                                                <i class="icon-check"></i> Apply
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-success">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-check"></i>
+                                                                                                    </span>
+                                                                                                    Apply
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn1=='Apply'" class="btn success"><i class="icon-check"></i> Apply
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
-                                                                                            </span>
-                                                                                        </span>
+
                                                                                     </td>
                                                                                     <td (click)="OnSecondCall(i)">
-                                                                                        <span *ngIf="item.btn2=='callmeback'" class="btn success"><i class="icon-callme"></i> Call me back
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn2(i)></i>
+                                                                                        <span *ngIf="item.btn2=='callmeback'">
+                                                                                            <span class="btn success">
+                                                                                                <i class="icon-callme"></i> Call me back
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn2(i)></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-success">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-callme"></i>
+                                                                                                    </span>
+                                                                                                    Call me back
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn2=='Call'" class="btn info"><i class="icon-call"></i> Call
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn2(i) ></i>
+
+                                                                                        <span *ngIf="item.btn2=='Call'">
+                                                                                            <span class="btn info">
+                                                                                                <i class="icon-call"></i> Call
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn2(i) ></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-info">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-call"></i>
+                                                                                                    </span>
+                                                                                                    Call
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn2=='ImInterested'" class="btn primary"><i class="icon-click"></i> I'm Interested
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn2(i) ></i>
+
+                                                                                        <span *ngIf="item.btn2=='ImInterested'">
+                                                                                            <span class="btn primary">
+                                                                                                <i class="icon-click"></i> I'm Interested
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn2(i) ></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-primary">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-click"></i>
+                                                                                                    </span>
+                                                                                                    I'm Interested
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn2=='Apply'" class="btn success"><i class="icon-check"></i> Apply
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn2(i) ></i>
+
+                                                                                        <span *ngIf="item.btn2=='Apply'">
+                                                                                            <span class="btn success">
+                                                                                                <i class="icon-check"></i> Apply
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn2(i) ></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-success">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-check"></i>
+                                                                                                    </span>
+                                                                                                    Apply
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
+
                                                                                     </td>
                                                                                     <td (click)="OnThirdCall(i)">
-                                                                                        <span *ngIf="item.btn3=='callmeback'" class="btn success"><i class="icon-callme"></i> Call me back
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn3(i)></i>
+                                                                                        <span *ngIf="item.btn3=='callmeback'">
+                                                                                            <span class="btn success">
+                                                                                                <i class="icon-callme"></i> Call me back
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn3(i)></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-success">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-callme"></i>
+                                                                                                    </span>
+                                                                                                    Call me back
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn3=='Call'" class="btn info"><i class="icon-call"></i> Call
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn3(i) ></i>
+
+                                                                                        <span *ngIf="item.btn3=='Call'">
+                                                                                            <span class="btn info">
+                                                                                                <i class="icon-call"></i> Call
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn3(i) ></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-info">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-call"></i>
+                                                                                                    </span>
+                                                                                                    Call
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn3=='ImInterested'" class="btn primary"><i class="icon-click"></i> I'm Interested
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn3(i) ></i>
+
+                                                                                        <span *ngIf="item.btn3=='ImInterested'">
+                                                                                            <span class="btn primary">
+                                                                                                <i class="icon-click"></i> I'm Interested
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn3(i) ></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-primary">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-click"></i>
+                                                                                                    </span>
+                                                                                                     I'm Interested
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn3=='Apply'" class="btn success"><i class="icon-check"></i> Apply
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close" (click)=remCallBtn3(i)></i>
+
+
+                                                                                        <span *ngIf="item.btn3=='Apply'">
+                                                                                            <span class="btn success">
+                                                                                                <i class="icon-check"></i> Apply
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close" (click)=remCallBtn3(i)></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-success">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-check"></i>
+                                                                                                    </span>
+                                                                                                     Apply
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
+
                                                                                     </td>
                                                                                     <!-- <td style="width: 25%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFirstCall(i)">
                                                                                         <i *ngIf="item.btn1=='ImInterested'" class="icon-click"></i>
@@ -811,7 +996,7 @@
                                                                                         <button *ngIf="item.outline==false"  type="button" class="btn danger"><i class="icon-okay"></i> Kadak </button>
 
                                                                                         <button *ngIf="item.outline==true" type="button" class="btn not_default">
-                                                                                            <span class="text-primary">
+                                                                                            <span class="text-danger">
                                                                                                 <span class="span-icns">
                                                                                                     <i class="icon-okay"></i> 
                                                                                                 </span>
@@ -834,7 +1019,7 @@
                                                                                         <button  *ngIf="item.outline==false" type="button" class="btn rose"><i class="icon-msg"></i> Comment </button>
 
                                                                                         <button *ngIf="item.outline==true" type="button" class="btn not_default">
-                                                                                            <span class="text-primary">
+                                                                                            <span class="text-rose">
                                                                                                 <span class="span-icns">
                                                                                                     <i class="icon-msg"></i>
                                                                                                 </span>
@@ -880,7 +1065,7 @@
                                                                                         <button *ngIf="item.outline==false"  type="button" class="btn orange"> <i class="icon-donload"></i> Download </button>
 
                                                                                         <button *ngIf="item.outline==true" type="button" class="btn not_default">
-                                                                                            <span class="text-primary">
+                                                                                            <span class="text-orange">
                                                                                                 <span class="span-icns">
                                                                                                     <i class="icon-donload"></i> 
                                                                                                 </span>
@@ -903,7 +1088,7 @@
                                                                                         <button  *ngIf="item.outline==false" type="button" class="btn warning"><i class="fa fa-share-alt"></i> Share </button>
 
                                                                                         <button *ngIf="item.outline==true" type="button" class="btn not_default">
-                                                                                            <span class="text-primary">
+                                                                                            <span class="text-warning">
                                                                                                 <span class="span-icns">
                                                                                                     <i class="fa fa-share-alt"></i> 
                                                                                                 </span>
@@ -922,85 +1107,314 @@
                                                                             <tbody>
                                                                                 <tr class="btns">
                                                                                     <td style="" >
-                                                                                        <span *ngIf="item.btn1=='Kadak'" class="btn danger"><i class="icon-okay"></i> Kadak
-                                                                                            <span class="badge"> 
-                                                                                                <i class="fa fa-close" (click)=remUserBtn1(i)></i> 
+                                                                                        <span *ngIf="item.btn1=='Kadak'">
+                                                                                            <span class="btn danger">
+                                                                                                <i class="icon-okay"></i> Kadak
+                                                                                                <span class="badge"> 
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn1(i)></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-danger">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-okay"></i>
+                                                                                                    </span>
+                                                                                                    Kadak
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn1=='Comment'" class="btn rose"><i class="icon-msg"></i> Comment
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close"  (click)=remUserBtn1(i)></i> 
+
+                                                                                        <span *ngIf="item.btn1=='Comment'">
+                                                                                            <span class="btn rose">
+                                                                                                <i class="icon-msg"></i> Comment
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close"  (click)=remUserBtn1(i)></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-rose">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-msg"></i>
+                                                                                                    </span>
+                                                                                                    Comment
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn1=='Save'" class="btn primary"><i class="icon-badge"></i> Save
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn1(i) ></i> 
+
+                                                                                        <span *ngIf="item.btn1=='Save'">
+                                                                                            <span class="btn primary">
+                                                                                                <i class="icon-badge"></i> Save
+                                                                                                <span class="badge" >
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn1(i) ></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-primary">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-badge"></i>
+                                                                                                    </span>
+                                                                                                    Save
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn1=='Download'" class="btn orange"><i class="icon-donload"></i> Download
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn1(i)></i> 
+
+                                                                                        <span *ngIf="item.btn1=='Download'">
+                                                                                            <span class="btn orange">
+                                                                                                <i class="icon-donload"></i> Download
+                                                                                                <span class="badge" >
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn1(i)></i> 
+                                                                                                </span>
+                                                                                            </span>
+
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-orange">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-donload"></i>
+                                                                                                    </span>
+                                                                                                    Download
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                         <span *ngIf="item.btn1=='Share'" class="btn warning"><i class="fa fa-share-alt"></i> Share
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn1(i) ></i> 
+
+                                                                                        <span *ngIf="item.btn1=='Share'">
+                                                                                            <span class="btn warning">
+                                                                                                <i class="fa fa-share-alt"></i> Share
+                                                                                                <span class="badge" >
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn1(i) ></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-warning">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="fa fa-share-alt"></i>
+                                                                                                    </span>
+                                                                                                    Share
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
+
+                                                                                    </td>
+
+                                                                                    <td style="" >
+                                                                                        <span *ngIf="item.btn2=='Kadak'">
+                                                                                            <span class="btn danger">
+                                                                                                <i class="icon-okay"></i> Kadak
+                                                                                                <span class="badge"> 
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn2(i)></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-danger">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-okay"></i>
+                                                                                                    </span>
+                                                                                                    Kadak
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                        </span>
+
+                                                                                        <span *ngIf="item.btn2=='Comment'">
+                                                                                            <span class="btn rose">
+                                                                                                <i class="icon-msg"></i> Comment
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close"  (click)=remUserBtn2(i)></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-rose">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-msg"></i>
+                                                                                                    </span>
+                                                                                                    Comment
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                        </span>
+
+                                                                                        <span *ngIf="item.btn2=='Save'">
+                                                                                            <span class="btn primary">
+                                                                                                <i class="icon-badge"></i> Save
+                                                                                                <span class="badge" >
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn2(i) ></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-primary">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-badge"></i>
+                                                                                                    </span>
+                                                                                                    Save
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                        </span>
+
+                                                                                        <span *ngIf="item.btn2=='Download'">
+                                                                                            <span class="btn orange">
+                                                                                                <i class="icon-donload"></i> Download
+                                                                                                <span class="badge" >
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn2(i)></i> 
+                                                                                                </span>
+                                                                                            </span>
+
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-orange">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-donload"></i>
+                                                                                                    </span>
+                                                                                                    Download
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                        </span>
+
+                                                                                        <span *ngIf="item.btn2=='Share'">
+                                                                                            <span class="btn warning">
+                                                                                                <i class="fa fa-share-alt"></i> Share
+                                                                                                <span class="badge" >
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn2(i) ></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-warning">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="fa fa-share-alt"></i>
+                                                                                                    </span>
+                                                                                                    Share
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                        </span>
+
                                                                                     </td>
                                                                                     <td style="" >
-                                                                                        <span *ngIf="item.btn2=='Kadak'" class="btn danger"><i class="icon-okay"></i> Kadak
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn2(i) ></i> 
+                                                                                        <span *ngIf="item.btn3=='Kadak'">
+                                                                                            <span class="btn danger">
+                                                                                                <i class="icon-okay"></i> Kadak
+                                                                                                <span class="badge"> 
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn3(i)></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-danger">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-okay"></i>
+                                                                                                    </span>
+                                                                                                    Kadak
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn2=='Comment'" class="btn rose"><i class="icon-msg"></i> Comment
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close"  (click)=remUserBtn2(i) ></i> 
+
+                                                                                        <span *ngIf="item.btn3=='Comment'">
+                                                                                            <span class="btn rose">
+                                                                                                <i class="icon-msg"></i> Comment
+                                                                                                <span class="badge">
+                                                                                                    <i class="fa fa-close"  (click)=remUserBtn3(i)></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-rose">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-msg"></i>
+                                                                                                    </span>
+                                                                                                    Comment
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn2=='Save'" class="btn primary"><i class="icon-badge"></i> Save
-                                                                                            <span class="badge"  >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn2(i) ></i> 
+
+                                                                                        <span *ngIf="item.btn3=='Save'">
+                                                                                            <span class="btn primary">
+                                                                                                <i class="icon-badge"></i> Save
+                                                                                                <span class="badge" >
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn3(i) ></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-primary">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-badge"></i>
+                                                                                                    </span>
+                                                                                                    Save
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                        <span *ngIf="item.btn2=='Download'" class="btn orange"><i class="icon-donload"></i> Download
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn2(i) ></i> 
+
+                                                                                        <span *ngIf="item.btn3=='Download'">
+                                                                                            <span class="btn orange">
+                                                                                                <i class="icon-donload"></i> Download
+                                                                                                <span class="badge" >
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn3(i)></i> 
+                                                                                                </span>
+                                                                                            </span>
+
+                                                                                            <span class="btn not_default" style="padding: 0px 0px 0px 0px">
+                                                                                                <span class="text-orange">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="icon-donload"></i>
+                                                                                                    </span>
+                                                                                                    Download
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                         <span *ngIf="item.btn2=='Share'" class="btn warning"><i class="fa fa-share-alt"></i> Share
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn2(i) ></i> 
+
+                                                                                        <span *ngIf="item.btn3=='Share'">
+                                                                                            <span class="btn warning">
+                                                                                                <i class="fa fa-share-alt"></i> Share
+                                                                                                <span class="badge" >
+                                                                                                    <i class="fa fa-close" (click)=remUserBtn3(i) ></i> 
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <span class="btn not_default">
+                                                                                                <span class="text-warning">
+                                                                                                    <span class="span-icns">
+                                                                                                        <i class="fa fa-share-alt"></i>
+                                                                                                    </span>
+                                                                                                    Share
+                                                                                                    <span class="badge">
+                                                                                                        <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
+                                                                                                    </span>
+                                                                                                </span>
                                                                                             </span>
                                                                                         </span>
-                                                                                    </td>
-                                                                                    <td style="" >
-                                                                                        <span *ngIf="item.btn3=='Kadak'" class="btn danger"><i class="icon-okay"></i> Kadak
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn3(i) ></i> 
-                                                                                            </span>
-                                                                                        </span>
-                                                                                        <span *ngIf="item.btn3=='Comment'" class="btn rose"><i class="icon-msg"></i> Comment
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close"  (click)=remUserBtn3(i)></i> 
-                                                                                            </span>
-                                                                                        </span>
-                                                                                        <span *ngIf="item.btn3=='Save'" class="btn primary"><i class="icon-badge"></i> Save
-                                                                                            <span class="badge">
-                                                                                                <i class="fa fa-close"  (click)=remUserBtn3(i)></i> 
-                                                                                            </span>
-                                                                                        </span>
-                                                                                        <span *ngIf="item.btn3=='Download'" class="btn orange"><i class="icon-donload"></i> Download
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn3(i) ></i> 
-                                                                                            </span>
-                                                                                        </span>
-                                                                                         <span *ngIf="item.btn3=='Share'" class="btn warning"><i class="fa fa-share-alt"></i> Share
-                                                                                            <span class="badge" >
-                                                                                                <i class="fa fa-close" (click)=remUserBtn3(i)></i> 
-                                                                                            </span>
-                                                                                        </span>
+
                                                                                     </td>
                                                                                     <!-- <td style="width: 20%;border: 1px dashed #333;background-color: #f5f5f5; height: 25px" (click)="OnFirstUser(i)">
                                                                                         <i *ngIf="item.btn1=='Kadak'" class="icon-okay"></i>
@@ -1094,7 +1508,7 @@
 
                                                                 <div class="email-builder-element-edit-field">
 
-                                                                    <div class="block-properties" *ngIf="rightPan.tag!='grid' && rightPan.tag!='userEngBtn' && rightPan.tag!='CallToActBtn' && rightPan.tag!='apply' && rightPan.tag!='call' && rightPan.tag!='callMeBack'   && rightPan.tag!='intrested' && rightPan.tag!='like' && rightPan.tag!='share' && rightPan.tag!='comment' && rightPan.tag!='save' ">
+                                                                    <div class="block-properties" *ngIf="rightPan.tag!='grid' && rightPan.tag!='userEngBtn' && rightPan.tag!='CallToActBtn' ">
                                                                         <h3>Padding</h3>
                                                                         <div class="form-row padding-inputs">
                                                                             <mat-form-field>
@@ -1112,6 +1526,72 @@
                                                                                 <input matInput placeholder="Left" type="text"  name="left" [(ngModel)]="rightPan.left" (input)="onLeftChange()">
                                                                             </mat-form-field>
                                                                         </div>
+                                                                           
+                                                                    </div>
+
+                                                                </div>
+
+                                                                 <div class="email-builder-element-edit-field">
+
+                                                                    <div class="block-properties" *ngIf="rightPan.tag=='userEngBtn' || rightPan.tag=='CallToActBtn' ">
+                                                                        <h3>First Button Padding</h3>
+                                                                        <div>
+                                                                            <div class="form-row padding-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Top" type="text" name="top" [(ngModel)]="rightPan.top1"  (input)="onTopChange()">
+                                                                                </mat-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Right" type="text" name="right" [(ngModel)]="rightPan.right1"  (input)="onRigthChange()">
+                                                                                </mat-form-field>
+                                                                           </div>
+                                                                            <div class="form-row padding-inputs">
+                                                                                    <mat-form-field>
+                                                                                        <input matInput placeholder="Bottom" type="text"  name="bottom" [(ngModel)]="rightPan.bottom1"(input)="onBottonChange()">
+                                                                                    </mat-form-field>
+                                                                                    <mat-form-field>
+                                                                                        <input matInput placeholder="Left" type="text"  name="left" [(ngModel)]="rightPan.left1" (input)="onLeftChange()">
+                                                                                    </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h3>Second Button Padding</h3>
+                                                                        <div>
+                                                                            <div class="form-row padding-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Top" type="text" name="top" [(ngModel)]="rightPan.top2"  (input)="onTopChange()">
+                                                                                </mat-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Right" type="text" name="right" [(ngModel)]="rightPan.right2"  (input)="onRigthChange()">
+                                                                                </mat-form-field>
+                                                                           </div>
+                                                                            <div class="form-row padding-inputs">
+                                                                                    <mat-form-field>
+                                                                                        <input matInput placeholder="Bottom" type="text"  name="bottom" [(ngModel)]="rightPan.bottom2"(input)="onBottonChange()">
+                                                                                    </mat-form-field>
+                                                                                    <mat-form-field>
+                                                                                        <input matInput placeholder="Left" type="text"  name="left" [(ngModel)]="rightPan.left2" (input)="onLeftChange()">
+                                                                                    </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h3>Third Button Padding</h3>
+                                                                        <div>
+                                                                            <div class="form-row padding-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Top" type="text" name="top" [(ngModel)]="rightPan.top3"  (input)="onTopChange()">
+                                                                                </mat-form-field>
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Right" type="text" name="right" [(ngModel)]="rightPan.right3"  (input)="onRigthChange()">
+                                                                                </mat-form-field>
+                                                                           </div>
+                                                                            <div class="form-row padding-inputs">
+                                                                                    <mat-form-field>
+                                                                                        <input matInput placeholder="Bottom" type="text"  name="bottom" [(ngModel)]="rightPan.bottom3"(input)="onBottonChange()">
+                                                                                    </mat-form-field>
+                                                                                    <mat-form-field>
+                                                                                        <input matInput placeholder="Left" type="text"  name="left" [(ngModel)]="rightPan.left3" (input)="onLeftChange()">
+                                                                                    </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        
                                                                            
                                                                     </div>
 
@@ -1887,6 +2367,7 @@
                                             <p> Thumbnail Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageThumbnail" #ngxCroppie [croppieOptions]="croppieOptionsThumbnail" [imageUrl]="croppieImageThumbnail" (result)="newImageResultFromCroppieThumbnail($event)"></ngx-croppie>
+                                                  <p *ngIf="saveFlag1">Image Saved</p>
                                                 <div class="fileinput-new thumbnail" *ngIf="!croppieImageThumbnail">
                                                     <img alt="..."  [src]="imageToDisplayThumbnail">
                                                 </div>
@@ -1912,6 +2393,7 @@
                                             <p> Horizontal Picture </p>
                                             <div class="fileinput text-center fileinput-new" data-provides="fileinput">
                                                  <ngx-croppie *ngIf="croppieImageHorigontal" #ngxCroppie [croppieOptions]="croppieOptionsHorigontal" [imageUrl]="croppieImageHorigontal" (result)="newImageResultFromCroppieHorigontal($event)"></ngx-croppie>
+                                                  <p *ngIf="saveFlag2">Image Saved</p>
                                                 <div class="fileinput-new thumbnail" *ngIf="!croppieImageHorigontal">
                                                     <img alt="..."  [src]="imageToDisplayHorigontal">
                                                 </div>
@@ -2001,7 +2483,7 @@
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn btn-warning" (click)="saveAsDraft()" [disabled]="!addContentForm.valid"> Save as draft </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser'"  (click)="submitForReview()" [disabled]="!addContentForm.valid"> Submit for review </button>
-                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" [disabled]="!addContentForm.valid" (click)="publish('Publish')" > Publish </button>
+                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" [disabled]="!addContentForm.valid" (click)="publish('Publish')" > Publish Now</button>
                                             <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" [disabled]="!addContentForm.valid"> Publish later </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" [disabled]="!addContentForm.valid"> Send for revision </button>
                                             <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" [disabled]="!addContentForm.valid"> Reject </button>

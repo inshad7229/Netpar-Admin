@@ -192,7 +192,8 @@
                                                         <div class="cont-img dp">
                                                             <img [src]="user.userImage" class="img-responsive" />
                                                             <div class="text-switch text-center">
-                                                                <span>Enable </span>
+                                                                <span *ngIf="!user.status">Enable </span>
+                                                                <span *ngIf="user.status">Disable </span>
                                                                 <span class="cus-switch">
                                                                     <label class="switch m-b-0">
                                                                         <input type="checkbox" [(ngModel)]="user.status"  (change)="onStatusChange(user)"/>
@@ -404,7 +405,7 @@
                         <h5 class="filter-heading"> State</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>State1</mat-checkbox></li>
+                             <!--   // <li *ngFor="let state of stateList"><mat-checkbox>State1</mat-checkbox></li> -->
                                 <li><mat-checkbox>State2</mat-checkbox></li>
                                 <li><mat-checkbox>State3</mat-checkbox></li>
                                 <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>

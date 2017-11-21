@@ -122,6 +122,10 @@
 #email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row>* {
     flex: 1 1;
 }
+#email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row> .mat-form-field {
+    flex: 1 1 auto;
+}
+
 #email-builder .email-builder-content>:last-child .mat-btn-group-justify {
     display: flex;
     padding: 0;
@@ -129,6 +133,7 @@
 #email-builder .email-builder-content>:last-child .mat-btn-group-justify button {
     flex: 1 1 100%;
     margin: 0;
+    padding: 12px 0px;
 }
 
 #email-builder button.btn-custom {
@@ -274,4 +279,9 @@
 }
 .form-group.grayClass label{
     color: #afafaf;
+}
+
+#email-builder .email-builder-content .builder .email-container{
+    max-height: 950px;
+    overflow: auto;
 }

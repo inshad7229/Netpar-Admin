@@ -3,7 +3,7 @@ import { Http, Response, Jsonp, Headers, RequestOptions, URLSearchParams } from 
 import { Observable} from 'rxjs/Rx'
 import "rxjs"
 import { of } from 'rxjs/observable/of';
-import {StateResource,state} from '../models/stateResources'
+import {StateList,State} from '../models/stateResources'
 
 
 
@@ -12,23 +12,20 @@ import  {ENV} from '../env'
 
 @Injectable()
 export class StateService {
-     stateResource :StateResource=new StateResource()
+     //stateResource :StateResource=new StateResource()
      gobhi
     constructor(private http: Http)
     { 
 
-    let a={
-        a:this.stateResource
-    }
-    this.gobhi=a
 }
   
 
-  getState(): Observable<any> {
-     console.log(JSON.stringify(this.gobhi)) 
-    // Todo: send the message _after_ fetching the heroes
-   // this.messageService.add('HeroService: fetched heroes');
-    return ;
+  getStates(): Promise<State[]> {
+    return Promise.resolve(StateList);
   }
+  
+  // getUnionTerritories():Promise<state[]>{
+  //  return Promise.resolve(unionTerritories);
+  // }
 
 }

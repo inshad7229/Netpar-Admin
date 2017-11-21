@@ -3,6 +3,7 @@ import {UserService} from '../../providers/user.service';
 import {SectionService} from '../../providers/section.service'
 import {StringResource} from '../../models/saredResources'
 import { forkJoin } from "rxjs/observable/forkJoin";
+import 'rxjs/Rx'
 declare var jquery:any;
 declare var $ :any;
 
@@ -208,8 +209,27 @@ export class UserContributionComponent implements OnInit {
 
     }
    
+onDownload(){
+      this.waitLoader = true;
+         this.userProvider.download()
+               // .subscribe(data => {
+               //     console.log(data)
+               //     this.downloadFile(data)
+               //      this.waitLoader = false;
+                    
+                    
+               //  },error=>{
+                     
+               //     /// alert(error)
+               //      this.waitLoader = false;
+               //  }) 
 
-
+    }
+downloadFile(data: Response){
+  var blob = new Blob([data], { type: 'image/gif' });
+  var url= window.URL.createObjectURL(blob);
+  window.open(url);
+}
   //  getSectionList(){
   //               this.waitLoader = true;
   //               this.sectionService.onGetSection()
