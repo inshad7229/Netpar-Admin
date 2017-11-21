@@ -46,6 +46,8 @@ export class AddSubcategoryComponent implements OnInit {
     elementRefrence:any;
     inputStringLength:number
     outputStringLength:number
+    saveFlag1:boolean
+    saveFlag2:boolean
     addSubCategoryRequest: AddSubCategoryRequest=new  AddSubCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -183,9 +185,13 @@ export class AddSubcategoryComponent implements OnInit {
 
     saveImageFromCroppieHorigontal() {
         this.currentImageHorigontal = this.croppieImageHorigontal;
+        if (this.currentImageHorigontal) {
+            this.saveFlag2=true
+        }
     }
 
     cancelCroppieEditHorigontal() {
+        this.saveFlag2=false
         this.croppieImageHorigontal = '';
         this.currentImageHorigontal = ''
     }
@@ -217,9 +223,13 @@ export class AddSubcategoryComponent implements OnInit {
 
     saveImageFromCroppieThumbnail() {
         this.currentImageThumbnail = this.croppieImageThumbnail;
+        if (this.currentImageThumbnail) {
+            this.saveFlag1=true
+        }
     }
 
     cancelCroppieEditThumbnail() {
+        this.saveFlag1=false
         this.croppieImageThumbnail = '';
         this.currentImageThumbnail = ''
     }

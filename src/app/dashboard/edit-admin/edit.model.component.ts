@@ -35,6 +35,7 @@ export class Admin {
       elementAnalytics:boolean;
       templateAnalytics:boolean;
       googleAnalytics:boolean;
+      flurryAnalytics:boolean;
       plain:string;
       status:boolean;
       delstatus:string;

@@ -16,6 +16,7 @@ export class UserContributionComponent implements OnInit {
      waitLoader
      userData
      userDataBackup
+     afterFilterUserContriData
      userContriData
      userContriDataBackup
      filterValue:any;
@@ -36,6 +37,11 @@ export class UserContributionComponent implements OnInit {
     sortListToCategoryPage=[];
     editContent=[];
     selectedId=[]
+    dataAfterLanguage=[];
+    dataAfterSection=[]
+    dataAfterCategory=[]
+    dataAfterSubCategory=[]
+    dataAfterStatus=[]
     status=[
       {
         _id:"underReview",
@@ -125,20 +131,30 @@ export class UserContributionComponent implements OnInit {
        }
     }
     getTime(lastlogin){
-    if (lastlogin=='1970-01-01T00:00:00.000Z') {
-       return '-'
-    }else{
-
-      return lastlogin.split('T')[1].substring(0, 5);
-    }
-    }
-    getDate(lastlogin){
-     if (lastlogin=='1970-01-01T00:00:00.000Z') {
+     if (lastlogin) {
+       if (lastlogin=='1970-01-01T00:00:00.000Z') {
            return '-'
         }else{
 
-          return lastlogin.split('T')[0]
+          return lastlogin.split('T')[1].substring(0, 5);
         }
+     }else{
+        return '-'
+     }
+    
+    }
+    getDate(lastlogin){
+     if (lastlogin) {
+       if (lastlogin=='1970-01-01T00:00:00.000Z') {
+             return '-'
+          }else{
+
+            return lastlogin.split('T')[0]
+          }
+        }
+      else{
+        return '-'
+      }
     }
     onUnderReview(status){
     	this.waitLoader = true;
@@ -146,6 +162,7 @@ export class UserContributionComponent implements OnInit {
                .subscribe(data => {
                     this.waitLoader = false;
                      if (data.success==true) {
+                       this.selectedId=[]
                     	this.getList()
                     }
                     
@@ -161,6 +178,7 @@ export class UserContributionComponent implements OnInit {
                .subscribe(data => {
                     this.waitLoader = false;
                      if (data.success==true) {
+                       this.selectedId=[]
                     	this.getList()
                     }
                     
@@ -178,6 +196,7 @@ export class UserContributionComponent implements OnInit {
                .subscribe(data => {
                     this.waitLoader = false;
                     if (data.success==true) {
+                      this.selectedId=[]
                     	this.getList()
                     }
                     
@@ -293,11 +312,16 @@ export class UserContributionComponent implements OnInit {
     if (sec.check==true) {
       this.filterSection.push(sec._id)
       this.getCategory(sec._id)
+      let data=this.userContriDataBackup.filter(arg=>arg.categoryId==sec._id)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterSection.push(data[i])
+      }
     }else{
       this.categories=this.categories.filter(arg=>arg.sectionId != sec._id)
       this.subCategory=this.subCategory.filter(arg=>arg.sectionId != sec._id)
       this.filterSection=this.filterSection.filter(arg=>arg != sec._id)
       this.filterCategory.filter(arg=>arg.sectionId != sec._id)
+      this.dataAfterSection=this.dataAfterSection.filter(arg=>arg.sectionId!=sec._id)
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.sectionId != sec._id)
     }
   }
@@ -305,10 +329,15 @@ export class UserContributionComponent implements OnInit {
     console.log(JSON.stringify(cat))
     if (cat.check==true) {
       this.filterCategory.push({_id:cat._id,sectionId:cat.sectionId})
+      let data=this.userContriDataBackup.filter(arg=>arg.categoryId==cat._id)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterCategory.push(data[i])
+      }
       this.getsubCategory(cat.sectionId,cat._id)
     }else{
       this.filterCategory.filter(arg=>arg._id!=cat._id)
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.categoryId!=cat._id)
+      this.dataAfterCategory=this.dataAfterCategory.filter(arg=>arg.categoryId!=cat._id)
       this.subCategory=this.subCategory.filter(arg=>arg.categoryId!=cat._id)
 
     }
@@ -316,9 +345,13 @@ export class UserContributionComponent implements OnInit {
   forSubCategory(subCat){
     if (subCat.check==true) {
       this.filterSubcategory.push({_id:subCat._id,sectionId:subCat.sectionId,categoryId:subCat.categoryId})
-     //this.getCategory(subCat._id)
+      let data=this.userContriDataBackup.filter(arg=>arg.subCategoryId==subCat._id)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterSubCategory.push(data[i])
+      }
     }else{
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg._id!=subCat._id)
+      this.dataAfterSubCategory=this.dataAfterSubCategory.filter(arg=>arg.subCategoryId!=this.findSubCat(subCat._id))
     }
   }
   onSelectLang(lang){
@@ -328,8 +361,13 @@ export class UserContributionComponent implements OnInit {
      //   console.log(''+JSON.stringify(this.filterSubcategoryFilterPan))
    if (lang.check==true) {
       this.filterLanguage.push(lang.language)
+      let data=this.userContriDataBackup.filter(arg=>arg.language==lang.language)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterLanguage.push(data[i])
+      }
      //this.getCategory(subCat._id)
     }else{
+      this.dataAfterLanguage= this.dataAfterLanguage.filter(arg=>arg.language!=lang.language)
       this.filterLanguage=this.filterLanguage.filter(arg=>arg!=lang.language)
     }
   }
@@ -338,24 +376,40 @@ export class UserContributionComponent implements OnInit {
     if (stat.check==true) {
       // this.filterStatus.push(stat._id)
       if (stat._id=='underReview') {
+
         this.filterRequest.underReview=true;
+         let data=this.userContriDataBackup.filter(arg=>arg.status=='Under Review')
+        for(let i=0;i<data.length;i++){
+          this.dataAfterStatus.push(data[i])
+        }
       }
       if (stat._id=='Published') {
         this.filterRequest.Published=true;
+        let data=this.userContriDataBackup.filter(arg=>arg.status=='Published')
+        for(let i=0;i<data.length;i++){
+          this.dataAfterStatus.push(data[i])
+        }
       }
       if (stat._id=='Rejected') {
         this.filterRequest.Rejected=true;
+        let data=this.userContriDataBackup.filter(arg=>arg.status=='Rejected')
+        for(let i=0;i<data.length;i++){
+          this.dataAfterStatus.push(data[i])
+        }
       }
      //this.getCategory(subCat._id)
     }else{
       if (stat._id=='underReview') {
         delete(this.filterRequest.underReview);
+         this.dataAfterStatus=this.dataAfterStatus.filter(arg=>arg.status!='Under Review')
       }
       if (stat._id=='Published') {
         delete(this.filterRequest.Published);
+        this.dataAfterStatus=this.dataAfterStatus.filter(arg=>arg.status!='Published')
       }
       if (stat._id=='Rejected') {
         delete(this.filterRequest.Rejected);
+        this.dataAfterStatus=this.dataAfterStatus.filter(arg=>arg.status!='Rejected')
       }
     }
   }
@@ -364,6 +418,9 @@ export class UserContributionComponent implements OnInit {
 
 
 onApplyFilter(){
+       let finalData= this.dataAfterLanguage.concat(this.dataAfterSection,this.dataAfterCategory,this.dataAfterSubCategory,this.dataAfterStatus);
+       this.userContriData=this.unique(finalData)
+       this.afterFilterUserContriData=this.unique(finalData)
        this.filterLanguageFilterPan=this.filterLanguage.slice(0);
        this.filterSectionFilterPan=this.filterSection.slice(0);
        this.filterCategoryFilterPan=this.filterCategory.slice(0);
@@ -378,7 +435,11 @@ onApplyFilter(){
          this.Rejected=true;
        }
 }
-
+unique(array){
+         return array.filter(function(el, index, arr) {
+                  return index == arr.indexOf(el);     
+              }); 
+}
   // onApplyFilter(){
   //       if (this.filterLanguage.length>0 ) {
   //          this.sendData.languages=this.filterRequest.language
@@ -521,33 +582,37 @@ onApplyFilter(){
   //       }
 
         onClearLangFilter(lang){
-          //this.contentList=this.contentList.filter(arg=>arg.language!=lang)
+          this.userContriData= this.userContriData.filter(arg=>arg.language!=lang)
           this.filterLanguageFilterPan=this.filterLanguageFilterPan.filter(arg=>arg!=lang)
         }
         onClearSectionFilter(secId,name){
-            alert(name)
-            //this.contentList=this.contentList.filter(arg=>arg.sectionId!=secId) 
+            //alert(name)
+            this.userContriData= this.userContriData.filter(arg=>arg.sectionId!=secId) 
             this.filterSectionFilterPan=this.filterSectionFilterPan.filter(arg=>arg!=secId)         
         }
         onClearCategoryFilter(catId){
           console.log(JSON.stringify(this.filterCategoryFilterPan))
-           //this.contentList=this.contentList.filter(arg=>arg.categoryId!=catId)
+           this.userContriData= this.userContriData.filter(arg=>arg.categoryId!=catId)
             this.filterCategoryFilterPan=this.filterCategoryFilterPan.filter(arg=>arg._id!=catId)
         }
         onClearSubCategoryFilter(subCatId){
-            //this.contentList=this.contentList.filter(arg=>arg.subCategorId!=subCatId)
+            this.userContriData= this.userContriData.filter(arg=>arg.subCategorId!=subCatId)
             this.filterSubcategoryFilterPan=this.filterSubcategoryFilterPan.filter(arg=>arg._id!=subCatId)
         }
 
         onClearunderReviewFilter(underReview){
            this.underReview=false
+            this.userContriData=this.userContriData.filter(arg=>arg.status!='Under Review')
         }
         onClearPublishedFilter(Published){
            this.Published=false
+            this.userContriData=this.userContriData.filter(arg=>arg.status!='Published')
         }
         onClearRejectedFilter(Rejected){
            this.Rejected=false
+            this.userContriData=this.userContriData.filter(arg=>arg.status!='Rejected')
         }
+        
   //       onClearDraftFilter(status){
   //           this.contentList=this.contentList.filter(arg=>arg.underReview!=status)
   //           this.underReview=false;
@@ -565,6 +630,7 @@ onApplyFilter(){
             this.underReview=false
             this.Published=false
             this.Rejected=false
+            this.userContriData=this.userContriDataBackup
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
             }
@@ -581,5 +647,8 @@ onApplyFilter(){
                this.status[i].check=false
             }
            
+        }
+        openMedia(url){
+          window.open(url)
         }
 }

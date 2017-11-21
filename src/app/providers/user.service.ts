@@ -86,7 +86,7 @@ export class UserService {
     onEditContentMultipal(Status,id): Observable <any> {
         let api = ENV.mainApi + "updateContriStatus"
         let a={
-            ids:id,
+            contriIds:id,
             status:Status
         }
         let headers = new Headers({

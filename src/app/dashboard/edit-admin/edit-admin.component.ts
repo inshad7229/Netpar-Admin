@@ -155,6 +155,7 @@ export class EditAdminComponent implements AfterViewInit {
             'elementAnalytics': [null],
             'templateAnalytics': [null],
             'googleAnalytics': [null],
+            'flurryAnalytics': [null],
              'language1':[null],
               'firstName1':[null],
               'lastName1':[null],

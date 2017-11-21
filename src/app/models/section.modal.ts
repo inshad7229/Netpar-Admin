@@ -52,6 +52,30 @@ export class AddCategoryRequest {
 	enableDisableDate:string;
 	publishUnbuplishDate:string;
 	language:string;
+	templateoneStartDate:string;
+	templateoneendDate:string;
+	templatetwoStartDate:string;
+	templatetwoendDate:string;
+	templatethreeStartDate:string;
+	templatethreeendDate:string;
+	templatefourStartDate:string;
+	templatefourendDate:string;
+ 
+ /*** Listing View ***/
+	 templateonelistingStartDate:string;
+	 templateonelistingendDate:string;
+	 templatetwolistingStartDate:string;
+	 templatetwolistingendDate:string;
+	 templatethreelistingStartDate:string;
+	 templatethreelistingendDate:string;
+	 templatefourlistingStartDate:string;
+	 templatefourlistingendDate:string;
+	 templatefivelistingStartDate:string;
+	 templatefivelistingendDate:string;
+	 templatesixlistingStartDate:string;
+	 templatesixlistingendDate:string;
+	 templatesevenlistingStartDate:string;
+	 templatesevenlistingendDate:string;
 
 }
 

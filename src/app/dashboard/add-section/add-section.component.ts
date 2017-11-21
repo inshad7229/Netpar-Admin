@@ -43,6 +43,8 @@ export class AddSectionComponent implements OnInit {
     elementRefrence:any;
     inputStringLength:number
     outputStringLength:number
+    saveFlag1:boolean
+    saveFlag2:boolean
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -199,11 +201,15 @@ export class AddSectionComponent implements OnInit {
 
     saveImageFromCroppieHorigontal() {
         this.currentImageHorigontal = this.croppieImageHorigontal;
+        if (this.currentImageHorigontal) {
+          this.saveFlag2=true
+        }
     }
 
     cancelCroppieEditHorigontal() {
         this.croppieImageHorigontal = '';
         this.currentImageHorigontal = ''
+        this.saveFlag2=false
     }
 
     imageUploadEventHorigontal(evt: any) {
@@ -233,9 +239,13 @@ export class AddSectionComponent implements OnInit {
 
     saveImageFromCroppieThumbnail() {
         this.currentImageThumbnail = this.croppieImageThumbnail;
+        if (this.currentImageThumbnail) {
+          this.saveFlag1=true
+        }
     }
 
     cancelCroppieEditThumbnail() {
+        this.saveFlag1=false
         this.croppieImageThumbnail = '';
         this.currentImageThumbnail = ''
     }

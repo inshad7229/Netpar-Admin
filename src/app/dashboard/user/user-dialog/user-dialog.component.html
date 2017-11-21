@@ -4,14 +4,14 @@
 </div>
 <div class="modal-body">
     <mat-list>
-		<mat-list-item> No. of Invites: 50 </mat-list-item>
-		<mat-list-item> No. of Shares: 20 </mat-list-item>
-		<mat-list-item> No. of Conversions: 10 </mat-list-item>
+		<mat-list-item> No. of Invites: {{user.totalInvites}} </mat-list-item>
+		<mat-list-item> No. of Shares: {{user.totalShare}} </mat-list-item>
+		<mat-list-item> No. of Conversions: {{user.totalConversationss}} </mat-list-item>
 		<mat-list-item class="text-uppercase"> <strong> Profile Details of Conversations: </strong> </mat-list-item>
-		<mat-list-item> Full Name: Tania Andrew </mat-list-item>
-		<mat-list-item> User ID: 85 </mat-list-item>
-		<mat-list-item> Mobile Number: 8745962103 </mat-list-item>
-		<mat-list-item> Unique Referral: 3622 </mat-list-item>
+		<mat-list-item> Full Name: {{user.firstName}}{{user.lastNmae}} </mat-list-item>
+		<mat-list-item> User ID: {{user._id}} </mat-list-item>
+		<mat-list-item> Mobile Number:  {{user.mobileNumber}} </mat-list-item>
+		<mat-list-item> Unique Referral:  {{user.referralCode}} </mat-list-item>
 
 	</mat-list>
 </div>

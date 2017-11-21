@@ -8,9 +8,11 @@ import {MatListModule} from '@angular/material';
   styleUrls: ['./user-dialog.component.scss']
 })
 export class UserDialogComponent implements OnInit {
-
+  user
   constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<UserDialogComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any) { }
+  @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.user=data.user
+   }
 
   ngOnInit() {
   	
