@@ -625,7 +625,10 @@ export class AddContentComponent implements OnInit {
       right2:'6px',left2:'6px',
        top3:'12px',bottom3:'12px',
       right3:'6px',left3:'6px',
-      downloadable:true
+      downloadable:true,
+       outline1:false,
+       outline2:false,
+       outline3:false
 
   })
   }
@@ -642,7 +645,10 @@ export class AddContentComponent implements OnInit {
       right2:'6px',left2:'6px',
        top3:'12px',bottom3:'12px',
       right3:'6px',left3:'6px',
-       downloadable:true
+       downloadable:true,
+       outline1:false,
+       outline2:false,
+       outline3:false
 
   })
   }
@@ -759,20 +765,23 @@ export class AddContentComponent implements OnInit {
          })
 	}
 
-OnFirstCall(i){
+OnFirstCall(i,item){
+  this.rightPan=item
   //alert(this.currentIndex)
   this.currentIndex=i;
   this.currentCallActiveIndex=1
  console.log('currentIndex',this.currentIndex)
  console.log('call index',this.currentCallActiveIndex)
 }
-OnSecondCall(i){
+OnSecondCall(i,item){
+  this.rightPan=item
   this.currentIndex=i;
   this.currentCallActiveIndex=2
    console.log('currentIndex',this.currentIndex)
  console.log('call index',this.currentCallActiveIndex)
 }
-OnThirdCall(i){
+OnThirdCall(i,item){
+  this.rightPan=item
    this.currentIndex=i;
    this.currentCallActiveIndex=3
     console.log('currentIndex',this.currentIndex)
@@ -784,20 +793,22 @@ OnFourthCall(i){
     console.log('currentIndex',this.currentIndex)
  console.log('call index',this.currentCallActiveIndex)
 }
-OnFirstUser(i){
-
+OnFirstUser(i,item){
+this.rightPan=item
   this.currentIndex=i;
-  this.currenUserActiveIndex=1
+  this.currenUserActiveIndex='1'
  console.log('currentIndex',this.currentIndex)
  console.log('user index',this.currenUserActiveIndex)
 }
-OnSecondtUser(i){
+OnSecondtUser(i,item){
+  this.rightPan=item
   this.currentIndex=i;
   this.currenUserActiveIndex=2
    console.log('currentIndex',this.currentIndex)
  console.log('user index',this.currenUserActiveIndex)
 }
-OnThirdtUser(i){
+OnThirdtUser(i,item){
+  this.rightPan=item
   this.currentIndex=i;
   this.currenUserActiveIndex=3
    console.log('currentIndex',this.currentIndex)
@@ -1341,6 +1352,61 @@ addownloadRight(Download){
    onFilled(){
      this.listOne[this.currentIndex].outline=false
    }
+   onOutLine1(){
+     this.listOne[this.currentIndex].outline1=true
+   }
+   onFilled1(){
+     this.listOne[this.currentIndex].outline1=false
+   }
+   onTopChange1(){
+     this.listOne[this.currentIndex].top1=this.rightPan.top1
+  }
+  onRigthChange1(){
+     this.listOne[this.currentIndex].right1=this.rightPan.right1
+  }
+  onBottonChange1(){
+      this.listOne[this.currentIndex].bottom1=this.rightPan.bottom1
+  }
+  onLeftChange1(){
+       this.listOne[this.currentIndex].left1=this.rightPan.left1
+  }
+   onOutLine2(){
+     this.listOne[this.currentIndex].outline2=true
+   }
+   onFilled2(){
+     this.listOne[this.currentIndex].outline2=false
+   }
+   onTopChange2(){
+     this.listOne[this.currentIndex].top2=this.rightPan.top2
+  }
+  onRigthChange2(){
+     this.listOne[this.currentIndex].right2=this.rightPan.right2
+  }
+  onBottonChange2(){
+      this.listOne[this.currentIndex].bottom2=this.rightPan.bottom2
+  }
+  onLeftChange2(){
+       this.listOne[this.currentIndex].left2=this.rightPan.left2
+  }
+
+   onOutLine3(){
+     this.listOne[this.currentIndex].outline3=true
+   }
+   onFilled3(){
+     this.listOne[this.currentIndex].outline3=false
+   }
+   onTopChange3(){
+     this.listOne[this.currentIndex].top3=this.rightPan.top3
+  }
+  onRigthChange3(){
+     this.listOne[this.currentIndex].right3=this.rightPan.right3
+  }
+  onBottonChange3(){
+      this.listOne[this.currentIndex].bottom3=this.rightPan.bottom3
+  }
+  onLeftChange3(){
+       this.listOne[this.currentIndex].left3=this.rightPan.left3
+  }
 	video(video1){
 		//console.log(video1)
 	}
