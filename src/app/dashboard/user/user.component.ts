@@ -4,7 +4,9 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import {UserService} from '../../providers/user.service';
+import {StateService} from '../../providers/state.service';
 import { Sort } from '@angular/material';
+import { forkJoin } from "rxjs/observable/forkJoin";
 declare var jquery:any;
 declare var $ :any;
 
@@ -12,13 +14,15 @@ declare var $ :any;
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
-  providers:[UserService]
+  providers:[UserService,StateService]
 })
 export class UserComponent implements OnInit {
      userData
      waitLoader
      userDataBackup
-    constructor(private dialog: MatDialog,private userProvider:UserService) { }
+     stateList
+     stateListBackup
+    constructor(private dialog: MatDialog,private userProvider:UserService,private stateService:StateService) { }
     openDialog(user): void {
         let dialogRef = this.dialog.open(UserDialogComponent, {
             width: '400px',
@@ -73,12 +77,29 @@ export class UserComponent implements OnInit {
     }
 
     getUser(){
-         this.waitLoader = true;
-         this.userProvider.onGetAllUser()
-                .subscribe(data => {
+          this.waitLoader = true;
+         // this.userProvider.onGetAllUser()
+         //        .subscribe(data => {
+         //            this.waitLoader = false;
+         //            this.userData=data.response;
+         //            this.userDataBackup=data.response
+                    
+         //        },error=>{
+                     
+         //            alert(error)
+         //            this.waitLoader = false;
+         //        })
+         forkJoin([ this.userProvider.onGetAllUser(),this.stateService.getStates()])
+         .subscribe(results => {
                     this.waitLoader = false;
-                    this.userData=data.response;
-                    this.userDataBackup=data.response
+                    if (results) {
+                      this.userData=results[0].response;
+                      this.userDataBackup=results[0].response;
+                      this.stateList=results[1]
+                      this.stateListBackup=results[1]
+                      //console.log(JSON.stringify( this.stateList))
+                    }
+                    
                     
                 },error=>{
                      

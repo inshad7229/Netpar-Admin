@@ -1420,8 +1420,9 @@ table tbody td.width170px{
 .mat-form-field-infix {
   padding: 0.4375em 0 0.23em;
 }
-.mat-input-element{
-  height: 22px;
+.mat-form-field .mat-input-element {
+    height: 25px;
+    line-height: 30px;
 }
 .mat-select-trigger {
   line-height: 20px;
@@ -1601,6 +1602,7 @@ table.user-icons td{
 
 .btns .btn.not_default{
   background: none;
+  padding: 6px 6px;
 }
 .btns .btn.not_default .span-icns{
   width: 30px;
@@ -1616,7 +1618,7 @@ table.user-icons td{
   border-radius: 75px;
   font-size: 12px;
   height: 20px;
-  line-height: 17px;
+  line-height: 20px;
   padding: 0;
   width: 20px;
 }
@@ -1649,4 +1651,14 @@ table.user-icons td{
   border-width: 0 0 1px 1px;
   float: left;
   padding: 1px 3px;
+}
+
+/* 21-11 */
+
+table.view-sec-table tbody td:first-child{
+  min-width: 130px;
+}
+
+.text-orange{
+  color: #ffa700;
 }

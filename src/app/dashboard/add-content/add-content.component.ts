@@ -158,6 +158,8 @@ export class AddContentComponent implements OnInit {
     ///for call and user button active index////
     currentCallActiveIndex
     currenUserActiveIndex
+    saveFlag1:boolean
+    saveFlag2:boolean
     stringResource:StringResource=new  StringResource()
     contentId
     public get imageToDisplayHorigontal() {
@@ -562,7 +564,7 @@ export class AddContentComponent implements OnInit {
 	addImage(){
         this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',
           top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          right:'6px',left:'6px',
           buttonText:'button',width:'75%',
           url:'./assets/img/cover.jpeg',
           altTag:'file not found',title:'Title', 
@@ -617,6 +619,12 @@ export class AddContentComponent implements OnInit {
        btn4:null,
        btn5:null,
       count:this.gridCount,
+      top1:'12px',bottom1:'12px',
+      right1:'6px',left1:'6px',
+      top2:'12px',bottom2:'12px',
+      right2:'6px',left2:'6px',
+       top3:'12px',bottom3:'12px',
+      right3:'6px',left3:'6px',
       downloadable:true
 
   })
@@ -628,6 +636,12 @@ export class AddContentComponent implements OnInit {
        btn3:null,
        btn4:null,
        count:this.gridCount,
+      top1:'12px',bottom1:'12px',
+      right1:'6px',left1:'6px',
+      top2:'12px',bottom2:'12px',
+      right2:'6px',left2:'6px',
+       top3:'12px',bottom3:'12px',
+      right3:'6px',left3:'6px',
        downloadable:true
 
   })
@@ -652,8 +666,8 @@ export class AddContentComponent implements OnInit {
 	}
 	addCall(flag){
 	    this.listOne.push({tag:"call",backgroundColor:'#FFFFFF',
-          top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
           aligment:'center',
           outline:false
          })
@@ -667,8 +681,8 @@ export class AddContentComponent implements OnInit {
   //           this.callToActionButton.push({tag:'button',title:'Call me back',status:true})
   //          }
   this.listOne.push({tag:"callMeBack",backgroundColor:'#FFFFFF',
-          top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
           aligment:'center',
           outline:false
          })
@@ -679,8 +693,8 @@ export class AddContentComponent implements OnInit {
   //       this.callToActionButton.push({tag:'button',title:"Im Interested",status:true})
   //      }
     this.listOne.push({tag:"intrested",backgroundColor:'#FFFFFF',
-          top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
           aligment:'center',
           outline:false
          })
@@ -691,8 +705,8 @@ export class AddContentComponent implements OnInit {
   //          this.userEngaButton.push({tag:'button',title:"Kadak",status:true})
   //      }
   this.listOne.push({tag:"like",backgroundColor:'#FFFFFF',
-          top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
           aligment:'center',
           outline:false,
          })
@@ -703,8 +717,8 @@ export class AddContentComponent implements OnInit {
   //         this.userEngaButton.push({tag:'button',title:"Share",status:true})
   //       }
   this.listOne.push({tag:"share",backgroundColor:'#FFFFFF',
-          top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
           aligment:'center',
           outline:false
          })
@@ -715,16 +729,16 @@ export class AddContentComponent implements OnInit {
   //          this.userEngaButton.push({tag:'button',title:"Comment",status:true})
   //      } 
   this.listOne.push({tag:"comment",backgroundColor:'#FFFFFF',
-          top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
           aligment:'center',
           outline:false
          })
 	}
 	addsave(flag){
 		  this.listOne.push({tag:"save",backgroundColor:'#FFFFFF',
-          top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
           aligment:'center',
           outline:false
          })
@@ -738,8 +752,8 @@ export class AddContentComponent implements OnInit {
   //        this.userEngaButton.push({tag:'button',title:"Download",status:true})
   //     }
   this.listOne.push({tag:"download",backgroundColor:'#FFFFFF',
-          top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
           aligment:'center',
           outline:false
          })
@@ -1418,9 +1432,13 @@ addownloadRight(Download){
 
     saveImageFromCroppieHorigontal() {
         this.currentImageHorigontal = this.croppieImageHorigontal;
+        if (this.currentImageHorigontal) {
+         this.saveFlag2=true
+        }
     }
 
     cancelCroppieEditHorigontal() {
+      this.saveFlag2=false
         this.croppieImageHorigontal = '';
         this.currentImageHorigontal = ''
     }
@@ -1452,9 +1470,13 @@ addownloadRight(Download){
 
     saveImageFromCroppieThumbnail() {
         this.currentImageThumbnail = this.croppieImageThumbnail;
+        if (this.currentImageThumbnail) {
+         this.saveFlag1=true
+        }
     }
 
     cancelCroppieEditThumbnail() {
+        this.saveFlag1=false
         this.croppieImageThumbnail = '';
         this.currentImageThumbnail = ''
     }
@@ -3019,7 +3041,7 @@ addownloadRight(Download){
                 this.listOne[this.currentIndex].editedStatus=true
                 this.ckeditorContent=null
                 }else{
-                this.listOne[this.currentIndex].text=this.listOne[this.currentIndex].text+result.text
+                this.listOne[this.currentIndex].text=result.text
                 this.listOne[this.currentIndex].editedStatus=true
                 this.ckeditorContent=null
                 }
