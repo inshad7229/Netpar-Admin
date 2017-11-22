@@ -45,6 +45,7 @@ export class AddSectionComponent implements OnInit {
     outputStringLength:number
     saveFlag1:boolean
     saveFlag2:boolean
+    oldSectionView:string;
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -157,6 +158,7 @@ export class AddSectionComponent implements OnInit {
                     }
                     else if (data.success == true) {
                      this.addSectionModel=data.response[0];
+                      this.oldSectionView=this.addSectionModel.sectionViewFormat
                      //this.croppieImageThumbnail =data.response[0].thumbnailImage;
                      this.currentImageThumbnail =data.response[0].thumbnailImage 
                     // this.croppieImageHorigontal =data.response[0].horigontalImage;
@@ -275,8 +277,22 @@ export class AddSectionComponent implements OnInit {
 
    //   if(this.app)
    if (this.addSectionModel._id) {
+            let date=new Date().toISOString()
             this.addSectionModel.thumbnailImage=this.currentImageThumbnail;
             this.addSectionModel.horigontalImage=this.currentImageHorigontal;
+             if (this.oldSectionView!=this.addSectionModel.sectionViewFormat) {
+                     console.log(this.oldSectionView)
+                     if (this.addSectionModel.sectionViewFormat=='Section Template One') {
+                         this.addSectionModel.templateoneStartDate=date
+                     }else if ( this.addSectionModel.sectionViewFormat=='Section Template Two') {
+                         this.addSectionModel.templatetwoStartDate=date
+                     }
+                     if( this.oldSectionView=='Section Template One') {
+                         this.addSectionModel.templateoneendDate=date
+                     }else if ( this.oldSectionView=='Section Template Two') {
+                         this.addSectionModel.templatetwoendDate=date
+                     }
+                 }
             this.sectionService.onEditSection(this.addSectionModel)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -309,6 +325,11 @@ export class AddSectionComponent implements OnInit {
      this.addSectionModel.updatedDate=null;
      this.addSectionModel.enableDisableDate=null;
      this.addSectionModel.publishUnbuplishDate=null;
+          if ( this.addSectionModel.sectionViewFormat=='Section Template One') {
+             this.addSectionModel.templateoneStartDate=date
+         }else if ( this.addSectionModel.sectionViewFormat=='Section Template Two') {
+             this.addSectionModel.templatetwoStartDate=date
+         }
       this.sectionService.onAddSection(this.addSectionModel)
                 .subscribe(data => {
                     this.waitLoader = false;

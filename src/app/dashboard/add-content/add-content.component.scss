@@ -86,8 +86,10 @@
 #email-builder .email-builder-content [position-relative] .builder {
     display: flex;
     flex: 1 1;
-    padding: 20px;
+    padding: 15px;
     overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 1000px;
 }
 #email-builder .email-builder-content [position-relative] .builder .empty {
     min-height: 500px;
@@ -281,7 +283,15 @@
     color: #afafaf;
 }
 
-#email-builder .email-builder-content .builder .email-container{
+/* #email-builder .email-builder-content .builder .email-container{
     max-height: 950px;
     overflow: auto;
+} */
+
+.email-builder-element-edit-field{
+    width: 100%;
+    float: left;
+}
+.p-0{
+    padding: 0 !important;
 }

@@ -41,8 +41,19 @@
                                                     </td>
                                                     <td> {{list.templateName}} </td>
                                                     <td> <ul *ngFor="let cat of getCategoryName(list.templateName)"><li>{{cat.sectionName}}</li></ul> </td>
-                                                    <td> {{getStartTime(list.startTime)}}, {{getStartDate(list.startTime)}}</td>
-                                                    <td> {{getEndTime(list.endTime)}}, {{getEndDate(list.endTime)}} </td>
+                                                     <td> 
+                                                        <ul *ngFor="let cat of getCategoryName(list.templateName)">
+                                                            <li *ngIf="list.templateName=='Section Template One'">{{getStartTime(cat.templateoneStartDate)}}, {{getStartDate(cat.templateoneStartDate)}}</li>
+                                                            <li *ngIf="list.templateName=='Section Template Two'">{{getStartTime(cat.templatetwoStartDate)}}, {{getStartDate(cat.templatetwoStartDate)}}</li>
+                                                        </ul>
+                                                     </td>
+                                                    <td>
+                                                        <ul *ngFor="let cat of getCategoryName(list.templateName)">
+                                                            <li *ngIf="list.templateName=='Section Template One'"> {{getEndTime(cat.templateoneendDate)}}, {{getEndDate(cat.templateoneendDate)}} </li>
+                                                            <li *ngIf="list.templateName=='Section Template Two'"> {{getEndTime(cat.templatetwoendDate)}}, {{getEndDate(cat.templatetwoendDate)}} </li>
+                                                            
+                                                        </ul> 
+                                                    </td>
                                                 </tr>
                                                 <!-- <tr>
                                                     <td class="text-center">

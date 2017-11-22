@@ -46,16 +46,34 @@ getImagePath(templateName){
   }
 }
 getStartTime(timeString){
-  return timeString.split('T')[1].substring(0, 5);
+  if (timeString) {
+    return timeString.split('T')[1].substring(0, 5);
+    // code...
+  }else{
+    return '----'
+  }
 }
 getStartDate(timeString){
+  if (timeString) {
     return timeString.split('T')[0]
+  }else{
+    return '----'
+  }
 }
 getEndTime(timeString){
-  return timeString.split('T')[1].substring(0, 5);
+  if (timeString) {
+    return timeString.split('T')[1].substring(0, 5);
+    // code...
+  }else{
+    return '----'
+  }
 }
 getEndDate(timeString){
-   return timeString.split('T')[0]
+   if (timeString) {
+    return timeString.split('T')[0]
+  }else{
+    return '----'
+  }
 }
 	
 getCategoryName(name){

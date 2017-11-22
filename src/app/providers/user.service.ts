@@ -136,15 +136,30 @@ headers.append('method', 'GET');
 // return new Blob( [res.blob()], { type: "application/octet-stream"} );
 // })
 // }
-download() {
-        this.http.get("http://52.15.178.19:3002/netpar/downloadFile",  {
-            method: RequestMethod.Get,
+download(url,type) {
+    let typeOfmedia
+    let filenameMedia=url.split('/')
+    let length=filenameMedia.length
+    if (type=='image') {
+        typeOfmedia='image/*'
+    }else if (type=='audio') {
+        typeOfmedia='audio/*'
+    }else if (type=='video') {
+         typeOfmedia='video/*'
+    }else{
+         typeOfmedia='application/*'
+    }
+    let a={
+      mediaUrl:url
+    }
+        this.http.post("http://52.15.178.19:3002/netpar/downloadFile", a, {
+            method: RequestMethod.Post,
             responseType: ResponseContentType.Blob,
             headers: new Headers({'Content-type': 'application/json'})
         }).subscribe(
             (response) => {
-                var blob = new Blob([response.blob()], {type: 'audio/*'});
-                var filename = '1509535392.mp3';
+                var blob = new Blob([response.blob()], {type: typeOfmedia});
+                var filename = filenameMedia[length-1];
                 FileSaver.saveAs(blob, filename);
         }
     );

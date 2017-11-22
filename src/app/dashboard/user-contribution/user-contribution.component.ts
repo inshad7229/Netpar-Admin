@@ -210,8 +210,8 @@ export class UserContributionComponent implements OnInit {
     }
    
 onDownload(){
-      this.waitLoader = true;
-         this.userProvider.download()
+      //this.waitLoader = true;
+       //  this.userProvider.download()
                // .subscribe(data => {
                //     console.log(data)
                //     this.downloadFile(data)
@@ -668,7 +668,8 @@ unique(array){
             }
            
         }
-        openMedia(url){
-          window.open(url)
+        openMedia(url,type){
+          this.userProvider.download(url,type)
+          //window.open(url)
         }
 }

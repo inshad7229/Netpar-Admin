@@ -949,26 +949,56 @@ addownloadRight(Download){
  remUserBtn1(i){
     this.currentIndex=i
     this.listOne[this.currentIndex].btn1=null
+    this.listOne[this.currentIndex].top1='12px'
+    this.listOne[this.currentIndex].bottom1='12px'
+    this.listOne[this.currentIndex].right1='6px'
+    this.listOne[this.currentIndex].left1='6px'
+    this.listOne[this.currentIndex].outline1=false
   }
   remUserBtn2(i){
     this.currentIndex=i
     this.listOne[this.currentIndex].btn2=null
+    this.listOne[this.currentIndex].top2='12px'
+    this.listOne[this.currentIndex].bottom2='12px'
+    this.listOne[this.currentIndex].right2='6px'
+    this.listOne[this.currentIndex].left2='6px'
+    this.listOne[this.currentIndex].outline2=false
   }
   remUserBtn3(i){
     this.currentIndex=i
     this.listOne[this.currentIndex].btn3=null
+    this.listOne[this.currentIndex].top2='12px'
+    this.listOne[this.currentIndex].bottom2='12px'
+    this.listOne[this.currentIndex].right2='6px'
+    this.listOne[this.currentIndex].left2='6px'
+    this.listOne[this.currentIndex].outline2=false
   }
   remCallBtn1(i){
     this.currentIndex=i
     this.listOne[this.currentIndex].btn1=null
+    this.listOne[this.currentIndex].top1='12px'
+    this.listOne[this.currentIndex].bottom1='12px'
+    this.listOne[this.currentIndex].right1='6px'
+    this.listOne[this.currentIndex].left1='6px'
+    this.listOne[this.currentIndex].outline1=false
   }
   remCallBtn2(i){
     this.currentIndex=i
     this.listOne[this.currentIndex].btn2=null
+    this.listOne[this.currentIndex].top2='12px'
+    this.listOne[this.currentIndex].bottom2='12px'
+    this.listOne[this.currentIndex].right2='6px'
+    this.listOne[this.currentIndex].left2='6px'
+    this.listOne[this.currentIndex].outline2=false
   }
   remCallBtn3(i){
     this.currentIndex=i
     this.listOne[this.currentIndex].btn3=null
+    this.listOne[this.currentIndex].top3='12px'
+    this.listOne[this.currentIndex].bottom3='12px'
+    this.listOne[this.currentIndex].right3='6px'
+    this.listOne[this.currentIndex].left3='6px'
+    this.listOne[this.currentIndex].outline3=false
   }
 	onClickOnDragItem(index,item,ref?){
       //alert(index)
@@ -1410,7 +1440,11 @@ addownloadRight(Download){
 	video(video1){
 		//console.log(video1)
 	}
-
+onDeleteBody(){
+  //alert('hy')
+  this.listOne=[]
+  this.showRightpan=false
+}
  
 	/*demo:any
   	

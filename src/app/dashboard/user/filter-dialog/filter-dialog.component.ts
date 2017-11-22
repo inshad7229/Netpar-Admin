@@ -15,9 +15,11 @@ export class FilterDialogComponent implements OnInit {
   stateListState
   stateListBlock
   stateListDist
+  listDist
   waitLoader
   selectedData
- stateResource:StateResource=new StateResource()
+  listBlock
+  stateResource:StateResource=new StateResource()
 	constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<FilterDialogComponent>,
   	@Inject(MAT_DIALOG_DATA) public data: any,private stateService:StateService) {
     this.selectedData={}
@@ -50,7 +52,6 @@ export class FilterDialogComponent implements OnInit {
    }
 forState(state){
   let stateData=this.stateListState.slice()
-  console.log(state)
   if (state.length>0) {
     for (var i =0; i<stateData.length; i++) {
        // let obj=this.stateListState[i]
@@ -62,16 +63,47 @@ forState(state){
     }
   }else{
     for (var i =0; i<stateData.length; i++) {
-       // let obj=this.stateListState[i]
-     
             stateData[i].check=false
        
     }
+    this.listBlock=[]
   }
 
    this.stateListDist=stateData.filter(arg=>arg.check==true)
-   console.log(JSON.stringify(this.stateListDist))
+   let dist=[]
+   for (var i =0; i<this.stateListDist.length; i++) {
+        let obj=this.stateListState[i]
+        dist=dist.concat(obj.dist)
+    }
+  this.listDist=dist
+}
 
+forDist(dist){
+ let distData= this.listDist.slice()
+  if (dist.length>0) {
+    for (var i =0; i<distData.length; i++) {
+       // let obj=this.distListState[i]
+        if (dist.indexOf(distData[i].name)!=-1) {
+           distData[i].check=true
+        }else{
+            distData[i].check=false
+        }
+    }
+  }else{
+    for (var i =0; i<distData.length; i++) {
+            distData[i].check=false
+       
+    }
+    this.listBlock=[]
+  }
+
+   this.stateListBlock=distData.filter(arg=>arg.check==true)
+   let block=[]
+   for (var i =0; i<this.stateListBlock.length; i++) {
+        let obj=this.stateListBlock[i]
+        block=block.concat(obj.block)
+    }
+  this.listBlock=block
 }
 getStateStatus(i){
  if (i>0) {

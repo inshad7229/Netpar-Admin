@@ -16,6 +16,10 @@ export class AddSectionRequest {
 	 sectionViewFormat:string;
 	 language:string;
 	 orderNo:number;
+	 templateoneStartDate:string;
+	templateoneendDate:string;
+	templatetwoStartDate:string;
+	templatetwoendDate:string;
 
 }
 

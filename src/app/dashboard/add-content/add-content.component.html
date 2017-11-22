@@ -300,9 +300,9 @@
                                                 
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12 p-0">
                                             <div id="email-builder">
-                                                <div class="email-builder-content">
+                                                <div class="email-builder-content row">
                                                    
                                                     <div class="mat-card">
                                                         <div class="mat-card-content elements-list">
@@ -383,11 +383,11 @@
                                                                 </li>
 
                                                             </ul>
-                                                            <button type="button" class="btn btn-success full-width">
+                                                            <!-- button type="button" class="btn btn-success full-width">
                                                                 <i class="material-icons">save</i>
                                                                 Save changes
-                                                            </button>
-                                                            <button type="button" class="btn btn-danger full-width">
+                                                            </button> -->
+                                                            <button type="button" class="btn btn-danger full-width" (click)="onDeleteBody()">
                                                                 <i class="material-icons" >delete</i> 
                                                                 Delete All Element
                                                             </button>
@@ -709,13 +709,13 @@
                                                                                 <tr class="btns">
                                                                                      <td (click)="OnFirstCall(i,item)">
                                                                                         <span *ngIf="item.btn1=='callmeback'">
-                                                                                            <span class="btn success" *ngIf="item.outline1==false"><i class="icon-callme"></i> Call me back
+                                                                                            <span class="btn success" *ngIf="item.outline1==false"><i class="icon-callme" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}"></i> Call me back
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
                                                                                                 </span>
                                                                                             </span>
 
-                                                                                            <span class="btn not_default" *ngIf="item.outline1==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline1==true" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <span class="text-success">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-callme"></i>
@@ -730,14 +730,14 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn1=='Call'">
-                                                                                            <span class="btn info" *ngIf="item.outline1==false">
+                                                                                            <span class="btn info" *ngIf="item.outline1==false" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <i class="icon-call"></i> Call
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
                                                                                                 </span>
                                                                                             </span>
 
-                                                                                            <span class="btn not_default" *ngIf="item.outline1==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline1==true" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <span class="text-info">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-call"></i>
@@ -752,7 +752,7 @@
 
 
                                                                                         <span *ngIf="item.btn1=='ImInterested'">
-                                                                                            <span class="btn primary" *ngIf="item.outline1==false">
+                                                                                            <span class="btn primary" *ngIf="item.outline1==false" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <i class="icon-click"></i> I'm Interested
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
@@ -760,7 +760,7 @@
                                                                                             </span>
 
                                                                                             <span class="btn not_default" *ngIf="item.outline1==true">
-                                                                                                <span class="text-primary">
+                                                                                                <span class="text-primary" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}" >
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-click"></i>
                                                                                                     </span>
@@ -773,13 +773,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn1=='Apply'">
-                                                                                            <span class="btn success" *ngIf="item.outline1==false">
+                                                                                            <span class="btn success" *ngIf="item.outline1==false" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <i class="icon-check"></i> Apply
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn1(i) ></i>
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline1==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline1==true" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <span class="text-success">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-check"></i>
@@ -795,13 +795,13 @@
                                                                                     </td>
                                                                                     <td (click)="OnSecondCall(i,item)">
                                                                                         <span *ngIf="item.btn2=='callmeback'">
-                                                                                            <span class="btn success" *ngIf="item.outline2==false">
+                                                                                            <span class="btn success" *ngIf="item.outline2==false" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <i class="icon-callme"></i> Call me back
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn2(i)></i>
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline2==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline2==true" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <span class="text-success">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-callme"></i>
@@ -815,13 +815,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn2=='Call'">
-                                                                                            <span class="btn info" *ngIf="item.outline2==false">
+                                                                                            <span class="btn info" *ngIf="item.outline2==false" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <i class="icon-call"></i> Call
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn2(i) ></i>
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline2==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline2==true" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <span class="text-info">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-call"></i>
@@ -835,13 +835,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn2=='ImInterested'">
-                                                                                            <span class="btn primary" *ngIf="item.outline2==false">
+                                                                                            <span class="btn primary" *ngIf="item.outline2==false" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <i class="icon-click"></i> I'm Interested
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn2(i) ></i>
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline2==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline2==true" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <span class="text-primary">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-click"></i>
@@ -855,13 +855,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn2=='Apply'">
-                                                                                            <span class="btn success" *ngIf="item.outline2==false">
+                                                                                            <span class="btn success" *ngIf="item.outline2==false" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <i class="icon-check"></i> Apply
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn2(i) ></i>
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline2==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline2==true" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <span class="text-success">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-check"></i>
@@ -877,13 +877,13 @@
                                                                                     </td>
                                                                                     <td (click)="OnThirdCall(i,item)">
                                                                                         <span *ngIf="item.btn3=='callmeback'">
-                                                                                            <span class="btn success" *ngIf="item.outline3==false">
+                                                                                            <span class="btn success" *ngIf="item.outline3==false" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <i class="icon-callme"></i> Call me back
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn3(i)></i>
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline3==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline3==true" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <span class="text-success">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-callme"></i>
@@ -897,13 +897,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn3=='Call'">
-                                                                                            <span class="btn info" *ngIf="item.outline3==false">
+                                                                                            <span class="btn info" *ngIf="item.outline3==false" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <i class="icon-call"></i> Call
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn3(i) ></i>
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline3==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline3==true" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <span class="text-info">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-call"></i>
@@ -917,13 +917,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn3=='ImInterested'">
-                                                                                            <span class="btn primary" *ngIf="item.outline3==false">
+                                                                                            <span class="btn primary" *ngIf="item.outline3==false" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <i class="icon-click"></i> I'm Interested
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn3(i) ></i>
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline3==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline3==true" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <span class="text-primary">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-click"></i>
@@ -938,13 +938,13 @@
 
 
                                                                                         <span *ngIf="item.btn3=='Apply'">
-                                                                                            <span class="btn success" *ngIf="item.outline3==false">
+                                                                                            <span class="btn success" *ngIf="item.outline3==false" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <i class="icon-check"></i> Apply
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close" (click)=remCallBtn3(i)></i>
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline3==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline3==true" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <span class="text-success">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-check"></i>
@@ -1108,13 +1108,13 @@
                                                                                 <tr class="btns">
                                                                                     <td style="" (click)="OnFirstUser(i,item)">
                                                                                         <span *ngIf="item.btn1=='Kadak'">
-                                                                                            <span class="btn danger" *ngIf="item.outline1==false">
+                                                                                            <span class="btn danger" *ngIf="item.outline1==false" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <i class="icon-okay"></i> Kadak
                                                                                                 <span class="badge"> 
                                                                                                     <i class="fa fa-close" (click)=remUserBtn1(i)></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline1==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline1==true" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <span class="text-danger">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-okay"></i>
@@ -1128,13 +1128,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn1=='Comment'">
-                                                                                            <span class="btn rose" *ngIf="item.outline1==false">
+                                                                                            <span class="btn rose" *ngIf="item.outline1==false" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <i class="icon-msg"></i> Comment
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close"  (click)=remUserBtn1(i)></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline1==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline1==true" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <span class="text-rose">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-msg"></i>
@@ -1148,13 +1148,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn1=='Save'">
-                                                                                            <span class="btn primary" *ngIf="item.outline1==false">
+                                                                                            <span class="btn primary" *ngIf="item.outline1==false" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <i class="icon-badge"></i> Save
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn1(i) ></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline1==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline1==true" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <span class="text-primary">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-badge"></i>
@@ -1168,14 +1168,14 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn1=='Download'">
-                                                                                            <span class="btn orange" *ngIf="item.outline1==false">
+                                                                                            <span class="btn orange" *ngIf="item.outline1==false" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <i class="icon-donload"></i> Download
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn1(i)></i> 
                                                                                                 </span>
                                                                                             </span>
 
-                                                                                            <span class="btn not_default" *ngIf="item.outline1==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline1==true" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <span class="text-orange">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-donload"></i>
@@ -1188,14 +1188,14 @@
                                                                                             </span>
                                                                                         </span>
 
-                                                                                        <span *ngIf="item.btn1=='Share'">
+                                                                                        <span *ngIf="item.btn1=='Share'" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                             <span class="btn warning" *ngIf="item.outline1==false">
                                                                                                 <i class="fa fa-share-alt"></i> Share
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn1(i) ></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline1==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline1==true" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1}">
                                                                                                 <span class="text-warning">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="fa fa-share-alt"></i>
@@ -1212,13 +1212,13 @@
 
                                                                                     <td style="" (click)="OnSecondtUser(i,item)">
                                                                                         <span *ngIf="item.btn2=='Kadak'">
-                                                                                            <span class="btn danger" *ngIf="item.outline2==false">
+                                                                                            <span class="btn danger" *ngIf="item.outline2==false" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <i class="icon-okay"></i> Kadak
                                                                                                 <span class="badge"> 
                                                                                                     <i class="fa fa-close" (click)=remUserBtn2(i)></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline2==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline2==true" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <span class="text-danger">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-okay"></i>
@@ -1232,13 +1232,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn2=='Comment'">
-                                                                                            <span class="btn rose" *ngIf="item.outline2==false">
+                                                                                            <span class="btn rose" *ngIf="item.outline2==false" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <i class="icon-msg"></i> Comment
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close"  (click)=remUserBtn2(i)></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline2==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline2==true" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <span class="text-rose">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-msg"></i>
@@ -1252,13 +1252,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn2=='Save'">
-                                                                                            <span class="btn primary" *ngIf="item.outline2==false">
+                                                                                            <span class="btn primary" *ngIf="item.outline2==false" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <i class="icon-badge"></i> Save
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn2(i) ></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline2==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline2==true" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <span class="text-primary">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-badge"></i>
@@ -1272,14 +1272,14 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn2=='Download'">
-                                                                                            <span class="btn orange" *ngIf="item.outline2==false">
+                                                                                            <span class="btn orange" *ngIf="item.outline2==false" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <i class="icon-donload"></i> Download
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn2(i)></i> 
                                                                                                 </span>
                                                                                             </span>
 
-                                                                                            <span class="btn not_default" *ngIf="item.outline2==false">
+                                                                                            <span class="btn not_default" *ngIf="item.outline2==true" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <span class="text-orange">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-donload"></i>
@@ -1293,13 +1293,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn2=='Share'">
-                                                                                            <span class="btn warning" *ngIf="item.outline2==false">
+                                                                                            <span class="btn warning" *ngIf="item.outline2==false" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <i class="fa fa-share-alt"></i> Share
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn2(i) ></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline2==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline2==true" [ngStyle]="{paddingLeft:item.left2, paddingRight: item.right2,paddingTop:item.top2,paddingBottom:item.bottom2}">
                                                                                                 <span class="text-warning">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="fa fa-share-alt"></i>
@@ -1315,13 +1315,13 @@
                                                                                     </td>
                                                                                     <td style="" (click)="OnThirdtUser(i,item)">
                                                                                         <span *ngIf="item.btn3=='Kadak'">
-                                                                                            <span class="btn danger" *ngIf="item.outline3==false">
+                                                                                            <span class="btn danger" *ngIf="item.outline3==false" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <i class="icon-okay"></i> Kadak
                                                                                                 <span class="badge"> 
                                                                                                     <i class="fa fa-close" (click)=remUserBtn3(i)></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline3==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline3==true" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <span class="text-danger">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-okay"></i>
@@ -1335,13 +1335,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn3=='Comment'">
-                                                                                            <span class="btn rose" *ngIf="item.outline3==false">
+                                                                                            <span class="btn rose"  *ngIf="item.outline3==false" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <i class="icon-msg"></i> Comment
                                                                                                 <span class="badge">
                                                                                                     <i class="fa fa-close"  (click)=remUserBtn3(i)></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline3==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline3==true" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <span class="text-rose">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-msg"></i>
@@ -1355,13 +1355,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn3=='Save'">
-                                                                                            <span class="btn primary" *ngIf="item.outline3==false">
+                                                                                            <span class="btn primary" *ngIf="item.outline3==false" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <i class="icon-badge"></i> Save
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn3(i) ></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline3==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline3==true"  [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <span class="text-primary">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-badge"></i>
@@ -1375,14 +1375,14 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn3=='Download'">
-                                                                                            <span class="btn orange" *ngIf="item.outline3==false">
+                                                                                            <span class="btn orange" *ngIf="item.outline3==false"  [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <i class="icon-donload"></i> Download
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn3(i)></i> 
                                                                                                 </span>
                                                                                             </span>
 
-                                                                                            <span class="btn not_default" *ngIf="item.outline3==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline3==true"[ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <span class="text-orange">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="icon-donload"></i>
@@ -1396,13 +1396,13 @@
                                                                                         </span>
 
                                                                                         <span *ngIf="item.btn3=='Share'">
-                                                                                            <span class="btn warning" *ngIf="item.outline3==false">
+                                                                                            <span class="btn warning" *ngIf="item.outline3==false"  [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <i class="fa fa-share-alt"></i> Share
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn3(i) ></i> 
                                                                                                 </span>
                                                                                             </span>
-                                                                                            <span class="btn not_default" *ngIf="item.outline3==true">
+                                                                                            <span class="btn not_default" *ngIf="item.outline3==true" [ngStyle]="{paddingLeft:item.left3, paddingRight: item.right3,paddingTop:item.top3,paddingBottom:item.bottom3}">
                                                                                                 <span class="text-warning">
                                                                                                     <span class="span-icns">
                                                                                                         <i class="fa fa-share-alt"></i>
@@ -2066,7 +2066,8 @@
                                                             </div>
                                                             <div class="email-builder-element-edit-field">
                                                                     <div class="block-properties"   *ngIf=" rightPan.tag=='CallToActBtn'">
-                                                                        <div *ngIf="currentCallActiveIndex==1 ">
+                                                                        <!-- <h3> Button Properties </h3> -->
+                                                                        <div *ngIf="currentCallActiveIndex==1 && rightPan.btn1!=null">
                                                                             <div class="block-properties">
                                                                                 <div class="mat-btn-group mat-btn-group-justify">
                                                                                         <button type="button" class="custom-btn btn" (click)="onOutLine1()">Outlined Buttons</button>
@@ -2090,7 +2091,7 @@
                                                                                     </mat-form-field>
                                                                             </div>
                                                                         </div>
-                                                                        <div *ngIf="currentCallActiveIndex==2 ">
+                                                                        <div *ngIf="currentCallActiveIndex==2 && rightPan.btn2!=null">
                                                                             <div class="mat-btn-group mat-btn-group-justify">
                                                                                         <button type="button" class="custom-btn btn" (click)="onOutLine2()">Outlined Buttons</button>
                                                                                         <button type="button" class="custom-btn btn" (click)="onFilled2()">Filled Buttons</button>
@@ -2112,7 +2113,7 @@
                                                                                     </mat-form-field>
                                                                             </div>
                                                                         </div>
-                                                                        <div *ngIf="currentCallActiveIndex==3 ">
+                                                                        <div *ngIf="currentCallActiveIndex==3 && rightPan.btn3!=null">
                                                                             <div class="mat-btn-group mat-btn-group-justify">
                                                                                         <button type="button" class="custom-btn btn" (click)="onOutLine3()">Outlined Buttons</button>
                                                                                         <button type="button" class="custom-btn btn" (click)="onFilled3()">Filled Buttons</button>
@@ -2138,7 +2139,7 @@
                                                                            
                                                                     </div>
                                                                     <div class="block-properties" *ngIf="rightPan.tag=='userEngBtn'">
-                                                                        <div *ngIf="currenUserActiveIndex==1">
+                                                                        <div *ngIf="currenUserActiveIndex==1 && rightPan.btn1!=null">
                                                                             <div class="mat-btn-group mat-btn-group-justify">
                                                                                         <button type="button" class="custom-btn btn" (click)="onOutLine1()">Outlined Buttons</button>
                                                                                         <button type="button" class="custom-btn btn" (click)="onFilled1()">Filled Buttons</button>
@@ -2160,7 +2161,7 @@
                                                                                     </mat-form-field>
                                                                             </div>
                                                                         </div>
-                                                                        <div *ngIf="currenUserActiveIndex==2">
+                                                                        <div *ngIf="currenUserActiveIndex==2 && rightPan.btn2!=null">
                                                                             <div class="mat-btn-group mat-btn-group-justify">
                                                                                         <button type="button" class="custom-btn btn" (click)="onOutLine2()">Outlined Buttons</button>
                                                                                         <button type="button" class="custom-btn btn" (click)="onFilled2()">Filled Buttons</button>
@@ -2182,7 +2183,7 @@
                                                                                     </mat-form-field>
                                                                             </div>
                                                                         </div>
-                                                                        <div *ngIf="currenUserActiveIndex==3">
+                                                                        <div *ngIf="currenUserActiveIndex==3 && rightPan.btn3!=null">
                                                                             <div class="mat-btn-group mat-btn-group-justify">
                                                                                         <button type="button" class="custom-btn btn" (click)="onOutLine3()">Outlined Buttons</button>
                                                                                         <button type="button" class="custom-btn btn" (click)="onFilled3()">Filled Buttons</button>
