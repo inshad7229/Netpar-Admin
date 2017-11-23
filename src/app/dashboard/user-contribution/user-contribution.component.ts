@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../providers/user.service';
 import {SectionService} from '../../providers/section.service'
 import {StringResource} from '../../models/saredResources'
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { forkJoin } from "rxjs/observable/forkJoin";
+import {MediaDialogComponent} from './media-dialog/media-dialog.component'
 import 'rxjs/Rx'
 declare var jquery:any;
 declare var $ :any;
@@ -78,7 +80,7 @@ export class UserContributionComponent implements OnInit {
     Published
     Rejected
     stringResource:StringResource=new  StringResource()
-  	constructor(private userProvider:UserService,private sectionService:SectionService,) {
+  	constructor(private userProvider:UserService,private sectionService:SectionService,private dialog: MatDialog) {
   		        this.filterValue={}
               this.filterRequest={}
             
@@ -295,6 +297,19 @@ downloadFile(data: Response){
         if (sec.length>0) {
             return sec[0].userImage;
         }
+
+    }
+
+    getSize(size){
+      if (size) {
+        let a=size.split(' ')
+        let b=parseFloat(a[0])
+        console.log(b)
+        let c=b.toFixed(2)
+        console.log(c)
+        return c+' '+a[1]
+        // code...
+      }
 
     }
    // openFilter(){
@@ -669,7 +684,19 @@ unique(array){
            
         }
         openMedia(url,type){
-          this.userProvider.download(url,type)
+          if (type=='image' || type=='audio' || type=='video') {
+            
+                let dialogRef = this.dialog.open(MediaDialogComponent, {
+                  width: '800px',
+                  data:{url:url,type:type}
+              });
+              dialogRef.afterClosed().subscribe(result => {
+            
+              });
+          }else{
+
+             this.userProvider.download(url,type)
+          }
           //window.open(url)
         }
 }
