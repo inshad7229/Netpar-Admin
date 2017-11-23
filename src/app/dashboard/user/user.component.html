@@ -143,6 +143,7 @@
                                                     <th mat-sort-header="share">
                                                         <a matTooltipPosition="above"  matTooltip="Share" class="tltip_ico">
                                                            <!--  <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter>  -->
+                                                            <i class="fa fa-share-alt"></i>
                                                         </a>
                                                     </th>
                                                     <th mat-sort-header="comment">
@@ -226,7 +227,8 @@
 		                                            <td>{{user.totalPublications}} </td>
 		                                            <td> 
                                                     	<div class="cus-switch user">
-                                                            <span>Enable</span>
+                                                            <span *ngIf="!user.influencer">Enable</span>
+                                                            <span *ngIf="user.influencer"> Disable</span>
                                                             <label class="switch m-b-0">
                                                                 <input type="checkbox" [(ngModel)]="user.influencer"  (change)="onInfluencerStatusChange(user)"/>
                                                                 <span class="slider round"></span>
