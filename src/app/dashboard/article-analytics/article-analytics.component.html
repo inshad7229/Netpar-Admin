@@ -144,31 +144,32 @@
                                                 </tr>
 		                                    </thead>
 		                                    <tbody>
-		                                        <tr>
+		                                        <tr *ngFor="let content of contentData">
                                                     <td class="td-wdth282 text-left">
                                                         <div class="cont-img">
-                                                            <img src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                            <img *ngIf="!content.thumbnailPicture" src="./assets/img/placeholder5.png" class="img-responsive" />
+                                                            <img *ngIf="content.thumbnailPicture" [src]="content.thumbnailPicture" class="img-responsive" />
                                                         </div>
                                                         <div class="cont-dtl">
-                                                            <div> Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </div>
-                                                            <div> <strong> Posted by: </strong> Rohan Sen </div>
+                                                            <div> {{content.headline}} </div>
+                                                            <div> <strong> Posted by: </strong> {{content.userList[0].firstName}} {{content.userList[0].lastName}}</div>
                                                             <div class=""> 
                                                                 <a href="javascript:;">
-                                                                    News | <span class="dark_ylw">Sports News</span>
+                                                                    {{content.sectionName}} | <span class="dark_ylw">{{content.categoryName}}</span>
                                                                 </a>
                                                             </div>
-                                                            <div class="m-t-5"> 
+                                                            <!-- <div class="m-t-5"> 
                                                                 <a href="javascript:;" class="text-success"> <i class="fa fa-eye"></i> View </a> |
                                                                 <a href="javascript:;" class="text-danger"> <i class="fa fa-pencil"></i> Edit </a>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </td>
-                                                    <td> 10,00,000 </td> <td> 1,00,000 </td> <td> 20 </td>
-                                                    <td> 300 </td> <td> 50 </td> <td> 120 </td> <td> 40 </td> <td> 20 </td>
-                                                    <td> 250 </td> <td> 50 </td> <td> 152 </td> <td> 89 </td>
+                                                    <td> {{content.pageView}} </td> <td> {{content.uniqueViews}} </td> <td> {{content.continueReading}}</td>
+                                                    <td> {{content.likeCount}}</td> <td>  {{content.shareCount}} </td> <td> {{content.commentCount}}</td> <td> {{content.saveCount}} </td> <td> {{content.downloadCount}} </td>
+                                                    <td> {{content.applyCount}} </td> <td> {{content.callCount}} </td> <td> {{content.callMeBackCount}}  </td> <td>{{content.imIntrestedCount}} </td>
 
                                                 </tr>
-                                                <tr>
+                                               <!--  <tr>
                                                     <td class="td-wdth282 text-left">
                                                         <div class="cont-img">
                                                             <img src="./assets/img/placeholder5.png" class="img-responsive" />
@@ -240,7 +241,7 @@
                                                     <td> 300 </td> <td> 50 </td> <td> 120 </td> <td> 40 </td> <td> 20 </td>
                                                     <td> 250 </td> <td> 50 </td> <td> 152 </td> <td> 89 </td>
 
-                                                </tr>
+                                                </tr> -->
 
 		                                       	
 		                                    </tbody>

@@ -140,58 +140,143 @@
                                                     </th>
                                                 </tr>
 		                                    </thead>
-		                                    <tbody>
+		                                    <tbody *ngIf="contentData">
 		                                        <tr>
 		                                            <td class="text-left">
                                                         Text Only
                                                     </td>
-		                                            <td> 10,00,000 </td>
-		                                            <td> 1,00,000 </td>
-		                                            <td> 56 </td>
-		                                            <td> 44 </td>
-		                                            <td> 125 </td>
-		                                            <td> 40 </td>
-		                                            <td> 150 </td>
-		                                            <td> 80 </td>
-		                                            <td> 50 </td>
-		                                            <td> 50 </td>
-		                                            <td> 68 </td>
+		                                            <td> {{getPageView('Text Only')}} </td>
+		                                            <td> {{getUniquePageView('Text Only')}} </td>
+		                                            <td> {{getLike('Text Only')}} </td>
+		                                            <td> {{getShare('Text Only')}} </td>
+		                                            <td> {{getComment('Text Only')}} </td>
+		                                            <td> {{getSave('Text Only')}} </td>
+		                                            <td> {{getDownload()}} </td>
+		                                            <td> {{getApply('Text Only')}} </td>
+		                                            <td> {{getCall('Text Only')}} </td>
+		                                            <td> {{getCallMeBAck('Text Only')}} </td>
+		                                            <td> {{getIntrested('Text Only')}} </td>
 
 		                                        </tr>
 		                                        <tr>
 		                                            <td class="text-left">
                                                        Photo Only
                                                     </td>
-		                                            <td> 10,00,000 </td>
-		                                            <td> 1,00,000 </td>
-		                                            <td> 56 </td>
-		                                            <td> 44 </td>
-		                                            <td> 125 </td>
-		                                            <td> 40 </td>
-		                                            <td> 150 </td>
-		                                            <td> 80 </td>
-		                                            <td> 50 </td>
-		                                            <td> 50 </td>
-		                                            <td> 68 </td>
+		                                            <td> {{getPageView('Photo Only')}} </td>
+		                                            <td> {{getUniquePageView('Photo Only')}} </td>
+		                                            <td> {{getLike('Photo Only')}} </td>
+		                                            <td> {{getShare('Photo Only')}} </td>
+		                                            <td> {{getComment('Photo Only')}} </td>
+		                                            <td> {{getSave('Photo Only')}} </td>
+		                                            <td> {{getDownload('Photo Only')}} </td>
+		                                            <td> {{getApply('Photo Only')}} </td>
+		                                            <td> {{getCall('Photo Only')}} </td>
+		                                            <td> {{getCallMeBAck('Photo Only')}} </td>
+		                                            <td> {{getIntrested('Photo Only')}} </td>
 
 		                                        </tr>
 		                                        <tr>
 		                                            <td class="text-left">
-                                                        Photo + Video
+                                                        Audio Only
                                                     </td>
-		                                            <td> 10,00,000 </td>
-		                                            <td> 1,00,000 </td>
-		                                            <td> 56 </td>
-		                                            <td> 44 </td>
-		                                            <td> 125 </td>
-		                                            <td> 40 </td>
-		                                            <td> 150 </td>
-		                                            <td> 80 </td>
-		                                            <td> 50 </td>
-		                                            <td> 50 </td>
-		                                            <td> 68 </td>
+		                                            <td> {{getPageView('Audio Only')}} </td>
+		                                            <td> {{getUniquePageView('Audio Only')}} </td>
+		                                            <td> {{getLike('Audio Only')}} </td>
+		                                            <td> {{getShare('Audio Only')}} </td>
+		                                            <td> {{getComment('Audio Only')}} </td>
+		                                            <td> {{getSave('Audio Only')}} </td>
+		                                            <td> {{getDownload('Audio Only')}} </td>
+		                                            <td> {{getApply('Audio Only')}} </td>
+		                                            <td> {{getCall('Audio Only')}} </td>
+		                                            <td> {{getCallMeBAck('Audio Only')}} </td>
+		                                            <td> {{getIntrested('Audio Only')}} </td>
 
 		                                        </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        Video Only
+                                                    </td>
+                                                    <td> {{getPageView('Video Only')}} </td>
+                                                    <td> {{getUniquePageView('Video Only')}} </td>
+                                                    <td> {{getLike('Video Only')}} </td>
+                                                    <td> {{getShare('Video Only')}} </td>
+                                                    <td> {{getComment('Video Only')}} </td>
+                                                    <td> {{getSave('Video Only')}} </td>
+                                                    <td> {{getDownload('Video Only')}} </td>
+                                                    <td> {{getApply('Video Only')}} </td>
+                                                    <td> {{getCall('Video Only')}} </td>
+                                                    <td> {{getCallMeBAck('Video Only')}} </td>
+                                                    <td> {{getIntrested('Video Only')}} </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        Text + Video
+                                                    </td>
+                                                    <td> {{getPageView('Text + Video')}} </td>
+                                                    <td> {{getUniquePageView('Text + Video')}} </td>
+                                                    <td> {{getLike('Text + Video')}} </td>
+                                                    <td> {{getShare('Text + Video')}} </td>
+                                                    <td> {{getComment('Text + Video')}} </td>
+                                                    <td> {{getSave('Text + Video')}} </td>
+                                                    <td> {{getDownload('Text + Video')}} </td>
+                                                    <td> {{getApply('Text + Video')}} </td>
+                                                    <td> {{getCall('Text + Video')}} </td>
+                                                    <td> {{getCallMeBAck('Text + Video')}} </td>
+                                                    <td> {{getIntrested('Text + Video')}} </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        Text + Audio
+                                                    </td>
+                                                    <td> {{getPageView('Text + Audio')}} </td>
+                                                    <td> {{getUniquePageView('Text + Audio')}} </td>
+                                                    <td> {{getLike('Text + Audio')}} </td>
+                                                    <td> {{getShare('Text + Audio')}} </td>
+                                                    <td> {{getComment('Text + Audio')}} </td>
+                                                    <td> {{getSave('Text + Audio')}} </td>
+                                                    <td> {{getDownload('Text + Audio')}} </td>
+                                                    <td> {{getApply('Text + Audio')}} </td>
+                                                    <td> {{getCall('Text + Audio')}} </td>
+                                                    <td> {{getCallMeBAck('Text + Audio')}} </td>
+                                                    <td> {{getIntrested('Text + Audio')}} </td>
+
+                                                </tr>
+                                                 <tr>
+                                                    <td class="text-left">
+                                                        Text + Photo
+                                                    </td>
+                                                    <td> {{getPageView('Text + Photo')}} </td>
+                                                    <td> {{getUniquePageView('Text + Photo')}} </td>
+                                                    <td> {{getLike('Text + Photo')}} </td>
+                                                    <td> {{getShare('Text + Photo')}} </td>
+                                                    <td> {{getComment('Text + Photo')}} </td>
+                                                    <td> {{getSave('Text + Photo')}} </td>
+                                                    <td> {{getDownload('Text + Photo')}} </td>
+                                                    <td> {{getApply('Text + Photo')}} </td>
+                                                    <td> {{getCall('Text + Photo')}} </td>
+                                                    <td> {{getCallMeBAck('Text + Photo')}} </td>
+                                                    <td> {{getIntrested('Text + Photo')}} </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">
+                                                        Text + Multiple
+                                                    </td>
+                                                    <td> {{getPageView('Text + Multiple')}} </td>
+                                                    <td> {{getUniquePageView('Text + Multiple')}} </td>
+                                                    <td> {{getLike('Text + Multiple')}} </td>
+                                                    <td> {{getShare('Text + Multiple')}} </td>
+                                                    <td> {{getComment('Text + Multiple')}} </td>
+                                                    <td> {{getSave('Text + Multiple')}} </td>
+                                                    <td> {{getDownload('Text + Multiple')}} </td>
+                                                    <td> {{getApply('Text + Multiple')}} </td>
+                                                    <td> {{getCall('Text + Multiple')}} </td>
+                                                    <td> {{getCallMeBAck('Text + Multiple')}} </td>
+                                                    <td> {{getIntrested('Text + Multiple')}} </td>
+
+                                                </tr>
 
 		                                    </tbody>
 		                                    <tfoot>

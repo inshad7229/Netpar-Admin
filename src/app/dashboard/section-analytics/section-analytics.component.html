@@ -101,57 +101,108 @@
                                                     <th><mfDefaultSorter by="avgt"> Avg Time</mfDefaultSorter> </th>
                                                     
                                                     <th>
-                                                        <a matTooltipPosition="above" matTooltip="Like" class="tltip_ico">
-                                                            <mfDefaultSorter by="thumb"> <i class="fa fa-thumbs-up"></i> </mfDefaultSorter> 
+                                                        <a matTooltipPosition="above" matTooltip="Kadak" class="tltip_ico">
+                                                            <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a matTooltipPosition="above" matTooltip="Share" class="tltip_ico">
-                                                            <mfDefaultSorter by="share"> <i class="fa fa-share"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a matTooltipPosition="above" matTooltip="Comment" class="tltip_ico">
-                                                            <mfDefaultSorter by="comment"> <i class="fa fa-comment"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a matTooltipPosition="above" matTooltip="Save" class="tltip_ico">
-                                                            <mfDefaultSorter by="square"> <i class="fa fa-check-square"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a matTooltipPosition="above" matTooltip="Download" class="tltip_ico">
-                                                            <mfDefaultSorter by="download"> <i class="fa fa-cloud-download"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a matTooltipPosition="above" matTooltip="Completed" class="tltip_ico">
-                                                            <mfDefaultSorter by="text"> <i class="fa fa-file-text"></i> </mfDefaultSorter> 
+                                                        <a matTooltipPosition="above" matTooltip="Apply" class="tltip_ico">
+                                                            <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a matTooltipPosition="above" matTooltip="Call Me" class="tltip_ico">
-                                                            <mfDefaultSorter by="phone"> <i class="fa fa-phone-square"></i> </mfDefaultSorter> 
+                                                        <a matTooltipPosition="above" matTooltip="Call" class="tltip_ico">
+                                                            <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
                                                         <a matTooltipPosition="above" matTooltip="Call Me Back" class="tltip_ico">
-                                                            <mfDefaultSorter by="volume"> <i class="fa fa-volume-control-phone"></i> </mfDefaultSorter> 
+                                                            <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                     <th>
-                                                        <a matTooltipPosition="above" matTooltip="Check" class="tltip_ico">
-                                                            <mfDefaultSorter by="check"> <i class="fa fa-check-square-o"></i> </mfDefaultSorter> 
+                                                        <a matTooltipPosition="above" matTooltip="I'm Interested" class="tltip_ico">
+                                                            <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
                                                         </a>
                                                     </th>
                                                 </tr>
 		                                    </thead>
 		                                    <tbody>
-		                                        <tr>
+		                                        <tr *ngFor="let data of sectiondata;let i=index">
 		                                            <td class="width170px">
                                                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-	                                                        News
+	                                                        {{data.sectionName}}<span *ngIf="data.categoryName">|</span><span class="dark_ylw" *ngIf="data.categoryName">{{data.categoryName}}</span>
+	                                                    </a>
+                                                    </td>
+		                                            <td> {{data.totalViews}} </td>
+		                                            <td> {{data.uniqueViews}} </td>
+		                                            <td> 56 </td>
+		                                            <td> 44 </td>
+		                                            <td> 125 </td>
+		                                            <td> 40 </td>
+		                                            <td> 150 </td>
+                                                    <td> 
+                                                        <span>{{getLike('Text + Photo')}}</span>
+                                                        <span>{{getLike('Text + Photo')}}</span> 
+                                                    </td>
+                                                    <td> 
+                                                        <span>{{getShare('Text + Photo')}}</span>
+                                                        <span>{{getShare('Text + Photo')}}</span>
+                                                    </td>
+                                                    <td> 
+                                                        <span>{{getComment('Text + Photo')}}</span>
+                                                        <span>{{getComment('Text + Photo')}}</span>
+                                                    </td>
+                                                    <td> 
+                                                        <span>{{getSave('Text + Photo')}}</span>
+                                                        <span>{{getSave('Text + Photo')}}</span>
+                                                    </td>
+                                                    <td> 
+                                                        <span>{{getDownload('Text + Photo')}}</span>
+                                                        <span>{{getDownload('Text + Photo')}}</span>
+                                                    </td>
+                                                    <td> 
+                                                        <span>{{getApply('Text + Photo')}}</span>
+                                                        <span>{{getApply('Text + Photo')}}</span>
+                                                    </td>
+                                                    <td> 
+                                                        <span>{{getCall('Text + Photo')}}</span>
+                                                        <span>{{getCall('Text + Photo')}}</span>
+                                                    </td>
+                                                    <td> 
+                                                        <span>{{getCallMeBAck('Text + Photo')}}</span>
+                                                        <span>{{getCallMeBAck('Text + Photo')}}</span>
+                                                    </td>
+                                                    <td> 
+                                                        <span>{{getIntrested('Text + Photo')}}</span>
+                                                        <span>{{getIntrested('Text + Photo')}}</span>
+                                                    </td>
+
+		                                        </tr>
+		                                        <!-- <tr>
+		                                            <td class="width170px">
+                                                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	                                                        News  <span class="dark_ylw">Sports News</span>
 	                                                    </a>
                                                     </td>
 		                                            <td> 10,00,000 </td>
@@ -219,31 +270,7 @@
 		                                            <td> 125 </td>
 		                                            <td> 56 </td>
 
-		                                        </tr>
-		                                        <tr>
-		                                            <td class="width170px">
-                                                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-	                                                        News | <span class="dark_ylw">Sports News</span>
-	                                                    </a>
-                                                    </td>
-		                                            <td> 10,00,000 </td>
-		                                            <td> 1,00,000 </td>
-		                                            <td> 56 </td>
-		                                            <td> 44 </td>
-		                                            <td> 125 </td>
-		                                            <td> 40 </td>
-		                                            <td> 150 </td>
-                                                    <td> 758 </td>
-		                                            <td> 80 </td>
-		                                            <td> 50 </td>
-		                                            <td> 50 </td>
-		                                            <td> 68 </td>
-		                                            <td> 75 </td>
-		                                            <td> 56 </td>
-		                                            <td> 125 </td>
-		                                            <td> 56 </td>
-
-		                                        </tr>
+		                                        </tr> -->
 		                                    </tbody>
 		                                    <tfoot>
 	                                            <tr>
