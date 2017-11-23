@@ -169,14 +169,14 @@ export class AddContentComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${300}x${180}`;
+        return `http://placehold.it/${300}x${50}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
             width: parseInt('300', 10),
-            height: parseInt('180', 10)
+            height: parseInt('50', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
