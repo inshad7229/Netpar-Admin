@@ -80,5 +80,223 @@ contentData
                this.waitLoader = false;
             })
     }
+    getPageView(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
 
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].pageView
+        }
+        return value
+      }else{
+        return value
+      }
+
+    }
+    getUniquePageView(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].uniqueViews
+        }
+        return value
+      }else{
+        return value
+      }
+    }
+    getLike(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].likeCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    getShare(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].shareCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    getComment(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].commentCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    getSave(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].saveCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    getDownload(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].downloadCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    getApply(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].applyCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    getCall(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].callCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    getCallMeBAck(id,flag){
+      let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].callMeBackCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    getIntrested(id,flag){
+       let value=0
+      let data
+      if(flag=='category'){
+        data= this.contentData.filter(arg=>arg.categoryId==id)
+
+      }else if (flag=='section') {
+      data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].imIntrestedCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
 }

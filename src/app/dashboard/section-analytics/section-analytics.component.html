@@ -162,40 +162,40 @@
 		                                            <td> 40 </td>
 		                                            <td> 150 </td>
                                                     <td> 
-                                                        <span>{{getLike('Text + Photo')}}</span>
-                                                        <span>{{getLike('Text + Photo')}}</span> 
+                                                        <span *ngIf="!data.categoryName">{{getLike(data._id,'section')}}</span>
+                                                        <span *ngIf="data.categoryName">{{getLike(data._id,'category')}}</span> 
                                                     </td>
                                                     <td> 
-                                                        <span>{{getShare('Text + Photo')}}</span>
-                                                        <span>{{getShare('Text + Photo')}}</span>
+                                                        <span *ngIf="!data.categoryName">{{getShare(data._id,'section')}}</span>
+                                                        <span *ngIf="data.categoryName">{{getShare(data._id,'category')}}</span>
                                                     </td>
                                                     <td> 
-                                                        <span>{{getComment('Text + Photo')}}</span>
-                                                        <span>{{getComment('Text + Photo')}}</span>
+                                                        <span *ngIf="!data.categoryName">{{getComment(data._id,'section')}}</span>
+                                                        <span *ngIf="data.categoryName">{{getComment(data._id,'category')}}</span>
                                                     </td>
                                                     <td> 
-                                                        <span>{{getSave('Text + Photo')}}</span>
-                                                        <span>{{getSave('Text + Photo')}}</span>
+                                                        <span *ngIf="!data.categoryName">{{getSave(data._id,'section')}}</span>
+                                                        <span *ngIf="data.categoryName">{{getSave(data._id,'category')}}</span>
                                                     </td>
                                                     <td> 
-                                                        <span>{{getDownload('Text + Photo')}}</span>
-                                                        <span>{{getDownload('Text + Photo')}}</span>
+                                                        <span *ngIf="!data.categoryName">{{getDownload(data._id,'section')}}</span>
+                                                        <span *ngIf="data.categoryName">{{getDownload(data._id,'category')}}</span>
                                                     </td>
                                                     <td> 
-                                                        <span>{{getApply('Text + Photo')}}</span>
-                                                        <span>{{getApply('Text + Photo')}}</span>
+                                                        <span *ngIf="!data.categoryName">{{getApply(data._id,'section')}}</span>
+                                                        <span *ngIf="data.categoryName">{{getApply(data._id,'category')}}</span>
                                                     </td>
                                                     <td> 
-                                                        <span>{{getCall('Text + Photo')}}</span>
-                                                        <span>{{getCall('Text + Photo')}}</span>
+                                                        <span *ngIf="!data.categoryName">{{getCall(data._id,'section')}}</span>
+                                                        <span *ngIf="data.categoryName">{{getCall(data._id,'category')}}</span>
                                                     </td>
                                                     <td> 
-                                                        <span>{{getCallMeBAck('Text + Photo')}}</span>
-                                                        <span>{{getCallMeBAck('Text + Photo')}}</span>
+                                                        <span *ngIf="!data.categoryName">{{getCallMeBAck(data._id,'section')}}</span>
+                                                        <span *ngIf="data.categoryName">{{getCallMeBAck(data._id,'category')}}</span>
                                                     </td>
                                                     <td> 
-                                                        <span>{{getIntrested('Text + Photo')}}</span>
-                                                        <span>{{getIntrested('Text + Photo')}}</span>
+                                                        <span *ngIf="!data.categoryName">{{getIntrested(data._id,'section')}}</span>
+                                                        <span *ngIf="data.categoryName">{{getIntrested(data._id,'category')}}</span>
                                                     </td>
 
 		                                        </tr>
