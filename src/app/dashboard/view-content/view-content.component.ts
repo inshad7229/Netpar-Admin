@@ -108,6 +108,8 @@ export class ViewContentComponent implements OnInit {
     sendForRevisionStatus:boolean;
     publishLaterStatus:boolean;
     publishStatus:boolean;
+    limit:number
+    limitedFilter
     stringResource:StringResource=new  StringResource()
   	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
@@ -121,6 +123,9 @@ export class ViewContentComponent implements OnInit {
                 this.toastr.setRootViewContainerRef(vcr);
                 this.filterValue={}
                 this.filterRequest={} 
+                this.limitedFilter={}
+                this.limitedFilter.perPage='25'
+                this.limit=25
               }
     displayedColumns = ['userId', 'userName', 'progress', 'color'];
     // exampleDatabase = new ExampleDatabase();
@@ -675,6 +680,28 @@ onCheckBox(_id){
       }
     });
   }
+
+    onPerPage(perPage){
+      if (perPage=='25') {
+           this.limit=25
+        // code...
+      }else if (perPage=='50') {
+        this.limit=50
+        // code...
+      }else if (perPage=='100') {
+        this.limit=100
+        // code...
+      }else if (perPage=='200') {
+        this.limit=100
+        // code...
+      }else if (perPage=='All') {
+        this.limit=this.contentList.length
+        // code...
+      }
+    }
+onRange(range){
+
+}
       
 }
 function compare(a, b, isAsc) {
@@ -834,7 +861,7 @@ export class ContentConfirmation {
     this.dialogRef.close();
   }
 
-
+ 
  
 
 }

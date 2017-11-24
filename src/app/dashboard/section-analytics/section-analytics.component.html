@@ -37,26 +37,26 @@
                                 <div class="row">
 	                                <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <mat-form-field>
-                                                <mat-select placeholder="Items per page">
-                                                    <mat-option value="1"> 25 </mat-option>
-                                                    <mat-option value="2"> 50 </mat-option>
-                                                    <mat-option value="3"> 100 </mat-option>
-                                                    <mat-option value="4"> 200 </mat-option>
-                                                    <mat-option value="4"> All </mat-option>
+                                           <mat-form-field>
+                                                <mat-select placeholder="Items per page" [(ngModel)]="limitedFilter.perPage" name="perpage" (change)="onPerPage(limitedFilter.perPage)">
+                                                    <mat-option value="25"> 25 </mat-option>
+                                                    <mat-option value="50"> 50 </mat-option>
+                                                    <mat-option value="100"> 100 </mat-option>
+                                                    <mat-option value="200"> 200 </mat-option>
+                                                    <mat-option value="All"> All </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <mat-form-field>
-                                                <mat-select placeholder="Time Range">
-                                                    <mat-option value="1"> 7d </mat-option>
-                                                    <mat-option value="2"> 15d </mat-option>
-                                                    <mat-option value="3"> 1m </mat-option>
-                                                    <mat-option value="4"> 3m </mat-option>
-                                                    <mat-option value="4"> 6m </mat-option>
-                                                    <mat-option value="4"> 1y </mat-option>
-                                                    <mat-option value="4"> all </mat-option>
+                                                <mat-select placeholder="Time Range" [(ngModel)]="limitedFilter.range" name="range" (change)="onRange(limitedFilter.range)">
+                                                    <mat-option value="7d"> 7d </mat-option>
+                                                    <mat-option value="15d"> 15d </mat-option>
+                                                    <mat-option value="1m"> 1m </mat-option>
+                                                    <mat-option value="3m"> 3m </mat-option>
+                                                    <mat-option value="6m"> 6m </mat-option>
+                                                    <mat-option value="1y"> 1y </mat-option>
+                                                    <mat-option value="all"> all </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -158,7 +158,7 @@
 		                                    </thead>
 		                                    <tbody>
 		                                        <tr *ngFor="let data of sectiondata;let i=index">
-		                                            <td class="width170px">
+		                                            <td *ngIf="i<limit" class="width170px">
                                                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">
 	                                                        {{data.sectionName}}
 	                                                    </a>
@@ -169,54 +169,54 @@
                                                             {{data.sectionName}}|<span class="dark_ylw">{{data.categoryName}}</span>|<span class="dark_ylw" >{{data.subCategoryName}}</span>
                                                         </a>
                                                     </td>
-		                                            <td> {{data.totalViews}} </td>
-		                                            <td> {{data.uniqueViews}} </td>
-		                                            <td> 56 </td>
-		                                            <td> 44 </td>
-		                                            <td> 125 </td>
-		                                            <td> 40 </td>
-		                                            <td> 150 </td>
-                                                    <td> 
+		                                            <td *ngIf="i<limit"> {{data.totalViews}} </td>
+		                                            <td *ngIf="i<limit"> {{data.uniqueViews}} </td>
+		                                            <td *ngIf="i<limit"> 56 </td>
+		                                            <td *ngIf="i<limit"> 44 </td>
+		                                            <td *ngIf="i<limit"> 125 </td>
+		                                            <td *ngIf="i<limit"> 40 </td>
+		                                            <td *ngIf="i<limit"> 150 </td>
+                                                    <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getLike(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getLike(data._id,'category')}}</span> 
                                                         <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getLike(data._id,'subcategory')}}</span> 
                                                     </td>
-                                                    <td> 
+                                                    <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getShare(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getShare(data._id,'category')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getShare(data._id,'subcategory')}}</span>
                                                     </td>
-                                                    <td> 
+                                                    <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getComment(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getComment(data._id,'category')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getComment(data._id,'subcategory')}}</span>
                                                     </td>
-                                                    <td> 
+                                                    <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getSave(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getSave(data._id,'category')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getSave(data._id,'subcategory')}}</span>
                                                     </td>
-                                                    <td> 
+                                                    <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getDownload(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getDownload(data._id,'category')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getDownload(data._id,'subcategory')}}</span>
                                                     </td>
-                                                    <td> 
+                                                    <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getApply(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getApply(data._id,'category')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getApply(data._id,'subcategory')}}</span>
                                                     </td>
-                                                    <td> 
+                                                    <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getCall(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getCall(data._id,'category')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getCall(data._id,'subcategory')}}</span>
                                                     </td>
-                                                    <td> 
+                                                    <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getCallMeBAck(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getCallMeBAck(data._id,'category')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getCallMeBAck(data._id,'subcategory')}}</span>
                                                     </td>
-                                                    <td> 
+                                                    <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getIntrested(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getIntrested(data._id,'category')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getIntrested(data._id,'subcategory')}}</span>

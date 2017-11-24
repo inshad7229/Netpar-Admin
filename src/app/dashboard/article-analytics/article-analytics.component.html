@@ -40,7 +40,7 @@
                                     <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <mat-form-field>
-                                                <mat-select placeholder="Items per page">
+                                                <mat-select placeholder="Items per page" [(ngModel)]="limitedFilter.perPage" name="perpage" (change)="onPerPage(limitedFilter.perPage)">
                                                     <mat-option value="25"> 25 </mat-option>
                                                     <mat-option value="50"> 50 </mat-option>
                                                     <mat-option value="100"> 100 </mat-option>
@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <mat-form-field>
-                                                <mat-select placeholder="Time Range">
+                                                <mat-select placeholder="Time Range" [(ngModel)]="limitedFilter.range" name="range" (change)="onRange(limitedFilter.range)">
                                                     <mat-option value="7d"> 7d </mat-option>
                                                     <mat-option value="15d"> 15d </mat-option>
                                                     <mat-option value="1m"> 1m </mat-option>
@@ -152,8 +152,8 @@
                                                 </tr>
 		                                    </thead>
 		                                    <tbody>
-		                                        <tr *ngFor="let content of contentData">
-                                                    <td class="td-wdth282 text-left">
+		                                        <tr *ngFor="let content of contentData;let i=index">
+                                                    <td *ngIf="i<limit" class="td-wdth282 text-left">
                                                         <div class="cont-img">
                                                             <img *ngIf="!content.thumbnailPicture" src="./assets/img/placeholder5.png" class="img-responsive" />
                                                             <img *ngIf="content.thumbnailPicture" [src]="content.thumbnailPicture" class="img-responsive" />
@@ -172,9 +172,9 @@
                                                             </div> -->
                                                         </div>
                                                     </td>
-                                                    <td> {{content.pageView}} </td> <td> {{content.uniqueViews}} </td> <td> {{content.continueReading}}</td>
-                                                    <td> {{content.likeCount}}</td> <td>  {{content.shareCount}} </td> <td> {{content.commentCount}}</td> <td> {{content.saveCount}} </td> <td> {{content.downloadCount}} </td>
-                                                    <td> {{content.applyCount}} </td> <td> {{content.callCount}} </td> <td> {{content.callMeBackCount}}  </td> <td>{{content.imIntrestedCount}} </td>
+                                                    <td *ngIf="i<limit"> {{content.pageView}} </td> <td *ngIf="i<limit"> {{content.uniqueViews}} </td> <td *ngIf="i<limit"> {{content.continueReading}}</td>
+                                                    <td *ngIf="i<limit"> {{content.likeCount}}</td> <td *ngIf="i<limit">  {{content.shareCount}} </td> <td *ngIf="i<limit"> {{content.commentCount}}</td> <td *ngIf="i<limit"> {{content.saveCount}} </td> <td *ngIf="i<limit"> {{content.downloadCount}} </td>
+                                                    <td *ngIf="i<limit"> {{content.applyCount}} </td> <td *ngIf="i<limit"> {{content.callCount}} </td> <td *ngIf="i<limit"> {{content.callMeBackCount}}  </td> <td *ngIf="i<limit">{{content.imIntrestedCount}} </td>
 
                                                 </tr>
                                                <!--  <tr>

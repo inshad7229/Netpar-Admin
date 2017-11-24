@@ -122,13 +122,18 @@ export class ArticleAnalyticsComponent implements OnInit {
     dataAfterSubCategory=[]
     dataAfterState=[]
     contentDataAfterFilter
+    limitedFilter
+    limit:number;
   constructor(private sectionService:SectionService,
             private appProvider: AppProvider,
             private adminService:AdminService,
             private contentService:ContentService) {
             this.filterValue={}
                 this.filterRequest={}
+                this.limitedFilter={}
                 this.sendData={} 
+                this.limitedFilter.perPage='25'
+                this.limit=25
   }
 
   	ngOnInit() {
@@ -381,5 +386,25 @@ unique(array){
                this.subCategory[i].check=false
             }
         }
+onPerPage(perPage){
+  if (perPage=='25') {
+       this.limit=25
+    // code...
+  }else if (perPage=='50') {
+    this.limit=50
+    // code...
+  }else if (perPage=='100') {
+    this.limit=100
+    // code...
+  }else if (perPage=='200') {
+    this.limit=100
+    // code...
+  }else if (perPage=='All') {
+    this.limit=this.contentData.length
+    // code...
+  }
+}
+onRange(range){
 
+}
 }

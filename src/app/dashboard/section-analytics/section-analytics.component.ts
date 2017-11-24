@@ -117,10 +117,15 @@ stringResource:StringResource=new  StringResource()
     dataAfterCategory=[]
     dataAfterSubCategory=[]
     sectiondataAfterFilter
+    limitedFilter
+    limit
   constructor(private sectionService: SectionService, private contentService:ContentService) {
                 this.filterValue={}
                 this.filterRequest={}
                 this.sendData={}
+                this.limitedFilter={}
+                this.limitedFilter.perPage='25'
+                this.limit=25
                  }
 
   ngOnInit() {
@@ -623,4 +628,26 @@ unique(array){
                this.subCategory[i].check=false
             }
           }
+
+   onPerPage(perPage){
+      if (perPage=='25') {
+           this.limit=25
+        // code...
+      }else if (perPage=='50') {
+        this.limit=50
+        // code...
+      }else if (perPage=='100') {
+        this.limit=100
+        // code...
+      }else if (perPage=='200') {
+        this.limit=100
+        // code...
+      }else if (perPage=='All') {
+        this.limit=this.sectiondata.length
+        // code...
+      }
+    }
+onRange(range){
+
+}
 }

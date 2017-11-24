@@ -86,6 +86,8 @@ export class CommentComponent implements OnInit {
     commentList
     commentBackup
     commentListBackup
+    limitedFilter
+    limit
     stringResource:StringResource=new  StringResource()
   constructor(private dialog: MatDialog, private cpService: ColorPickerService,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
@@ -97,7 +99,11 @@ export class CommentComponent implements OnInit {
             private adminService:AdminService,
             private commentService:CommentService) {
             this.filterValue={}
-                this.filterRequest={}  }
+                this.filterRequest={}  
+                this.limitedFilter={}
+                this.limitedFilter.perPage='25'
+                this.limit=25
+              }
 
   	ngOnInit() {
        this.getAllComment()
@@ -520,7 +526,30 @@ export class CommentComponent implements OnInit {
             for (let i=0;i<this.status.length;i++) {
                this.status[i].check=false
             }
-        }  
+        } 
+
+
+   onPerPage(perPage){
+      if (perPage=='25') {
+           this.limit=25
+        // code...
+      }else if (perPage=='50') {
+        this.limit=50
+        // code...
+      }else if (perPage=='100') {
+        this.limit=100
+        // code...
+      }else if (perPage=='200') {
+        this.limit=100
+        // code...
+      }else if (perPage=='All') {
+        this.limit=this.commentList.length
+        // code...
+      }
+    }
+onRange(range){
+
+}
   
 }
 
