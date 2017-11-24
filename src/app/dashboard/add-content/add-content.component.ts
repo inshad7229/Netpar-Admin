@@ -1078,6 +1078,10 @@ addownloadRight(Download){
 	}
 	onFormUrlChange(url){
       this.googleFromatata.formURL=this.sanitizer.bypassSecurityTrustResourceUrl(url)
+
+                      this.toastr.info('You have from link below the content body')
+                      // code...
+                   
 	}
 	onaltTagChange(){
       this.listOne[this.currentIndex].altTag=this.rightPan.altTag

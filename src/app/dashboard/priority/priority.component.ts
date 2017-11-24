@@ -1,8 +1,8 @@
 import { Component, OnInit,ViewContainerRef,ViewChild,Inject } from '@angular/core';
+import { ToastsManager , Toast} from 'ng2-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
-import { ToastsManager , Toast} from 'ng2-toastr';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { PriorityDialogComponent } from './priority-dialog/priority-dialog.component';
@@ -123,13 +123,14 @@ filterSection=[]
           constructor(private dialog: MatDialog,
                        private fb: FormBuilder,
                         private router: Router,
-                      vcr: ViewContainerRef,
-                      public toastr: ToastsManager,
                       private http: Http,
                       private sectionService:SectionService,
                       private appProvider: AppProvider,
                       private adminService:AdminService,
-                      private contentService:ContentService) {
+                      private contentService:ContentService,
+                      vcr: ViewContainerRef,
+                      public toastr: ToastsManager
+                      ) {
                           this.toastr.setRootViewContainerRef(vcr);
                           this.filterValue={}
                          this.filterRequest={}

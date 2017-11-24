@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewContainerRef,ViewChild,Inject } from '@angular/core';
+import { ToastsManager , Toast} from 'ng2-toastr';
 import {UserService} from '../../providers/user.service';
 import {SectionService} from '../../providers/section.service'
 import {StringResource} from '../../models/saredResources'
@@ -82,7 +83,11 @@ export class UserContributionComponent implements OnInit {
     limitedFilter
 limit
     stringResource:StringResource=new  StringResource()
-  	constructor(private userProvider:UserService,private sectionService:SectionService,private dialog: MatDialog) {
+  	constructor(private userProvider:UserService,private sectionService:SectionService,private dialog: MatDialog,
+      vcr: ViewContainerRef,
+                      public toastr: ToastsManager
+                      ) {
+                          this.toastr.setRootViewContainerRef(vcr);
   		        this.filterValue={}
               this.filterRequest={}
               this.limitedFilter={}
@@ -255,6 +260,10 @@ downloadFile(data: Response){
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.categoriesBack=data.response;
+                    if (data.response.length==0) {
+                      this.toastr.info('This section do not have any category')
+                      // code...
+                    }
                     this.categories=this.categories.concat(this.categoriesBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -268,6 +277,10 @@ downloadFile(data: Response){
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.subCategoryBack=data.response;
+                    if (data.response.length==0) {
+                      this.toastr.info('This category do not have any subcategory')
+                      // code...
+                    }
                     this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
