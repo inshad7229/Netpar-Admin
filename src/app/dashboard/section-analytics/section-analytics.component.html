@@ -89,69 +89,69 @@
 
                                 <div class="row">
 	                                <div class="dshbrd-table table-responsive">
-	                                	<table class="table table-striped user-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+	                                	<table class="table table-striped user-table" matSort (matSortChange)="sortData($event)">
 	                                        <thead class="text-danger">
 		                                        <tr>
-		                                            <th> Section Details </th>
+		                                            <th  > Section Details </th>
 		                                            <th colspan="5"> Views </th>
 		                                            <th colspan="2"> Time </th>
-		                                            <!-- <th><mfDefaultSorter by="session"> Spent/session</mfDefaultSorter> </th> -->
+		                                            <!-- <th  mat-sort-header="session"><mfDefaultSorter by="session"> Spent/session</mfDefaultSorter> </th> -->
 		                                            <th colspan="5"> User Engagement </th>
 		                                            <th colspan="4"> Call To Action </th>
 		                                        </tr>
 		                                        <tr>
-                                                    <th> </th>
-                                                    <th><mfDefaultSorter by="page">Page Views</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="unique"> Unique Views</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="avgp"> Avg. Page Views / Day</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="avgp"> Avg. Page Views / Month</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="avgs"> Avg. Page Views / Session</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="time"> Total Time Spent</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="avgt"> Avg Time</mfDefaultSorter> </th>
+                                                    <th  > </th>
+                                                    <th  mat-sort-header="pageViews">Page Views</th>
+                                                    <th  mat-sort-header="uniquePage">Unique Views</th>
+                                                    <th  mat-sort-header="avgPageDay">Avg. Page Views / Day </th>
+                                                    <th  mat-sort-header="avgPageMonth">Avg. Page Views / Month</th>
+                                                    <th  mat-sort-header="avgPerSession">Avg. Page Views / Session</th>
+                                                    <th  mat-sort-header="totalTime">Total Time Spent</th>
+                                                    <th  mat-sort-header="avgTime">Avg Time</th>
                                                     
-                                                    <th>
+                                                    <th  mat-sort-header="like">
                                                         <a matTooltipPosition="above" matTooltip="Kadak" class="tltip_ico">
-                                                            <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
+                                                             <i class="icon-okay"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="share">
                                                         <a matTooltipPosition="above" matTooltip="Share" class="tltip_ico">
-                                                            <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
+                                                            <i class="fa fa-share-alt"></i>  
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="comment">
                                                         <a matTooltipPosition="above" matTooltip="Comment" class="tltip_ico">
-                                                            <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
+                                                            <i class="icon-msg"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="save">
                                                         <a matTooltipPosition="above" matTooltip="Save" class="tltip_ico">
-                                                            <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
+                                                            <i class="icon-badge"></i>  
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="download">
                                                         <a matTooltipPosition="above" matTooltip="Download" class="tltip_ico">
-                                                            <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
+                                                            <i class="icon-donload"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="apply">
                                                         <a matTooltipPosition="above" matTooltip="Apply" class="tltip_ico">
-                                                            <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
+                                                            <i class="icon-check"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="call">
                                                         <a matTooltipPosition="above" matTooltip="Call" class="tltip_ico">
-                                                            <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
+                                                            <i class="icon-call"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="CallMeBAck">
                                                         <a matTooltipPosition="above" matTooltip="Call Me Back" class="tltip_ico">
-                                                            <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
+                                                            <i class="icon-callme"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="interested">
                                                         <a matTooltipPosition="above" matTooltip="I'm Interested" class="tltip_ico">
-                                                            <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
+                                                            <i class="icon-click"></i> 
                                                         </a>
                                                     </th>
                                                 </tr>
@@ -171,11 +171,11 @@
                                                     </td>
 		                                            <td *ngIf="i<limit"> {{data.totalViews}} </td>
 		                                            <td *ngIf="i<limit"> {{data.uniqueViews}} </td>
-		                                            <td *ngIf="i<limit"> 56 </td>
-		                                            <td *ngIf="i<limit"> 44 </td>
-		                                            <td *ngIf="i<limit"> 125 </td>
-		                                            <td *ngIf="i<limit"> 40 </td>
-		                                            <td *ngIf="i<limit"> 150 </td>
+		                                            <td *ngIf="i<limit"> {{getPageViewDay(data.totalViews,data.dateOfCreation)}} </td>
+		                                            <td *ngIf="i<limit"> {{getPageViewMonth(data.totalViews,data.dateOfCreation)}} </td>
+		                                            <td *ngIf="i<limit"> {{getPageViewSession(data.totalViews,data.totalSessions)}} </td>
+		                                            <td *ngIf="i<limit"> {{getTotalTime(data.totalTime)}} </td>
+		                                            <td *ngIf="i<limit"> {{getAvgTime(data.totalTime,data.totalSessions)}} </td>
                                                     <td *ngIf="i<limit"> 
                                                         <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getLike(data._id,'section')}}</span>
                                                         <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getLike(data._id,'category')}}</span> 
@@ -296,13 +296,6 @@
 
 		                                        </tr> -->
 		                                    </tbody>
-		                                    <tfoot>
-	                                            <tr>
-	                                                <td colspan="14">
-	                                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-	                                                </td>
-	                                            </tr>
-                                            </tfoot>
 	                                    </table>
 	                                </div>
                                 </div>

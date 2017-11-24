@@ -98,6 +98,7 @@ export class CommentComponent implements OnInit {
             private appProvider: AppProvider,
             private adminService:AdminService,
             private commentService:CommentService) {
+    this.toastr.setRootViewContainerRef(vcr);
             this.filterValue={}
                 this.filterRequest={}  
                 this.limitedFilter={}
@@ -237,6 +238,10 @@ export class CommentComponent implements OnInit {
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.categoriesBack=data.response;
+                    if (data.response.length==0) {
+                      this.toastr.info('This section do not have any category')
+                      // code...
+                    }
                     this.categories=this.categories.concat(this.categoriesBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -251,6 +256,10 @@ export class CommentComponent implements OnInit {
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.subCategoryBack=data.response;
+                    if (data.response.length==0) {
+                      this.toastr.info('This category do not have any subcategory')
+                      // code...
+                    }
                     this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{

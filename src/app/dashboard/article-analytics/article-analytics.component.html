@@ -91,7 +91,7 @@
 
                                 <div class="row">
 	                                <div class="dshbrd-table table-responsive">
-	                                	<table class="table table-striped user-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+	                                	<table class="table table-striped user-table" matSort (matSortChange)="sortData($event)">
 	                                        <thead class="text-danger">
 		                                        <tr>
 		                                            <th> Content Item </th>
@@ -101,52 +101,54 @@
 		                                        </tr>
 		                                        <tr>
                                                     <th> </th>
-                                                    <th><mfDefaultSorter by="page">Page Views</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="unique"> Unique Views</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="avgp"> Continue Reading</mfDefaultSorter> </th>
-                                                    <th>
+                                                    <th  mat-sort-header="pageViews">Page Views</th>
+                                                    <th  mat-sort-header="uniquePage">Unique Views</th>
+                                                    <th mat-sort-header="continue"> Continue Reading </th>
+                                                    <th class="icon-wdth" mat-sort-header="Kadak">
                                                         <a matTooltipPosition="above" matTooltip="Kadak" class="tltip_ico">
-                                                            <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter>  -->
+                                                            <i class="icon-okay"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="share">
                                                         <a matTooltipPosition="above" matTooltip="Share" class="tltip_ico">
-                                                            <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter>  -->
+                                                            <i class="fa fa-share-alt"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="comment">
                                                         <a matTooltipPosition="above" matTooltip="Comment" class="tltip_ico">
-                                                            <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
+                                                           <!--  <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> --> <i class="icon-msg"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="save">
                                                         <a matTooltipPosition="above" matTooltip="Save" class="tltip_ico">
-                                                            <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> --> <i class="icon-badge"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="download">
                                                         <a matTooltipPosition="above" matTooltip="Download" class="tltip_ico">
-                                                            <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter>  --><i class="icon-donload"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="apply">
                                                         <a matTooltipPosition="above" matTooltip="Apply" class="tltip_ico">
-                                                            <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter>  --><i class="icon-check"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="call">
                                                         <a matTooltipPosition="above" matTooltip="Call" class="tltip_ico">
-                                                            <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
+                                                           <!--  <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter>  --><i class="icon-call"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="call_Me_Back">
                                                         <a matTooltipPosition="above" matTooltip="Call Me Back" class="tltip_ico">
-                                                            <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter>  --><i class="icon-callme"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="interested">
                                                         <a matTooltipPosition="above" matTooltip="I'm Interested" class="tltip_ico">
-                                                            <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter>  --><i class="icon-click"></i>
                                                         </a>
                                                     </th>
                                                 </tr>
@@ -253,13 +255,6 @@
 
 		                                       	
 		                                    </tbody>
-		                                    <tfoot>
-	                                            <tr>
-	                                                <td colspan="14">
-	                                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-	                                                </td>
-	                                            </tr>
-                                            </tfoot>
 	                                    </table>
 	                                </div>
                                 </div>

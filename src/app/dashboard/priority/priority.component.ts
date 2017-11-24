@@ -117,6 +117,8 @@ filterSection=[]
     activePriority:boolean
     completed:boolean
     future:boolean
+    limitedFilter
+    limit
     stringResource:StringResource=new  StringResource()
           constructor(private dialog: MatDialog,
                        private fb: FormBuilder,
@@ -132,6 +134,9 @@ filterSection=[]
                           this.filterValue={}
                          this.filterRequest={}
                          this.sendData={}
+                         this.limitedFilter={}
+                         this.limitedFilter.perPage='25'
+                         this.limit=25
             }
 
     ngOnInit() {
@@ -329,6 +334,10 @@ setPriorityCategory(a) {
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.categoriesBack=data.response;
+                    if (data.response.length==0) {
+                      this.toastr.info('This section do not have any category')
+                      // code...
+                    }
                     this.categories=this.categories.concat(this.categoriesBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -342,6 +351,10 @@ setPriorityCategory(a) {
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.subCategoryBack=data.response;
+                    if (data.response.length==0) {
+                      this.toastr.info('This category do not have any subcategory')
+                      // code...
+                    }
                     this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -741,5 +754,29 @@ setPriorityCategory(a) {
                this.statusPriority[i].check=false
             }
         }
-    
+
+    onPerPage(perPage){
+      if (perPage=='25') {
+           this.limit=25
+        // code...
+      }else if (perPage=='50') {
+        this.limit=50
+        // code...
+      }else if (perPage=='100') {
+        this.limit=100
+        // code...
+      }else if (perPage=='200') {
+        this.limit=100
+        // code...
+      }else if (perPage=='All') {
+        this.limit=this.contentList.length
+        // code...
+      }
+    }
+onRange(range){
+
+}
+
+
+      
 }

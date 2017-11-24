@@ -22,7 +22,12 @@ export class UserComponent implements OnInit {
      userDataBackup
      stateList
      stateListBackup
-    constructor(private dialog: MatDialog,private userProvider:UserService,private stateService:StateService) { }
+     limitedFilter
+limit
+    constructor(private dialog: MatDialog,private userProvider:UserService,private stateService:StateService) { 
+    this.limitedFilter={}
+                         this.limitedFilter.perPage='25'
+                         this.limit=25}
     openDialog(user): void {
         let dialogRef = this.dialog.open(UserDialogComponent, {
             width: '400px',
@@ -285,6 +290,27 @@ sortData(sort: Sort) {
       }
     });
   }
+  onPerPage(perPage){
+      if (perPage=='25') {
+           this.limit=25
+        // code...
+      }else if (perPage=='50') {
+        this.limit=50
+        // code...
+      }else if (perPage=='100') {
+        this.limit=100
+        // code...
+      }else if (perPage=='200') {
+        this.limit=100
+        // code...
+      }else if (perPage=='All') {
+        this.limit=this.userData.length
+        // code...
+      }
+    }
+onRange(range){
+
+}
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);

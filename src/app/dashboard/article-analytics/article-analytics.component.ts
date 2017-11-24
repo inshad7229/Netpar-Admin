@@ -407,4 +407,37 @@ onPerPage(perPage){
 onRange(range){
 
 }
+
+sortData(sort: Sort) {
+    //  this.contentBackup
+    // this.contentList
+    const data =this.contentBackup.slice();
+    if (!sort.active || sort.direction == '') {
+      this.contentData = data;
+      
+      return;
+    }
+
+    this.contentData = data.sort((a, b) => {
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'Kadak': return compare(a.likeCount, b.likeCount, isAsc);
+        case 'share': return compare(a.shareCount, b.shareCount, isAsc);
+        case 'comment': return compare(a.commentCount, b.commentCount, isAsc);
+        case 'save': return compare(a.saveCount, b.saveCount, isAsc);
+        case 'download': return compare(a.downloadCount, b.downloadCount, isAsc);
+        case 'apply': return compare(a.applyCount, b.applyCount, isAsc);
+        case 'call': return compare(a.callCount, b.callCount, isAsc);
+        case 'call_Me_Back': return compare(a.callMeBackCount, b.callMeBackCount, isAsc);
+        case 'interested': return compare(a.imIntrestedCount, b.imIntrestedCount, isAsc);
+        case 'pageViews': return compare(a.pageView, b.pageView, isAsc);
+        case 'uniquePage': return compare(a.uniqueViews, b.uniqueViews, isAsc);
+        case 'continue': return compare(a.continueReading, b.continueReading, isAsc);
+        default: return 0;
+      }
+    });
+  }
+}
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

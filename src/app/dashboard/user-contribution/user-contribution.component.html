@@ -45,27 +45,27 @@
                                     <div class="col-md-4 col-sm-4 col-xs-12">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <mat-form-field>
-                                                <mat-select placeholder="Items per page">
-                                                    <mat-option value="1"> 25 </mat-option>
-                                                    <mat-option value="2"> 50 </mat-option>
-                                                    <mat-option value="3"> 100 </mat-option>
-                                                    <mat-option value="4"> 200 </mat-option>
-                                                    <mat-option value="4"> All </mat-option>
+                                                <mat-select placeholder="Items per page" [(ngModel)]="limitedFilter.perPage" name="perpage" (change)="onPerPage(limitedFilter.perPage)">
+                                                    <mat-option value="25"> 25 </mat-option>
+                                                    <mat-option value="50"> 50 </mat-option>
+                                                    <mat-option value="100"> 100 </mat-option>
+                                                    <mat-option value="200"> 200 </mat-option>
+                                                    <mat-option value="All"> All </mat-option>
                                                 </mat-select>
-                                           </mat-form-field>
+                                            </mat-form-field>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <mat-form-field>
-                                                <mat-select placeholder="Time Range">
-                                                    <mat-option value="1"> 7d </mat-option>
-                                                    <mat-option value="2"> 15d </mat-option>
-                                                    <mat-option value="3"> 1m </mat-option>
-                                                    <mat-option value="4"> 3m </mat-option>
-                                                    <mat-option value="4"> 6m </mat-option>
-                                                    <mat-option value="4"> 1y </mat-option>
-                                                    <mat-option value="4"> All </mat-option>
+                                                <mat-select placeholder="Time Range" [(ngModel)]="limitedFilter.range" name="range" (change)="onRange(limitedFilter.range)">
+                                                    <mat-option value="7d"> 7d </mat-option>
+                                                    <mat-option value="15d"> 15d </mat-option>
+                                                    <mat-option value="1m"> 1m </mat-option>
+                                                    <mat-option value="3m"> 3m </mat-option>
+                                                    <mat-option value="6m"> 6m </mat-option>
+                                                    <mat-option value="1y"> 1y </mat-option>
+                                                    <mat-option value="all"> all </mat-option>
                                                 </mat-select>
-                                           </mat-form-field>
+                                            </mat-form-field>
                                         </div>
                                     </div>
                                 </div>
@@ -84,12 +84,12 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let contri of userContriData">
-                                                    <td>
+                                                <tr *ngFor="let contri of userContriData;let i=index">
+                                                    <td *ngIf="i<limit">
                                                         <mat-checkbox [(ngModel)]="contri.editcheck" (change)="onCheckBox(contri._id)"></mat-checkbox>
                                                     </td>
                                                     
-                                                    <td class="td-wdth31">
+                                                    <td *ngIf="i<limit" class="td-wdth31">
                                                         <div class="cont-img dp">
                                                             <img [src]="getUserImage(contri.userId)" class="img-responsive" />
                                                         </div>
@@ -105,17 +105,17 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="td-wdth15">
+                                                    <td *ngIf="i<limit" class="td-wdth15">
                                                         <p> {{contri.description}} </p>
                                                     </td>
-                                                    <td class="td-wdth25">
+                                                    <td *ngIf="i<limit" class="td-wdth25">
                                                         <div class="media-box" *ngFor="let media of contri.media; let j=index">
                                                             <p><a class="text-primary" > Media{{j+1}} <i class="material-icons" (click)="openMedia(media.url,media.type)">file_download</i> </a> | Type: {{media.type}} | Size: {{getSize(media.size)}} </p>
                                                         </div>
                                                     </td>
-                                                    <td class="td-wdth9"><p>{{getTime(contri.dateOfCreation)}}</p>
+                                                    <td *ngIf="i<limit" class="td-wdth9"><p>{{getTime(contri.dateOfCreation)}}</p>
                                                     <p> {{getDate(contri.dateOfCreation)}} </p> </td> 
-                                                    <td> 
+                                                    <td *ngIf="i<limit"> 
                                                         {{contri.status}}
                                                     </td>
 

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewContainerRef } from '@angular/core';
 import {DataTableModule} from "angular2-datatable";
 import {SectionService} from '../../providers/section.service'
 import {ContentService} from '../../providers/content.service'
 import {AppProvider} from '../../providers/app.provider'
 import { forkJoin } from "rxjs/observable/forkJoin";
 import {StringResource} from '../../models/saredResources'
+import { ToastsManager , Toast} from 'ng2-toastr';
+import { Sort } from '@angular/material';
 declare var jquery:any;
 declare var $ :any;
 
@@ -119,7 +121,9 @@ stringResource:StringResource=new  StringResource()
     sectiondataAfterFilter
     limitedFilter
     limit
-  constructor(private sectionService: SectionService, private contentService:ContentService) {
+  constructor(private sectionService: SectionService, private contentService:ContentService,vcr: ViewContainerRef,
+                      public toastr: ToastsManager) {
+                this.toastr.setRootViewContainerRef(vcr);
                 this.filterValue={}
                 this.filterRequest={}
                 this.sendData={}
@@ -441,13 +445,107 @@ stringResource:StringResource=new  StringResource()
       }
       
     }
+ getPageViewDay(totalViews,dateOfCreation){
+  if(totalViews && dateOfCreation){
+    
+    let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(dateOfCreation);
 
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  let avg
+  if (diffDays>0) {
+    avg=totalViews/diffDays
+    // code...
+  }else{
+    avg=0
+  }
+return avg.toFixed(2)
+  }else{
+    return 0.00;
+  }
+    }
+getPageViewMonth(totalViews,dateOfCreation){
+if(totalViews && dateOfCreation){
+
+  let oneDay= 24*60*60*1000; // hours*minutes*seconds*milliseconds
+let firstDate = new Date();
+let secondDate = new Date(dateOfCreation);
+
+let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+let diffMonth=diffDays*30
+let avg
+if (diffMonth>0) {
+  avg=totalViews/diffMonth
+  // code...
+}else{
+  avg=0
+}
+return avg.toFixed(2)
+
+  }else{
+    return 0.00;
+  }
+}
+getPageViewSession(totalViews,totalSessions){
+if(totalViews && totalSessions){
+    let a=totalViews/totalSessions;
+    return a.toFixed(2)
+  }else{
+    return 0.00;
+  }
+}
+getAvgTime(totalTime,totalSessions){
+  if(totalTime && totalSessions){
+     let hourse
+    let min
+    if (totalTime>60) {
+       let totalmin=Math.floor(totalTime/60);
+       let totalminPerSession=Math.floor(totalmin/totalSessions);
+       if (totalminPerSession>60) {
+          hourse=Math.floor(totalminPerSession/60)
+          min=totalminPerSession%60
+          return hourse+' Hours '+min+' Min'
+       }else{
+           return totalminPerSession+' Min'
+       }
+    }
+    else{
+        return 0+' Min'
+    }
+  }else{
+    return 0+' Min';
+  }
+}
+
+getTotalTime(totalTime){
+    let hourse
+    let min
+    if (totalTime>60) {
+       let totalmin=Math.floor(totalTime/60);
+       if (totalmin>60) {
+          hourse=Math.floor(totalmin/60)
+          min=totalmin%60
+          return hourse+' Hours '+min+' Min'
+       }else{
+           return totalmin+' Min'
+       }
+    }
+    else{
+        return 0+' Min'
+    }
+
+}
    getSectionList(){
                 this.waitLoader = true;
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
                   this.sectionsBack=data;
+                  if (data.response.length==0) {
+                      this.toastr.info('This section do not have any category')
+                      // code...
+                    }
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   this.waitLoader =false;
@@ -460,6 +558,10 @@ stringResource:StringResource=new  StringResource()
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.categoriesBack=data.response;
+                    if (data.response.length==0) {
+                      this.toastr.info('This category do not have any subategory')
+                      // code...
+                    }
                     this.categories=this.categories.concat(this.categoriesBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -650,4 +752,286 @@ unique(array){
 onRange(range){
 
 }
+sortData(sort: Sort) {
+    //  this.contentBackup
+    // this.contentList
+    // this.userData=data.response;
+    //                 this.userDataBackup=data.response
+    const data =this.forFilterData.slice();
+    if (!sort.active || sort.direction == '') {
+      this.sectiondata = data;
+      
+      return;
+    }
+
+    this.sectiondata  = data.sort((a, b) => {
+      console.log(a)
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'pageViews': return compare(a.totalViews, b.totalViews, isAsc);
+        case 'uniquePage': return compare(a.uniqueViews, b.uniqueViews, isAsc);
+        case 'avgPageDay': return compare(this.getPageViewDay(a.totalViews,a.dateOfCreation), this.getPageViewDay(b.totalViews,b.dateOfCreation), isAsc);
+        case 'avgPageMonth': return compare(this.getPageViewMonth(a.totalViews,a.dateOfCreation), this.getPageViewMonth(b.totalViews,b.dateOfCreation), isAsc);
+        case 'avgPerSession': return compare(this.getPageViewSession(a.totalViews,a.totalSessions),this.getPageViewSession(b.totalViews,b.totalSessions), isAsc);
+        case 'totalTime': return compare(this.sortgetTotalTime(a.totalTime), this.sortgetTotalTime(b.totalTime), isAsc);
+        case 'avgTime': return compare(this.sortgetAvgTime(a.totalTime,a.totalSessions), this.sortgetAvgTime(b.totalTime,b.totalSessions), isAsc);
+        case 'Like': return compare(this.sortgetLike(a), this.sortgetLike(b), isAsc);
+        case 'share': return compare(this.sortgetShare(a), this.sortgetShare(b), isAsc);
+        case 'comment': return compare(this.sortgetComment(a), this.sortgetComment(b), isAsc);
+        case 'save': return compare(this.sortgetSave(a), this.sortgetSave(b), isAsc);
+        case 'download': return compare(this.sortgetDownload(a), this.sortgetDownload(b), isAsc);
+        case 'apply': return compare(this.sortgetApply(a), this.sortgetApply(b), isAsc);
+        case 'Call': return compare(this.sortgetCall(a), this.sortgetCall(b), isAsc);
+        case 'CallMeBack': return compare(this.sortgetCallMeBAck(a), this.sortgetCallMeBAck(b), isAsc);
+        case 'interested': return compare(this.sortgetIntrested(a), this.sortgetIntrested(b), isAsc);
+
+         
+
+        default: return 0;
+      }
+    });
+  }
+
+  sortgetLike(a){
+      let value=0
+      let data
+      if(a.sectionName && a.categoryName && !a.subCategoryName){
+        data= this.contentData.filter(arg=>arg.categoryId==a._id)
+
+      }else if (a.sectionName && !a.categoryName && !a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.sectionId==a._id)  // code...
+      }else if (a.sectionName && a.categoryName && a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.subCategoryId==a._id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].likeCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    sortgetShare(a){
+      let value=0
+      let data
+      if(a.sectionName && a.categoryName && !a.subCategoryName){
+        data= this.contentData.filter(arg=>arg.categoryId==a._id)
+
+      }else if (a.sectionName && !a.categoryName && !a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.sectionId==a._id)  // code...
+      }else if (a.sectionName && a.categoryName && a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.subCategoryId==a._id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].shareCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    sortgetComment(a){
+      let value=0
+      let data
+      if(a.sectionName && a.categoryName && !a.subCategoryName){
+        data= this.contentData.filter(arg=>arg.categoryId==a._id)
+
+      }else if (a.sectionName && !a.categoryName && !a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.sectionId==a._id)  // code...
+      }else if (a.sectionName && a.categoryName && a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.subCategoryId==a._id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].commentCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    sortgetSave(a){
+      let value=0
+      let data
+      if(a.sectionName && a.categoryName && !a.subCategoryName){
+        data= this.contentData.filter(arg=>arg.categoryId==a._id)
+
+      }else if (a.sectionName && !a.categoryName && !a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.sectionId==a._id)  // code...
+      }else if (a.sectionName && a.categoryName && a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.subCategoryId==a._id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].saveCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    sortgetDownload(a){
+      let value=0
+      let data
+      if(a.sectionName && a.categoryName && !a.subCategoryName){
+        data= this.contentData.filter(arg=>arg.categoryId==a._id)
+
+      }else if (a.sectionName && !a.categoryName && !a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.sectionId==a._id)  // code...
+      }else if (a.sectionName && a.categoryName && a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.subCategoryId==a._id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].downloadCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    sortgetApply(a){
+      let value=0
+      let data
+      if(a.sectionName && a.categoryName && !a.subCategoryName){
+        data= this.contentData.filter(arg=>arg.categoryId==a._id)
+
+      }else if (a.sectionName && !a.categoryName && !a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.sectionId==a._id)  // code...
+      }else if (a.sectionName && a.categoryName && a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.subCategoryId==a._id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].applyCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    sortgetCall(a){
+      let value=0
+      let data
+      if(a.sectionName && a.categoryName && !a.subCategoryName){
+        data= this.contentData.filter(arg=>arg.categoryId==a._id)
+
+      }else if (a.sectionName && !a.categoryName && !a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.sectionId==a._id)  // code...
+      }else if (a.sectionName && a.categoryName && a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.subCategoryId==a._id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].callCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    sortgetCallMeBAck(a){
+      let value=0
+      let data
+      if(a.sectionName && a.categoryName && !a.subCategoryName){
+        data= this.contentData.filter(arg=>arg.categoryId==a._id)
+
+      }else if (a.sectionName && !a.categoryName && !a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.sectionId==a._id)  // code...
+      }else if (a.sectionName && a.categoryName && a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.subCategoryId==a._id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].callMeBackCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    sortgetIntrested(a){
+       let value=0
+      let data
+      if(a.sectionName && a.categoryName && !a.subCategoryName){
+        data= this.contentData.filter(arg=>arg.categoryId==a._id)
+
+      }else if (a.sectionName && !a.categoryName && !a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.sectionId==a._id)  // code...
+      }else if (a.sectionName && a.categoryName && a.subCategoryName) {
+      data= this.contentData.filter(arg=>arg.subCategoryId==a._id)  // code...
+      }
+      
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].imIntrestedCount
+        }
+        return value
+      }else{
+        return value
+      }
+      
+    }
+    sortgetAvgTime(totalTime,totalSessions){
+  if(totalTime && totalSessions){
+     let hourse
+    let min
+    if (totalTime>60) {
+       let totalmin=Math.floor(totalTime/60);
+       let totalminPerSession=Math.floor(totalmin/totalSessions);
+       if (totalminPerSession>60) {
+          hourse=Math.floor(totalminPerSession/60)
+          min=totalminPerSession%60
+          return hourse
+       }else{
+           return totalminPerSession
+       }
+    }
+    else{
+        return 0
+    }
+  }else{
+    return 0
+  }
+}
+
+sortgetTotalTime(totalTime){
+    let hourse
+    let min
+    if (totalTime>60) {
+       let totalmin=Math.floor(totalTime/60);
+       if (totalmin>60) {
+          hourse=Math.floor(totalmin/60)
+          min=totalmin%60
+          return hourse
+       }else{
+           return totalmin
+       }
+    }
+    else{
+        return 0
+    }
+
+}
+}
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
