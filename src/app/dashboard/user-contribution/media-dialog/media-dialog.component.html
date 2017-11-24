@@ -1,22 +1,25 @@
 
 <div class="modal-header">
-	<h4 class="modal-title" >Influencer <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
+	<h4 class="modal-title" >Media <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
 </div>
 <div class="modal-body">
     <div *ngIf="media.type=='image'">
-    	<img [src]="media.url">
+    	<img [src]="media.url" width="100%" class="img-responsive">
     	
     </div>
     <div *ngIf="media.type=='audio'">
-    	<audio>
+    	<audio width="100%"  controls="">
     		<source [src]="safeURL(media.url)" >
     	</audio>
     	
     </div>
     <div *ngIf="media.type=='video'">
-    	<video >
+    	<video controls="" width="100%" >
     		<source [src]="safeURL(media.url)" type="video/mp4">
     	</video>
     	
     </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success pull-right"> Download </button>
 </div>

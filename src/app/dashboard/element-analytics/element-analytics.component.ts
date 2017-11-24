@@ -112,6 +112,14 @@ export class ElementAnalyticsComponent implements OnInit {
     activePriority:boolean
     completed:boolean
     future:boolean
+    dataAfterLanguage=[];
+    dataAfterSection=[]
+    dataAfterCategory=[]
+    dataAfterSubCategory=[]
+    contentDataAfterFilter
+    filterStateFilterPan
+   filterState=[]
+   dataAfterState=[]
   constructor(private sectionService:SectionService,
             private appProvider: AppProvider,
             private adminService:AdminService,
@@ -130,15 +138,26 @@ export class ElementAnalyticsComponent implements OnInit {
         $('.close-filter').on('click',function(){
             $(this).closest('.filter-plugin').removeClass('open');
         });
+         $(window).on('click', function (e) {
+            e.stopPropagation();
+            var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+            console.log($trigger);
+            if($trigger !== e.target && !$trigger.has(e.target).length){
+                $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+            }
+           
+        });
 
         this.getData()
   	}
     getData(){
+      this.waitLoader = true;
        forkJoin([this.contentService.ongetContentList(),this.sectionService.onGetSection()])
          .subscribe(results => {
                     this.waitLoader = false;
                     if (results) {
                       this.contentData=results[0].response;
+                      this.contentBackup=results[0].response;
                       this.sectionData=results[1]
                       this.sectionsBack=results[1]
                       this.sections=this.sections.concat(this.sectionsBack)
@@ -355,6 +374,10 @@ export class ElementAnalyticsComponent implements OnInit {
 
     if (sec.check==true) {
       this.filterSection.push(sec._id)
+       let data=this.contentBackup.filter(arg=>arg.sectionId==sec._id)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterSection.push(data[i])
+      }
       this.getCategory(sec._id)
     }else{
       this.categories=this.categories.filter(arg=>arg.sectionId != sec._id)
@@ -362,26 +385,40 @@ export class ElementAnalyticsComponent implements OnInit {
       this.filterSection=this.filterSection.filter(arg=>arg != sec._id)
       this.filterCategory.filter(arg=>arg.sectionId != sec._id)
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.sectionId != sec._id)
+      this.dataAfterSection=this.dataAfterSection.filter(arg=>arg.sectionId != sec._id)
     }
   }
   forCategory(cat){
     console.log(JSON.stringify(cat))
     if (cat.check==true) {
       this.filterCategory.push({_id:cat._id,sectionId:cat.sectionId})
+      let data=this.contentBackup.filter(arg=>arg.categoryId==cat._id)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterCategory.push(data[i])
+      }
       this.getsubCategory(cat.sectionId,cat._id)
     }else{
       this.filterCategory.filter(arg=>arg._id!=cat._id)
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.categoryId!=cat._id)
       this.subCategory=this.subCategory.filter(arg=>arg.categoryId!=cat._id)
 
+      this.dataAfterCategory=this.dataAfterCategory.filter(arg=>arg.categoryId != cat._id)
+
     }
   }
   forSubCategory(subCat){
     if (subCat.check==true) {
       this.filterSubcategory.push({_id:subCat._id,sectionId:subCat.sectionId,categoryId:subCat.categoryId})
+      this.filterSubcategory=this.unique(this.filterSubcategory)
+      let data=this.contentBackup.filter(arg=>arg.subCategoryId==subCat._id)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterSubCategory.push(data[i])
+      }
      //this.getCategory(subCat._id)
     }else{
+      this.dataAfterSubCategory=this.dataAfterSubCategory.filter(arg=>arg.subCategoryId != subCat._id)
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg._id!=subCat._id)
+      this.filterSubcategory=this.unique(this.filterSubcategory)
     }
   }
   onSelectLang(lang){
@@ -390,184 +427,100 @@ export class ElementAnalyticsComponent implements OnInit {
      //  console.log(''+JSON.stringify(this.filterCategoryFilterPan))
      //   console.log(''+JSON.stringify(this.filterSubcategoryFilterPan))
    if (lang.check==true) {
+     let data=this.contentBackup.filter(arg=>arg.language==lang.language)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterLanguage.push(data[i])
+      }
       this.filterLanguage.push(lang.language)
+      this.filterLanguage=this.unique(this.filterLanguage)
      //this.getCategory(subCat._id)
     }else{
+      this.dataAfterLanguage=this.dataAfterLanguage.filter(arg=>arg.language != lang.language)
       this.filterLanguage=this.filterLanguage.filter(arg=>arg!=lang.language)
+      this.filterLanguage=this.unique(this.filterLanguage)
     }
   }
 
 
-  onApplyFilter(){
-        if (this.filterLanguage.length>0 ) {
-           this.sendData.languages=this.filterRequest.language
-        }else{
-           delete(this.sendData.languages)
-        }
+onSelectstate(state){
+       console.log('ang'+JSON.stringify(this.filterLanguageFilterPan))
+     // console.log(''+JSON.stringify(this.filterSectionFilterPan))
+     //  console.log(''+JSON.stringify(this.filterCategoryFilterPan))
+     //   console.log(''+JSON.stringify(this.filterSubcategoryFilterPan))
+   if (state.check==true) {
+      this.filterState.push(state.stateName)
+      let data=this.contentBackup.filter(arg=>arg.applicableStateLists.indexOf(state.stateName)!=-1)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterState.push(data[i])
+      }
+     //this.getCategory(subCat._id)
+    }else{
+      this.dataAfterState=this.dataAfterState.filter(arg=>arg.applicableStateLists.indexOf(state.stateName)==-1)
+      this.filterState=this.filterState.filter(arg=>arg!=state.stateName)
+      this.filterState=this.unique(this.filterState)
+    }
+  }
 
-        if (this.filterSection.length>0) {
-          this.sendData.sectionsids=this.filterSection
-        }else{
-          delete(this.sendData.sectionsids)
-        }
-        if (this.filterCategory.length>0) {
-        // code...
-          let category=[]
-          for(let i=0;i<this.filterCategory.length;i++){
-          category.push(this.filterCategory[i]._id)
-          }
-          this.sendData.categories=category
-        }else{
-          delete(this.sendData.categories)
-        }
-        if (this.filterSubcategory.length>0 ) {
-          let subCategory=[]
-          for(let i=0;i<this.filterSubcategory.length;i++){
-          subCategory.push(this.filterSubcategory[i]._id)
-          }
-          this.sendData.subcategories=subCategory
-
-        }else{
-          delete(this.sendData.subcategories)
-        }
-
-        if(this.filterRequest.saveAsDraftStatus){
-          this.sendData.drafted=true
-        }else{
-          delete(this.sendData.drafted)
-        }
-        if(this.filterRequest.rejectStatus){
-          this.sendData.rejected=true
-
-        }else{
-          delete(this.sendData.rejected)
-        }
-
-
-        if(this.filterRequest.sendForRevisionStatus){
-          this.sendData.revisioned=true
-
-        }else{
-          delete(this.sendData.revisioned)
-        }
-
-
-        
-        if(this.filterRequest.publishLaterStatus){
-          this.sendData.scheduled=true
-
-        }else{
-          delete(this.sendData.scheduled)
-        }
-        if(this.filterRequest.publishStatus){
-          this.sendData.published=true
-        }else{
-          delete(this.sendData.published)
-        }
-       
-        if (this.filterRequest.activePriority) {
-          this.sendData.activePriority=true;
-        }else{
-          delete(this.sendData.activePriority)
-        }
-        if (this.filterRequest.completed) {
-          this.sendData.completed=true;
-        }else{
-          delete(this.sendData.completed)
-        }
-        if (this.filterRequest.future) {
-          this.sendData.future=true;
-        }else{
-          delete(this.sendData.future)
-        }
-        this.sendData.sortlistForHomepage=true
-
-        
-         this.waitLoader =true;
-              this.contentService.onApplyFilterHome(this.sendData)
-              .subscribe(data => {
-                     if (data.success == false) {
-                           this.waitLoader =false;
-                            //this.toastr.error(data.msg, 'Data Filter Failed. ', {
-                            //     toastLife: 3000,
-                            //     showCloseButton: true
-                            // });
-                        }
-                        else if (data.success == true) {
-                          this.waitLoader =false;
-                           this.contentList=data.response;
-                           this.contentListBackup=data.response.slice(0);
-                           this.filterLanguageFilterPan=this.filterLanguage.slice(0);
-                           this.filterSectionFilterPan=this.filterSection.slice(0);
-                           this.filterCategoryFilterPan=this.filterCategory.slice(0);
-                           this.filterSubcategoryFilterPan=this.filterSubcategory.slice(0);
-                            if(this.filterRequest.saveAsDraftStatus){
-                                 this.saveAsDraftStatus=true; 
-                            }
-                            if(this.filterRequest.rejectStatus){
-                               this.rejectStatus=true;
-                              
-                            }
-                            if(this.filterRequest.sendForRevisionStatus){
-                                   this.sendForRevisionStatus=true;
-                              
-                            }
-                            if(this.filterRequest.publishLaterStatus){
-                                 this.publishLaterStatus=true;
-                              
-                            }
-                            if(this.filterRequest.publishStatus){
-                                 this.publishStatus=true;
-                            }
-
-
-                           if (this.filterRequest.activePriority) {
-                              this.activePriority=true;
-                            }
-                            if (this.filterRequest.completed) {
-                              this.completed=true;
-                            }
-                            if (this.filterRequest.future) {
-                              this.future=true;
-                            }
-
-
-                        }
-                },error=>{
-                    this.waitLoader =false;
-                    alert(error)
-              })
-        }
+ onApplyFilter(){
+       let finalData= this.dataAfterLanguage.concat(this.dataAfterSection,this.dataAfterCategory,this.dataAfterSubCategory);
+       this.contentData=this.unique(finalData)
+       this.contentDataAfterFilter=this.unique(finalData)
+       this.filterLanguageFilterPan=this.filterLanguage.slice(0);
+       this.filterSectionFilterPan=this.filterSection.slice(0);
+       this.filterCategoryFilterPan=this.filterCategory.slice(0);
+       this.filterSubcategoryFilterPan=this.filterSubcategory.slice(0);
+       this.filterStateFilterPan=this.filterState.slice(0)
+     
+}
+unique(array){
+         return array.filter(function(el, index, arr) {
+                  return index == arr.indexOf(el);     
+              }); 
+}
 
         onClearLangFilter(lang){
-          this.contentList=this.contentList.filter(arg=>arg.language!=lang)
+          this.contentData=this.contentData.filter(arg=>arg.language!=lang)
           this.filterLanguageFilterPan=this.filterLanguageFilterPan.filter(arg=>arg!=lang)
         }
         onClearSectionFilter(secId){
-            this.contentList=this.contentList.filter(arg=>arg.sectionId!=secId) 
+            this.contentData=this.contentData.filter(arg=>arg.sectionId!=secId) 
             this.filterSectionFilterPan=this.filterSectionFilterPan.filter(arg=>arg!=secId)         
         }
         onClearCategoryFilter(catId){
           console.log(JSON.stringify(this.filterCategoryFilterPan))
-            this.contentList=this.contentList.filter(arg=>arg.categoryId!=catId)
+            this.contentData=this.contentData.filter(arg=>arg.categoryId!=catId)
             this.filterCategoryFilterPan=this.filterCategoryFilterPan.filter(arg=>arg._id!=catId)
         }
         onClearSubCategoryFilter(subCatId){
-            this.contentList=this.contentList.filter(arg=>arg.subCategorId!=subCatId)
+            this.contentData=this.contentData.filter(arg=>arg.subCategorId!=subCatId)
             this.filterSubcategoryFilterPan=this.filterSubcategoryFilterPan.filter(arg=>arg._id!=subCatId)
+        }
+
+        onClearStateFilter(state){
+          this.contentData=this.contentData.filter(arg=>arg.applicableStateLists.indexOf(state.stateName)==-1)
+          this.filterStateFilterPan=this.filterStateFilterPan.filter(arg=>arg!=state)
         }
         clearAll(){
             this.filterLanguageFilterPan=[]
             this.filterSectionFilterPan=[]
             this.filterCategoryFilterPan=[]
+            this.filterStateFilterPan=[]
             this.filterSubcategoryFilterPan=[]
             this.filterLanguageSingle=null
             this.selectedSate=null
             this.filterValue.state=null
             this.filterValue.language=null
-            this.contentList=this.contentBackup.slice(0)
+            this.dataAfterLanguage=[];
+            this.dataAfterSection=[]
+            this.dataAfterCategory=[]
+            this.dataAfterSubCategory=[]
+            this.filterState=[]
+            this.contentData=this.contentBackup.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
+            }
+            for (let i=0;i<this.stringResource.stateList.length;i++) {
+               this.stringResource.stateList[i].check=false
             }
             for (let i=0;i<this.sections.length;i++) {
                this.sections[i].check=false
@@ -577,12 +530,6 @@ export class ElementAnalyticsComponent implements OnInit {
             }
             for (let i=0;i<this.subCategory.length;i++) {
                this.subCategory[i].check=false
-            }
-            for (let i=0;i<this.status.length;i++) {
-               this.status[i].check=false
-            }
-            for (let i=0;i<this.statusPriority.length;i++) {
-               this.statusPriority[i].check=false
             }
         }
 }

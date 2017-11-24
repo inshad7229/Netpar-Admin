@@ -35,7 +35,7 @@
 .mat-card {
     background: #4d4d4d;
     position: relative;
-    box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+    /* box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24); */
     border: none;
 }
 
@@ -79,17 +79,16 @@
     position: relative;
     overflow: hidden;
     z-index: 0;
+    height: 890px;
     background-color: #e6e6e6;
     display: flex;
     flex-direction: column;
 }
 #email-builder .email-builder-content [position-relative] .builder {
     display: flex;
-    flex: 1 1;
+    flex: 1 1 auto;
     padding: 15px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    max-height: 1000px;
+    overflow: hidden;
 }
 #email-builder .email-builder-content [position-relative] .builder .empty {
     min-height: 500px;
@@ -106,6 +105,7 @@
     padding: 10px;
     position: relative;
     box-sizing: border-box;
+    overflow: auto;
 }
 
 #email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row {

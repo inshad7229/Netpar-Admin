@@ -8,7 +8,7 @@ export class state {
 export class StateResource { 
 	state=[
 		{
-         name:'JAMMU & KASHMIR',
+         name:'Jammu and Kashmir',
          check:false,
          dist:[
 	         {
@@ -531,7 +531,7 @@ export class StateResource {
 	         }
          ]
 		},{
-		 name:'HIMACHAL PRADESH',
+		 name:'Himachal Pradesh',
 		 check:false,
          dist:[
 	         {
@@ -1096,7 +1096,7 @@ export class StateResource {
 	         }
 	       ]
 		},{
-		 name:'PUNJAB',
+		 name:'Punjab',
 		 check:false,
          dist:[
 	         {
@@ -1545,7 +1545,7 @@ export class StateResource {
 
 	       ]	
 		},{
-         name:'CHANDIGARH',
+         name:'Chandigarh',
          check:false,
          dist:[
 	         {
@@ -1560,7 +1560,7 @@ export class StateResource {
 	         }
 	       ]
 	    },{
-         name:'UTTARAKHAND',
+         name:'Uttarakhand',
          check:false,
          dist:[
 	         {
@@ -1976,7 +1976,7 @@ export class StateResource {
 	       ]
 	    },
 	    {
-         name:'HARYANA',
+         name:'Haryana',
          check:false,
          dist:[
 		       {
@@ -2397,7 +2397,7 @@ export class StateResource {
 	       ]
 	  },
 	  {
-         name:'NCT OF DELHI',
+         name:'National Capital Territory of Delhi',
          check:false,
          dist:[
 	        {
@@ -2600,7 +2600,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'RAJASTHAN',
+         name:'Rajasthan',
          check:false,
          dist:[
 	        {
@@ -3807,19 +3807,9 @@ export class StateResource {
 	        }
 	     	]
 	    },{
-         name:'UTTAR PRADESH',
+         name:'Uttar Pradesh',
          check:false,
          dist:[
-	        {
-	         	name:'UTTAR PRADESH',
-	         	check:false,
-	         	block:[
-		         	{
-		         		name:'UTTAR PRADESH',
-		         		check:false,
-		         	}
-	         	]
-	        },
 	        {
 	         	name:'Saharanpur',
 	         	check:false,
@@ -5572,7 +5562,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'BIHAR',
+         name:'Bihar',
          check:false,
          dist:[
 	         {
@@ -7997,7 +7987,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'SIKKIM',
+         name:'Sikkim',
          check:false,
          dist:[
 	        {
@@ -8078,7 +8068,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'ARUNACHAL PRADESH',
+         name:'Arunachal Pradesh',
          check:false,
          dist:[
 	        {
@@ -8987,7 +8977,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'NAGALAND',
+         name:'Nagaland',
          check:false,
          dist:[
 	        {
@@ -9550,7 +9540,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'MANIPUR',
+         name:'Manipur',
          check:false,
          dist:[
 	        {
@@ -9785,7 +9775,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'MIZORAM',
+         name:'Mizoram',
          check:false,
          dist:[
 	        {
@@ -9966,7 +9956,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'TRIPURA',
+         name:'Tripura',
          check:false,
          dist:[
 	        {
@@ -10171,7 +10161,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'MEGHALAYA',
+         name:'Meghalaya',
          check:false,
          dist:[
 	        {
@@ -10402,7 +10392,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'ASSAM',
+         name:'Assam',
          check:false,
          dist:[
 	        {
@@ -11373,7 +11363,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'WEST BENGAL',
+         name:'West Bengal',
          check:false,
          dist:[
 	        {
@@ -12940,7 +12930,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'JHARKHAND',
+         name:'Jharkhand',
          check:false,
          dist:[
 	        {
@@ -14169,7 +14159,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'ODISHA',
+         name:'Odisha',
          check:false,
          dist:[
 	        {
@@ -16358,7 +16348,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'CHHATTISGARH',
+         name:'Chhattisgarh',
          check:false,
          dist:[
 	        {
@@ -17103,7 +17093,7 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'MADHYA PRADESH',
+         name:'Madhya Pradesh',
          check:false,
          dist:[
 	        {
@@ -18836,7 +18826,7 @@ export class StateResource {
 			}
 	        ]
 	    },{
-         name:'GUJARAT',
+         name:'Gujarat',
          check:false,
          dist:[
          	{
@@ -19953,7 +19943,7 @@ export class StateResource {
 			}
 	        ]
 	    },{
-         name:'DAMAN & DIU',
+         name:'Daman and Diu',
          check:false,
          dist:[
 	        {
@@ -19978,22 +19968,22 @@ export class StateResource {
 	        }
 	        ]
 	    },{
-         name:'DADRA & NAGAR HAVELI',
+         name:'Dadra and Nagar Haveli',
          check:false,
          dist:[
 	        {
-	         	name:'Dadra & Nagar Haveli',
+	         	name:'Dadra and Nagar Haveli',
 	         	check:false,
 	         	block:[
 	         		{
-	         			name:'Dadra & Nagar Haveli',
+	         			name:'Dadra and Nagar Haveli',
 	         			check:false,
 	         		}
 	         	]
 	        }
 	        ]
 	    },{
-         name:'MAHARASHTRA',
+         name:'Maharashtra',
          check:false,
          dist:[
          	{
@@ -21668,7 +21658,7 @@ export class StateResource {
 			}
 	        ]
 	    },{
-         name:'ANDAMAN & NICOBAR ISLANDS',
+         name:'Andaman and Nicobar Islands',
          check:false,
          dist:[
 	         {
@@ -21834,7 +21824,7 @@ export class StateResource {
 	         }
          ]
 		},{
-         name:'TAMIL NADU',
+         name:'Tamil Nadu',
          check:false,
          dist:[
 	         {
@@ -22903,7 +22893,7 @@ export class StateResource {
 	         }
          ]
 		},{
-         name:'KERALA',
+         name:'Kerala',
          check:false,
          dist:[
 	         {
@@ -23276,7 +23266,7 @@ export class StateResource {
 	         }
          ]
 		},{
-         name:'LAKSHADWEEP',
+         name:'Lakshadweep',
          check:false,
          dist:[
 	         {
@@ -23331,7 +23321,7 @@ export class StateResource {
 	         }
          ]
 		},{
-         name:'GOA',
+         name:'Goa',
          check:false,
          dist:[
 	         {
@@ -23400,7 +23390,7 @@ export class StateResource {
 	         }
          ]
 		},{
-         name:'KARNATAKA',
+         name:'Karnataka',
          check:false,
          dist:[
 	         {
@@ -24309,7 +24299,7 @@ export class StateResource {
 	         }
          ]
 		},{
-         name:'ANDHRA PRADESH',
+         name:'Andhra Pradesh',
          check:false,
          dist:[
 	         {

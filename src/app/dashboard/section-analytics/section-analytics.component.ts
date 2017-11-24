@@ -112,6 +112,11 @@ stringResource:StringResource=new  StringResource()
     activePriority:boolean
     completed:boolean
     future:boolean
+    dataAfterLanguage=[];
+    dataAfterSection=[]
+    dataAfterCategory=[]
+    dataAfterSubCategory=[]
+    sectiondataAfterFilter
   constructor(private sectionService: SectionService, private contentService:ContentService) {
                 this.filterValue={}
                 this.filterRequest={}
@@ -125,6 +130,15 @@ stringResource:StringResource=new  StringResource()
         });
         $('.close-filter').on('click',function(){
             $(this).closest('.filter-plugin').removeClass('open');
+        });
+         $(window).on('click', function (e) {
+            e.stopPropagation();
+            var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+            console.log($trigger);
+            if($trigger !== e.target && !$trigger.has(e.target).length){
+                $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+            }
+           
         });
         this.getSectionViewData()
   }
@@ -153,18 +167,20 @@ stringResource:StringResource=new  StringResource()
                              this.forFilterData.push(obj)
                             for (let j = 0; j < obj.section_categories.length; j++) {
                                 var obj2 = obj.section_categories[j]
-                                // if (obj2.section_subcategories.length > 0) {
-                                //     for (let k = 0; k < obj2.section_subcategories.length; k++) {
-                                //         var obj3 = obj2.section_subcategories[k]
-                                //         obj3.contributionForm=obj2.contributionForm;
-                                //         this.sectiondata.push(obj3)
-                                //         this.forFilterData.push(obj3)
-                                //     }
-                                // } else {
+                                if (obj2.section_subcategories.length > 0) {
+                                      this.sectiondata.push(obj2)
+                                      this.forFilterData.push(obj2)
+                                    for (let k = 0; k < obj2.section_subcategories.length; k++) {
+                                        var obj3 = obj2.section_subcategories[k]
+                                        obj3.contributionForm=obj2.contributionForm;
+                                        this.sectiondata.push(obj3)
+                                        this.forFilterData.push(obj3)
+                                    }
+                                } else {
 
                                     this.sectiondata.push(obj2)
                                     this.forFilterData.push(obj2)
-                               /// }
+                               }
 
                             }
                         } else {
@@ -187,6 +203,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -207,6 +225,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -226,6 +246,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -246,6 +268,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -266,6 +290,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -286,6 +312,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -306,6 +334,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -326,6 +356,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -346,6 +378,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -366,6 +400,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -386,6 +422,8 @@ stringResource:StringResource=new  StringResource()
 
       }else if (flag=='section') {
       data= this.contentData.filter(arg=>arg.sectionId==id)  // code...
+      }else if (flag=='subcategory') {
+      data= this.contentData.filter(arg=>arg.subCategoryId==id)  // code...
       }
       
       if (data.length>0) {
@@ -460,32 +498,48 @@ stringResource:StringResource=new  StringResource()
     if (sec.check==true) {
       this.filterSection.push(sec._id)
       this.getCategory(sec._id)
+      let data=this.forFilterData.filter(arg=>arg.sectionId==sec._id)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterSection.push(data[i])
+      }
     }else{
       this.categories=this.categories.filter(arg=>arg.sectionId != sec._id)
       this.subCategory=this.subCategory.filter(arg=>arg.sectionId != sec._id)
       this.filterSection=this.filterSection.filter(arg=>arg != sec._id)
       this.filterCategory.filter(arg=>arg.sectionId != sec._id)
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.sectionId != sec._id)
+      this.dataAfterSection=this.dataAfterSection.filter(arg=>arg.sectionId != sec._id)
+
     }
   }
   forCategory(cat){
     console.log(JSON.stringify(cat))
     if (cat.check==true) {
       this.filterCategory.push({_id:cat._id,sectionId:cat.sectionId})
+      let data=this.forFilterData.filter(arg=>arg.sectionId==cat._id)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterCategory.push(data[i])
+      }
       this.getsubCategory(cat.sectionId,cat._id)
     }else{
       this.filterCategory.filter(arg=>arg._id!=cat._id)
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg.categoryId!=cat._id)
       this.subCategory=this.subCategory.filter(arg=>arg.categoryId!=cat._id)
+      this.dataAfterCategory=this.dataAfterCategory.filter(arg=>arg.categoryId != cat._id)
 
     }
   }
   forSubCategory(subCat){
     if (subCat.check==true) {
       this.filterSubcategory.push({_id:subCat._id,sectionId:subCat.sectionId,categoryId:subCat.categoryId})
+      let data=this.forFilterData.filter(arg=>arg.subCategoryId==subCat._id)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterSubCategory.push(data[i])
+      }
      //this.getCategory(subCat._id)
     }else{
       this.filterSubcategory=this.filterSubcategory.filter(arg=>arg._id!=subCat._id)
+      this.dataAfterSubCategory=this.dataAfterSubCategory.filter(arg=>arg.subCategoryId != subCat._id)
     }
   }
   onSelectLang(lang){
@@ -495,181 +549,67 @@ stringResource:StringResource=new  StringResource()
      //   console.log(''+JSON.stringify(this.filterSubcategoryFilterPan))
    if (lang.check==true) {
       this.filterLanguage.push(lang.language)
+      let data=this.forFilterData.filter(arg=>arg.language==lang.language)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterLanguage.push(data[i])
+      }
      //this.getCategory(subCat._id)
     }else{
+      this.dataAfterLanguage=this.dataAfterLanguage.filter(arg=>arg.language != lang.language)
       this.filterLanguage=this.filterLanguage.filter(arg=>arg!=lang.language)
     }
   }
 
 
   onApplyFilter(){
-        if (this.filterLanguage.length>0 ) {
-           this.sendData.languages=this.filterRequest.language
-        }else{
-           delete(this.sendData.languages)
-        }
-
-        if (this.filterSection.length>0) {
-          this.sendData.sectionsids=this.filterSection
-        }else{
-          delete(this.sendData.sectionsids)
-        }
-        if (this.filterCategory.length>0) {
-        // code...
-          let category=[]
-          for(let i=0;i<this.filterCategory.length;i++){
-          category.push(this.filterCategory[i]._id)
-          }
-          this.sendData.categories=category
-        }else{
-          delete(this.sendData.categories)
-        }
-        if (this.filterSubcategory.length>0 ) {
-          let subCategory=[]
-          for(let i=0;i<this.filterSubcategory.length;i++){
-          subCategory.push(this.filterSubcategory[i]._id)
-          }
-          this.sendData.subcategories=subCategory
-
-        }else{
-          delete(this.sendData.subcategories)
-        }
-
-        if(this.filterRequest.saveAsDraftStatus){
-          this.sendData.drafted=true
-        }else{
-          delete(this.sendData.drafted)
-        }
-        if(this.filterRequest.rejectStatus){
-          this.sendData.rejected=true
-
-        }else{
-          delete(this.sendData.rejected)
-        }
-
-
-        if(this.filterRequest.sendForRevisionStatus){
-          this.sendData.revisioned=true
-
-        }else{
-          delete(this.sendData.revisioned)
-        }
-
-
-        
-        if(this.filterRequest.publishLaterStatus){
-          this.sendData.scheduled=true
-
-        }else{
-          delete(this.sendData.scheduled)
-        }
-        if(this.filterRequest.publishStatus){
-          this.sendData.published=true
-        }else{
-          delete(this.sendData.published)
-        }
-       
-        if (this.filterRequest.activePriority) {
-          this.sendData.activePriority=true;
-        }else{
-          delete(this.sendData.activePriority)
-        }
-        if (this.filterRequest.completed) {
-          this.sendData.completed=true;
-        }else{
-          delete(this.sendData.completed)
-        }
-        if (this.filterRequest.future) {
-          this.sendData.future=true;
-        }else{
-          delete(this.sendData.future)
-        }
-        this.sendData.sortlistForHomepage=true
-
-        
-         this.waitLoader =true;
-              this.contentService.onApplyFilterHome(this.sendData)
-              .subscribe(data => {
-                     if (data.success == false) {
-                           this.waitLoader =false;
-                            //this.toastr.error(data.msg, 'Data Filter Failed. ', {
-                            //     toastLife: 3000,
-                            //     showCloseButton: true
-                            // });
-                        }
-                        else if (data.success == true) {
-                          this.waitLoader =false;
-                           this.contentList=data.response;
-                           this.contentListBackup=data.response.slice(0);
-                           this.filterLanguageFilterPan=this.filterLanguage.slice(0);
-                           this.filterSectionFilterPan=this.filterSection.slice(0);
-                           this.filterCategoryFilterPan=this.filterCategory.slice(0);
-                           this.filterSubcategoryFilterPan=this.filterSubcategory.slice(0);
-                            if(this.filterRequest.saveAsDraftStatus){
-                                 this.saveAsDraftStatus=true; 
-                            }
-                            if(this.filterRequest.rejectStatus){
-                               this.rejectStatus=true;
-                              
-                            }
-                            if(this.filterRequest.sendForRevisionStatus){
-                                   this.sendForRevisionStatus=true;
-                              
-                            }
-                            if(this.filterRequest.publishLaterStatus){
-                                 this.publishLaterStatus=true;
-                              
-                            }
-                            if(this.filterRequest.publishStatus){
-                                 this.publishStatus=true;
-                            }
-
-
-                           if (this.filterRequest.activePriority) {
-                              this.activePriority=true;
-                            }
-                            if (this.filterRequest.completed) {
-                              this.completed=true;
-                            }
-                            if (this.filterRequest.future) {
-                              this.future=true;
-                            }
-
-
-                        }
-                },error=>{
-                    this.waitLoader =false;
-                    alert(error)
-              })
-        }
+       let finalData= this.dataAfterLanguage.concat(this.dataAfterSection,this.dataAfterCategory,this.dataAfterSubCategory);
+       this.sectiondata=this.unique(finalData)
+       this.sectiondataAfterFilter=this.unique(finalData)
+       this.filterLanguageFilterPan=this.filterLanguage.slice(0);
+       this.filterSectionFilterPan=this.filterSection.slice(0);
+       this.filterCategoryFilterPan=this.filterCategory.slice(0);
+       this.filterSubcategoryFilterPan=this.filterSubcategory.slice(0);
+     
+}
+unique(array){
+         return array.filter(function(el, index, arr) {
+                  return index == arr.indexOf(el);     
+              }); 
+}
 
         onClearLangFilter(lang){
-          this.contentList=this.contentList.filter(arg=>arg.language!=lang)
+          this.sectiondata=this.sectiondata.filter(arg=>arg.language!=lang)
           this.filterLanguageFilterPan=this.filterLanguageFilterPan.filter(arg=>arg!=lang)
         }
         onClearSectionFilter(secId){
-            this.contentList=this.contentList.filter(arg=>arg.sectionId!=secId) 
+            this.sectiondata=this.sectiondata.filter(arg=>arg.sectionId!=secId) 
             this.filterSectionFilterPan=this.filterSectionFilterPan.filter(arg=>arg!=secId)         
         }
         onClearCategoryFilter(catId){
           console.log(JSON.stringify(this.filterCategoryFilterPan))
-            this.contentList=this.contentList.filter(arg=>arg.categoryId!=catId)
+            this.sectiondata=this.sectiondata.filter(arg=>arg.categoryId!=catId)
             this.filterCategoryFilterPan=this.filterCategoryFilterPan.filter(arg=>arg._id!=catId)
         }
         onClearSubCategoryFilter(subCatId){
-            this.contentList=this.contentList.filter(arg=>arg.subCategorId!=subCatId)
+            this.sectiondata=this.sectiondata.filter(arg=>arg.subCategorId!=subCatId)
             this.filterSubcategoryFilterPan=this.filterSubcategoryFilterPan.filter(arg=>arg._id!=subCatId)
         }
         clearAll(){
+
+
             this.filterLanguageFilterPan=[]
             this.filterSectionFilterPan=[]
             this.filterCategoryFilterPan=[]
             this.filterSubcategoryFilterPan=[]
+            this.dataAfterLanguage=[];
+            this.dataAfterSection=[]
+            this.dataAfterCategory=[]
+            this.dataAfterSubCategory=[]
             this.filterLanguageSingle=null
             this.selectedSate=null
             this.filterValue.state=null
             this.filterValue.language=null
-            this.contentList=this.contentBackup.slice(0)
+            this.sectiondata=this.forFilterData.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
             }
@@ -682,11 +622,5 @@ stringResource:StringResource=new  StringResource()
             for (let i=0;i<this.subCategory.length;i++) {
                this.subCategory[i].check=false
             }
-            for (let i=0;i<this.status.length;i++) {
-               this.status[i].check=false
-            }
-            for (let i=0;i<this.statusPriority.length;i++) {
-               this.statusPriority[i].check=false
-            }
-        }
+          }
 }

@@ -625,7 +625,13 @@ export class AddContentComponent implements OnInit {
       right2:'6px',left2:'6px',
        top3:'12px',bottom3:'12px',
       right3:'6px',left3:'6px',
-      downloadable:true,
+      mtop1:'0px',mbottom1:'0px',
+      mright1:'0px',mleft1:'0px',
+      mtop2:'0px',mbottom2:'0px',
+      mright2:'0px',mleft2:'0px',
+      mtop3:'0px',mbottom3:'0px',
+      mright3:'0px',mleft3:'0px',
+       downloadable:true,
        outline1:false,
        outline2:false,
        outline3:false
@@ -643,8 +649,14 @@ export class AddContentComponent implements OnInit {
       right1:'6px',left1:'6px',
       top2:'12px',bottom2:'12px',
       right2:'6px',left2:'6px',
-       top3:'12px',bottom3:'12px',
+      top3:'12px',bottom3:'12px',
       right3:'6px',left3:'6px',
+      mtop1:'0px',mbottom1:'0px',
+      mright1:'0px',mleft1:'0px',
+      mtop2:'0px',mbottom2:'0px',
+      mright2:'0px',mleft2:'0px',
+      mtop3:'0px',mbottom3:'0px',
+      mright3:'0px',mleft3:'0px',
        downloadable:true,
        outline1:false,
        outline2:false,
@@ -1436,6 +1448,48 @@ addownloadRight(Download){
   }
   onLeftChange3(){
        this.listOne[this.currentIndex].left3=this.rightPan.left3
+  }
+
+
+
+
+  /////////////////////////////margin///////////
+   monTopChange1(){
+     this.listOne[this.currentIndex].mtop1=this.rightPan.mtop1
+  }
+  monRigthChange1(){
+     this.listOne[this.currentIndex].mright1=this.rightPan.mright1
+  }
+  monBottonChange1(){
+      this.listOne[this.currentIndex].mbottom1=this.rightPan.mbottom1
+  }
+  monLeftChange1(){
+       this.listOne[this.currentIndex].mleft1=this.rightPan.mleft1
+  }
+   
+   monTopChange2(){
+     this.listOne[this.currentIndex].mtop2=this.rightPan.mtop2
+  }
+  monRigthChange2(){
+     this.listOne[this.currentIndex].mright2=this.rightPan.mright2
+  }
+  monBottonChange2(){
+      this.listOne[this.currentIndex].mbottom2=this.rightPan.mbottom2
+  }
+  monLeftChange2(){
+       this.listOne[this.currentIndex].mleft2=this.rightPan.mleft2
+  }
+   monTopChange3(){
+     this.listOne[this.currentIndex].mtop3=this.rightPan.mtop3
+  }
+  monRigthChange3(){
+     this.listOne[this.currentIndex].mright3=this.rightPan.mright3
+  }
+  monBottonChange3(){
+      this.listOne[this.currentIndex].mbottom3=this.rightPan.mbottom3
+  }
+  monLeftChange3(){
+       this.listOne[this.currentIndex].mleft3=this.rightPan.mleft3
   }
 	video(video1){
 		//console.log(video1)

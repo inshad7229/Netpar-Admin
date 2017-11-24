@@ -184,6 +184,7 @@ export class HomepageComponent implements OnInit {
             if($trigger !== e.target && !$trigger.has(e.target).length){
                 $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
             }
+           
         });
     
     this.getList()
