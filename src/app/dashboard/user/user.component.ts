@@ -24,6 +24,7 @@ export class UserComponent implements OnInit {
      stateListBackup
      limitedFilter
 limit
+filterApplyStatus:boolean=false
     constructor(private dialog: MatDialog,private userProvider:UserService,private stateService:StateService) { 
     this.limitedFilter={}
                          this.limitedFilter.perPage='25'

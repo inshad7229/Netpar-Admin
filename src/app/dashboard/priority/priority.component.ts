@@ -119,6 +119,7 @@ filterSection=[]
     future:boolean
     limitedFilter
     limit
+    filterApplyStatus:boolean =false
     stringResource:StringResource=new  StringResource()
           constructor(private dialog: MatDialog,
                        private fb: FormBuilder,
@@ -588,7 +589,7 @@ setPriorityCategory(a) {
         }
         this.sendData.sortlistForCategory=true
 
-        
+        this.filterApplyStatus=true
          this.waitLoader =true;
               this.contentService.onApplyFilterCategory(this.sendData)
               .subscribe(data => {
@@ -735,6 +736,7 @@ setPriorityCategory(a) {
             this.activePriority=false
             this.completed=false
             this.future=false
+            this.filterApplyStatus=false
             this.contentList=this.contentBackup.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
@@ -775,9 +777,61 @@ setPriorityCategory(a) {
       }
     }
 onRange(range){
-
+  //alert(range)
+  if (this.filterApplyStatus) {
+     this.contentList=this.contentListBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true)
+  }else{
+    this.contentList=this.contentBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true) 
+  }
 }
-
+getStatus(time,range):boolean {
+  let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(time);
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  console.log(diffDays)
+  switch (range) {
+        case '7d':
+         console.log('7d')
+          if (diffDays<8) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '15d': 
+        if (diffDays<16) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '1m': 
+        if (diffDays<31) {
+             return true;
+           }else{
+             return false;
+           }
+        case '3m':
+        if (diffDays<91) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '6m': 
+        if (diffDays<181) {
+             return true;
+           }else{
+             return false;
+           }
+        case '1y': 
+        if (diffDays<365) {
+             return true;
+           }else{
+             return false;
+           }
+        case 'all':return true
+        default: return false;
+      }
+ }     
 
       
 }
