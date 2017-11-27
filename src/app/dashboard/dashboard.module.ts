@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatTooltipModule, MatTableModule, MatPaginator ,
          MatProgressBarModule,MatDialogModule,MatDatepickerModule,MatIconModule,
-         MatNativeDateModule,MatCheckboxModule,MatProgressSpinnerModule,MatTabsModule
+         MatNativeDateModule,MatCheckboxModule,MatProgressSpinnerModule,MatTabsModule,
          MatSelectModule,MatRadioModule,MatInputModule, MatChipsModule,MatAutocompleteModule,MatSortModule
        } from '@angular/material';
 import {MatListModule} from '@angular/material';
