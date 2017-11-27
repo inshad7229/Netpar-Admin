@@ -1,0 +1,297 @@
+#email-builder .email-builder-content {
+    flex: 1;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+}
+#email-builder .email-builder-content>* {
+    flex: 1;
+    max-height: 100%;
+    background-color: #fff;
+    color: #4d4d4d;
+}
+#email-builder .email-builder-content>:first-child {
+    max-width: 280px;
+    padding: 1em 1em;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#email-builder .email-builder-content>:last-child {
+    z-index: 1;
+    padding: 1rem;
+    max-width: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.mat-card {
+    background: #4d4d4d;
+    position: relative;
+    /* box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24); */
+    border: none;
+}
+
+#email-builder .email-builder-content>:first-child .elements-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#email-builder .email-builder-content>:first-child .elements-list ul li {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.3em .5em;
+    border: 1px solid #bfbfbf;
+    margin-bottom: 6px;
+    border-radius: 3px;
+    max-width: calc(50% - 3px);
+    flex: 1 1 50%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+#email-builder .email-builder-content>:first-child .elements-list ul li > i{
+    font-size: 120%;
+}
+#email-builder .email-builder-content>:first-child .elements-list ul li > i.material-icons{
+    font-size: 150%;
+    width: 21px;
+}
+.full-width{
+    width: 100%;
+}
+#email-builder .email-builder-content [position-relative] {
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    height: 890px;
+    background-color: #e6e6e6;
+    display: flex;
+    flex-direction: column;
+}
+#email-builder .email-builder-content [position-relative] .builder {
+    display: flex;
+    flex: 1 1 auto;
+    padding: 15px;
+    overflow: hidden;
+}
+#email-builder .email-builder-content [position-relative] .builder .empty {
+    min-height: 500px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#email-builder .email-builder-content [position-relative] .builder .email-container {
+    background-color: #222;
+    width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+#email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+#email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row label {
+    display: flex;
+    align-items: center;
+    color: #4d4d4d;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+#email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row>* {
+    flex: 1 1;
+}
+#email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row> .mat-form-field {
+    flex: 1 1 auto;
+}
+
+#email-builder .email-builder-content>:last-child .mat-btn-group-justify {
+    display: flex;
+    padding: 0;
+}
+#email-builder .email-builder-content>:last-child .mat-btn-group-justify button {
+    flex: 1 1 100%;
+    margin: 0;
+    padding: 12px 0px;
+}
+
+#email-builder button.btn-custom {
+    border-radius: 1px;
+
+}
+.mat-btn-group .btn:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.mat-btn-group .btn:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.mat-btn-group .btn:not(:first-child):not(:last-child) {
+    border-radius: 0;
+}
+
+#email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row.padding-inputs .mat-form-field:nth-child(1) {
+    margin-right: .5em;
+}
+#email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row.text-inputs {
+    flex-direction: column;
+}
+#email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row.text-inputs label {
+    padding-bottom: .5em;
+    padding-left: 0;
+}
+
+.list-group{
+    width: 100%;
+}
+.block-properties .form-row.text-inputs .fileinput-new.thumbnail{
+    display: inline-block;
+    width: 85px;
+    height: 85px;
+    margin: 0;
+    vertical-align: middle;
+}
+.block-properties .form-row.text-inputs .fileinput-new.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.builder-element{
+    position: relative;
+}
+.list-group-item{
+    padding: 0;
+}
+#email-builder .email-builder-content [position-relative] .builder .email-container .list-group-item .icons-actions {
+    background-color: #fff;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+    transform: translateX(100%);
+    z-index: 1;
+    position: absolute;
+    opacity: 0;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    display: flex;
+    top: 0;
+    flex-direction: column;
+    left: 0;
+}
+#email-builder .email-builder-content [position-relative] .builder .email-container .list-group-item:hover .icons-actions {
+    opacity: 1;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+#email-builder .email-builder-content [position-relative] .builder .email-container .list-group-item .icons-actions i.actions {
+    margin: .2em;
+    color: #4d4d4d;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+#email-builder .email-builder-content [position-relative] .builder .email-container .list-group-item .icons-actions i.actions.move {
+    cursor: move;
+}
+#email-builder .email-builder-content [position-relative] .builder .email-container .builder-element img {
+    max-width: 100%;
+}
+
+/* --------Add user------------ */
+
+.users-panel{
+    width: 100%;
+    float: left;   
+    padding: 10px 0 15px;
+    overflow: auto;
+    white-space: nowrap;
+}
+.users-box{
+    width: 230px;
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.25);
+    padding: 10px;
+    transition: all 0.3s ease 0s;
+}
+.users-box:active, .users-box.active {
+    box-shadow: 0 0 1px 0 rgba(0,0,0,0.25);
+    background-color: #45AF53;
+    transition: all 0.3s ease 0s;
+    color: #fff;
+}
+.users-panel .cont-img{
+    display: inline-block;
+    float: none;
+    width: 80px;
+}
+.users-panel .dis-inlblk{
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+    width: 105px;
+}
+
+
+.btn:not(.btn-just-icon):not(.btn-fab) .fa, .navbar .navbar-nav > li > a.btn:not(.btn-just-icon):not(.btn-fab) .fa {
+  font-size: 12px;
+  margin-top: -2px;
+  position: relative;
+  top: 0;
+}
+
+.form-row.padding-inputs .mat-form-field{
+    width: 50%;
+}
+.grayClass{
+    color: gray;
+}
+.form-group.grayClass label{
+    color: #afafaf;
+}
+
+/* #email-builder .email-builder-content .builder .email-container{
+    max-height: 950px;
+    overflow: auto;
+} */
+
+.email-builder-element-edit-field{
+    width: 100%;
+    float: left;
+}
+.p-0{
+    padding: 0 !important;
+}

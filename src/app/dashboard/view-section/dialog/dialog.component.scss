@@ -1,0 +1,19 @@
+.modal-body {
+    position: relative;
+    padding: 15px;
+    height: 60vh;
+    overflow: auto;
+}
+.modal-header{
+	position: relative;
+}
+.modal-header a{
+	text-decoration: none;
+    position: absolute;
+    right: 15px;
+    font-size: 20px;
+    color: #FEA508;
+    top: 15px;
+    outline: none;
+    cursor: pointer;
+}

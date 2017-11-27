@@ -1,0 +1,15 @@
+<div class="modal-header">
+	<h4 class="modal-title" >List of Admins</h4>
+	<a (click)="onClosed()"><i class="fa fa-times"></i></a>
+</div>
+<div class="modal-body">
+	<div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
+    <mat-list *ngIf="adminName.length>0">
+		<mat-list-item *ngFor="let name of adminName"><span>{{name.firstName}} {{name.lastName}} </span> </mat-list-item>
+	</mat-list>
+	<mat-list *ngIf="adminName.length==0">
+		<mat-list-item ><span>No One Admin have access of this section</span> </mat-list-item>
+	</mat-list>
+</div>

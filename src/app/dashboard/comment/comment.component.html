@@ -1,0 +1,254 @@
+<div class="wrapper">
+    <div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+
+    <div class="main-panel">
+        <app-navbar></app-navbar>
+        <div class="main-content">
+            <div class="container-fluid p-0">
+                <!-- <mat-progress-bar *ngIf="waitLoader" mode="indeterminate"></mat-progress-bar> -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                    	<div class="card m-t-0">
+                    		<div class="card-content">
+	                            <div class="select-head">
+	                                <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
+	                            </div>
+	                            <ul class="slctd-fltrli" type="none">
+                                    <li *ngFor="let lang of filterLanguageFilterPan" > {{lang}} <span (click)="onClearLangFilter(lang)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let sec of filterSectionFilterPan"> {{sec.sectionName}} <span (click)="onClearSectionFilter(sec)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let cat of filterCategoryFilterPan"> {{cat.categoryName}} <span (click)="onClearCategoryFilter(cat)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let subCat of filterSubcategoryFilterPan"> {{subCat.subCategoryName}} <span (click)="onClearSubCategoryFilter(subCat)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="Reviewed"> Reviewed <span (click)="onClearReviewedFilter('Reviewed')"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="Deleted"> Deleted <span (click)="onClearDeletedFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                    <li  *ngIf="Needtoreview"> Need to review <span (click)="onClearNeedtoreviewFilter('Need to review')"> <i class="fa fa-times"></i> </span> </li>
+                                </ul>
+                          	</div>
+                        </div>
+                        <div class="card" > 
+                            <div class="card-header card-header-icon" data-background-color="orange">
+                                <i class="material-icons">description</i>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">Comment Management</h4>
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-7 col-xs-12">
+                                        <button class="btn btn-round btn-mat btn-disabled btn-warning" (click)="onReviewed()" [disabled]="id.length==0">Reviewed</button>
+                                        <!-- <a class="btn btn-round btn-mat btn-disabled btn-success" (click)="openDialog()"> Filter</a> -->
+                                    </div>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                             <mat-form-field>
+                                                <mat-select placeholder="Items per page" [(ngModel)]="limitedFilter.perPage" name="perpage" (change)="onPerPage(limitedFilter.perPage)">
+                                                    <mat-option value="25"> 25 </mat-option>
+                                                    <mat-option value="50"> 50 </mat-option>
+                                                    <mat-option value="100"> 100 </mat-option>
+                                                    <mat-option value="200"> 200 </mat-option>
+                                                    <mat-option value="All"> All </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                           <mat-form-field>
+                                                <mat-select placeholder="Time Range" [(ngModel)]="limitedFilter.range" name="range" (change)="onRange(limitedFilter.range)">
+                                                    <mat-option value="7d"> 7d </mat-option>
+                                                    <mat-option value="15d"> 15d </mat-option>
+                                                    <mat-option value="1m"> 1m </mat-option>
+                                                    <mat-option value="3m"> 3m </mat-option>
+                                                    <mat-option value="6m"> 6m </mat-option>
+                                                    <mat-option value="1y"> 1y </mat-option>
+                                                    <mat-option value="all"> all </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="dshbrd-table table-responsive">
+                                        <table class="table table-striped">    
+                                            <thead class="text-danger">
+                                                <tr>
+                                                    <th>  </th>
+                                                    <th class="maxWidth200"> Content  Item</th>
+                                                    <th> Name </th>
+                                                    <th class="maxWidth200"> Comment </th>
+                                                    <th> Date &amp; Time </th>
+                                                    <th> Action </th>
+                                                </tr>                                                
+                                            </thead>
+                                            <tbody class="td-icon">
+                                                <tr  *ngFor="let comm of commentList;let i=index">
+                                                    <td>
+                                                        <mat-checkbox [(ngModel)]="comm.check" (change)="onCheck(comm)"></mat-checkbox>
+                                                    </td>
+                                                    <td class="text-left maxWidth200 vertical-top">
+                                                        <p>Headline: {{comm.articleName}} </p>
+                                                        <div class=""> 
+                                                            <a href="javascript:;">
+                                                                <span *ngIf="comm.sectionName">{{comm.sectionName}} </span>| <span class="dark_ylw" *ngIf="comm.categoryName">{{comm.categoryName}}</span>
+                                                            </a>
+                                                        </div>
+                                                        <p *ngIf="comm.status"> <strong> Status: </strong> {{comm.status}}</p>
+                                                    </td>
+                                                    <td> <span *ngIf="comm.userName">{{comm.userName}} </span></td>
+                                                    <td class="text-left maxWidth200 vertical-top">{{comm.userComment}}</td>
+                                                    <td class="vertical-top"> <p>{{getTime(comm.dateOfComment)}}</p> <p> {{getDate(comm.dateOfComment)}} </p> </td>
+                                                    <td><a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico" > <i class="fa fa-trash"(click)="openDialog(comm)"></i> </a> </td>
+
+                                                </tr>
+                                               <!--  <tr>
+                                                    <td>
+                                                        <mat-checkbox></mat-checkbox>
+                                                    </td>
+                                                    <td class="text-left maxWidth200 vertical-top">
+                                                        <p>Headline: Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </p>
+                                                        <div class=""> 
+                                                            <a href="javascript:;">
+                                                                News | <span class="dark_ylw">Sports News</span>
+                                                            </a>
+                                                        </div>
+                                                        <p> <strong> Status: </strong> Reviewd </p>
+                                                    </td>
+                                                    <td> John Mayer </td>
+                                                    <td class="text-left maxWidth200 vertical-top"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                                                    <td class="vertical-top"> <p> 08:35</p> <p> 18/07/2016 </p> </td>
+                                                    <td><a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a> </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <mat-checkbox></mat-checkbox>
+                                                    </td>
+                                                    <td class="text-left maxWidth200 vertical-top">
+                                                        <p>Headline: Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </p>
+                                                        <div class=""> 
+                                                            <a href="javascript:;">
+                                                                News | <span class="dark_ylw">Sports News</span>
+                                                            </a>
+                                                        </div>
+                                                        <p> <strong> Status: </strong> Reviewd </p>
+                                                    </td>
+                                                    <td> John Mayer </td>
+                                                    <td class="text-left maxWidth200 vertical-top"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                                                    <td class="vertical-top"> <p> 08:35</p> <p> 18/07/2016 </p> </td>
+                                                    <td><a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a> </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <mat-checkbox></mat-checkbox>
+                                                    </td>
+                                                    <td class="text-left maxWidth200 vertical-top">
+                                                        <p>Headline: Vishwanthan Anand finshes joint eighth in St.Louis Rapid Chess tournament </p>
+                                                        <div class=""> 
+                                                            <a href="javascript:;">
+                                                                News | <span class="dark_ylw">Sports News</span>
+                                                            </a>
+                                                        </div>
+                                                        <p> <strong> Status: </strong> Reviewd </p>
+                                                    </td>
+                                                    <td> John Mayer </td>
+                                                    <td class="text-left maxWidth200 vertical-top"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                                                    <td class="vertical-top"> <p> 08:35</p> <p> 18/07/2016 </p> </td>
+                                                    <td><a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico"> <i class="fa fa-trash"></i> </a> </td>
+
+                                                </tr> -->
+                                                
+                                            </tbody>
+                                            
+                                        </table>
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <app-footer></app-footer>
+    </div>
+    <div class="fixed-plugin">
+	    <div class="filter-plugin">
+	        <a href="javascript:void(0);">
+	            <i class="material-icons">sort</i>
+	        </a>
+	        <ul class="sidebar-filter" type="none">
+	        	<div class="left-content">
+	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
+                    <!-- <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Select State</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li><mat-checkbox>State1</mat-checkbox></li>
+                                <li><mat-checkbox>State2</mat-checkbox></li>
+                                <li><mat-checkbox>State3</mat-checkbox></li>
+                                <li><mat-checkbox>State4</mat-checkbox></li>
+                            </ul>
+                        </div>
+                    </div>
+ -->
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Select Language</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li *ngFor="let lang of stringResource.language" ><mat-checkbox [(ngModel)]="lang.check" (change)="onSelectLang(lang)">{{lang.language}}</mat-checkbox></li>
+                               <!--  <li><mat-checkbox>Language2</mat-checkbox></li>
+                                <li><mat-checkbox>Language3</mat-checkbox></li>
+                                <li><mat-checkbox>Language4</mat-checkbox></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Status</h5>
+                        <div class="wrapFilter-div">
+                             <ul class="filters-ul" type="none">
+                                  <li  *ngFor="let stat of status" ><mat-checkbox [(ngModel)]="stat.check" (change)="forStatus(stat)">{{stat.value}}</mat-checkbox></li>                         
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Section</h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li  *ngFor="let sec of sections" ><mat-checkbox [(ngModel)]="sec.check" (change)="forSection(sec)">{{sec.sectionName}}</mat-checkbox></li>
+                                <!-- <li><mat-checkbox>Jobs</mat-checkbox></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Category </h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li  *ngFor="let cat of categories" ><mat-checkbox [(ngModel)]="cat.check" (change)="forCategory(cat)">{{cat.categoryName}}</mat-checkbox></li>
+                              <!--   <li><mat-checkbox>Technology News</mat-checkbox></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrapFilter-ul">
+                        <h5 class="filter-heading"> Sub-category </h5>
+                        <div class="wrapFilter-div">
+                            <ul class="filters-ul" type="none">
+                                <li  *ngFor="let subcat of subCategory" ><mat-checkbox [(ngModel)]="subcat.check" (change)="forSubCategory(subcat)">{{subcat.subCategoryName}}</mat-checkbox></li>
+                               <!--  <li><mat-checkbox>Cricket</mat-checkbox></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btns-filter">
+                         <a class="btn custom-btn close-filter" (click)="onApplyFilter()">Apply Filter </a>
+                                    
+                     </div>
+                </div>
+	        </ul>
+	    </div>
+	</div>
+
+</div>

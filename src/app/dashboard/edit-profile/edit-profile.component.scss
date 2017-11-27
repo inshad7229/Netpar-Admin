@@ -1,0 +1,11 @@
+.fileinput.fileinput-new {
+    max-width: none;
+}
+.fileinput .thumbnail {
+	max-width: none;
+	width: auto;
+}
+.fileinput .thumbnail img {
+    width: auto;
+    max-height: 330px;
+}

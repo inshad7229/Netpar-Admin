@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title">Text Editor<span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
+</div>
+<div class="modal-body">
+    <div class="">
+        <div class="chat-wrap">
+            <div id='chat' [style.top.px]='y'
+            [style.left.px]='x'
+            [style.width.px]='width'
+            [style.height.px]='height'
+            (mousedown)='onWindowPress($event)'
+            (mousemove)='onWindowDrag($event)'>
+            <img [src]="item.url" class="img-responsive" />
+            <div (mousedown)='onCornerClick($event, topLeftResize)' id='chat-top-left-resize' class='chat-corner-resize'></div>
+            <div (mousedown)='onCornerClick($event, topRightResize)' id='chat-top-right-resize' class='chat-corner-resize'></div>
+            <div (mousedown)='onCornerClick($event, bottomLeftResize)' id='chat-bottom-left-resize' class='chat-corner-resize'></div>
+            <div (mousedown)='onCornerClick($event, bottomRightResize)' id='chat-bottom-right-resize' class='chat-corner-resize'></div>
+        </div>
+    </div>
+    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        <button class="btn custom-btn" (click)="save()" > Save</button>
+    </div>
+</div>
+</div>
