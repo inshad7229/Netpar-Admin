@@ -124,6 +124,8 @@ export class ArticleAnalyticsComponent implements OnInit {
     contentDataAfterFilter
     limitedFilter
     limit:number;
+    dataForSorting
+    filterApplyStatus:boolean=false
   constructor(private sectionService:SectionService,
             private appProvider: AppProvider,
             private adminService:AdminService,
@@ -164,6 +166,7 @@ export class ArticleAnalyticsComponent implements OnInit {
                     if (results) {
                       this.contentData=results[0].response;
                       this.contentBackup=results[0].response;
+                      this.dataForSorting=results[0].response
                       this.sectionData=results[1]
                       this.sectionsBack=results[1]
                       this.sections=this.sections.concat(this.sectionsBack)
@@ -319,6 +322,8 @@ export class ArticleAnalyticsComponent implements OnInit {
        let finalData= this.dataAfterLanguage.concat(this.dataAfterSection,this.dataAfterCategory,this.dataAfterSubCategory);
        this.contentData=this.unique(finalData)
        this.contentDataAfterFilter=this.unique(finalData)
+       this.dataForSorting=this.unique(finalData)
+       this.filterApplyStatus=true
        this.filterLanguageFilterPan=this.filterLanguage.slice(0);
        this.filterSectionFilterPan=this.filterSection.slice(0);
        this.filterCategoryFilterPan=this.filterCategory.slice(0);
@@ -369,6 +374,8 @@ unique(array){
             this.dataAfterCategory=[]
             this.dataAfterSubCategory=[]
             this.filterState=[]
+            this.filterApplyStatus=false
+            this.dataForSorting=this.contentBackup.slice(0)
             this.contentData=this.contentBackup.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
@@ -405,13 +412,67 @@ onPerPage(perPage){
   }
 }
 onRange(range){
-
+  //alert(range)
+  if (this.filterApplyStatus) {
+     this.contentData=this.contentDataAfterFilter.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true)
+  }else{
+    this.contentData=this.contentBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true) 
+  }
+  this.dataForSorting=this.contentData
 }
+getStatus(time,range):boolean {
+  let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(time);
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  console.log(diffDays)
+  switch (range) {
+        case '7d':
+         console.log('7d')
+          if (diffDays<8) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '15d': 
+        if (diffDays<16) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '1m': 
+        if (diffDays<31) {
+             return true;
+           }else{
+             return false;
+           }
+        case '3m':
+        if (diffDays<91) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '6m': 
+        if (diffDays<181) {
+             return true;
+           }else{
+             return false;
+           }
+        case '1y': 
+        if (diffDays<365) {
+             return true;
+           }else{
+             return false;
+           }
+        case 'all':return true
+        default: return false;
+      }
+ }
 
 sortData(sort: Sort) {
     //  this.contentBackup
     // this.contentList
-    const data =this.contentBackup.slice();
+    const data =this.dataForSorting.slice();
     if (!sort.active || sort.direction == '') {
       this.contentData = data;
       
@@ -437,7 +498,41 @@ sortData(sort: Sort) {
       }
     });
   }
+
+  onSortMulti(value){
+      //alert(value)
+    const data =this.dataForSorting.slice();
+    if (!value || value == '') {
+      this.contentData = data;
+      
+      return;
+    }
+
+    this.contentData.sort((a, b) => {
+      //alert(value)
+      let isAsc =  'asc';
+      switch (value) {
+
+        case 'Kadak': return compare2(a.likeCount, b.likeCount, isAsc);
+        case 'share': return compare2(a.shareCount, b.shareCount, isAsc);
+        case 'comment': return compare2(a.commentCount, b.commentCount, isAsc);
+        case 'save': return compare2(a.saveCount, b.saveCount, isAsc);
+        case 'download': return compare2(a.downloadCount, b.downloadCount, isAsc);
+        case 'apply': return compare2(a.applyCount, b.applyCount, isAsc);
+        case 'call': return compare2(a.callCount, b.callCount, isAsc);
+        case 'call_Me_Back': return compare2(a.callMeBackCount, b.callMeBackCount, isAsc);
+        case 'interested': return compare2(a.imIntrestedCount, b.imIntrestedCount, isAsc);
+        case 'pageViews': return compare2(a.pageView, b.pageView, isAsc);
+        case 'uniquePage': return compare2(a.uniqueViews, b.uniqueViews, isAsc);
+        case 'continue': return compare2(a.continueReading, b.continueReading, isAsc);
+        default: return 0;
+      }
+    });
+  }
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+function compare2(a, b, isAsc) {
+  return (b-a) 
 }

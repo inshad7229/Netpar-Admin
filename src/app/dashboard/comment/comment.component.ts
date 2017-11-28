@@ -562,9 +562,9 @@ export class CommentComponent implements OnInit {
 onRange(range){
   //alert(range)
   if (this.filterApplyStatus) {
-     this.commentList=this.commentListBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true)
+     this.commentList=this.commentListBackup.filter(arg=>this.getStatus(arg.dateOfComment,range)==true)
   }else{
-    this.commentList=this.commentData.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true) 
+    this.commentList=this.commentData.filter(arg=>this.getStatus(arg.dateOfComment,range)==true) 
   }
 }
 getStatus(time,range):boolean {

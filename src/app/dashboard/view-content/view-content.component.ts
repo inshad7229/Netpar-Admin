@@ -29,6 +29,8 @@ import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
 import { Sort } from '@angular/material';
+// import Clipboard from 'clipboard';
+import {Clipboard} from 'ts-clipboard';
 
 declare var jquery:any;
 declare var $ :any;
@@ -111,6 +113,7 @@ export class ViewContentComponent implements OnInit {
     limit:number
     limitedFilter
     filterApplyStatus:boolean=false
+    dataForSorting:any
     stringResource:StringResource=new  StringResource()
   	constructor(private dialog: MatDialog,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
@@ -121,6 +124,7 @@ export class ViewContentComponent implements OnInit {
             private appProvider: AppProvider,
             private adminService:AdminService,
             private contentService:ContentService) {
+
                 this.toastr.setRootViewContainerRef(vcr);
                 this.filterValue={}
                 this.filterRequest={} 
@@ -180,6 +184,7 @@ export class ViewContentComponent implements OnInit {
                         this.waitLoader = false;
                         this.contentBackup=data.response;
                         this.contentList=data.response
+                        this.dataForSorting=data.response
                         this.contentListBackup=this.contentList.slice(0);        
                         // this.localAdminList=data.response;
                    // console.log(JSON.stringify(data))
@@ -485,6 +490,7 @@ export class ViewContentComponent implements OnInit {
                         else if (data.success == true) {
                           this.waitLoader =false;
                            this.contentList=data.response;
+                           this.dataForSorting=data.response;
                            this.contentListBackup=this.contentList.slice(0);
                            this.filterLanguageFilterPan=this.filterLanguage.slice(0);
                            this.filterSectionFilterPan=this.filterSection.slice(0);
@@ -598,6 +604,7 @@ export class ViewContentComponent implements OnInit {
             this.contentListBackup=null
             this.filterApplyStatus=false
             this.contentList=this.contentBackup.slice(0)
+            this.dataForSorting=this.contentBackup.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
             }
@@ -668,7 +675,7 @@ onCheckBox(_id){
    sortData(sort: Sort) {
     //  this.contentBackup
     // this.contentList
-    const data =this.contentBackup.slice();
+    const data =this.dataForSorting.slice();
     if (!sort.active || sort.direction == '') {
       this.contentList = data;
       
@@ -718,6 +725,12 @@ onRange(range){
   }else{
     this.contentList=this.contentBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true) 
   }
+  this.dataForSorting=this.contentList
+}
+onCopyLink(id){
+  let a="http://europa.promaticstechnologies.com/netpar-pwa-dev/#/shareArticle/"+id
+  Clipboard.copy(a);
+  this.toastr.info('Article link copied,You can share now')
 }
 getStatus(time,range):boolean {
   let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds

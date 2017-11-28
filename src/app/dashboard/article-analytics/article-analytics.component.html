@@ -71,18 +71,18 @@
                                                 <i class="material-icons">tune</i>
                                             </a>
                                             <ul class="dropdown-menu">
-                                            	<mat-radio-group>
-													<li> <a> <mat-radio-button value="8">  Number of comments   </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="9">  Number of Shares     </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="9">  Number of likes      </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="10"> Number of saves      </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="11"> Number of downloads  </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="4">  Page views           </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="12"> Unique views         </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="1"> No of click on apply  </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="2"> No of click on i'm interested</mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="3"> No of click on call me</mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="5"> No of click on call</mat-radio-button> </a> </li>
+                                            	<mat-radio-group [(ngModel)]="limitedFilter.sort" name="multiSort" (change)="onSortMulti(limitedFilter.sort)">
+													<li> <a> <mat-radio-button value="comment">  Number of comments   </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="share">  Number of Shares     </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="Kadak">  Number of likes      </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="save"> Number of saves      </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="download"> Number of downloads  </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="pageViews">  Page views           </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="uniquePage"> Unique views         </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="apply"> No of click on apply  </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="interested"> No of click on i'm interested</mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="call_Me_Back"> No of click on call me</mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="call"> No of click on call</mat-radio-button> </a> </li>
 												</mat-radio-group>
                                             </ul>
                                         </div>

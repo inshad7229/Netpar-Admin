@@ -524,10 +524,14 @@ export class ViewSectionComponent implements OnInit {
              console.log(JSON.stringify(sec))
             if (sec.check==true) {
               this.filterData=this.forFilterData.filter(f=>f.sectionName==sec.sectionName)
-              this.filterModel.push(this.filterData[0])
-              this.filterSectionList.push(sec)
-              console.log('if')
-              console.log(JSON.stringify(this.filterSectionList))   
+
+              if (this.filterData.length>0) {
+                  for (var i = 0;i<this.filterData.length; i++) {
+                        this.filterModel.push(this.filterData[i])
+
+                     }
+                  this.filterSectionList.push(sec)
+              }
             }
             else {
               console.log('elsef')

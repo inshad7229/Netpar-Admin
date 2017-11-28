@@ -19,6 +19,7 @@ import {ColorPickerModule} from 'ngx-color-picker';
 import { CKEditorModule } from 'ng2-ckeditor';
 // import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { DateTimePickerModule } from 'ng-pick-datetime';
+import { ClipboardModule } from 'ngx-clipboard';
 
 
 import { MODULE_COMPONENTS, MODULE_ROUTES } from './dashboard.routes';
@@ -66,6 +67,7 @@ import {MediaDialogComponent} from './user-contribution/media-dialog/media-dialo
 import { SimpleTinyComponent } from './tiny/tiny.component';
 import { TrimPipe } from '../pipes/trim/trim.pipe';
 import {TrimDirective  } from '../directives/trim/trim.directive';
+import {ClipDirective  } from '../directives/clip/clip.directive';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -101,6 +103,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         CKEditorModule,
         DateTimePickerModule,
         DndModule.forRoot(),
+        // ClipboardModule
         // FroalaEditorModule.forRoot(), 
         // FroalaViewModule.forRoot(),
     ],
@@ -146,7 +149,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               TrimDirective,
               ImageResizerComponent,
               CommentConfirmation,
-              MediaDialogComponent 
+              MediaDialogComponent ,
+              ClipDirective
 
            ],
 
