@@ -7,6 +7,7 @@ import {UserService} from '../../providers/user.service';
 import {StateService} from '../../providers/state.service';
 import { Sort } from '@angular/material';
 import { forkJoin } from "rxjs/observable/forkJoin";
+import {StateResource} from '../../models/stateResourcesModel'
 declare var jquery:any;
 declare var $ :any;
 
@@ -24,8 +25,16 @@ export class UserComponent implements OnInit {
      stateListBackup
      limitedFilter
 limit
+stateListState
 filterApplyStatus:boolean=false
+distList=[]
+activeDist:number=-1
+selectedState
+selectedDist
+selectedBlock
+ stateResource:StateResource=new StateResource()
     constructor(private dialog: MatDialog,private userProvider:UserService,private stateService:StateService) { 
+      this.stateListState=this.stateResource.state
     this.limitedFilter={}
                          this.limitedFilter.perPage='25'
                          this.limit=25}
@@ -42,8 +51,14 @@ filterApplyStatus:boolean=false
     openDialog2(): void {
         let dialogRef = this.dialog.open(FilterDialogComponent, {
             width: '800px',
+            data:{state:this.stateListState}
         });
         dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+                this.selectedState=result.state
+                this.selectedDist=result.dist
+                this.selectedBlock=result.block
+          }
       
         });
     }
@@ -72,11 +87,11 @@ filterApplyStatus:boolean=false
                 $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
             }
 
-            var $trigger = $(".sidebar-filter").closest('.filter-plugin');
-            console.log($trigger);
-            if($trigger !== e.target && !$trigger.has(e.target).length){
-                $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
-            }
+            // var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+            // console.log($trigger);
+            // if($trigger !== e.target && !$trigger.has(e.target).length){
+            //     $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+            // }
         });
 
         this.getUser()
@@ -220,7 +235,81 @@ getDate(lastlogin){
       return lastlogin.split('T')[0]
     }
 }
+onSateSelect(stateListState){
+  if (stateListState.check!=true) {
+    for(var i = 0; i <this.stateListState[0].dist.length; i++) {
+      this.stateListState[0].dist[i].check=false;
+        for(var j = 0; j <this.stateListState[0].dist[i].block.length; j++) {
+        this.stateListState[0].dist[i].block[j].check=false;    
+       }
+     }
+  }
+}
 
+openFilter(){
+  if (this.limitedFilter.state=='Maharashtra') {
+    this.stateListState[0].check=true;
+    //this.distList=this.stateListState[0].dist
+  }else{
+     this.stateListState[0].check=false;
+     for(var i = 0; i <this.stateListState[0].dist.length; i++) {
+      this.stateListState[0].dist[i].check=false;
+        for(var j = 0; j <this.stateListState[0].dist[i].block.length; j++) {
+        this.stateListState[0].dist[i].block[j].check=false;    
+       }
+     }
+  }
+
+}
+onChangeDist(check,index){
+  if (index==0) {
+     if (check==true) {
+       this.activeDist=0
+     }else{
+       if (this.stateListState[0].dist[1].check==true && this.stateListState[0].dist[2].check==true) {
+          this.activeDist=2
+       }else if(this.stateListState[0].dist[1].check!=true && this.stateListState[0].dist[2].check==true){
+           this.activeDist=2
+       }else if(this.stateListState[0].dist[1].check==true && this.stateListState[0].dist[2].check!=true){
+           this.activeDist=1
+       }
+       for (var i = 0; i <this.stateListState[0].dist[0].block.length; i++) {
+         this.stateListState[0].dist[0].block[i].check=false
+       }
+     }
+  }else if (index==1) {
+     if (check==true) {
+       this.activeDist=1
+     }else{
+       if (this.stateListState[0].dist[0].check==true && this.stateListState[0].dist[2].check==true) {
+          this.activeDist=2
+       }else if(this.stateListState[0].dist[0].check!=true && this.stateListState[0].dist[2].check==true){
+           this.activeDist=2
+       }else if(this.stateListState[0].dist[0].check==true && this.stateListState[0].dist[2].check!=true){
+           this.activeDist=0
+       }
+       for (var i = 0; i <this.stateListState[0].dist[1].block.length; i++) {
+         this.stateListState[0].dist[1].block[i].check=false
+       }
+     }
+  } else if (index==2) {
+     if (check==true) {
+       this.activeDist=2
+     }else{
+        if (this.stateListState[0].dist[0].check==true && this.stateListState[0].dist[1].check==true) {
+          this.activeDist=1
+       }else if(this.stateListState[0].dist[0].check!=true && this.stateListState[0].dist[1].check==true){
+           this.activeDist=1
+       }else if(this.stateListState[0].dist[0].check==true && this.stateListState[0].dist[1].check!=true){
+           this.activeDist=0
+       }
+       for (var i = 0; i <this.stateListState[0].dist[2].block.length; i++) {
+         this.stateListState[0].dist[2].block[i].check=false
+       }
+     }
+  } 
+
+}
 onStatusChange(user){
     this.waitLoader = true;
          this.userProvider.onEditStatus(user)
