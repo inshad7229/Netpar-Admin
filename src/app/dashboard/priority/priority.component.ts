@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { PriorityDialogComponent } from './priority-dialog/priority-dialog.component';
 import { Sort } from '@angular/material';
+import {Clipboard} from 'ts-clipboard';
 declare var jquery:any;
 declare var $ :any;
 import {SectionService} from '../../providers/section.service'
@@ -220,6 +221,11 @@ filterSection=[]
           
         });
   }
+  onCopyLink(id){
+  let a="http://europa.promaticstechnologies.com/netpar-pwa-dev/#/shareArticle/"+id
+  Clipboard.copy(a);
+  this.toastr.info('Article link copied,You can share now')
+}
  onCheckBox(_id){
  // alert(_id)
       if (this.selectedId.indexOf(_id)==-1) {

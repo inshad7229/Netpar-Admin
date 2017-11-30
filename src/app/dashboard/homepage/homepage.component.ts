@@ -15,6 +15,7 @@ import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
 import { Sort } from '@angular/material';
+import {Clipboard} from 'ts-clipboard';
 
 import {ContentViewHomeDialogComponent} from './content-view-home-dialog/content-view-home-dialog.component';
 import { ViewContentComponent,ContentConfirmation } from '../view-content/view-content.component';
@@ -299,7 +300,11 @@ export class HomepageComponent implements OnInit {
     this.appProvider.current.currentContentData=data;
     this.router.navigate(['/add-content'],{ skipLocationChange: true });
   }
-
+onCopyLink(id){
+  let a="http://europa.promaticstechnologies.com/netpar-pwa-dev/#/shareArticle/"+id
+  Clipboard.copy(a);
+  this.toastr.info('Article link copied,You can share now')
+}
 
 
    getSectionList(){

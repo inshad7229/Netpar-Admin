@@ -98,19 +98,21 @@
                                                 <i class="material-icons">tune</i>
                                             </a>
                                             <ul class="dropdown-menu">
-												<li> <a> <mat-checkbox value="1"> Time spent             </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="2"> Avg time spent/day     </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="3"> Avg time Spent/session </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="4"> Page views             </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="5"> Avg Page views/session </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="6"> Number of sesions      </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="7"> Last seen online       </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="8"> Number of comments     </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="9"> Number of likes        </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="10"> Number of saves       </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="11"> Number of downloads   </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="12"> Number of invites     </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="13"> Number of coversions  </mat-checkbox> </a> </li>
+                                              <mat-radio-group [(ngModel)]="limitedFilter.sort" name="multiSort" (change)="onSortMulti(limitedFilter.sort)">
+												<li> <a> <mat-radio-button value="time"> Time spent             </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="avgd"> Avg time spent/day     </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="avgs"> Avg time Spent/session </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="page"> Page views             </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="avgp"> Avg Page views/session </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="session"> Number of sesions      </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="online"> Last seen online       </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="comment"> Number of comments     </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="Like"> Number of likes        </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="save"> Number of saves       </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="download"> Number of downloads   </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="invite"> Number of invites     </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="conversation"> Number of coversions  </mat-radio-button> </a> </li>
+                                            </mat-radio-group>
                                             </ul>
                                         </div>
 	                                </div>

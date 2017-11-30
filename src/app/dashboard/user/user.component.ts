@@ -31,9 +31,9 @@ export class UserComponent implements OnInit {
      dataForSorting
     distList=[]
     activeDist:number=-1
-    selectedState
-    selectedDist
-    selectedBlock
+    selectedState=[]
+    selectedDist=[]
+    selectedBlock=[]
     rigthSide
     onMobileStatusData=[]
     onHyperData=[]
@@ -754,7 +754,7 @@ getActiveStatus(time,range):boolean {
       this.afterApplyStatus.mobileStatus=this.rigthSide.mobileStatus
       let state=this.filterState.concat(this.selectedState)
       let block=this.filterBlock.concat(this.selectedBlock)
-      let dist=this.filterDist.concat(this.selectedBlock)
+      let dist=this.filterDist.concat(this.selectedDist)
       if (this.unique(state).length>0) {
          this.afterApplyStatus.state=this.unique(state)
         // code...
@@ -845,7 +845,7 @@ onClearInactiveFilter(){
        this.rigthSide.inactive=false
      this.userData=this.userData.filter(arg=>this.getActiveStatus(arg.lastlogin,'31day')!=true)
 }
-clearall(){
+clearAll(){
      this.afterApplyStatus.mobileStatus=false
     this.rigthSide.mobileStatus=false
     this.afterApplyStatus.unverified=false
@@ -893,7 +893,48 @@ this.filterApplyStatus=false
            }
       }
 }
+
+
+ onSortMulti(value){
+      //alert(value)
+ const data =this.dataForSorting.slice();
+    if (!value || value == '') {
+      this.userData = data;
+      
+      return;
+    }
+
+    this.userData.sort((a, b) => {
+      //alert(value)
+      let isAsc =  'asc';
+      switch (value) {
+
+        case 'session': return compare2(a.totalSessions, b.totalSessions, isAsc);
+        case 'time': return compare2(a.totalTime, b.totalTime, isAsc);
+        case 'avgs': return compare2((a.totalTime/a.totalSessions), (b.totalTime/b.totalSessions), isAsc);
+        case 'avgd': return compare2((a.totalTime/a.dayCount), (b.totalTime/b.dayCount), isAsc);
+        case 'page': return compare2(a.totalPageViews, b.totalPageViews, isAsc);
+        case 'avgp': return compare2((a.totalPageViews/a.totalSessions), (b.totalPageViews/b.totalSessions), isAsc);
+        case 'online': return compare2(a.lastlogin, b.lastlogin, isAsc);
+        case 'Like': return compare2(a.totalLikest, b.totalLikest, isAsc);
+        case 'share': return compare2(a.totalShares, b.totalShares, isAsc);
+        case 'comment': return compare2(a.totalComments, b.totalComments, isAsc);
+        case 'save': return compare2(a.totalSaves, b.totalSaves, isAsc);
+        case 'download': return compare2(a.totalDownloads, b.totalDownloads, isAsc);
+        case 'Submission': return compare2(a.totalSubmissions, b.totalSubmissions, isAsc);
+        case 'Call': return compare2(a.totalsCalls, b.totalsCalls, isAsc);
+        case 'CallMeBack': return compare2(a.totalCallBacks, b.totalCallBacks, isAsc);
+        case 'Publications': return compare2(a.totalPublications, b.totalPublications, isAsc);
+        case 'invite': return compare2(a.totalInvites, b.totalInvites, isAsc);
+        case 'conversation': return compare2(a.totalConversations, b.totalConversations, isAsc);
+        default: return 0;
+      }
+    });
+}
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+function compare2(a, b, isAsc) {
+  return (b-a) 
 }

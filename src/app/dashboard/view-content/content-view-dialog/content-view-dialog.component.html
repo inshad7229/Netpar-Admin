@@ -92,7 +92,7 @@
         </table>
 
 
-        <div class="builder-element"  *ngIf="content.tag=='callMeBack'" (click)="onClickOnDragcontent(i,content)">
+        <div class="builder-element"  *ngIf="content.tag=='callMeBack'" >
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
@@ -114,7 +114,7 @@
             </table>
         </div>
 
-        <div class="builder-element" *ngIf="content.tag=='call'"  (click)="onClickOnDragcontent(i,content)">
+        <div class="builder-element" *ngIf="content.tag=='call'"  >
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
@@ -135,7 +135,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="builder-element" *ngIf="content.tag=='intrested'" (click)="onClickOnDragcontent(i,content)">
+        <div class="builder-element" *ngIf="content.tag=='intrested'" >
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
@@ -155,7 +155,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="builder-element" *ngIf="content.tag=='apply'" (click)="onClickOnDragcontent(i,content)">
+        <div class="builder-element" *ngIf="content.tag=='apply'" >
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
@@ -178,12 +178,12 @@
 
 
 
-        <div class="builder-element" *ngIf="content.tag=='CallToActBtn'" (click)="onClickOnDragcontent(i,content)">
+        <div class="builder-element" *ngIf="content.tag=='CallToActBtn'" >
             <button *ngIf="content.btn1==null && content.btn2==null && content.btn3==null" type="button" class="btn custom-btn btn-round" (click)="onClickOnDragcontent(i,content)">Click  me</button>
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
-                        <td (click)="OnFirstCall(i,content)">
+                        <td >
                             <span *ngIf="content.btn1=='callmeback'">
                                 <span class="btn success" *ngIf="content.outline1==false"><i class="icon-callme" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}"></i>मला संपर्क कॉल करा
                                     
@@ -253,7 +253,7 @@
                             </span>
 
                         </td>
-                        <td (click)="OnSecondCall(i,content)">
+                        <td >
                             <span *ngIf="content.btn2=='callmeback'">
                                 <span class="btn success" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
                                     <i class="icon-callme"></i>मला संपर्क कॉल करा
@@ -319,7 +319,7 @@
                             </span>
 
                         </td>
-                        <td (click)="OnThirdCall(i,content)">
+                        <td >
                             <span *ngIf="content.btn3=='callmeback'">
                                 <span class="btn success" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
                                     <i class="icon-callme"></i>मला संपर्क कॉल करा
@@ -392,7 +392,7 @@
             </table>
         </div>
 
-        <div class="builder-element" *ngIf="content.tag=='like'" (click)="onClickOnDragcontent(i,content)">
+        <div class="builder-element" *ngIf="content.tag=='like'" >
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
@@ -413,7 +413,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="builder-element" *ngIf="content.tag=='comment'" (click)="onClickOnDragcontent(i,content)">
+        <div class="builder-element" *ngIf="content.tag=='comment'" >
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
@@ -434,7 +434,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="builder-element" *ngIf="content.tag=='save'" (click)="onClickOnDragcontent(i,content)">
+        <div class="builder-element" *ngIf="content.tag=='save'" >
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
@@ -455,7 +455,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="builder-element" *ngIf="content.tag=='download'" (click)="onClickOnDragcontent(i,content)">
+        <div class="builder-element" *ngIf="content.tag=='download'" >
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
@@ -476,7 +476,7 @@
                 </tbody>
             </table>
         </div>
-         <div class="builder-element" *ngIf="content.tag=='share'"  (click)="onClickOnDragcontent(i,content)">
+         <div class="builder-element" *ngIf="content.tag=='share'"  >
             <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
                 <tbody>
                     <tr class="btns">
@@ -496,13 +496,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="builder-element" *ngIf="content.tag=='userEngBtn'" (click)="onClickOnDragcontent(i,content)">
-	        <button *ngIf="content.btn1==null && content.btn2==null && content.btn3==null" type="button" class="btn custom-btn btn-round" (click)="onClickOnDragcontent(i,content)">Click  me</button>
+        <div class="builder-element" *ngIf="content.tag=='userEngBtn'" >
+	        <button *ngIf="content.btn1==null && content.btn2==null && content.btn3==null" type="button" class="btn custom-btn btn-round" >Click  me</button>
 	                       
 	        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
 	            <tbody>
 	                <tr class="btns">
-	                    <td style="" (click)="OnFirstUser(i,content)">
+	                    <td style="" >
 	                        <span *ngIf="content.btn1=='Kadak'">
 	                            <span class="btn danger" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
 	                                <i class="icon-okay"></i> कडक
@@ -584,7 +584,7 @@
 
 	                    </td>
 
-	                    <td style="" (click)="OnSecondtUser(i,content)">
+	                    <td style="" >
 	                        <span *ngIf="content.btn2=='Kadak'">
 	                            <span class="btn danger" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
 	                                <i class="icon-okay"></i> कडक
@@ -665,7 +665,7 @@
 	                        </span>
 
 	                    </td>
-	                    <td style="" (click)="OnThirdtUser(i,content)">
+	                    <td style="">
 	                        <span *ngIf="content.btn3=='Kadak'">
 	                            <span class="btn danger" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
 	                                <i class="icon-okay"></i> कडक
