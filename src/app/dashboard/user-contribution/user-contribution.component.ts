@@ -123,7 +123,7 @@ filterApplyStatus:boolean=false
                       this.userContriDataBackup=results[0].response;
                       this.userData=results[2].response;
                       this.userDataBackup=results[2].response;
-                      this.sectionsBack=results[1];
+                      this.sectionsBack=results[1].filter(arg=>arg.deleteStatus!=true);;
                       this.sections=this.sections.concat(this.sectionsBack)
                     }
                     
@@ -260,7 +260,7 @@ downloadFile(data: Response){
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This section do not have any category')
                       // code...
@@ -277,7 +277,9 @@ downloadFile(data: Response){
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+
+
                     if (data.response.length==0) {
                       this.toastr.info('This category do not have any subcategory')
                       // code...
@@ -293,21 +295,22 @@ downloadFile(data: Response){
     getUserState(userId){
       let sec =this.userData.filter(arg=>arg._id==userId)
         if (sec.length>0) {
-            return sec[0].state;
+            return sec[0].stateRegional
+
         }
            //this.userData
     }
     getUserDistrict(userId){
       let sec =this.userData.filter(arg=>arg._id==userId)
         if (sec.length>0) {
-            return sec[0].district;
+            return sec[0].districtRegional;
         }
 
     }
     getUserBlock(userId){
       let sec =this.userData.filter(arg=>arg._id==userId)
         if (sec.length>0) {
-            return sec[0].block;
+            return sec[0].blockRegional;
         }
 
     }

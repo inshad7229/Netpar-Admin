@@ -30,7 +30,7 @@ export class SectionTemplatesComponent implements OnInit {
                     }
                     else if (data[0].success == true || data[1].success == true) {
                      this.categortTemplateList=data[0].response;
-                     this.categoryList=data[1]
+                     this.categoryList=data[1].filter(arg=>arg.deleteStatus!=true);
                   
                     }                 
                 },error=>{

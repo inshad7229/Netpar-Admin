@@ -184,7 +184,7 @@ export class ArticleAnalyticsComponent implements OnInit {
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   this.waitLoader =false;
@@ -196,7 +196,7 @@ export class ArticleAnalyticsComponent implements OnInit {
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     this.categories=this.categories.concat(this.categoriesBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -209,7 +209,7 @@ export class ArticleAnalyticsComponent implements OnInit {
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{

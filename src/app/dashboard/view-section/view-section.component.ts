@@ -501,8 +501,8 @@ export class ViewSectionComponent implements OnInit {
          this.sectionService.onGetSection()
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.sections=data;
-                    this.sectionDatabackup=data
+                    this.sections=data.filter(arg=>arg.deleteStatus!=true);
+                    this.sectionDatabackup=data.filter(arg=>arg.deleteStatus!=true);
                 },error=>{
                     this.waitLoader = false;
                     alert(error)

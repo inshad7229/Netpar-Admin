@@ -38,6 +38,7 @@ export class AddCategoryComponent implements OnInit {
     currentString:any;
     sendString:any;
     selectedValue:any;
+    currentInputTag
     currentActiveIndex:number;
     outputStringArrayLength:number;
     caretPos
@@ -413,7 +414,7 @@ export class AddCategoryComponent implements OnInit {
          this.sectionService.onGetSection()
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.sectionsData=data;
+                    this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);
                     if (this.addCategoryRequest.language) {
                          this.sections=data.filter(arg=>arg.language==this.addCategoryRequest.language);;
                     }
@@ -490,9 +491,10 @@ onClickListTemp(j){
 //    this.appProvider.current.suggestedString=[]
 //   console.log(output)
 //  }
-  onTransliteration(value,event){
+  onTransliteration(value,event,tag){
    var myEl=event.target
    this.elementRefrence=event
+   this.currentInputTag=tag
    let post =this.getCaretPos(event)
    this.currentString=value
    let subValue=value.substring(0, post)
@@ -530,7 +532,18 @@ onClickListTemp(j){
    this.outputStringLength=state.length
    let replaceWith=state+' '
    let output=this.currentString.replace(this.sendString ,replaceWith)
-   this.addCategoryRequest.categoryName=output
+  // this.addCategoryRequest.categoryName=output
+    if ( this.currentInputTag=='category') {
+     this.addCategoryRequest.categoryName=output
+   }else if(this.currentInputTag=='title'){
+     this.addCategoryRequest.titleForm=output
+   }else if (this.currentInputTag=='guildTextForForm') {
+     this.addCategoryRequest.guildTextForForm=output
+   }else if (this.currentInputTag=='guildTextForMedia') {
+     this.addCategoryRequest.guildTextForMedia=output
+   }
+
+
    let sumIndex=(this.caretPos+this.outputStringLength)-this.inputStringLength
    this.appProvider.current.suggestedString=[]
  }
@@ -542,12 +555,28 @@ onKeyUp(event){
         if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
          let replaceWith=this.appProvider.current.suggestedString[0]
          let output=this.currentString.replace(this.sendString ,replaceWith)
-        this.addCategoryRequest.categoryName=output
+         if ( this.currentInputTag=='category') {
+             this.addCategoryRequest.categoryName=output
+           }else if(this.currentInputTag=='title'){
+             this.addCategoryRequest.titleForm=output
+           }else if (this.currentInputTag=='guildTextForForm') {
+             this.addCategoryRequest.guildTextForForm=output
+           }else if (this.currentInputTag=='guildTextForMedia') {
+             this.addCategoryRequest.guildTextForMedia=output
+           }
         this.appProvider.current.suggestedString=[]
         }else{
          let replaceWith=this.appProvider.current.suggestedString[this.currentActiveIndex]
          let output=this.currentString.replace(this.sendString ,replaceWith)
-        this.addCategoryRequest.categoryName=output
+        if ( this.currentInputTag=='category') {
+         this.addCategoryRequest.categoryName=output
+       }else if(this.currentInputTag=='title'){
+         this.addCategoryRequest.titleForm=output
+       }else if (this.currentInputTag=='guildTextForForm') {
+         this.addCategoryRequest.guildTextForForm=output
+       }else if (this.currentInputTag=='guildTextForMedia') {
+         this.addCategoryRequest.guildTextForMedia=output
+       }
          this.appProvider.current.suggestedString=[]
         }
     }
@@ -557,7 +586,15 @@ onKeyUp(event){
    if (this.outputStringArrayLength>0) {
         let replaceWith=this.selectedValue+' '
         let output=this.currentString.replace(this.sendString ,replaceWith)
-        this.addCategoryRequest.categoryName=output
+         if ( this.currentInputTag=='category') {
+             this.addCategoryRequest.categoryName=output
+           }else if(this.currentInputTag=='title'){
+             this.addCategoryRequest.titleForm=output
+           }else if (this.currentInputTag=='guildTextForForm') {
+             this.addCategoryRequest.guildTextForForm=output
+           }else if (this.currentInputTag=='guildTextForMedia') {
+             this.addCategoryRequest.guildTextForMedia=output
+           }
         this.appProvider.current.suggestedString=[]
     }
   }else if (event.keyCode==38) {

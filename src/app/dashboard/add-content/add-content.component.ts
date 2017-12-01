@@ -668,6 +668,11 @@ export class AddContentComponent implements OnInit {
 		this.googleFromatata.tag="form"; 
 		// this.googleFromatata.url=null;
 	}
+  onRemoveGoogleForm(){
+    this.googleFromatata.tag="null"; 
+    this.googleFromatata.formURL=null
+    this.googleFromatata.url=null
+  }
 
 
 
@@ -1667,7 +1672,7 @@ onDeleteBody(){
 	              this.sectionService.onGetSection()
 	            .subscribe(data => {
 	                this.waitLoader = false;
-	                this.sectionsData=data;
+	                this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);;
 	                if (this.addContentRequest.language) {
 	                     this.sections=data.filter(arg=>arg.language==this.addContentRequest.language);;
 	                }
@@ -1683,9 +1688,9 @@ onDeleteBody(){
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesData=data.response;
+                    this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true);
                      if (this.addContentRequest.language) {
-	                     this.categories=data.response.filter(arg=>arg.language==this.addContentRequest.language);;
+	                     this.categories=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }
                     //console.log(JSON.stringify(data))
                 },error=>{
@@ -1699,9 +1704,9 @@ onDeleteBody(){
    	this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryData=data.response;
+                    this.subCategoryData=data.response.filter(arg=>arg.deleteStatus!=true);
                      if (this.addContentRequest.language) {
-	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language);;
+	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }
                 },error=>{
                 	 this.waitLoader = false;

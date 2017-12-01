@@ -260,9 +260,9 @@ export class AddSubcategoryComponent implements OnInit {
          this.sectionService.onGetCategory(this.addSubCategoryRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesData=data.response;
+                    this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (this.addSubCategoryRequest.language) {
-                         this.sections=this.sectionsData.filter(arg=>arg.language==this.addSubCategoryRequest.language);
+                         this.sections=this.sectionsData.filter(arg=>arg.language==this.addSubCategoryRequest.language  && arg.deleteStatus!=true);
                          this.categories=data.response.filter(arg=>arg.language==this.addSubCategoryRequest.language);
                     }
                     console.log(JSON.stringify(data))
@@ -342,9 +342,9 @@ export class AddSubcategoryComponent implements OnInit {
                       this.sectionService.onGetSection()
                     .subscribe(data => {
                         this.waitLoader = false;
-                        this.sectionsData=data;
+                        this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);
                     if (this.addSubCategoryRequest.language) {
-                         this.sections=data.filter(arg=>arg.language==this.addSubCategoryRequest.language);;
+                         this.sections=data.filter(arg=>arg.language==this.addSubCategoryRequest.language && arg.deleteStatus!=true);;
                     }
                     },error=>{
                       this.waitLoader = false;

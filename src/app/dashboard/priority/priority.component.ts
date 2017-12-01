@@ -332,7 +332,7 @@ setPriorityCategory(a) {
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   this.waitLoader =false;
@@ -344,7 +344,7 @@ setPriorityCategory(a) {
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This section do not have any category')
                       // code...
@@ -361,7 +361,7 @@ setPriorityCategory(a) {
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This category do not have any subcategory')
                       // code...

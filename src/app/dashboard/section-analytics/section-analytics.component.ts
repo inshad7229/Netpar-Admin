@@ -544,7 +544,7 @@ getTotalTime(totalTime){
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
                   if (data.response.length==0) {
                       this.toastr.info('This section do not have any category')
                       // code...
@@ -560,7 +560,7 @@ getTotalTime(totalTime){
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This category do not have any subategory')
                       // code...
@@ -577,7 +577,7 @@ getTotalTime(totalTime){
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
