@@ -15,6 +15,7 @@ export class TemplateAnalyticsComponent implements OnInit {
   constructor(private templateService:TemplateService) { }
   
   ngOnInit() {
+     this.waitLoader = true;
   	 forkJoin([this.templateService.onGetTemplate('4'),this.templateService.onGetTemplate('1')])
         .subscribe(data => {
                     this.waitLoader = false;
@@ -66,45 +67,113 @@ export class TemplateAnalyticsComponent implements OnInit {
   } 
   geteEndDateTime(i,j){
     if (i && j) {
-    	if (this.categoryResult[i].categories.length>j+1) {
-    		// code...
-  			let cat=  this.categoryResult[i].categories[j+1].startTime
-  			return cat.split('T')[0]
-    	}else{
-    	   return '--'	
-    	}
+      if (j< this.categoryResult[i].categories.length-1) {
+       if (this.categoryResult[i].categories.length>j && this.categoryResult[i].categories[j+1].startTime && j< this.categoryResult[i].categories.length-1) {
+        // code...
+        let cat=  this.categoryResult[i].categories[j+1].startTime
+        return cat.split('T')[0]
+      }else{
+         return '--'  
+      }
+      }else{
+      return '--'
+    }
+    	
   	}else{
   		return '--'
   	}
   } 
   getEndTime(i,j){
     if (i && j) {
-    	if (this.categoryResult[i].categories.length>j+1) {
+     if (j< this.categoryResult[i].categories.length-1) {
+    	if (this.categoryResult[i].categories.length>j && this.categoryResult[i].categories[j+1].startTime && j< this.categoryResult[i].categories.length-1) {
     		// code...
   			let cat=  this.categoryResult[i].categories[j+1].startTime
   			return cat.split('T')[1].substring(0, 5);
     	}else{
     	   return '--'	
     	}
-  		
+  		}else{
+      return '--'
+    }
   	}else{
   		return '--'
   	}
   }
 
   getSartDateTimeList(i,j){
+         if (i && j) {
+      if (this.listingResult[i].categories.length>0) {
+        let cat=  this.listingResult[i].categories[j].startTime
+            return cat.split('T')[0]
+      }
+      else{
 
+       return '--'
+       }
+      
+    }else{
+      return '--'
+    }
   } 
   getStartTimeList(i,j){
-
+     if (i && j) {
+      if (this.listingResult[i].categories.length>0) {
+      let cat=  this.listingResult[i].categories[j].startTime
+      return cat.split('T')[1].substring(0, 5);
+      }else{
+      return '--'
+      }
+    }else{
+      return '--'
+    }
   } 
   geteEndDateTimeList(i,j){
-
+     if (i && j) {
+      if (j< this.listingResult[i].categories.length-1) {
+       if (this.listingResult[i].categories.length>j && this.listingResult[i].categories[j+1].startTime && j< this.listingResult[i].categories.length-1) {
+        // code...
+        let cat=  this.listingResult[i].categories[j+1].startTime
+        return cat.split('T')[0]
+      }else{
+         return '--'  
+      }
+      }else{
+      return '--'
+    }
+      
+    }else{
+      return '--'
+    }
   } 
   getEndTimeList(i,j){
-
+        if (i && j) {
+     if (j< this.listingResult[i].categories.length-1) {
+      if (this.listingResult[i].categories.length>j && this.listingResult[i].categories[j+1].startTime && j< this.listingResult[i].categories.length-1) {
+        // code...
+        let cat=  this.listingResult[i].categories[j+1].startTime
+        return cat.split('T')[1].substring(0, 5);
+      }else{
+         return '--'  
+      }
+      }else{
+      return '--'
+    }
+    }else{
+      return '--'
+    }
   } 
+cal(totalClick,totalViews){
+  if (totalViews >0 && totalClick >0) {
+    // code...
+    let a=totalViews/totalClick;
+    let b=a.toFixed(2)
+    return b
+  }else {
+    0
+  }
 
+}
 //   getStartDate(timeString){
 //   if (timeString) {
 //     return timeString.split('T')[0]

@@ -1,4 +1,7 @@
 <div class="wrapper">
+	 <div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
     <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
         <app-sidebar></app-sidebar>
         <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
@@ -43,8 +46,8 @@
 				                                            <td> <div  *ngFor="let catt of cat.categories ; let j=index">
 				                                            {{getSartDateTime(i,j)}} {{getStartTime(i,j)}} - {{geteEndDateTime(i,j)}} {{getEndTime(i,j)}} </div></td>
 				                                            <td> {{cat.templateName}} </td>
-				                                            <td> 300 </td>
-				                                            <td> 500 </td>
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
 				                                        </tr>
 				                                      <!--   <tr>
 				                                        	<td> <a *ngFor="let catt of cat.categories" href="javascript:;"> {{catt.sectionName}} </a> </td>
@@ -55,7 +58,7 @@
 		                                                    </td>
 				                                            <td> <span  *ngFor="let catt of cat.categories">18th Aug, 09:00 AM - 19th Aug 10 PM </span></td>
 				                                            <td> {{cat.templateName}} </td>
-				                                            <td> 300 </td>
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
 				                                            <td> 500 </td>
 				                                        </tr>
 				                                        <tr>
@@ -103,8 +106,8 @@
 				                                            <td> <div  *ngFor="let catt of cat.categories ; let j=index">
 				                                            {{getSartDateTimeList(i,j)}} {{getStartTimeList(i,j)}} - {{geteEndDateTimeList(i,j)}} {{getEndTimeList(i,j)}} </div></td>
 				                                            <td> {{cat.templateName}} </td>
-				                                            <td> 300 </td>
-				                                            <td> 500 </td>
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
 				                                           <!--  <td> 50 </td> -->
 				                                        </tr>
 				                                        <!-- <tr>
@@ -116,7 +119,7 @@
 		                                                    </td>
 				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
 				                                            <td> Sport News </td>
-				                                            <td> 300 </td>
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
 				                                            <td> 500 </td>
 				                                        </tr> -->
 				                                        <!-- <tr>
