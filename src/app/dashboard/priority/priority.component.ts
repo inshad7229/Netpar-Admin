@@ -516,7 +516,7 @@ setPriorityCategory(a) {
 
   onApplyFilter(){
         if (this.filterLanguage.length>0 ) {
-           this.sendData.languages=this.filterRequest.language
+           this.sendData.languages=this.filterLanguage.slice(0);
         }else{
            delete(this.sendData.languages)
         }
