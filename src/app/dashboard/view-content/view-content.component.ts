@@ -409,22 +409,84 @@ export class ViewContentComponent implements OnInit {
              
       }
       onApplyFilter(){
+        // let demo=[]
+        //   if (this.filterLanguage.length>0 ) {
+        //   this.filterRequest.language={
+        //      $in:this.filterLanguage
+        //    }
+        //     demo.push({language:this.filterRequest.language})
+        //   }else{
+        //     delete(this.filterRequest.language)
+        //   }
+
+        //   if (this.filterSection.length>0) {
+        //     // code...
+        //       this.filterRequest.sectionId={
+        //        $in:this.filterSection
+        //     }
+        //      demo.push({sectionId:this.filterRequest.sectionId})
+        //   }else{
+        //     delete(this.filterRequest.sectionId)
+        //   }
+        //   if (this.filterCategory.length>0) {
+        //     // code...
+        //     let category=[]
+        //     for(let i=0;i<this.filterCategory.length;i++){
+        //       category.push(this.filterCategory[i]._id)
+        //     }
+        //    this.filterRequest.categoryId={
+        //      $in:category}
+        //       demo.push({categoryId:this.filterRequest.categoryId})
+        //   }else{
+        //     delete(this.filterRequest.categoryId)
+        //   }
+        //   if (this.filterSubcategory.length>0 ) {
+        //     let subCategory=[]
+        //     for(let i=0;i<this.filterSubcategory.length;i++){
+        //       subCategory.push(this.filterSubcategory[i]._id)
+        //     }
+        //   this.filterRequest.subCategoryId=
+        //    {$in:subCategory}
+        //    demo.push({subCategoryId:this.filterRequest.subCategoryId})
+        //   }else{
+        //     delete(this.filterRequest.subCategoryId)
+        //   }
+
+        //    if(this.filterRequest.saveAsDraftStatus){
+        //          demo.push({saveAsDraftStatus:this.filterRequest.saveAsDraftStatus})
+        //     }
+        //     if(this.filterRequest.rejectStatus){
+        //        demo.push({rejectStatus:this.filterRequest.rejectStatus})
+              
+        //     }
+        //     if(this.filterRequest.sendForRevisionStatus){
+        //            demo.push({sendForRevisionStatus:this.filterRequest.sendForRevisionStatus})
+              
+        //     }
+        //     if(this.filterRequest.publishLaterStatus){
+        //           demo.push({publishLaterStatus:this.filterRequest.publishLaterStatus})
+              
+        //     }
+        //     if(this.filterRequest.publishStatus){
+        //         demo.push({publishStatus:this.filterRequest.publishStatus})
+        //     }
+      
+
+
+
         let demo=[]
           if (this.filterLanguage.length>0 ) {
-          this.filterRequest.language={
-             $in:this.filterLanguage
-           }
-            demo.push({language:this.filterRequest.language})
+          this.filterRequest.language=this.filterLanguage
+            //demo.push({language:this.filterRequest.language})
           }else{
             delete(this.filterRequest.language)
           }
 
           if (this.filterSection.length>0) {
             // code...
-              this.filterRequest.sectionId={
-               $in:this.filterSection
-            }
-             demo.push({sectionId:this.filterRequest.sectionId})
+              this.filterRequest.sectionId=this.filterSection
+        
+             //demo.push({sectionId:this.filterRequest.sectionId})
           }else{
             delete(this.filterRequest.sectionId)
           }
@@ -434,9 +496,8 @@ export class ViewContentComponent implements OnInit {
             for(let i=0;i<this.filterCategory.length;i++){
               category.push(this.filterCategory[i]._id)
             }
-           this.filterRequest.categoryId={
-             $in:category}
-              demo.push({categoryId:this.filterRequest.categoryId})
+           this.filterRequest.categoryId=category
+              //demo.push({categoryId:this.filterRequest.categoryId})
           }else{
             delete(this.filterRequest.categoryId)
           }
@@ -445,9 +506,9 @@ export class ViewContentComponent implements OnInit {
             for(let i=0;i<this.filterSubcategory.length;i++){
               subCategory.push(this.filterSubcategory[i]._id)
             }
-          this.filterRequest.subCategoryId=
-           {$in:subCategory}
-           demo.push({subCategoryId:this.filterRequest.subCategoryId})
+          this.filterRequest.subCategoryId=subCategory
+           // {$in:subCategory}
+           // demo.push({subCategoryId:this.filterRequest.subCategoryId})
           }else{
             delete(this.filterRequest.subCategoryId)
           }
@@ -472,13 +533,15 @@ export class ViewContentComponent implements OnInit {
             }
       
           let demo2=[];
-          demo2.push({$or:demo})
+          // demo2.push({$or:demo})
+          demo2.push(demo)
            demo2.push({deleteStatus:false})
            let demo3={
              $and:demo2
            }
+         this.filterRequest.deleteStatus=false
          this.waitLoader =true;
-              this.contentService.onApplyFilter(demo3)
+              this.contentService.onApplyFilter(this.filterRequest)
               .subscribe(data => {
                      if (data.success == false) {
                            this.waitLoader =false;
