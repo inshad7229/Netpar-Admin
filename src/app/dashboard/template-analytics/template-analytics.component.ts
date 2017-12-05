@@ -36,4 +36,90 @@ export class TemplateAnalyticsComponent implements OnInit {
                 })
   }
 
+  getSartDateTime(i,j){
+  	if (i && j) {
+  		if (this.categoryResult[i].categories.length>0) {
+  			let cat=  this.categoryResult[i].categories[j].startTime
+  	        return cat.split('T')[0]
+  		}
+  		else{
+
+  		 return '--'
+  	   }
+  		
+  	}else{
+  		return '--'
+  	}
+   
+  } 
+  getStartTime(i,j){
+    if (i && j) {
+    	if (this.categoryResult[i].categories.length>0) {
+  		let cat=  this.categoryResult[i].categories[j].startTime
+  		return cat.split('T')[1].substring(0, 5);
+  	  }else{
+  		return '--'
+  	  }
+  	}else{
+  		return '--'
+  	}
+  } 
+  geteEndDateTime(i,j){
+    if (i && j) {
+    	if (this.categoryResult[i].categories.length>j+1) {
+    		// code...
+  			let cat=  this.categoryResult[i].categories[j+1].startTime
+  			return cat.split('T')[0]
+    	}else{
+    	   return '--'	
+    	}
+  	}else{
+  		return '--'
+  	}
+  } 
+  getEndTime(i,j){
+    if (i && j) {
+    	if (this.categoryResult[i].categories.length>j+1) {
+    		// code...
+  			let cat=  this.categoryResult[i].categories[j+1].startTime
+  			return cat.split('T')[1].substring(0, 5);
+    	}else{
+    	   return '--'	
+    	}
+  		
+  	}else{
+  		return '--'
+  	}
+  }
+
+  getSartDateTimeList(i,j){
+
+  } 
+  getStartTimeList(i,j){
+
+  } 
+  geteEndDateTimeList(i,j){
+
+  } 
+  getEndTimeList(i,j){
+
+  } 
+
+//   getStartDate(timeString){
+//   if (timeString) {
+//     return timeString.split('T')[0]
+    
+//   }else{
+//     return '----'
+//   }
+// }
+// getEndTime(timeString){
+//   if (timeString) {
+
+//   return timeString.split('T')[1].substring(0, 5);
+//   }else{
+//     return '----'
+//   }
+// }
+
 }

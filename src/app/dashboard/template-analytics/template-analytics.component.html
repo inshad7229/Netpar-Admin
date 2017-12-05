@@ -33,14 +33,15 @@
 				                                       
 				                                    </thead>
 				                                    <tbody>
-				                                        <tr *ngFor="let cat of categoryResult">
-				                                        	<td> <a *ngFor="let catt of cat.categories" href="javascript:;"> {{catt.sectionName}} </a> </td>
+				                                        <tr *ngFor="let cat of categoryResult; let i=index">
+				                                        	<td> <div *ngFor="let catt of cat.categories" href="javascript:;"> {{catt.sectionName}} </div> </td>
 				                                            <td>
-				                                            	<a href="javascript:;" *ngFor="let catt of cat.categories">
+				                                            	<div href="javascript:;" *ngFor="let catt of cat.categories">
 				                                            		{{catt.sectionName}} | <span class="dark_ylw">{{catt.categoryName}} </span>
-			                                                    </a>
+			                                                    </div>
 		                                                    </td>
-				                                            <td> <span  *ngFor="let catt of cat.categories">{{catt.startTime}} - {{catt.startTime}} </span></td>
+				                                            <td> <div  *ngFor="let catt of cat.categories ; let j=index">
+				                                            {{getSartDateTime(i,j)}} {{getStartTime(i,j)}} - {{geteEndDateTime(i,j)}} {{getEndTime(i,j)}} </div></td>
 				                                            <td> {{cat.templateName}} </td>
 				                                            <td> 300 </td>
 				                                            <td> 500 </td>
@@ -92,46 +93,45 @@
 				                                       
 				                                    </thead>
 				                                    <tbody>
-				                                        <tr>
-				                                        	<td> <a href="javascript:;"> News </a> </td>
+				                                        <tr *ngFor="let cat of listingResult; let i=index">
+				                                        	<td> <div *ngFor="let catt of cat.categories" href="javascript:;"> {{catt.sectionName}} </div> </td>
 				                                            <td>
-				                                            	<a href="javascript:;">
-				                                            		News | <span class="dark_ylw">Sports News</span>
-			                                                    </a>
+				                                            	<div href="javascript:;" *ngFor="let catt of cat.categories">
+				                                            		{{catt.sectionName}} | <span class="dark_ylw">{{catt.categoryName}} </span>
+			                                                    </div>
 		                                                    </td>
-				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
-				                                            <td> Sport News </td>
-				                                            <td> 300 </td>
-				                                            <td> 500 </td>
-				                                            <td> 50 </td>
-				                                        </tr>
-				                                        <tr>
-				                                        	<td> <a href="javascript:;"> News </a> </td>
-				                                            <td>
-				                                            	<a href="javascript:;">
-				                                            		News | <span class="dark_ylw">Sports News</span>
-			                                                    </a>
-		                                                    </td>
-				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
-				                                            <td> Sport News </td>
-				                                            <td> 300 </td>
-				                                            <td> 500 </td>
-				                                            <td> 50 </td>
-				                                        </tr>
-				                                        <tr>
-				                                        	<td> <a href="javascript:;"> News </a> </td>
-				                                            <td>
-				                                            	<a href="javascript:;">
-				                                            		News | <span class="dark_ylw">Sports News</span>
-			                                                    </a>
-		                                                    </td>
-				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
-				                                            <td> Sport News </td>
+				                                            <td> <div  *ngFor="let catt of cat.categories ; let j=index">
+				                                            {{getSartDateTimeList(i,j)}} {{getStartTimeList(i,j)}} - {{geteEndDateTimeList(i,j)}} {{getEndTimeList(i,j)}} </div></td>
+				                                            <td> {{cat.templateName}} </td>
 				                                            <td> 300 </td>
 				                                            <td> 500 </td>
 				                                           <!--  <td> 50 </td> -->
 				                                        </tr>
-
+				                                        <!-- <tr>
+				                                        	<td> <a href="javascript:;"> News </a> </td>
+				                                            <td>
+				                                            	<a href="javascript:;">
+				                                            		News | <span class="dark_ylw">Sports News</span>
+			                                                    </a>
+		                                                    </td>
+				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
+				                                            <td> Sport News </td>
+				                                            <td> 300 </td>
+				                                            <td> 500 </td>
+				                                        </tr> -->
+				                                        <!-- <tr>
+				                                        	<td> <a href="javascript:;"> News </a> </td>
+				                                            <td>
+				                                            	<a href="javascript:;">
+				                                            		News | <span class="dark_ylw">Sports News</span>
+			                                                    </a>
+		                                                    </td>
+				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
+				                                            <td> Sport News </td>
+				                                            <td> 300 </td>
+				                                            <td> 500 </td>
+				                                        </tr>
+ -->
 				                                    </tbody>
 			                                    </table>
 			                                </div>
