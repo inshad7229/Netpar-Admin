@@ -1,4 +1,4 @@
-<div class="wrapper" (click)="onWindow($event)">
+<div class="wrapper" >
     <div class="loader-box" *ngIf="waitLoader">
          <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
     </div>
@@ -7,9 +7,9 @@
         <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
     </div>
 
-    <div class="main-panel">
+    <div class="main-panel" >
         <app-navbar></app-navbar>
-        <div class="main-content">
+        <div class="main-content" (click)="onWindow($event)">
             <div class="container-fluid p-0">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">

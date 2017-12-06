@@ -79,6 +79,7 @@ afterApplyStatus
     openDialog(user): void {
         let dialogRef = this.dialog.open(UserDialogComponent, {
             width: '400px',
+            disableClose: true,
             data:{user:user}
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -123,7 +124,7 @@ afterApplyStatus
     }
 
     onWindow(event){
-      event.stopPropagation();
+      event.preventDefault();
       var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
       //console.log($trigger);
       if($trigger !== event.target && !$trigger.has(event.target).length){

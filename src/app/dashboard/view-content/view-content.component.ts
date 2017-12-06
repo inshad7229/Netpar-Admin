@@ -67,7 +67,7 @@ export class ViewContentComponent implements OnInit {
     selectedId=[]
     status=[
       {
-        _id:"saveAsDraftStatus",
+        _id:"मुकुल",
         value:"Draft",
         check:false
 
@@ -882,7 +882,7 @@ onCall(id){
                       'SubCategory Name':contentData[0].subCategoryName,
                        })
 
-  new Angular2Csv(contentDetails, 'My Report');
+  new Angular2Csv(this.status, 'My Report');
 alert(id)
 }
 onCallMeBack(id){
