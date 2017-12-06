@@ -30,6 +30,7 @@ import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
 import {UserService} from '../../providers/user.service';
+import {ExcelService} from '../../providers/excel/excel.service';
 import { Sort } from '@angular/material';
 // import Clipboard from 'clipboard';
 import {Clipboard} from 'ts-clipboard';
@@ -42,7 +43,7 @@ declare var $ :any;
   selector: 'app-view-content',
   templateUrl: './view-content.component.html',
   styleUrls: ['./view-content.component.scss'],
-  providers:[ContentService,AdminService,SectionService,UserService]
+  providers:[ContentService,AdminService,SectionService,UserService,ExcelService]
 })
 export class ViewContentComponent implements OnInit {
     waitLoader
@@ -128,7 +129,8 @@ export class ViewContentComponent implements OnInit {
             private appProvider: AppProvider,
             private adminService:AdminService,
             private contentService:ContentService,
-            private userProvider:UserService) {
+            private userProvider:UserService,
+            private excelService: ExcelService) {
 
                 this.toastr.setRootViewContainerRef(vcr);
                 this.filterValue={}
@@ -860,55 +862,90 @@ getStatus(time,range):boolean {
  } 
 
 onApply(id){
-  let contentData=this.contentBackup.filter(arg=>arg._id=id)
+ let contentData=this.contentBackup.filter(arg=>arg._id==id)
   let contentDetails=[]
+  let userDetails=[]
   contentDetails.push({'Headline':contentData[0].headline,
                       'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
                       'Section Name':contentData[0].sectionName,
                       'Category Name':contentData[0].categoryName,
                       'SubCategory Name':contentData[0].subCategoryName,
                        })
-
-  new Angular2Csv(contentDetails, 'My Report');
+  for (let i =0;  i < this.userData; i++) {
+   if(contentData[0].apply.indexOf(this.userData[i]._id)!=-1){
+    userDetails.push({'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'State':this.userData[i].state,'District':this.userData[i].district,
+                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
+   }
+  }
+ this.excelService.exportAsExcelFile(contentDetails, userDetails,'apply');
+  new Angular2Csv(this.status, 'My Report');
 alert(id)
 }
 onCall(id){
-   let contentData=this.contentBackup.filter(arg=>arg._id=id)
+  let contentData=this.contentBackup.filter(arg=>arg._id==id)
   let contentDetails=[]
+  let userDetails=[]
   contentDetails.push({'Headline':contentData[0].headline,
                       'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
                       'Section Name':contentData[0].sectionName,
-                      'Category Name':contentData[0].categoryName,
-                      'SubCategory Name':contentData[0].subCategoryName,
+                      'Category Name':contentData[0].categoryName
                        })
-
+  for (let i =0;  i < this.userData; i++) {
+   if(contentData[0].call.indexOf(this.userData[i]._id)!=-1){
+    userDetails.push({'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'State':this.userData[i].state,'District':this.userData[i].district,
+                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
+   }
+  }
+  userDetails.push({'First Name':'indd','Last Name':'jjj',
+                      'State':'hhh','District':'jjj',
+                      'Block':'jjjj','Mobile Number':'iooioioioio'})
+   
+ this.excelService.exportAsExcelFile(contentDetails, userDetails,'Call');
   new Angular2Csv(this.status, 'My Report');
 alert(id)
 }
 onCallMeBack(id){
-   let contentData=this.contentBackup.filter(arg=>arg._id=id)
+  let contentData=this.contentBackup.filter(arg=>arg._id==id)
   let contentDetails=[]
+  let userDetails=[]
   contentDetails.push({'Headline':contentData[0].headline,
                       'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
                       'Section Name':contentData[0].sectionName,
                       'Category Name':contentData[0].categoryName,
                       'SubCategory Name':contentData[0].subCategoryName,
                        })
-
-  new Angular2Csv(contentDetails, 'My Report');
+  for (let i =0;  i < this.userData; i++) {
+   if(contentData[0].callmeback.indexOf(this.userData[i]._id)!=-1){
+    userDetails.push({'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'State':this.userData[i].state,'District':this.userData[i].district,
+                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
+   }
+  }
+ this.excelService.exportAsExcelFile(contentDetails, userDetails,'callmeback');
+  new Angular2Csv(this.status, 'My Report');
 alert(id)
 }
 onIntrested (id) {
-   let contentData=this.contentBackup.filter(arg=>arg._id=id)
+   let contentData=this.contentBackup.filter(arg=>arg._id==id)
   let contentDetails=[]
-  contentDetails.push({'Headline':contentData[0].headline.toString(),
+  let userDetails=[]
+  contentDetails.push({'Headline':contentData[0].headline,
                       'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
                       'Section Name':contentData[0].sectionName,
                       'Category Name':contentData[0].categoryName,
                       'SubCategory Name':contentData[0].subCategoryName,
                        })
-
-  new Angular2Csv(contentDetails, 'My Report');
+  for (let i =0;  i < this.userData; i++) {
+   if(contentData[0].interested.indexOf(this.userData[i]._id)!=-1){
+    userDetails.push({'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'State':this.userData[i].state,'District':this.userData[i].district,
+                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
+   }
+  }
+ this.excelService.exportAsExcelFile(contentDetails, userDetails,'interested');
+  new Angular2Csv(this.status, 'My Report');
 alert(id)
 }  
 }

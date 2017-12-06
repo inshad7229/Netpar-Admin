@@ -309,11 +309,18 @@ openDialog2(): void {
         });
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
+          	console.log(JSON.stringify(result))
                 this.selectedState=result.state
                 this.selectedDist=result.dist
                 
                 this.selectedBlock=result.block
+                 for (var i = 0;i<this.selectedState.length ; i++) {
+                    this.filterState.push({name:this.selectedState[i],check:true})
+                 }
 
+                  for (var i = 0;i<this.selectedDist.length ; i++) {
+                    this.filterDist.push({name:this.selectedDist[i],check:true})
+                 }
                 let data=this.userDataBackup.filter(arg=>this.getStateIndex(arg.state)==true)
                 for(let i=0;i<data.length;i++){
                 this.dataAfterState.push(data[i])
@@ -447,14 +454,14 @@ onChangeDist(check,index){
 
 onChangeBlock(block){
   if (block.check==true) {
-    this.filterBlock.push(block.name)
-       let data=this.userDataBackup.filter(arg=>arg.block==block.name)
+    this.filterBlock.push(block)
+       let data=this.userDataBackup.filter(arg=>arg.block==block)
        for(let i=0;i<data.length;i++){
         this.dataAfterBlock.push(data[i])
       } 
   }else{
-      this.dataAfterBlock= this.dataAfterBlock.filter(arg=>arg.block!=block.name)
-      this.filterBlock=this.filterBlock.filter(arg=>arg!=block.name)
+      this.dataAfterBlock= this.dataAfterBlock.filter(arg=>arg.block!=block)
+      this.filterBlock=this.filterBlock.filter(arg=>arg!=block)
   }
 
 }
@@ -754,7 +761,7 @@ getActiveStatus(time,range):boolean {
 
   onApplyFilter(){
         this.filterApplyStatus=true
-       let finalData= this.dataAfterLanguage.concat(this.dataAfterState ,this.dataAfterDist,
+       let finalData= this.dataAfterLanguage.concat(this.dataAfterDist,
                                                     this.dataAfterBlock,this.onMobileStatusData,
                                                     this.onHyperData,this.onModrateData,this.onInactiveData,
                                                     this.onInactiveData,this.onMaleData,this.onFemaleData,
@@ -778,18 +785,18 @@ getActiveStatus(time,range):boolean {
       let state=this.filterState.concat(this.selectedState)
       let block=this.filterBlock.concat(this.selectedBlock)
       let dist=this.filterDist.concat(this.selectedDist)
-      if (this.unique(state).length>0) {
-         this.afterApplyStatus.state=this.unique(state)
+      // if (this.unique(state).length>0) {
+         this.afterApplyStatus.state=this.unique(this.filterState)
         // code...
-      }
+      //}
       if (this.unique(block).length>0) {
          this.afterApplyStatus.block=this.unique(block)
         // code...
       }
-      if (this.unique(dist).length>0) {
-          this.afterApplyStatus.dist=this.unique(dist)
+     // if (this.unique(dist).length>0) {
+          this.afterApplyStatus.dist=this.unique(this.filterDist)
         // code...
-      }
+     // }
       this.afterApplyStatus.language=this.filterLanguage
 
 
@@ -804,13 +811,13 @@ onClearStateFilter(state){
     this.userData=this.userData.filter(arg=>arg.state!=state)
     this.afterApplyStatus.state=this.afterApplyStatus.state.filter(arg=>arg.name!=state)
     this.filterState=this.filterState.filter(arg=>arg.name!=state)
-    this.selectedState=this.selectedState.filter(arg=>arg.name!=state)
+    this.selectedState=this.selectedState.filter(arg=>name!=state)
 }
 onClearDistFilter(dist){
     this.userData=this.userData.filter(arg=>arg.district!=dist)
     this.afterApplyStatus.dist=this.afterApplyStatus.dist.filter(arg=>arg.name!=dist)
     this.filterDist=this.filterDist.filter(arg=>arg.name!=dist)
-    this.selectedDist=this.selectedDist.filter(arg=>arg.name!=dist)
+    this.selectedDist=this.selectedDist.filter(arg=>arg!=dist)
 }
 onClearBlockFilter(block){
     this.userData=this.userData.filter(arg=>arg.district!=block)
@@ -905,17 +912,20 @@ this.filterApplyStatus=false
 this.stateListState[0].check=false
       // for (var i = 0; i < this.stateListState.length; i++) {
            let obj=this.stateListState[0].dist
-           obj.check=false
-           for (var j = 0; j < obj.dist.length; j++) {
-            let obj2=obj.dist[j]
+           // obj.check=false
+           for (var j = 0; j < obj.length; j++) {
+            let obj2=obj[j]
             obj2.check=false
-            for (var k = 0; k < obj2.block.length; k) {
+            for (var k = 0; k < obj2.block.length; k++) {
               let obj3=obj2.block[k]
               obj3.check=false
               // code...
             }
           // }
       }
+      for (let i=0;i<this.stringResource.language.length;i++) {
+               this.stringResource.language[i].check=false
+            }
 }
 
 
