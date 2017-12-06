@@ -247,7 +247,7 @@
                                                     </td>
                                                     <td *ngIf="i<limit">{{content.likeCount}}</td> <td *ngIf="i<limit"> {{content.shareCount}}</td> <td *ngIf="i<limit">{{content.commentCount}}</td> <td *ngIf="i<limit"> 
                                                     {{content.saveCount}}</td> <td *ngIf="i<limit"> {{content.downloadCount}}</td>
-                                                    <td *ngIf="i<limit"> {{content.applyCount}}</td> <td *ngIf="i<limit">{{content.callCount}}</td> <td *ngIf="i<limit">{{content.callMeBackCount}} </td> <td *ngIf="i<limit"> {{content.imIntrestedCount}} </td> 
+                                                    <td *ngIf="i<limit" (click)="onApply(content._id)"> {{content.applyCount}}</td> <td *ngIf="i<limit" (click)="onCall(content._id)">{{content.callCount}}</td> <td *ngIf="i<limit" (click)="onCallMeBack(content._id)">{{content.callMeBackCount}} </td> <td *ngIf="i<limit" (click)="onIntrested(content._id)"> {{content.imIntrestedCount}} </td> 
                                                     <td *ngIf="i<limit">{{content.pageView}}</td>
 
                                                 </tr>

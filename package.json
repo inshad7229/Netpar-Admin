@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
+    "angular2-csv": "^0.2.5",
     "angular4-color-picker": "^1.4.2",
     "clipboard": "^1.7.1",
     "core-js": "^2.4.1",
@@ -37,6 +38,7 @@
     "ngx-clipboard": "^8.1.2",
     "ngx-color-picker": "^4.5.0",
     "ngx-croppie": "^0.2.0",
+    "ngx-papaparse": "^2.0.2",
     "ngx-perfect-scrollbar": "^5.0.5",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"

@@ -1522,7 +1522,12 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
+                                                                <h4 *ngIf=" rightPan.tag=='call' || rightPan.tag=='callMeBack'"> Phone No </h4>
+                                                                <div class="form-row padding-inputs" *ngIf=" rightPan.tag=='call' || rightPan.tag=='callMeBack'">
+                                                                     <mat-form-field>
+                                                                                    <input matInput placeholder="Phone" type="text" name="phone" [(ngModel)]="rightPan.phone"  (input)="onPhoneChange()"  [ngModelOptions]="{standalone: true}" maxlength="10">
+                                                                    </mat-form-field>
+                                                                </div>
 
                                                                 <div class="email-builder-element-edit-field">
 
@@ -2127,6 +2132,14 @@
                                                                                         <input matInput placeholder="Left" type="text"  name="mleft1" [(ngModel)]="rightPan.mleft1" (input)="monLeftChange1()"  [ngModelOptions]="{standalone: true}">
                                                                                     </mat-form-field>
                                                                             </div>
+
+
+                                                                            <h4 *ngIf="rightPan.btn1=='callmeback' || rightPan.btn1=='Call'"> Phone No </h4>
+                                                                            <div *ngIf="rightPan.btn1=='callmeback' || rightPan.btn1=='Call'" class="form-row padding-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Phone No" type="text" name="Phone1" [(ngModel)]="rightPan.phone1"  (input)="onPhoneChange1()"  [ngModelOptions]="{standalone: true}" maxlength="10">
+                                                                                </mat-form-field>
+                                                                           </div>
                                                                         </div>
                                                                         <div *ngIf="currentCallActiveIndex==2 && rightPan.btn2!=null">
                                                                             <div class="mat-btn-group mat-btn-group-justify">
@@ -2168,6 +2181,12 @@
                                                                                         <input matInput placeholder="Left" type="text"  name="mleft2" [(ngModel)]="rightPan.mleft2" (input)="monLeftChange2()"  [ngModelOptions]="{standalone: true}">
                                                                                     </mat-form-field>
                                                                             </div> 
+                                                                            <h4 *ngIf="rightPan.btn2=='callmeback' || rightPan.btn2=='Call'"> Phone No </h4>
+                                                                            <div *ngIf="rightPan.btn2=='callmeback' || rightPan.btn2=='Call'" class="form-row padding-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Phone No" type="text" name="phone2" [(ngModel)]="rightPan.phone2"  (input)="onPhoneChange2()"  [ngModelOptions]="{standalone: true}" maxlength="10">
+                                                                                </mat-form-field>
+                                                                           </div>
                                                                         </div>
                                                                         <div *ngIf="currentCallActiveIndex==3 && rightPan.btn3!=null">
                                                                             <div class="mat-btn-group mat-btn-group-justify">
@@ -2208,6 +2227,12 @@
                                                                                         <input matInput placeholder="Left" type="text"  name="mleft3" [(ngModel)]="rightPan.mleft3" (input)="monLeftChange3()"  [ngModelOptions]="{standalone: true}">
                                                                                     </mat-form-field>
                                                                             </div>
+                                                                            <h4 *ngIf="rightPan.btn3=='callmeback' || rightPan.btn3=='Call'"> Phone No </h4>
+                                                                            <div *ngIf="rightPan.btn3=='callmeback' || rightPan.btn3=='Call'" class="form-row padding-inputs">
+                                                                                <mat-form-field>
+                                                                                    <input matInput placeholder="Phone" type="text" name="phone3" [(ngModel)]="rightPan.phone3"  (input)="onPhoneChange3()"  [ngModelOptions]="{standalone: true}" maxlength="10">
+                                                                                </mat-form-field>
+                                                                           </div>
                                                                         </div>
                                                                         
                                                                            

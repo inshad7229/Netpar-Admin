@@ -214,32 +214,6 @@ export class AddContentComponent implements OnInit {
      stateCtrl: FormControl;
   filteredStates: Observable<any[]>;
 
-  states: any[] = [
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    }
-  ];
 	constructor(private dialog: MatDialog, 
 		        private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
 		        vcr: ViewContainerRef,
@@ -644,6 +618,9 @@ export class AddContentComponent implements OnInit {
        btn2:null,
        btn3:null,
        btn4:null,
+       phone1:null,
+       phone2:null,
+       phone3:null,
        count:this.gridCount,
       top1:'12px',bottom1:'12px',
       right1:'6px',left1:'6px',
@@ -692,7 +669,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          phone:null
          })
 		// if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
   //          this.callToActionButton.push({tag:'button',title:'Call',status:true})
@@ -707,7 +685,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          phone:null
          })
 	}
 	addIntrested(flag){
@@ -1503,6 +1482,18 @@ addownloadRight(Download){
 	video(video1){
 		//console.log(video1)
 	}
+  onPhoneChange3(){
+  this.listOne[this.currentIndex].phone3=this.rightPan.phone3
+  }
+  onPhoneChange2(){
+  this.listOne[this.currentIndex].phone2=this.rightPan.phone2
+  }
+  onPhoneChange1(){
+  this.listOne[this.currentIndex].phone1=this.rightPan.phone1
+  }
+  onPhoneChange(){
+     this.listOne[this.currentIndex].phone=this.rightPan.phone
+  }
 onDeleteBody(){
   //alert('hy')
   this.listOne=[]

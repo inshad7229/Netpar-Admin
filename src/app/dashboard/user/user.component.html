@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" (click)="onWindow($event)">
     <div class="loader-box" *ngIf="waitLoader">
          <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
     </div>
@@ -127,6 +127,7 @@
 		                                            <th colspan="7"> Platform Interaction </th>
 		                                            <th colspan="5"> User Engagement </th>
 		                                            <th colspan="4"> Call To Action </th>
+                                                    <th colspan="2"> User contribution </th>
 		                                            <th> Influencer </th>
 		                                            <th> Referral Code </th>
 		                                        </tr>
@@ -165,8 +166,8 @@
                                                             <!-- <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter>  --><i class="icon-donload"></i>
                                                         </a>
                                                     </th>
-                                                    <th mat-sort-header="Submission">
-                                                        <a matTooltipPosition="above"  matTooltip="Submission" class="tltip_ico">
+                                                    <th mat-sort-header="apply">
+                                                        <a matTooltipPosition="above"  matTooltip="Apply" class="tltip_ico">
                                                             <!-- <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter>  --><i class="icon-check"></i>
                                                         </a>
                                                     </th>
@@ -180,12 +181,22 @@
                                                             <!-- <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> --><i class="icon-callme"></i> 
                                                         </a>
                                                     </th>
-                                                    <th mat-sort-header="Publications">
-                                                        <a matTooltipPosition="above"  matTooltip="Publications" class="tltip_ico">
+                                                    <th mat-sort-header="imtrested">
+                                                        <a matTooltipPosition="above"  matTooltip="I'm Interested" class="tltip_ico">
                                                             <!-- <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> --> <i class="icon-click"></i>
                                                         </a>
                                                     </th>
-
+                                                    <th mat-sort-header="submission">
+                                                        <a matTooltipPosition="above"  matTooltip="Submission" class="tltip_ico">
+                                                            Submission
+                                                        </a>
+                                                    </th>
+                                                    <th mat-sort-header="publication">
+                                                        <a matTooltipPosition="above"  matTooltip="Publication" class="tltip_ico">
+                                                            Publication
+                                                        </a>
+                                                    </th>
+                                                    
                                                     <th></th>
                                                     <th></th>
 
@@ -225,10 +236,12 @@
 		                                            <td *ngIf="i<limit"> {{user.totalComments}}</td>
 		                                            <td *ngIf="i<limit"> {{user.totalSaves}} </td>
 		                                            <td *ngIf="i<limit"> {{user.totalDownloads}}</td>
-		                                            <td *ngIf="i<limit"> {{user.totalSubmissions}}</td>
+		                                            <td *ngIf="i<limit"> {{user.apply}}</td>
                                                     <td *ngIf="i<limit"> {{user.totalsCalls}}</td>
                                                     <td *ngIf="i<limit"> {{user.totalCallBacks}} </td>
-		                                            <td *ngIf="i<limit">{{user.totalPublications}} </td>
+		                                            <td *ngIf="i<limit">{{user.interested}} </td>
+                                                    <td *ngIf="i<limit">{{user.totalSubmissions}} </td>
+                                                    <td *ngIf="i<limit">{{user.totalPublications}} </td>
 		                                            <td *ngIf="i<limit"> 
                                                     	<div class="cus-switch user">
                                                             <span *ngIf="!user.influencer">Enable</span>

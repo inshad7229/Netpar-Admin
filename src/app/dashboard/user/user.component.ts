@@ -103,7 +103,7 @@ afterApplyStatus
             /*$('.cusdropdown-toggle').closest('.dropdown').removeClass('open');*/
             $(this).closest('.dropdown').toggleClass('open');
         })
-        $(window).on('click',function(e){
+        /*$(window).on('click',function(e){
             e.stopPropagation();
             
             var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
@@ -117,10 +117,30 @@ afterApplyStatus
             if($trigger !== e.target && !$trigger.has(e.target).length){
                 $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
             }
-        });
+        });*/
 
         this.getUser()
     }
+
+    onWindow(event){
+      event.stopPropagation();
+      var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
+      //console.log($trigger);
+      if($trigger !== event.target && !$trigger.has(event.target).length){
+          $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
+      }
+
+     var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+      var $trigger1 = $('.cdk-overlay-container');
+      //var $trigger2 = $('.cdk-overlay-backdrop.cdk-overlay-dark-backdrop.cdk-overlay-backdrop-showing');
+      console.log(event.target);
+      var e_target = $(event.target).closest('.cdk-overlay-container').length;
+      console.log(e_target);
+      if($trigger !== event.target && !$trigger.has(event.target).length && $trigger1 !== event.target && !$trigger1.has(event.target).length && !e_target ){
+          $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+      }
+  }
+
 
     getUser(){
           this.waitLoader = true;
@@ -500,6 +520,8 @@ sortData(sort: Sort) {
         case 'Call': return compare(a.totalsCalls, b.totalsCalls, isAsc);
         case 'CallMeBack': return compare(a.totalCallBacks, b.totalCallBacks, isAsc);
         case 'Publications': return compare(a.totalPublications, b.totalPublications, isAsc);
+        case 'apply': return compare(a.apply, b.apply, isAsc);
+        case 'interested': return compare(a.interested, b.interested, isAsc);
 
 
 
@@ -879,8 +901,9 @@ this.filterBlock=[]
 this.userData=this.userDataBackup.slice(0)
 this.selectedBlock=[]
 this.filterApplyStatus=false
-      for (var i = 0; i < this.stateListState.length; i++) {
-           let obj=this.stateListState[i]
+this.stateListState[0].check=false
+      // for (var i = 0; i < this.stateListState.length; i++) {
+           let obj=this.stateListState[0].dist
            obj.check=false
            for (var j = 0; j < obj.dist.length; j++) {
             let obj2=obj.dist[j]
@@ -890,7 +913,7 @@ this.filterApplyStatus=false
               obj3.check=false
               // code...
             }
-           }
+          // }
       }
 }
 
@@ -927,6 +950,8 @@ this.filterApplyStatus=false
         case 'Publications': return compare2(a.totalPublications, b.totalPublications, isAsc);
         case 'invite': return compare2(a.totalInvites, b.totalInvites, isAsc);
         case 'conversation': return compare2(a.totalConversations, b.totalConversations, isAsc);
+        case 'apply': return compare2(a.apply, b.apply, isAsc);
+        case 'interested': return compare2(a.interested, b.interested, isAsc);
         default: return 0;
       }
     });

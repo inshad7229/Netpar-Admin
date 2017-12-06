@@ -7,6 +7,7 @@ import { ToastsManager , Toast} from 'ng2-toastr';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import {DndModule} from 'ng2-dnd';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 // import {ColorPickerService} from 'angular4-color-picker';
 
 import { NgxCroppieComponent } from 'ngx-croppie';
@@ -28,9 +29,11 @@ import {AddContentRequest} from '../../models/content.modal'
 import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
+import {UserService} from '../../providers/user.service';
 import { Sort } from '@angular/material';
 // import Clipboard from 'clipboard';
 import {Clipboard} from 'ts-clipboard';
+import { forkJoin } from "rxjs/observable/forkJoin";
 
 declare var jquery:any;
 declare var $ :any;
@@ -39,7 +42,7 @@ declare var $ :any;
   selector: 'app-view-content',
   templateUrl: './view-content.component.html',
   styleUrls: ['./view-content.component.scss'],
-  providers:[ContentService,AdminService,SectionService]
+  providers:[ContentService,AdminService,SectionService,UserService]
 })
 export class ViewContentComponent implements OnInit {
     waitLoader
@@ -114,6 +117,7 @@ export class ViewContentComponent implements OnInit {
     limitedFilter
     filterApplyStatus:boolean=false
     dataForSorting:any
+    userData
     stringResource:StringResource=new  StringResource()
   	constructor(private dialog: MatDialog,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
@@ -123,7 +127,8 @@ export class ViewContentComponent implements OnInit {
             private sectionService:SectionService,
             private appProvider: AppProvider,
             private adminService:AdminService,
-            private contentService:ContentService) {
+            private contentService:ContentService,
+            private userProvider:UserService) {
 
                 this.toastr.setRootViewContainerRef(vcr);
                 this.filterValue={}
@@ -179,12 +184,13 @@ export class ViewContentComponent implements OnInit {
     }
     getList(){
       this.waitLoader = true;
-     this.contentService.ongetContentList()
+     forkJoin([  this.contentService.ongetContentList(),this.userProvider.onGetAllUser()])
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.contentBackup=data.response;
-                        this.contentList=data.response
-                        this.dataForSorting=data.response
+                        this.contentBackup=data[0].response;
+                        this.contentList=data[0].response
+                        this.dataForSorting=data[0].response
+                         this.userData=data[1].response;
                         this.contentListBackup=this.contentList.slice(0);        
                         // this.localAdminList=data.response;
                    // console.log(JSON.stringify(data))
@@ -655,6 +661,10 @@ export class ViewContentComponent implements OnInit {
             this.filterSectionFilterPan=[]
             this.filterCategoryFilterPan=[]
             this.filterSubcategoryFilterPan=[]
+            this.filterLanguage=[]
+            this.filterSection=[]
+            this.filterCategory=[]
+            this.filterSubcategory=[]
             this.saveAsDraftStatus=false;
             this.rejectStatus=false;
             this.sendForRevisionStatus=false;
@@ -666,6 +676,11 @@ export class ViewContentComponent implements OnInit {
             this.filterValue.language=null
             this.contentListBackup=null
             this.filterApplyStatus=false
+            this.filterRequest.saveAsDraftStatus=false
+            this.filterRequest.rejectStatus=false
+            this.filterRequest.sendForRevisionStatus=false
+            this.filterRequest.publishLaterStatus=false
+            this.filterRequest.publishStatus=false
             this.contentList=this.contentBackup.slice(0)
             this.dataForSorting=this.contentBackup.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
@@ -842,7 +857,60 @@ getStatus(time,range):boolean {
         case 'all':return true
         default: return false;
       }
- }     
+ } 
+
+onApply(id){
+  let contentData=this.contentBackup.filter(arg=>arg._id=id)
+  let contentDetails=[]
+  contentDetails.push({'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                       })
+
+  new Angular2Csv(contentDetails, 'My Report');
+alert(id)
+}
+onCall(id){
+   let contentData=this.contentBackup.filter(arg=>arg._id=id)
+  let contentDetails=[]
+  contentDetails.push({'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                       })
+
+  new Angular2Csv(contentDetails, 'My Report');
+alert(id)
+}
+onCallMeBack(id){
+   let contentData=this.contentBackup.filter(arg=>arg._id=id)
+  let contentDetails=[]
+  contentDetails.push({'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                       })
+
+  new Angular2Csv(contentDetails, 'My Report');
+alert(id)
+}
+onIntrested (id) {
+   let contentData=this.contentBackup.filter(arg=>arg._id=id)
+  let contentDetails=[]
+  contentDetails.push({'Headline':contentData[0].headline.toString(),
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                       })
+
+  new Angular2Csv(contentDetails, 'My Report');
+alert(id)
+}  
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);

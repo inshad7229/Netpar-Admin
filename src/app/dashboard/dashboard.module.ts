@@ -29,7 +29,7 @@ import { SidebarComponent } from '../components/sidebar/sidebar.component';
 
 
 import { EditAdminComponent } from './edit-admin/edit-admin.component';
-import { ViewSectionComponent } from './view-section/view-section.component';
+import { ViewSectionComponent,SectionConfirmation } from './view-section/view-section.component';
 import { DialogComponent} from './view-section/dialog/dialog.component';
 import { AddSectionComponent } from './add-section/add-section.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
@@ -150,12 +150,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               ImageResizerComponent,
               CommentConfirmation,
               MediaDialogComponent ,
-              ClipDirective
+              ClipDirective,
+              SectionConfirmation
 
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
-ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent,CommentConfirmation,MediaDialogComponent ],
+ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent,CommentConfirmation,MediaDialogComponent,SectionConfirmation ],
 providers:[TrimPipe,{
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

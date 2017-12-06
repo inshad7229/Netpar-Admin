@@ -1,14 +1,14 @@
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatListModule} from '@angular/material';
-import { Component, OnInit,ViewContainerRef,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewContainerRef,ViewChild ,Inject} from '@angular/core';
 import { ToastsManager , Toast} from 'ng2-toastr';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Router } from '@angular/router';
 import { ReactiveFormsModule,FormControlDirective,FormControl ,NgForm} from '@angular/forms';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { MatProgressBar} from '@angular/material';
-import { DialogComponent} from './dialog/dialog.component';
+import { DialogComponent} from './dialog/dialog.component';;
 // import {DataTableModule} from "angular2-datatable";
 
 
@@ -156,6 +156,26 @@ export class ViewSectionComponent implements OnInit {
 
         });
     }
+
+     openDialogConfirmation(data,flag): void {
+     // this.appProvider.current.currentSectionName=data.sectionName;
+        let dialogRef = this.dialog.open(SectionConfirmation, {
+            width: '400px',
+            data:{flag:flag}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+           if (result) {
+              if (flag=='Section') {
+                 this.deleteSectionConfirmation(data)
+              }else if (flag=='Category') {
+                  this.deleteCategoryConfirmation(data)
+              }else if (flag=='Subcategory') {
+                  this.deleteSubCategoryConfirmation(data)
+              }
+           }
+        });
+    }
     showSectionName(name, index) {
         if (index > 0) {
             if (this.sectiondata[index - 1].sectionName == name) {
@@ -203,29 +223,31 @@ export class ViewSectionComponent implements OnInit {
         });
     }
     deleteSection(data) {
-        this.waitLoader = true;
-        let date=new Date().toISOString();
-         data.deleteStatus=true;
-        this.sectionService.onDeleteSection(data)
-            .subscribe(data => {
-                this.waitLoader = false;
-                if (data.success == false) {
 
-                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
-                        toastLife: 3000,
-                        showCloseButton: true
-                    });
-                } else if (data.success == true) {
+        this.openDialogConfirmation(data,'Section')
+        // this.waitLoader = true;
+        // let date=new Date().toISOString();
+        //  data.deleteStatus=true;
+        // this.sectionService.onDeleteSection(data)
+        //     .subscribe(data => {
+        //         this.waitLoader = false;
+        //         if (data.success == false) {
+
+        //             this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+        //                 toastLife: 3000,
+        //                 showCloseButton: true
+        //             });
+        //         } else if (data.success == true) {
      
-                    $('.dropdown').removeClass('open');
-                    this.getSectionViewData()
-                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
-                }
-                console.log(JSON.stringify(data))
-            }, error => {
-                this.waitLoader = false;
-                alert(error)
-            })
+        //             $('.dropdown').removeClass('open');
+        //             this.getSectionViewData()
+        //             //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+        //         }
+        //         console.log(JSON.stringify(data))
+        //     }, error => {
+        //         this.waitLoader = false;
+        //         alert(error)
+        //     })
     }
     enableDisableSection(data) {
         this.waitLoader = true;
@@ -290,29 +312,30 @@ export class ViewSectionComponent implements OnInit {
         });
     }
     deleteCategory(data) {
-        this.waitLoader = true;
-         let date=new Date().toISOString();
-         data.deleteStatus=true;
-        this.sectionService.onDeleteCategory(data)
-            .subscribe(data => {
-                this.waitLoader = false;
-                if (data.success == false) {
+         this.openDialogConfirmation(data,'Category')
+        // this.waitLoader = true;
+        //  let date=new Date().toISOString();
+        //  data.deleteStatus=true;
+        // this.sectionService.onDeleteCategory(data)
+        //     .subscribe(data => {
+        //         this.waitLoader = false;
+        //         if (data.success == false) {
 
-                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
-                        toastLife: 3000,
-                        showCloseButton: true
-                    });
-                } else if (data.success == true) {
+        //             this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+        //                 toastLife: 3000,
+        //                 showCloseButton: true
+        //             });
+        //         } else if (data.success == true) {
            
-                    $('.dropdown').removeClass('open');
-                    this.getSectionViewData()
-                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
-                }
-                console.log(JSON.stringify(data))
-            }, error => {
-                this.waitLoader = false;
-                alert(error)
-            })
+        //             $('.dropdown').removeClass('open');
+        //             this.getSectionViewData()
+        //             //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+        //         }
+        //         console.log(JSON.stringify(data))
+        //     }, error => {
+        //         this.waitLoader = false;
+        //         alert(error)
+        //     })
     }
     enableDisableCategory(data) {
         this.waitLoader = true;
@@ -374,29 +397,30 @@ export class ViewSectionComponent implements OnInit {
         });
     }
     deleteSubCategory(data) {
-        this.waitLoader = true;
-        let date=new Date().toISOString();
-         data.deleteStatus=true;
-        this.sectionService.onDeleteSubCategory(data)
-            .subscribe(data => {
-                this.waitLoader = false;
-                if (data.success == false) {
+        this.openDialogConfirmation(data,'Subcategory')
+        // this.waitLoader = true;
+        // let date=new Date().toISOString();
+        //  data.deleteStatus=true;
+        // this.sectionService.onDeleteSubCategory(data)
+        //     .subscribe(data => {
+        //         this.waitLoader = false;
+        //         if (data.success == false) {
 
-                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
-                        toastLife: 3000,
-                        showCloseButton: true
-                    });
-                } else if (data.success == true) {
+        //             this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+        //                 toastLife: 3000,
+        //                 showCloseButton: true
+        //             });
+        //         } else if (data.success == true) {
                    
-                    $('.dropdown').removeClass('open');
-                    this.getSectionViewData()
-                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
-                }
-                console.log(JSON.stringify(data))
-            }, error => {
-                this.waitLoader = false;
-                alert(error)
-            })
+        //             $('.dropdown').removeClass('open');
+        //             this.getSectionViewData()
+        //             //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+        //         }
+        //         console.log(JSON.stringify(data))
+        //     }, error => {
+        //         this.waitLoader = false;
+        //         alert(error)
+        //     })
     }
     enableDisableSubCategory(data) {
         this.waitLoader = true;
@@ -581,5 +605,107 @@ export class ViewSectionComponent implements OnInit {
         //  }
         
      }
+
+
+       deleteSectionConfirmation(data) {
+        this.waitLoader = true;
+        let date=new Date().toISOString();
+         data.deleteStatus=true;
+        this.sectionService.onDeleteSection(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+     
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                this.waitLoader = false;
+                alert(error)
+            })
+    }
+ deleteCategoryConfirmation(data) {
+        this.waitLoader = true;
+         let date=new Date().toISOString();
+         data.deleteStatus=true;
+        this.sectionService.onDeleteCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+           
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                this.waitLoader = false;
+                alert(error)
+            })
+    }
+ deleteSubCategoryConfirmation(data) {
+        this.waitLoader = true;
+        let date=new Date().toISOString();
+         data.deleteStatus=true;
+        this.sectionService.onDeleteSubCategory(data)
+            .subscribe(data => {
+                this.waitLoader = false;
+                if (data.success == false) {
+
+                    this.toastr.error('Admin Updation failed Please try again', 'Admin Updation Failed. ', {
+                        toastLife: 3000,
+                        showCloseButton: true
+                    });
+                } else if (data.success == true) {
+                   
+                    $('.dropdown').removeClass('open');
+                    this.getSectionViewData()
+                    //this.router.navigate(['/view-section'],{ skipLocationChange: true });
+                }
+                console.log(JSON.stringify(data))
+            }, error => {
+                this.waitLoader = false;
+                alert(error)
+            })
+    }
 }
 
+@Component({
+  selector: 'section-confirmation-dialog',
+  templateUrl: 'confirmation.html'
+})
+
+export class SectionConfirmation {
+   
+
+  constructor(
+    public dialogRef: MatDialogRef<SectionConfirmation>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+       }
+
+  onYesClick(): void {
+    this.dialogRef.close('yes');
+    // this.homePage.onDelete(this.data.admin)
+  }
+   onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+ 
+
+}

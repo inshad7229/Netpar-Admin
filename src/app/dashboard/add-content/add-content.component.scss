@@ -88,7 +88,7 @@
     display: flex;
     flex: 1 1 auto;
     padding: 15px;
-    overflow: hidden;
+    overflow: auto;
 }
 #email-builder .email-builder-content [position-relative] .builder .empty {
     min-height: 500px;
@@ -105,7 +105,12 @@
     padding: 10px;
     position: relative;
     box-sizing: border-box;
-    overflow: auto;
+    //overflow: auto;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    -moz-flex-direction: column;
+    -o-flex-direction: column;
 }
 
 #email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row {
