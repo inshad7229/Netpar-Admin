@@ -35,7 +35,7 @@ import { AddSectionComponent } from './add-section/add-section.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
 import { AddContentComponent } from './add-content/add-content.component';
-import { ViewContentComponent,ContentConfirmation } from './view-content/view-content.component';
+import { ViewContentComponent,ContentConfirmation,downloadContentConfirmation } from './view-content/view-content.component';
 import { ViewDialogComponent } from './view-content/view-dialog/view-dialog.component';
 import { AdminConfirmation} from './home/home.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -151,12 +151,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               CommentConfirmation,
               MediaDialogComponent ,
               ClipDirective,
-              SectionConfirmation
+              SectionConfirmation,
+              downloadContentConfirmation
 
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
-ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent,CommentConfirmation,MediaDialogComponent,SectionConfirmation ],
+ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent,CommentConfirmation,MediaDialogComponent,SectionConfirmation,downloadContentConfirmation ],
 providers:[TrimPipe,{
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

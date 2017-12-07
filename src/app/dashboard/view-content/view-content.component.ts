@@ -871,16 +871,30 @@ onApply(id){
                       'Category Name':contentData[0].categoryName,
                       'SubCategory Name':contentData[0].subCategoryName,
                        })
-  for (let i =0;  i < this.userData; i++) {
+  for (let i =0;  i < this.userData.length; i++) {
    if(contentData[0].apply.indexOf(this.userData[i]._id)!=-1){
-    userDetails.push({'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+   userDetails.push({
+                      'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                      'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
                       'State':this.userData[i].state,'District':this.userData[i].district,
                       'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
    }
   }
- this.excelService.exportAsExcelFile(contentDetails, userDetails,'apply');
-  new Angular2Csv(this.status, 'My Report');
-alert(id)
+  let dialogRef = this.dialog.open(downloadContentConfirmation, {
+            width: '400px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+           if (result=='excel') {
+            this.excel(userDetails,'interested')
+          }else if (result.flag=='email') {
+             this.email(userDetails,'interested',result.email)
+          }
+   });
 }
 onCall(id){
   let contentData=this.contentBackup.filter(arg=>arg._id==id)
@@ -891,20 +905,31 @@ onCall(id){
                       'Section Name':contentData[0].sectionName,
                       'Category Name':contentData[0].categoryName
                        })
-  for (let i =0;  i < this.userData; i++) {
+  for (let i =0;  i < this.userData.length; i++) {
    if(contentData[0].call.indexOf(this.userData[i]._id)!=-1){
-    userDetails.push({'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+    userDetails.push({
+                      'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                      'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
                       'State':this.userData[i].state,'District':this.userData[i].district,
                       'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
    }
   }
-  userDetails.push({'First Name':'indd','Last Name':'jjj',
-                      'State':'hhh','District':'jjj',
-                      'Block':'jjjj','Mobile Number':'iooioioioio'})
-   
- this.excelService.exportAsExcelFile(contentDetails, userDetails,'Call');
-  new Angular2Csv(this.status, 'My Report');
-alert(id)
+
+   let dialogRef = this.dialog.open(downloadContentConfirmation, {
+            width: '400px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+           if (result=='excel') {
+            this.excel(userDetails,'interested')
+          }else if (result.flag=='email') {
+             this.email(userDetails,'interested',result.email)
+          }
+   });
 }
 onCallMeBack(id){
   let contentData=this.contentBackup.filter(arg=>arg._id==id)
@@ -916,38 +941,91 @@ onCallMeBack(id){
                       'Category Name':contentData[0].categoryName,
                       'SubCategory Name':contentData[0].subCategoryName,
                        })
-  for (let i =0;  i < this.userData; i++) {
+  for (let i =0;  i < this.userData.length; i++) {
    if(contentData[0].callmeback.indexOf(this.userData[i]._id)!=-1){
-    userDetails.push({'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
-                      'State':this.userData[i].state,'District':this.userData[i].district,
-                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
-   }
-  }
- this.excelService.exportAsExcelFile(contentDetails, userDetails,'callmeback');
-  new Angular2Csv(this.status, 'My Report');
-alert(id)
-}
-onIntrested (id) {
-   let contentData=this.contentBackup.filter(arg=>arg._id==id)
-  let contentDetails=[]
-  let userDetails=[]
-  contentDetails.push({'Headline':contentData[0].headline,
+   userDetails.push({
+                      'Headline':contentData[0].headline,
                       'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
                       'Section Name':contentData[0].sectionName,
                       'Category Name':contentData[0].categoryName,
                       'SubCategory Name':contentData[0].subCategoryName,
-                       })
-  for (let i =0;  i < this.userData; i++) {
-   if(contentData[0].interested.indexOf(this.userData[i]._id)!=-1){
-    userDetails.push({'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
                       'State':this.userData[i].state,'District':this.userData[i].district,
                       'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
    }
   }
- this.excelService.exportAsExcelFile(contentDetails, userDetails,'interested');
-  new Angular2Csv(this.status, 'My Report');
-alert(id)
-}  
+
+   let dialogRef = this.dialog.open(downloadContentConfirmation, {
+            width: '400px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result=='excel') {
+            this.excel(userDetails,'interested')
+          }else if (result.flag=='email') {
+             this.email(userDetails,'interested',result.email)
+          }
+   });
+//  this.excelService.exportAsExcelFile(contentDetails, userDetails,'callmeback');
+//   new Angular2Csv(this.status, 'My Report');
+// alert(id)
+}
+onIntrested (id) {
+ 
+   let contentData=this.contentBackup.filter(arg=>arg._id==id)
+  let contentDetails=[]
+  let userDetails=[]
+  // contentDetails.push({'Headline':contentData[0].headline,
+  //                     'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+  //                     'Section Name':contentData[0].sectionName,
+  //                     'Category Name':contentData[0].categoryName,
+  //                     'SubCategory Name':contentData[0].subCategoryName,
+  //                      })
+  for (let i =0;  i < this.userData.length; i++) {
+     console.log('bahar',this.userData[i]._id)
+   if(contentData[0].interested.indexOf(this.userData[i]._id)!=-1){
+     console.log('if',this.userData[i]._id)
+    userDetails.push({
+                      'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                      'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'State':this.userData[i].state,'District':this.userData[i].district,
+                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
+   }
+  }
+ let dialogRef = this.dialog.open(downloadContentConfirmation, {
+            width: '400px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result=='excel') {
+            this.excel(userDetails,'interested')
+          }else if (result.flag=='email') {
+             this.email(userDetails,'interested',result.email)
+          }
+   });
+//  this.excelService.exportAsExcelFile(contentDetails, userDetails,'interested');
+//   new Angular2Csv(this.status, 'My Report');
+// alert(id)
+}
+excel(userDetails,fileName){
+  console.log(JSON.stringify(userDetails))
+    this.excelService.exportAsExcelFileSingle(userDetails,fileName);
+  } 
+  email(userDetails,fileName,email){
+      this.waitLoader = true;
+                this.contentService.onEmailExcel(userDetails,fileName,email)
+              .subscribe(data => {
+                  this.waitLoader = false;
+                  
+              },error=>{
+                  this.waitLoader =false;
+                  alert(error)
+              })
+  }   
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
@@ -1106,6 +1184,41 @@ export class ContentConfirmation {
     this.dialogRef.close();
   }
 
+ 
+ 
+
+}
+
+
+@Component({
+  selector: 'downloadcontent-confirmation-dialog',
+  templateUrl: 'downloadContentConfirmation.html',
+})
+
+export class downloadContentConfirmation {
+   
+  msg;
+ emailstatus:boolean=false
+ email
+  constructor(
+    public dialogRef: MatDialogRef<downloadContentConfirmation>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+        private router: Router,
+        private appProvider: AppProvider,
+        public dialog: MatDialog) {
+      
+       }
+
+  onExcel(): void {
+    this.dialogRef.close('excel');
+    // this.homePage.onDelete(this.data.admin)
+  }
+   onEmail(): void {
+    this.dialogRef.close({email:this.email,flag:'email'});
+  }
+onEmailPress(){
+  this.emailstatus=true
+}
  
  
 

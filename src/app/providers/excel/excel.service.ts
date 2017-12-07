@@ -21,7 +21,14 @@ export class ExcelService {
     const excelBuffer: any = XLSXStyle.write(workbook, { bookType: 'xlsx', type: 'buffer' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
-
+    public exportAsExcelFileSingle(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    this.wrapAndCenterCell(worksheet.B2);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Data': worksheet }, SheetNames: ['Data'] };
+    // Use XLSXStyle instead of XLSX write function which property writes cell styles.
+    const excelBuffer: any = XLSXStyle.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+  }
   private wrapAndCenterCell(cell: XLSX.CellObject) {
     const wrapAndCenterCellStyle = { alignment: { wrapText: true, vertical: 'center', horizontal: 'center' } };
     this.setCellStyle(cell, wrapAndCenterCellStyle);

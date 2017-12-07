@@ -104,6 +104,13 @@ onAction(){
  // alert( this.appProvider.current.actionFlag)
   this.appProvider.current.actionFlag='menu'
 }
+
+onGoogle(){
+ window.open('https://analytics.google.com/analytics/')
+}
+onFlurry(){
+ window.open('https://developer.yahoo.com/analytics/')
+}
   /*ngOnInit() {
       System.import('../../assets/js/sidebar-moving-tab.js');
         this.menuItems = ROUTES.filter(menuItem => menuItem);
