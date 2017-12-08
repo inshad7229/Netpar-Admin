@@ -31,6 +31,21 @@ export class UserService {
             return error;
         });
     }
+
+    onDeleteUser(id){
+        let api =  ENV.mainApi+"deleteUser/"+id;
+         let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(api,options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
      onEditStatus(user:any):  Observable<any> {
         let api =  ENV.mainApi+"editMemberStatus/"+user._id;
         let b=!user.status

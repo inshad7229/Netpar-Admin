@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 // import {DataTableModule} from "angular2-datatable";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
@@ -305,7 +305,7 @@ onSateSelect(stateListState){
       
     }
 }
-
+   
 openDialog2(): void {
         let dialogRef = this.dialog.open(FilterDialogComponent, {
             width: '800px',
@@ -985,10 +985,67 @@ this.stateListState[0].check=false
     console.log("awesome");
     this.classForFilter="open";
   }
+   deletUser(user): void {
+        let dialogRef = this.dialog.open(UserConfirmation, {
+            width: '400px',
+            disableClose: true,
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result=='yes') {
+            this.deletUserConfirm(user._id)
+          }
+        });
+    }
+  deletUserConfirm(id){
+       this.waitLoader = true;
+         this.userProvider.onDeleteUser(id)
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    if (data.success==true) {
+                      // this.getUser()
+                      this.userData=this.userData.filter(arg=>arg._id !=id);
+                      this.userDataBackup=this.userDataBackup.filter(arg=>arg._id !=id);
+                      this.dataForSorting=this.dataForSorting.filter(arg=>arg._id !=id);
+                      this.dataAfterFilterApply=this.dataAfterFilterApply.filter(arg=>arg._id !=id);
+                    }
+                    
+                },error=>{
+                     
+                    alert(error)
+                    this.waitLoader = false;
+                }) 
+  }
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
 function compare2(a, b, isAsc) {
   return (b-a) 
+}
+
+@Component({
+  selector: 'user-confirmation-dialog',
+  templateUrl: 'confirmation.html',
+})
+
+export class UserConfirmation {
+   
+
+  constructor(
+    public dialogRef: MatDialogRef<UserConfirmation>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+        public dialog: MatDialog) {
+       }
+
+  onYesClick(): void {
+    this.dialogRef.close('yes');
+    // this.homePage.onDelete(this.data.admin)
+  }
+   onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+ 
+
 }
