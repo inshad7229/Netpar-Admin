@@ -19,16 +19,16 @@ declare var $ :any;
   providers:[UserService,StateService]
 })
 export class UserComponent implements OnInit {
-     userData
-     waitLoader
-     userDataBackup
-     stateList
-     stateListBackup
-     limitedFilter
-     limit
-     stateListState
-     filterApplyStatus:boolean=false
-     dataForSorting
+    userData
+    waitLoader
+    userDataBackup
+    stateList
+    stateListBackup
+    limitedFilter
+    limit
+    stateListState
+    filterApplyStatus:boolean=false
+    dataForSorting
     distList=[]
     activeDist:number=-1
     selectedState=[]
@@ -61,14 +61,17 @@ export class UserComponent implements OnInit {
     filterState=[]
     filterDist=[]
     filterBlock=[]
-dataAfterLanguage=[]
-dataAfterState=[]
-dataAfterDist=[]
-dataAfterBlock=[]
-dataAfterFilterApply
-afterApplyStatus
- stateResource:StateResource=new StateResource()
- stringResource:StringResource=new  StringResource()
+    dataAfterLanguage=[]
+    dataAfterState=[]
+    dataAfterDist=[]
+    dataAfterBlock=[]
+    dataAfterFilterApply
+    afterApplyStatus
+    stateResource:StateResource=new StateResource()
+    stringResource:StringResource=new  StringResource();
+    openDivFlag:boolean;
+    classToOpenDiv='';
+    classForFilter='';
     constructor(private dialog: MatDialog,private userProvider:UserService,private stateService:StateService) { 
     this.stateListState=this.stateResource.state
     this.limitedFilter={}
@@ -91,56 +94,57 @@ afterApplyStatus
 
 
     ngOnInit() {
-		$('.filter-plugin > a').on('click',function(){
-			$(this).closest('.filter-plugin').addClass('open');
-			console.log($(this));
-		});
-		$('.close-filter').on('click',function(){
-			$(this).closest('.filter-plugin').removeClass('open');
-		});
+		// $('.filter-plugin > a').on('click',function(){
+		// 	$(this).closest('.filter-plugin').addClass('open');
+		// 	console.log($(this));
+		// });
+		// $('.close-filter').on('click',function(){
+		// 	$(this).closest('.filter-plugin').removeClass('open');
+		// });
 
 
-		$('.cusdropdown-toggle').on('click',function(){
-            /*$('.cusdropdown-toggle').closest('.dropdown').removeClass('open');*/
-            $(this).closest('.dropdown').toggleClass('open');
-        })
-        /*$(window).on('click',function(e){
-            e.stopPropagation();
-            
-            var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
-            console.log($trigger);
-            if($trigger !== e.target && !$trigger.has(e.target).length){
-                $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
-            }
+  		$('.cusdropdown-toggle').on('click',function(){
+          /*$('.cusdropdown-toggle').closest('.dropdown').removeClass('open');*/
+          $(this).closest('.dropdown').toggleClass('open');
+      })
+      $(window).on('click',function(e){
+          //e.stopPropagation();
+          var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
+          console.log($trigger);
+          if($trigger !== e.target && !$trigger.has(e.target).length){
+              $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
+          }
 
-            var $trigger = $(".sidebar-filter").closest('.filter-plugin');
-            console.log($trigger);
-            if($trigger !== e.target && !$trigger.has(e.target).length){
-                $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
-            }
-        });*/
+      //     var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+      //     console.log($trigger);
+      //     if($trigger !== e.target && !$trigger.has(e.target).length){
+      //         $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+      //     }
+      });
 
-        this.getUser()
+      this.getUser()
     }
 
-    onWindow(event){
-      event.preventDefault();
-      var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
-      //console.log($trigger);
-      if($trigger !== event.target && !$trigger.has(event.target).length){
-          $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
-      }
+    onWindow(){
+      // event.preventDefault();
+      // var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
+      // //console.log($trigger);
+      // if($trigger !== event.target && !$trigger.has(event.target).length){
+      //     $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
+      // }
 
-     var $trigger = $(".sidebar-filter").closest('.filter-plugin');
-      var $trigger1 = $('.cdk-overlay-container');
-      //var $trigger2 = $('.cdk-overlay-backdrop.cdk-overlay-dark-backdrop.cdk-overlay-backdrop-showing');
-      console.log(event.target);
-      var e_target = $(event.target).closest('.cdk-overlay-container').length;
-      console.log(e_target);
-      if($trigger !== event.target && !$trigger.has(event.target).length && $trigger1 !== event.target && !$trigger1.has(event.target).length && !e_target ){
-          $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
-      }
-  }
+      // var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+      // var $trigger1 = $('.cdk-overlay-container');
+      // //var $trigger2 = $('.cdk-overlay-backdrop.cdk-overlay-dark-backdrop.cdk-overlay-backdrop-showing');
+      // console.log(event.target);
+      // var e_target = $(event.target).closest('.cdk-overlay-container').length;
+      // console.log(e_target);
+      // if($trigger !== event.target && !$trigger.has(event.target).length && $trigger1 !== event.target && !$trigger1.has(event.target).length && !e_target ){
+      //     $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+      // }
+     this.classToOpenDiv=""
+     //this.classForFilter=""
+    }
 
 
     getUser(){
@@ -315,11 +319,16 @@ openDialog2(): void {
                 
                 this.selectedBlock=result.block
                  for (var i = 0;i<this.selectedState.length ; i++) {
-                    this.filterState.push({name:this.selectedState[i],check:true})
+                   if (this.filterState.map(function (img) { return img.name; }).indexOf(this.selectedState[i])==-1) {
+                         this.filterState.push({name:this.selectedState[i],check:true})
+                     // code...
+                   }
                  }
 
                   for (var i = 0;i<this.selectedDist.length ; i++) {
-                    this.filterDist.push({name:this.selectedDist[i],check:true})
+                    if(this.filterDist.map(function (img) { return img.name; }).indexOf(this.selectedDist[i])==-1){  
+                      this.filterDist.push({name:this.selectedDist[i],check:true})
+                    }
                  }
                 let data=this.userDataBackup.filter(arg=>this.getStateIndex(arg.state)==true)
                 for(let i=0;i<data.length;i++){
@@ -365,7 +374,11 @@ getBlockIndex(block):boolean{
   }
 
 }
+
 openFilter(){
+  this.openDivFlag=true;
+  this.classToOpenDiv="open";
+  console.log("1st fuction")
   if (this.limitedFilter.state=='Maharashtra') {
     this.stateListState[0].check=true;
     //this.distList=this.stateListState[0].dist
@@ -378,8 +391,8 @@ openFilter(){
        }
      }
   }
-
 }
+
 onChangeDist(check,index){
   if (index==0) {
      if (check==true) {
@@ -780,7 +793,7 @@ getActiveStatus(time,range):boolean {
       this.afterApplyStatus.active=this.rigthSide.active
       this.afterApplyStatus.modrate=this.rigthSide.modrate
       this.afterApplyStatus.hyper=this.rigthSide.hyper
-       this.afterApplyStatus.inactive=this.rigthSide.inactive
+      this.afterApplyStatus.inactive=this.rigthSide.inactive
       this.afterApplyStatus.mobileStatus=this.rigthSide.mobileStatus
       let state=this.filterState.concat(this.selectedState)
       let block=this.filterBlock.concat(this.selectedBlock)
@@ -967,6 +980,11 @@ this.stateListState[0].check=false
       }
     });
 }
+// --------------------------------------8-12-17---------------------------------------
+  openFilterForSorting(){
+    console.log("awesome");
+    this.classForFilter="open";
+  }
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);

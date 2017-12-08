@@ -9,7 +9,7 @@
 
     <div class="main-panel" >
         <app-navbar></app-navbar>
-        <div class="main-content" (click)="onWindow($event)">
+        <div class="main-content" (click)="onWindow()">
             <div class="container-fluid p-0">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
@@ -389,13 +389,13 @@
     </div>
 
     <div class="fixed-plugin">
-	    <div class="filter-plugin">
+	    <div class="filter-plugin {{classToOpenDiv}}">
 	        <a href="javascript:void(0);" (click)="openFilter()">
 	            <i class="material-icons">sort</i>
 	        </a>
 	        <ul class="sidebar-filter" type="none">
 	        	<div class="left-content">
-	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
+	        		<div class="close-filter" (click)="onWindow()"> <span> <i class="fa fa-times"></i> </span> </div>
                     <!-- <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> Select State</h5>
                         <div class="wrapFilter-div">
