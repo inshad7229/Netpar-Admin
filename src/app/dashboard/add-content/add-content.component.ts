@@ -590,6 +590,9 @@ export class AddContentComponent implements OnInit {
        btn1:null,
        btn2:null,
        btn3:null,
+       count1:0,
+       count2:0,
+       count3:0,
        btn4:null,
        btn5:null,
       count:this.gridCount,
@@ -618,6 +621,9 @@ export class AddContentComponent implements OnInit {
        btn2:null,
        btn3:null,
        btn4:null,
+       count1:0,
+       count2:0,
+       count3:0,
        phone1:null,
        phone2:null,
        phone3:null,
@@ -658,7 +664,8 @@ export class AddContentComponent implements OnInit {
 		  this.listOne.push({tag:"apply",backgroundColor:'#FFFFFF',
           top:'10px',bottom:'10px',
           right:'10px',left:'10px',
-          outline:false
+          outline:false,
+          count:0
          })
 		// if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
   //         this.callToActionButton.push({tag:'button',title:'Apply',status:true})
@@ -670,7 +677,8 @@ export class AddContentComponent implements OnInit {
           right:'6px',left:'6px',
           aligment:'center',
           outline:false,
-          phone:null
+          phone:null,
+          count:0
          })
 		// if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
   //          this.callToActionButton.push({tag:'button',title:'Call',status:true})
@@ -686,7 +694,8 @@ export class AddContentComponent implements OnInit {
           right:'6px',left:'6px',
           aligment:'center',
           outline:false,
-          phone:null
+          phone:null,
+          count:0
          })
 	}
 	addIntrested(flag){
@@ -698,7 +707,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 	}
 	addlike(flag){
@@ -711,6 +721,7 @@ export class AddContentComponent implements OnInit {
           right:'6px',left:'6px',
           aligment:'center',
           outline:false,
+          count:0
          })
 	}
 	addshare(flag){
@@ -722,7 +733,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 	}
 	addcomment(flag){
@@ -734,7 +746,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 	}
 	addsave(flag){
@@ -742,7 +755,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 		// if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
   //        this.userEngaButton.push({tag:'button',title:"Save",status:true})
@@ -757,7 +771,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 	}
 
