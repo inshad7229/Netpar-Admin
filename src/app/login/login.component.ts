@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
            this.toastr.error( 'Please check you login credential !!','Authentication failed. ',{toastLife: 3000, showCloseButton: true});
        }else if (data.success==true) {
           this.appProvider.current.loginData=data.response
+          localStorage['netparUser']=JSON.stringify(data.response)
           if (this.loginModel.remember==true || this.loginModel.remember=='true') {
             localStorage['remember']=true;
             localStorage['email']=this.loginModel.email;
