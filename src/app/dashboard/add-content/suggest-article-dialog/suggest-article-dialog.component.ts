@@ -87,8 +87,8 @@ export class SuggestArticleDialogComponent implements OnInit {
       this.contentProvider.ongetSuggestedArticle(this.addContentRequest)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.suggestedArticalList=data.response;
-                    this.suggestedArticalListBackup=data.response;
+                    this.suggestedArticalList=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    this.suggestedArticalListBackup=data.response.filter(arg=>arg.deleteStatus!=true);;
                 },error=>{
                   this.waitLoader = false;
                     alert(error)

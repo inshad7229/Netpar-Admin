@@ -2540,7 +2540,7 @@
                                                                     </div>
                                                                     <div class="cont-dtl">
                                                                         <div> {{article.headline}}</div>
-                                                                        <div> <strong> Posted by: </strong> Rohan Sen </div>
+                                                                        <div *ngIf="article.userList.length>0 && article.userList"> <strong> Posted by: </strong> {{article.userList[0].firstName}} {{article.userList[0].lastName}} </div>
                                                                         <div class=""> 
                                                                             <a href="javascript:;">
                                                                                 {{article.sectionName}} | <span class="dark_ylw">{{article.categoryName}}</span>

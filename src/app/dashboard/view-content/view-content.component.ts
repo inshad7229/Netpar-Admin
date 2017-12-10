@@ -189,9 +189,9 @@ export class ViewContentComponent implements OnInit {
      forkJoin([  this.contentService.ongetContentList(),this.userProvider.onGetAllUser()])
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.contentBackup=data[0].response;
-                        this.contentList=data[0].response
-                        this.dataForSorting=data[0].response
+                        this.contentBackup=data[0].response.filter(arg=>arg.deleteStatus!=true);;
+                        this.contentList=data[0].response.filter(arg=>arg.deleteStatus!=true);
+                        this.dataForSorting=data[0].response.filter(arg=>arg.deleteStatus!=true);
                          this.userData=data[1].response;
                         this.contentListBackup=this.contentList.slice(0);        
                         // this.localAdminList=data.response;

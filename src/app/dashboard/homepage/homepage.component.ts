@@ -204,10 +204,10 @@ export class HomepageComponent implements OnInit {
      this.contentService.onGetPageWiseContent('sortlistForHomepage')
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.contentList=data.response
-                        this.dataForSorting=data.response
-                        this.contentBackup=data.response.slice(0)
-                        this.contentListBackup=data.response.slice(0)
+                        this.contentList=data.response.filter(arg=>arg.deleteStatus!=true);
+                        this.dataForSorting=data.response.filter(arg=>arg.deleteStatus!=true);
+                        this.contentBackup=data.response.filter(arg=>arg.deleteStatus!=true).slice(0)
+                        this.contentListBackup=data.response.filter(arg=>arg.deleteStatus!=true).slice(0)
                         // this.localAdminList=data.response;
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -629,10 +629,10 @@ onCopyLink(id){
                         }
                         else if (data.success == true) {
                           this.waitLoader =false;
-                           this.contentList=data.response;
-                           this.dataForSorting=data.response
+                           this.contentList=data.response.filter(arg=>arg.deleteStatus!=true);
+                           this.dataForSorting=data.response.filter(arg=>arg.deleteStatus!=true)
                            this.filterApplyStatus=true
-                           this.contentListBackup=data.response.slice(0);
+                           this.contentListBackup=data.response.filter(arg=>arg.deleteStatus!=true).slice(0);
                            this.filterLanguageFilterPan=this.filterLanguage.slice(0);
                            this.filterSectionFilterPan=this.filterSection.slice(0);
                            this.filterCategoryFilterPan=this.filterCategory.slice(0);
