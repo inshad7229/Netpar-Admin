@@ -499,18 +499,21 @@ if(totalViews && totalSessions){
   }
 }
 getAvgTime(totalTime,totalSessions){
+  //console.log(totalTime)
   if(totalTime && totalSessions){
      let hourse
     let min
     if (totalTime>60) {
-       let totalmin=Math.floor(totalTime/60);
+      let time =parseInt(totalTime)
+      console.log(time)
+       let totalmin=Math.floor(time/60);
        let totalminPerSession=Math.floor(totalmin/totalSessions);
        if (totalminPerSession>60) {
-          hourse=Math.floor(totalminPerSession/60)
-          min=totalminPerSession%60
-          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
+          hourse=Math.round(totalminPerSession/60)
+          min=Math.round(totalminPerSession%60)
+          return hourse+' Hours '+min+' Min'
        }else{
-           return totalminPerSession.toFixed(2)+' Min'
+           return totalminPerSession+' Min'
        }
     }
     else{
@@ -525,13 +528,14 @@ getTotalTime(totalTime){
     let hourse
     let min
     if (totalTime>60) {
-       let totalmin=Math.floor(totalTime/60);
+       let time =parseInt(totalTime)
+       let totalmin=Math.floor(time/60);
        if (totalmin>60) {
           hourse=Math.floor(totalmin/60)
           min=totalmin%60
-          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
+          return hourse+' Hours '+min+' Min'
        }else{
-           return totalmin.toFixed(2)+' Min'
+           return totalmin+' Min'
        }
     }
     else{

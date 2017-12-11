@@ -36,7 +36,37 @@ export class TemplateAnalyticsComponent implements OnInit {
                   this.waitLoader = false;
                 })
   }
+getImagePath(templateName){
+  if (templateName=="Category-view Template One") {
+    return 'category-view1.png'
+  }else if (templateName=="Category-view Template Two") {
+    return 'category-view2.png'
+  }else if (templateName=="Category-view Template Three") {
+     return 'category-view3.png'
+  }else if (templateName=="Category-view Template Four") {
+     return 'category-view4.png'
+  }
+}
 
+
+getImagePath2(templateName){
+
+  if (templateName=="Listing-view Template One") {
+    return 'listing-view1.png'
+  }else if (templateName=="Listing-view Template Two") {
+    return 'listing-view2.png'
+  }else if (templateName=="Listing-view Template Three") {
+     return 'listing-view3.png'
+  }else if (templateName=="Listing-view Template Four") {
+     return 'listing-view5.png'
+  }else if (templateName=="Listing-view Template Five") {
+     return 'listing-view6.png'
+  }else if (templateName=="Listing-view Template Six") {
+     return 'listing-view7.png'
+  }else if (templateName=="Listing-view Template Seven") {
+     return 'listing-view8.png'
+  }
+}
   getSartDateTime(i,j){
   	if (i && j) {
   		if (this.categoryResult[i].categories.length>0) {

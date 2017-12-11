@@ -40,7 +40,7 @@
 				                                        <tr *ngFor="let cat of categoryResult; let i=index">
 				                                        	<td>
 				                                        		<div class="cont-img templt-img">
-		                                                            <img class="img-responsive" src="./assets/img/category-view/" />
+		                                                            <img class="img-responsive" src="./assets/img/category-view/{{getImagePath(cat.templateName)}}" />
 		                                                        </div>
 				                                        	</td>
 				                                        	<td> {{cat.templateName}} </td>
@@ -108,7 +108,7 @@
 				                                        <tr *ngFor="let cat of listingResult; let i=index">
 				                                        	<td>
 				                                        		<div class="cont-img templt-img">
-		                                                            <img class="img-responsive" src="./assets/img/category-view/" />
+		                                                            <img class="img-responsive" src="./assets/img/listing-view/{{getImagePath2(cat.templateName)}}" />
 		                                                        </div>
 				                                        	</td>
 				                                        	<td> {{cat.templateName}} </td>
