@@ -12,6 +12,7 @@ export class Current {
     currentContentData:any;
     currentLanguage:any;
     suggestedString=[]
+    loadingFlag:boolean=false
 
     constructor(public leadsFilter?: string) {
     }

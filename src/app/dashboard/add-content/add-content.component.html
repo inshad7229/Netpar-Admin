@@ -389,7 +389,7 @@
                                                             </button> -->
                                                             <button type="button" class="btn btn-danger full-width" (click)="onDeleteBody()">
                                                                 <i class="material-icons" >delete</i> 
-                                                                Delete All Element
+                                                                Delete All Elements
                                                             </button>
                                                         </div>
                                                     </div>
@@ -1196,8 +1196,8 @@
                                                                                             </span>
                                                                                         </span>
 
-                                                                                        <span *ngIf="item.btn1=='Share'" [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1,marginLeft:item.mleft1, marginRight: item.mright1,marginTop:item.mtop1,marginBottom:item.mbottom1}">
-                                                                                            <span class="btn warning" *ngIf="item.outline1==false">
+                                                                                        <span *ngIf="item.btn1=='Share'">
+                                                                                            <span class="btn warning" *ngIf="item.outline1==false"  [ngStyle]="{paddingLeft:item.left1, paddingRight: item.right1,paddingTop:item.top1,paddingBottom:item.bottom1,marginLeft:item.mleft1, marginRight: item.mright1,marginTop:item.mtop1,marginBottom:item.mbottom1}">
                                                                                                 <i class="fa fa-share-alt"></i> सामायिक करा
                                                                                                 <span class="badge" >
                                                                                                     <i class="fa fa-close" (click)=remUserBtn1(i) ></i> 

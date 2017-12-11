@@ -6,6 +6,7 @@ import {StringResource} from '../../models/saredResources'
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { forkJoin } from "rxjs/observable/forkJoin";
 import {MediaDialogComponent} from './media-dialog/media-dialog.component'
+import {AppProvider} from '../../providers/app.provider'
 import 'rxjs/Rx'
 declare var jquery:any;
 declare var $ :any;
@@ -86,7 +87,8 @@ filterApplyStatus:boolean=false
     stringResource:StringResource=new  StringResource()
   	constructor(private userProvider:UserService,private sectionService:SectionService,private dialog: MatDialog,
       vcr: ViewContainerRef,
-                      public toastr: ToastsManager
+                      public toastr: ToastsManager,
+                      private appProvider: AppProvider,
                       ) {
                           this.toastr.setRootViewContainerRef(vcr);
   		        this.filterValue={}

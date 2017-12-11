@@ -195,9 +195,9 @@ getTotalTime(totalTime){
        if (totalmin>60) {
           hourse=Math.floor(totalmin/60)
           min=totalmin%60
-          return hourse+' Hours '+min+' Min'
+          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
        }else{
-           return totalmin+' Min'
+           return totalmin.toFixed(2)+' Min'
        }
     }
     else{
@@ -215,9 +215,9 @@ avgTimePerSession(totalTime,totalSessions){
        if (totalminPerSession>60) {
           hourse=Math.floor(totalminPerSession/60)
           min=totalminPerSession%60
-          return hourse+' Hours '+min+' Min'
+          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
        }else{
-           return totalminPerSession+' Min'
+           return totalminPerSession.toFixed(2)+' Min'
        }
     }
     else{
@@ -252,7 +252,7 @@ avgTimePerDay(totalTime,dayCount){
        if (totalmindayCount>60) {
           hourse=Math.floor(totalmindayCount/60)
           min=totalmindayCount%60
-          return hourse+' Hours '+min+' Min'
+          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
        }else{
            return totalmindayCount+' Min'
        }

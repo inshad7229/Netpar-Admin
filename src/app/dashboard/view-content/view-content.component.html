@@ -251,10 +251,10 @@
                                                     <td *ngIf="i<limit">{{content.saveCount}}</td>
                                                     <td *ngIf="i<limit"> {{content.downloadCount}}</td>
 
-                                                    <td  class="text-info download_file" *ngIf="i<limit" (click)="onApply(content._id)"> {{content.applyCount}}</td>
-                                                    <td class="text-info download_file" *ngIf="i<limit" (click)="onCall(content._id)">{{content.callCount}}</td>
-                                                    <td class="text-info download_file" *ngIf="i<limit" (click)="onCallMeBack(content._id)">{{content.callMeBackCount}} </td>
-                                                    <td class="text-info download_file" *ngIf="i<limit" (click)="onIntrested(content._id)"> {{content.imIntrestedCount}} </td> 
+                                                    <td  class="download_file" *ngIf="i<limit" (click)="onApply(content._id)"> {{content.applyCount}}</td>
+                                                    <td class="download_file" *ngIf="i<limit" (click)="onCall(content._id)">{{content.callCount}}</td>
+                                                    <td class="download_file" *ngIf="i<limit" (click)="onCallMeBack(content._id)">{{content.callMeBackCount}} </td>
+                                                    <td class="download_file" *ngIf="i<limit" (click)="onIntrested(content._id)"> {{content.imIntrestedCount}} </td> 
                                                     
                                                     <td *ngIf="i<limit">{{content.pageView}}</td>
 

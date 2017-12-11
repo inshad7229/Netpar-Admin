@@ -3,6 +3,9 @@
 	<h4 class="modal-title" >Media <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
 </div>
 <div class="modal-body">
+    <div class="loader-box" *ngIf="appProvider.current.loadingFlag">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
     <div *ngIf="media.type=='image'">
     	<img [src]="media.url" width="100%" class="img-responsive">
     	

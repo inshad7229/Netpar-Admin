@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
        }
      },error=>{
        this.buttonStatus=false;
-       this.toastr.error( 'Something went worng please try again after some time !!','Authentication failed. ',{toastLife: 3000, showCloseButton: true});
+       this.toastr.error( 'Something went wrong please try again after some time !!','Authentication failed. ',{toastLife: 3000, showCloseButton: true});
      })
   }
   onRemember(remember){

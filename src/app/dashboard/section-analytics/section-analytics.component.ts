@@ -508,9 +508,9 @@ getAvgTime(totalTime,totalSessions){
        if (totalminPerSession>60) {
           hourse=Math.floor(totalminPerSession/60)
           min=totalminPerSession%60
-          return hourse+' Hours '+min+' Min'
+          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
        }else{
-           return totalminPerSession+' Min'
+           return totalminPerSession.toFixed(2)+' Min'
        }
     }
     else{
@@ -529,9 +529,9 @@ getTotalTime(totalTime){
        if (totalmin>60) {
           hourse=Math.floor(totalmin/60)
           min=totalmin%60
-          return hourse+' Hours '+min+' Min'
+          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
        }else{
-           return totalmin+' Min'
+           return totalmin.toFixed(2)+' Min'
        }
     }
     else{

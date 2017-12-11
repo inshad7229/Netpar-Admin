@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="loader-box" *ngIf="waitLoader">
+    <div class="loader-box" *ngIf="waitLoader || appProvider.current.loadingFlag">
          <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
     </div>
     <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">

@@ -26,10 +26,11 @@
 			                                	<table class="table table-striped user-table" >
 			                                        <thead class="text-danger">
 				                                        <tr>
+				                                        	<th> Templates </th>
+				                                            <th> Category Template </th>
 				                                            <th> Section Name </th>
 				                                            <th> Category Name </th>
 				                                            <th> Time Period </th>
-				                                            <th> Category Template </th>
 				                                            <th> Click through Conversion </th>
 				                                            <th> Section-wise Click through rate </th>
 				                                        </tr>
@@ -37,6 +38,13 @@
 				                                    </thead>
 				                                    <tbody>
 				                                        <tr *ngFor="let cat of categoryResult; let i=index">
+				                                        	<td>
+				                                        		<div class="cont-img templt-img">
+		                                                            <img class="img-responsive" src="./assets/img/category-view/" />
+		                                                        </div>
+				                                        	</td>
+				                                        	<td> {{cat.templateName}} </td>
+				                                        	
 				                                        	<td> <div *ngFor="let catt of cat.categories" href="javascript:;"> {{catt.sectionName}} </div> </td>
 				                                            <td>
 				                                            	<div href="javascript:;" *ngFor="let catt of cat.categories">
@@ -57,7 +65,7 @@
 			                                                    </a>
 		                                                    </td>
 				                                            <td> <span  *ngFor="let catt of cat.categories">18th Aug, 09:00 AM - 19th Aug 10 PM </span></td>
-				                                            <td> {{cat.templateName}} </td>
+				                                            
 				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
 				                                            <td> 500 </td>
 				                                        </tr>
@@ -85,10 +93,11 @@
 			                                	<table class="table table-striped user-table" >
 			                                        <thead class="text-danger">
 				                                        <tr>
+				                                            <th> Templates </th>
+				                                            <th> Listing View Template </th>
 				                                            <th> Section Name </th>
 				                                            <th> Category Name </th>
 				                                            <th> Time Period </th>
-				                                            <th> Listing View Template </th>
 				                                            <th> Click through Conversion </th>
 				                                            <th> Section-wise Click through rate </th>
 				                                           <!--  <th> Avg. time spent / session </th> -->
@@ -97,6 +106,12 @@
 				                                    </thead>
 				                                    <tbody>
 				                                        <tr *ngFor="let cat of listingResult; let i=index">
+				                                        	<td>
+				                                        		<div class="cont-img templt-img">
+		                                                            <img class="img-responsive" src="./assets/img/category-view/" />
+		                                                        </div>
+				                                        	</td>
+				                                        	<td> {{cat.templateName}} </td>
 				                                        	<td> <div *ngFor="let catt of cat.categories" href="javascript:;"> {{catt.sectionName}} </div> </td>
 				                                            <td>
 				                                            	<div href="javascript:;" *ngFor="let catt of cat.categories">
@@ -105,7 +120,7 @@
 		                                                    </td>
 				                                            <td> <div  *ngFor="let catt of cat.categories ; let j=index">
 				                                            {{getSartDateTimeList(i,j)}} {{getStartTimeList(i,j)}} - {{geteEndDateTimeList(i,j)}} {{getEndTimeList(i,j)}} </div></td>
-				                                            <td> {{cat.templateName}} </td>
+				                                           
 				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
 				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
 				                                           <!--  <td> 50 </td> -->
