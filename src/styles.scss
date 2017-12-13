@@ -1673,3 +1673,9 @@ table.view-sec-table tbody td:first-child{
   color: #0000EE;
   cursor: pointer;
 }
+
+/* 12-13 */
+.cdk-overlay-container .mat-dialog-container{
+    width: auto;
+    max-width: none;
+}
