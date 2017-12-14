@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'theme.scss';
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
 
 
 body{
@@ -1288,9 +1289,9 @@ table tbody td.width170px{
   color: #282c3f
 }
 
-.cdk-global-overlay-wrapper {
+/* .cdk-global-overlay-wrapper {
   overflow: auto;
-}
+} */
 .cdk-overlay-pane {
   margin: auto 0;
 }
@@ -1335,7 +1336,7 @@ table tbody td.width170px{
   font-family: "fontawesome";
   font-size: 32px;
   height: 45px;
-  left: 27%;
+  left: 40%;
   line-height: 45px;
   position: absolute;
   text-align: center;
@@ -1420,8 +1421,9 @@ table tbody td.width170px{
 .mat-form-field-infix {
   padding: 0.4375em 0 0.23em;
 }
-.mat-input-element{
-  height: 22px;
+.mat-form-field .mat-input-element {
+    height: 25px;
+    line-height: 30px;
 }
 .mat-select-trigger {
   line-height: 20px;
@@ -1519,7 +1521,7 @@ table tbody td.width170px{
   width: 26px;
 } */
 table.user-icons td{
-  padding: 5px;
+  padding: 1px;
 }
 .ul-element{
   width: 100%;
@@ -1598,3 +1600,82 @@ table.user-icons td{
 .btns .btn {
   padding: 12px 6px;
   min-width: 100px; }
+
+.btns .btn.not_default{
+  background: none;
+  padding: 6px 6px;
+}
+.btns .btn.not_default .span-icns{
+  border: 1px solid;
+  border-radius: 60px;
+  display: inline-block;
+  font-size: 12px;
+  height: 20px;
+  line-height: 17px;
+  text-align: center;
+  width: 20px;
+}
+.btns .btn .badge{
+  border-radius: 75px;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0;
+  width: 20px;
+}
+.btns .btn .badge i{
+  font-size: 12px;
+}
+
+
+///////////////popup
+.cdk-overlay-pane {
+  overflow: auto;
+  max-height: 100%;
+}
+
+.modal-body.cus-height{
+  max-height: 85vh;
+}
+.builder-element.for_edit{
+  padding-top: 20px;
+}
+.edit-text {
+  position: absolute;
+  right: -1px;
+  top: -1px;
+}
+
+.edit-text i {
+  border-color: transparent transparent  #000 #000;
+  border-style: none none solid solid;
+  border-width: 0 0 1px 1px;
+  float: left;
+  padding: 1px 3px;
+}
+
+/* 21-11 */
+
+table.view-sec-table tbody td:first-child{
+  min-width: 170px;
+}
+
+.text-orange{
+  color: #ffa700;
+}
+
+
+.view-sec-table .text-danger a{
+  color: #f44336;
+}
+
+.download_file{
+  color: #0000EE;
+  cursor: pointer;
+}
+
+/* 12-13 */
+.cdk-overlay-container .mat-dialog-container{
+    width: auto;
+    max-width: none;
+}

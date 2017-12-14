@@ -1,22 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatTooltipModule, MatTableModule, MatPaginator ,
-         MatProgressBarModule,MatDialogModule,MatDatepickerModule,
-         MatNativeDateModule,MatCheckboxModule,MatProgressSpinnerModule,
+         MatProgressBarModule,MatDialogModule,MatDatepickerModule,MatIconModule,
+         MatNativeDateModule,MatCheckboxModule,MatProgressSpinnerModule,MatTabsModule,
          MatSelectModule,MatRadioModule,MatInputModule, MatChipsModule,MatAutocompleteModule,MatSortModule
        } from '@angular/material';
 import {MatListModule} from '@angular/material';
-import {DataTableModule} from "angular2-datatable";
+// import {DataTableModule} from "angular2-datatable";
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface}  from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { NgxCroppieModule } from 'ngx-croppie';
 import {DndModule} from 'ng2-dnd';
-import { SwiperModule } from 'angular2-useful-swiper';
-import {ColorPickerModule} from 'angular4-color-picker';
+// import { SwiperModule } from 'angular2-useful-swiper';
+import {ColorPickerModule} from 'ngx-color-picker';
 import { CKEditorModule } from 'ng2-ckeditor';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+// import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { DateTimePickerModule } from 'ng-pick-datetime';
+import { ClipboardModule } from 'ngx-clipboard';
 
 
 import { MODULE_COMPONENTS, MODULE_ROUTES } from './dashboard.routes';
@@ -26,13 +29,13 @@ import { SidebarComponent } from '../components/sidebar/sidebar.component';
 
 
 import { EditAdminComponent } from './edit-admin/edit-admin.component';
-import { ViewSectionComponent } from './view-section/view-section.component';
+import { ViewSectionComponent,SectionConfirmation } from './view-section/view-section.component';
 import { DialogComponent} from './view-section/dialog/dialog.component';
 import { AddSectionComponent } from './add-section/add-section.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
 import { AddContentComponent } from './add-content/add-content.component';
-import { ViewContentComponent,ContentConfirmation } from './view-content/view-content.component';
+import { ViewContentComponent,ContentConfirmation,downloadContentConfirmation } from './view-content/view-content.component';
 import { ViewDialogComponent } from './view-content/view-dialog/view-dialog.component';
 import { AdminConfirmation} from './home/home.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -41,7 +44,7 @@ import { PriorityComponent } from './priority/priority.component';
 import { PriorityDialogComponent } from './priority/priority-dialog/priority-dialog.component';
 import { CommentComponent,CommentConfirmation } from './comment/comment.component';
 import { UserContributionComponent } from './user-contribution/user-contribution.component';
-import { UserComponent } from './user/user.component';
+import { UserComponent,UserConfirmation } from './user/user.component';
 import { FilterDialogComponent } from './user/filter-dialog/filter-dialog.component';
 import { SectionAnalyticsComponent } from './section-analytics/section-analytics.component';
 import { ArticleAnalyticsComponent } from './article-analytics/article-analytics.component';
@@ -59,18 +62,21 @@ import {ContentViewPriorityDialogComponent } from './priority/content-view-prior
 import { ListingViewComponent } from './add-content/listing-view/listing-view.component';
 import {EditorComponent } from './add-content/editor/editor.component';
 import { ImageResizerComponent} from './add-content/imageResizer/imageResizer.component';
+import {MediaDialogComponent} from './user-contribution/media-dialog/media-dialog.component';
+
 import { SimpleTinyComponent } from './tiny/tiny.component';
 import { TrimPipe } from '../pipes/trim/trim.pipe';
 import {TrimDirective  } from '../directives/trim/trim.directive';
+import {ClipDirective  } from '../directives/clip/clip.directive';
 
-const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 @NgModule({
 
     imports: [
         RouterModule.forChild(MODULE_ROUTES),
-        PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
+        PerfectScrollbarModule,
         MatDatepickerModule,
         CKEditorModule,
         MatNativeDateModule,
@@ -87,16 +93,19 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatSortModule,
         MatAutocompleteModule,
         MatChipsModule,
+        MatIconModule,
+        MatTabsModule,
         NgxCroppieModule,
-        DataTableModule,
-        SwiperModule,
+        // DataTableModule,
+        // SwiperModule,
         MatListModule,
         ColorPickerModule,
         CKEditorModule,
         DateTimePickerModule,
         DndModule.forRoot(),
-        FroalaEditorModule.forRoot(), 
-        FroalaViewModule.forRoot(),
+        // ClipboardModule
+        // FroalaEditorModule.forRoot(), 
+        // FroalaViewModule.forRoot(),
     ],
     declarations: [
              AdminConfirmation,///inshad
@@ -139,13 +148,21 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               TrimPipe,
               TrimDirective,
               ImageResizerComponent,
-              CommentConfirmation 
+              CommentConfirmation,
+              MediaDialogComponent ,
+              ClipDirective,
+              SectionConfirmation,
+              downloadContentConfirmation,
+              UserConfirmation
 
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
-ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent,CommentConfirmation ],
-providers:[TrimPipe]
+ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,UserConfirmation,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent,CommentConfirmation,MediaDialogComponent,SectionConfirmation,downloadContentConfirmation ],
+providers:[TrimPipe,{
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }]
 })
 
 export class DashboardModule{

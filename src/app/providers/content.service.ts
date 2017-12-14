@@ -201,4 +201,26 @@ export class ContentService {
             return error;
         });
     }
+    onEmailExcel(user,filename,reciver): Observable <any> {
+        let api = ENV.mainApi + "exportedData"
+        let a={
+            exportedData:user,
+            filename:filename,
+            receiverMail:reciver
+
+        }
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({
+            headers: headers
+        });
+        return this.http.post(api, JSON.stringify(a), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
 }

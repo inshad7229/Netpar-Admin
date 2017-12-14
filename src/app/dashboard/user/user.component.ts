@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import {DataTableModule} from "angular2-datatable";
+import { Component, OnInit,Inject } from '@angular/core';
+// import {DataTableModule} from "angular2-datatable";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import {UserService} from '../../providers/user.service';
+import {StateService} from '../../providers/state.service';
 import { Sort } from '@angular/material';
+import { forkJoin } from "rxjs/observable/forkJoin";
+import {StateResource} from '../../models/stateResourcesModel'
+import {StringResource} from '../../models/saredResources'
 declare var jquery:any;
 declare var $ :any;
 
@@ -12,72 +16,162 @@ declare var $ :any;
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
-  providers:[UserService]
+  providers:[UserService,StateService]
 })
 export class UserComponent implements OnInit {
-     userData
-     waitLoader
-     userDataBackup
-    constructor(private dialog: MatDialog,private userProvider:UserService) { }
-    openDialog(): void {
+    userData
+    waitLoader
+    userDataBackup
+    stateList
+    stateListBackup
+    limitedFilter
+    limit
+    stateListState
+    filterApplyStatus:boolean=false
+    dataForSorting
+    distList=[]
+    activeDist:number=-1
+    selectedState=[]
+    selectedDist=[]
+    selectedBlock=[]
+    rigthSide
+    onMobileStatusData=[]
+    onHyperData=[]
+    onModrateData=[]
+    onActiveData=[]
+    onInactiveData=[]
+    onMaleData=[]
+    onFemaleData=[]
+    onInfluencereData=[]
+    onVerifiedData=[]
+    onUnverifiedData=[]
+    onSelectLangData=[]
+    statusMobileStatusData
+    statusHyperData
+    statusModrateData
+    statusActiveData
+    statusInactiveData
+    statusMaleData
+    statusFemaleData
+    statusInfluencereData
+    statusVerifiedData
+    statusUnverifiedData
+    statusSelectLangData
+    filterLanguage=[]
+    filterState=[]
+    filterDist=[]
+    filterBlock=[]
+    dataAfterLanguage=[]
+    dataAfterState=[]
+    dataAfterDist=[]
+    dataAfterBlock=[]
+    dataAfterFilterApply
+    afterApplyStatus
+    stateResource:StateResource=new StateResource()
+    stringResource:StringResource=new  StringResource();
+    openDivFlag:boolean;
+    classToOpenDiv='';
+    classForFilter='';
+    constructor(private dialog: MatDialog,private userProvider:UserService,private stateService:StateService) { 
+    this.stateListState=this.stateResource.state
+    this.limitedFilter={}
+    this.rigthSide={}
+    this.afterApplyStatus={}
+                         this.limitedFilter.perPage='25'
+                         this.limit=25}
+    openDialog(user): void {
         let dialogRef = this.dialog.open(UserDialogComponent, {
             width: '400px',
+            disableClose: true,
+            data:{user:user}
         });
         dialogRef.afterClosed().subscribe(result => {
       
         });
     }
 
-    openDialog2(): void {
-        let dialogRef = this.dialog.open(FilterDialogComponent, {
-            width: '800px',
-        });
-        dialogRef.afterClosed().subscribe(result => {
-      
-        });
-    }
+
 
 
     ngOnInit() {
-		$('.filter-plugin > a').on('click',function(){
-			$(this).closest('.filter-plugin').addClass('open');
-			console.log($(this));
-		});
-		$('.close-filter').on('click',function(){
-			$(this).closest('.filter-plugin').removeClass('open');
-		});
+		// $('.filter-plugin > a').on('click',function(){
+		// 	$(this).closest('.filter-plugin').addClass('open');
+		// 	console.log($(this));
+		// });
+		// $('.close-filter').on('click',function(){
+		// 	$(this).closest('.filter-plugin').removeClass('open');
+		// });
 
 
-		$('.cusdropdown-toggle').on('click',function(){
-            /*$('.cusdropdown-toggle').closest('.dropdown').removeClass('open');*/
-            $(this).closest('.dropdown').toggleClass('open');
-        })
-        $(window).on('click',function(e){
-            e.stopPropagation();
-            
-            var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
-            console.log($trigger);
-            if($trigger !== e.target && !$trigger.has(e.target).length){
-                $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
-            }
+  		$('.cusdropdown-toggle').on('click',function(){
+          /*$('.cusdropdown-toggle').closest('.dropdown').removeClass('open');*/
+          $(this).closest('.dropdown').toggleClass('open');
+      })
+      $(window).on('click',function(e){
+          //e.stopPropagation();
+          var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
+          console.log($trigger);
+          if($trigger !== e.target && !$trigger.has(e.target).length){
+              $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
+          }
 
-            var $trigger = $(".sidebar-filter").closest('.filter-plugin');
-            console.log($trigger);
-            if($trigger !== e.target && !$trigger.has(e.target).length){
-                $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
-            }
-        });
+      //     var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+      //     console.log($trigger);
+      //     if($trigger !== e.target && !$trigger.has(e.target).length){
+      //         $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+      //     }
+      });
 
-        this.getUser()
+      this.getUser()
     }
 
+    onWindow(){
+      // event.preventDefault();
+      // var $trigger = $(".cusdropdown-toggle").closest('.dropdown');
+      // //console.log($trigger);
+      // if($trigger !== event.target && !$trigger.has(event.target).length){
+      //     $('.cusdropdown-toggle').closest('.dropdown').removeClass('open');
+      // }
+
+      // var $trigger = $(".sidebar-filter").closest('.filter-plugin');
+      // var $trigger1 = $('.cdk-overlay-container');
+      // //var $trigger2 = $('.cdk-overlay-backdrop.cdk-overlay-dark-backdrop.cdk-overlay-backdrop-showing');
+      // console.log(event.target);
+      // var e_target = $(event.target).closest('.cdk-overlay-container').length;
+      // console.log(e_target);
+      // if($trigger !== event.target && !$trigger.has(event.target).length && $trigger1 !== event.target && !$trigger1.has(event.target).length && !e_target ){
+      //     $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
+      // }
+     this.classToOpenDiv=""
+     //this.classForFilter=""
+    }
+
+
     getUser(){
-         this.waitLoader = true;
-         this.userProvider.onGetAllUser()
-                .subscribe(data => {
+          this.waitLoader = true;
+         // this.userProvider.onGetAllUser()
+         //        .subscribe(data => {
+         //            this.waitLoader = false;
+         //            this.userData=data.response;
+         //            this.userDataBackup=data.response
+                    
+         //        },error=>{
+                     
+         //            alert(error)
+         //            this.waitLoader = false;
+         //        })
+         forkJoin([ this.userProvider.onGetAllUser(),this.stateService.getStates()])
+         .subscribe(results => {
                     this.waitLoader = false;
-                    this.userData=data.response;
-                    this.userDataBackup=data.response
+                    if (results) {
+                      this.userData=results[0].response;
+                      this.userDataBackup=results[0].response;
+                      this.dataForSorting=results[0].response
+                      this.stateList=results[1]
+                      this.stateListBackup=results[1]
+                      //console.log(JSON.stringify( this.stateList))
+                    }
+                    
                     
                 },error=>{
                      
@@ -101,9 +195,9 @@ getTotalTime(totalTime){
        if (totalmin>60) {
           hourse=Math.floor(totalmin/60)
           min=totalmin%60
-          return hourse+' Hours '+min+' Min'
+          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
        }else{
-           return totalmin+' Min'
+           return totalmin.toFixed(2)+' Min'
        }
     }
     else{
@@ -121,9 +215,9 @@ avgTimePerSession(totalTime,totalSessions){
        if (totalminPerSession>60) {
           hourse=Math.floor(totalminPerSession/60)
           min=totalminPerSession%60
-          return hourse+' Hours '+min+' Min'
+          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
        }else{
-           return totalminPerSession+' Min'
+           return totalminPerSession.toFixed(2)+' Min'
        }
     }
     else{
@@ -158,7 +252,7 @@ avgTimePerDay(totalTime,dayCount){
        if (totalmindayCount>60) {
           hourse=Math.floor(totalmindayCount/60)
           min=totalmindayCount%60
-          return hourse+' Hours '+min+' Min'
+          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
        }else{
            return totalmindayCount+' Min'
        }
@@ -169,7 +263,8 @@ avgTimePerDay(totalTime,dayCount){
 }
 avgPageViewPerSession(totalPageViews,totalSessions){
      if (totalPageViews>0&& totalSessions>0) {
-       return totalPageViews/totalSessions
+       let val=totalPageViews/totalSessions
+       return val.toFixed(2)
     }else{
 
      return 0;
@@ -191,7 +286,198 @@ getDate(lastlogin){
       return lastlogin.split('T')[0]
     }
 }
+onSateSelect(stateListState){
+  if (stateListState.check!=true) {
+    for(var i = 0; i <this.stateListState[0].dist.length; i++) {
+      this.stateListState[0].dist[i].check=false;
+        for(var j = 0; j <this.stateListState[0].dist[i].block.length; j++) {
+        this.stateListState[0].dist[i].block[j].check=false;    
+       }
+     }
+      this.dataAfterState= this.dataAfterState.filter(arg=>arg.state!=stateListState.name)
+      this.filterState=this.filterState.filter(arg=>arg.name!=stateListState.name)
+  }else{
+     this.filterState.push(stateListState)
+     let data=this.userDataBackup.filter(arg=>arg.state==stateListState.name)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterState.push(data[i])
+      }
+      
+    }
+}
+   
+openDialog2(): void {
+        let dialogRef = this.dialog.open(FilterDialogComponent, {
+            width: '800px',
+            data:{state:this.stateListState}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+          	console.log(JSON.stringify(result))
+                this.selectedState=result.state
+                this.selectedDist=result.dist
+                
+                this.selectedBlock=result.block
+                 for (var i = 0;i<this.selectedState.length ; i++) {
+                   if (this.filterState.map(function (img) { return img.name; }).indexOf(this.selectedState[i])==-1) {
+                         this.filterState.push({name:this.selectedState[i],check:true})
+                     // code...
+                   }
+                 }
 
+                  for (var i = 0;i<this.selectedDist.length ; i++) {
+                    if(this.filterDist.map(function (img) { return img.name; }).indexOf(this.selectedDist[i])==-1){  
+                      this.filterDist.push({name:this.selectedDist[i],check:true})
+                    }
+                 }
+                let data=this.userDataBackup.filter(arg=>this.getStateIndex(arg.state)==true)
+                for(let i=0;i<data.length;i++){
+                this.dataAfterState.push(data[i])
+                }
+
+              let data2=this.userDataBackup.filter(arg=>this.getDistrictIndex(arg.district)==true)
+              for(let i=0;i<data2.length;i++){
+              this.dataAfterDist.push(data2[i])
+              }
+
+
+              let data3=this.userDataBackup.filter(arg=>this.getBlockIndex(arg.block)==true)
+              for(let i=0;i<data3.length;i++){
+              this.dataAfterBlock.push(data3[i])
+              }
+          }
+      
+        });
+    }
+getStateIndex(state):boolean{
+  if (this.selectedState.indexOf(state)!=-1) {
+    return true
+  }else{
+    return false
+  }
+
+}
+getDistrictIndex(dist):boolean{
+  if (this.selectedDist.indexOf(dist)!=-1) {
+    return true
+  }else{
+    return false
+  }
+
+
+}
+getBlockIndex(block):boolean{
+   if (this.selectedBlock.indexOf(block)!=-1) {
+    return true
+  }else{
+    return false
+  }
+
+}
+
+openFilter(){
+  this.openDivFlag=true;
+  this.classToOpenDiv="open";
+  console.log("1st fuction")
+  if (this.limitedFilter.state=='Maharashtra') {
+    this.stateListState[0].check=true;
+    //this.distList=this.stateListState[0].dist
+  }else{
+     this.stateListState[0].check=false;
+     for(var i = 0; i <this.stateListState[0].dist.length; i++) {
+      this.stateListState[0].dist[i].check=false;
+        for(var j = 0; j <this.stateListState[0].dist[i].block.length; j++) {
+        this.stateListState[0].dist[i].block[j].check=false;    
+       }
+     }
+  }
+}
+
+onChangeDist(check,index){
+  if (index==0) {
+     if (check==true) {
+       this.activeDist=0
+        this.filterDist.push(this.stateListState[0].dist[0])
+         let data=this.userDataBackup.filter(arg=>arg.district==this.stateListState[0].dist[0].name)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterDist.push(data[i])
+      }
+     }else{
+       this.dataAfterDist= this.dataAfterDist.filter(arg=>arg.district!=this.stateListState[0].dist[0].name)
+      this.filterDist=this.filterDist.filter(arg=>arg.name!=this.stateListState[0].dist[0].name)
+       if (this.stateListState[0].dist[1].check==true && this.stateListState[0].dist[2].check==true) {
+          this.activeDist=2
+       }else if(this.stateListState[0].dist[1].check!=true && this.stateListState[0].dist[2].check==true){
+           this.activeDist=2
+       }else if(this.stateListState[0].dist[1].check==true && this.stateListState[0].dist[2].check!=true){
+           this.activeDist=1
+       }
+       for (var i = 0; i <this.stateListState[0].dist[0].block.length; i++) {
+         this.stateListState[0].dist[0].block[i].check=false
+       }
+     }
+  }else if (index==1) {
+     if (check==true) {
+       this.activeDist=1
+       this.filterDist.push(this.stateListState[0].dist[1])
+       let data=this.userDataBackup.filter(arg=>arg.district==this.stateListState[0].dist[1].name)
+       for(let i=0;i<data.length;i++){
+        this.dataAfterDist.push(data[i])
+      } 
+
+     }else{
+        this.dataAfterDist= this.dataAfterDist.filter(arg=>arg.district!=this.stateListState[0].dist[1].name)
+      this.filterDist=this.filterDist.filter(arg=>arg.name!=this.stateListState[0].dist[1].name)
+       if (this.stateListState[0].dist[0].check==true && this.stateListState[0].dist[2].check==true) {
+          this.activeDist=2
+       }else if(this.stateListState[0].dist[0].check!=true && this.stateListState[0].dist[2].check==true){
+           this.activeDist=2
+       }else if(this.stateListState[0].dist[0].check==true && this.stateListState[0].dist[2].check!=true){
+           this.activeDist=0
+       }
+       for (var i = 0; i <this.stateListState[0].dist[1].block.length; i++) {
+         this.stateListState[0].dist[1].block[i].check=false
+       }
+     }
+  } else if (index==2) {
+     if (check==true) {
+       this.activeDist=2
+       this.filterDist.push(this.stateListState[0].dist[2])
+       let data=this.userDataBackup.filter(arg=>arg.district==this.stateListState[0].dist[2].name)
+       for(let i=0;i<data.length;i++){
+        this.dataAfterDist.push(data[i])
+      } 
+     }else{
+       this.dataAfterDist= this.dataAfterDist.filter(arg=>arg.district!=this.stateListState[0].dist[2].name)
+      this.filterDist=this.filterDist.filter(arg=>arg.name!=this.stateListState[0].dist[2].name)
+        if (this.stateListState[0].dist[0].check==true && this.stateListState[0].dist[1].check==true) {
+          this.activeDist=1
+       }else if(this.stateListState[0].dist[0].check!=true && this.stateListState[0].dist[1].check==true){
+           this.activeDist=1
+       }else if(this.stateListState[0].dist[0].check==true && this.stateListState[0].dist[1].check!=true){
+           this.activeDist=0
+       }
+       for (var i = 0; i <this.stateListState[0].dist[2].block.length; i++) {
+         this.stateListState[0].dist[2].block[i].check=false
+       }
+     }
+  } 
+
+}
+
+onChangeBlock(block){
+  if (block.check==true) {
+    this.filterBlock.push(block)
+       let data=this.userDataBackup.filter(arg=>arg.block==block)
+       for(let i=0;i<data.length;i++){
+        this.dataAfterBlock.push(data[i])
+      } 
+  }else{
+      this.dataAfterBlock= this.dataAfterBlock.filter(arg=>arg.block!=block)
+      this.filterBlock=this.filterBlock.filter(arg=>arg!=block)
+  }
+
+}
 onStatusChange(user){
     this.waitLoader = true;
          this.userProvider.onEditStatus(user)
@@ -228,7 +514,7 @@ sortData(sort: Sort) {
     // this.contentList
     // this.userData=data.response;
     //                 this.userDataBackup=data.response
-    const data =this.userDataBackup.slice();
+    const data =this.dataForSorting.slice();
     if (!sort.active || sort.direction == '') {
       this.userData = data;
       
@@ -255,6 +541,8 @@ sortData(sort: Sort) {
         case 'Call': return compare(a.totalsCalls, b.totalsCalls, isAsc);
         case 'CallMeBack': return compare(a.totalCallBacks, b.totalCallBacks, isAsc);
         case 'Publications': return compare(a.totalPublications, b.totalPublications, isAsc);
+        case 'apply': return compare(a.apply, b.apply, isAsc);
+        case 'interested': return compare(a.interested, b.interested, isAsc);
 
 
 
@@ -262,7 +550,502 @@ sortData(sort: Sort) {
       }
     });
   }
+  onPerPage(perPage){
+      if (perPage=='25') {
+           this.limit=25
+        // code...
+      }else if (perPage=='50') {
+        this.limit=50
+        // code...
+      }else if (perPage=='100') {
+        this.limit=100
+        // code...
+      }else if (perPage=='200') {
+        this.limit=100
+        // code...
+      }else if (perPage=='All') {
+        this.limit=this.userData.length
+        // code...
+      }
+    }
+onRange(range){
+  //alert(range)
+  if (this.filterApplyStatus) {
+     this.userData=this.dataAfterFilterApply.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true)
+  }else{
+    this.userData=this.userDataBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true) 
+  }
+  this.dataForSorting=this.userData
+}
+getStatus(time,range):boolean {
+  let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(time);
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  console.log(diffDays)
+  switch (range) {
+        case '7d':
+         console.log('7d')
+          if (diffDays<8) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '15d': 
+        if (diffDays<16) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '1m': 
+        if (diffDays<31) {
+             return true;
+           }else{
+             return false;
+           }
+        case '3m':
+        if (diffDays<91) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '6m': 
+        if (diffDays<181) {
+             return true;
+           }else{
+             return false;
+           }
+        case '1y': 
+        if (diffDays<365) {
+             return true;
+           }else{
+             return false;
+           }
+        case 'all':return true
+        default: return false;
+      }
+ }
+
+onMobileStatus(status){
+  if (status==true) {
+   this.onMobileStatusData=this.userDataBackup.filter(arg=>arg.mobileVerified!=true)
+  }else{
+    this.onMobileStatusData=[]
+  }
+}
+onHyper(status){
+  if (status==true) {
+   this.onHyperData=this.userDataBackup.filter(arg=>this.getActiveStatus(arg.lastlogin,'7d')==true)
+ }else{
+   this.onHyperData=[]
+ }
+
+}
+onModrate(status){
+ if (status==true) {
+   this.onModrateData=this.userDataBackup.filter(arg=>this.getActiveStatus(arg.lastlogin,'15d')==true)
+ }else{
+   this.onModrateData=[]
+ }
+}
+onActive(status){
+  if (status==true) {
+   this.onActiveData=this.userDataBackup.filter(arg=>this.getActiveStatus(arg.lastlogin,'1m')==true)
+ }else{
+   this.onActiveData=[]
+ }
+}
+onInactive(status){
+   if (status==true) {
+   this.onInactiveData=this.userDataBackup.filter(arg=>this.getActiveStatus(arg.lastlogin,'31day')==true)
+ }else{
+   this.onInactiveData=[]
+ }
+}
+onMale(status){
+  if (status==true) {
+   this.onMaleData=this.userDataBackup.filter(arg=>arg.gender=='male')
+ }else{
+   this.onMaleData=[]
+ }
+}
+onFemale(status){
+  if (status==true) {
+   this.onFemaleData=this.userDataBackup.filter(arg=>arg.gender=='female')
+ }else{
+   this.onFemaleData=[]
+ }
+}
+onInfluencere(status){
+  if (status==true) {
+   this.onInfluencereData=this.userDataBackup.filter(arg=>arg.influencer==true)
+ }else{
+   this.onInfluencereData=[]
+ }
+}
+onVerified(status){
+ if (status==true) {
+   this.onVerifiedData=this.userDataBackup.filter(arg=>arg.status==true)
+ }else{
+   this.onVerifiedData=[]
+ }
+}
+onUnverified(status){
+ if (status==true) {
+   this.onUnverifiedData=this.userDataBackup.filter(arg=>arg.status==false)
+ }else{
+   this.onUnverifiedData=[]
+ }
+}
+
+onSelectLang(lang){
+  if (lang.check==true) {
+      this.filterLanguage.push(lang.language)
+      let data=this.userDataBackup.filter(arg=>arg.language==lang.language)
+      for(let i=0;i<data.length;i++){
+        this.dataAfterLanguage.push(data[i])
+      }
+     //this.getCategory(subCat._id)
+    }else{
+      this.dataAfterLanguage= this.dataAfterLanguage.filter(arg=>arg.language!=lang.language)
+      this.filterLanguage=this.filterLanguage.filter(arg=>arg!=lang.language)
+    }
+}
+
+getActiveStatus(time,range):boolean {
+  let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(time);
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  console.log(diffDays)
+  switch (range) {
+        case '7d':
+         console.log('7d')
+          if (diffDays<8) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '15d': 
+        if (diffDays<16) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '1m': 
+        if (diffDays<31) {
+             return true;
+           }else{
+             return false;
+           }
+        case '3m':
+        if (diffDays<91) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '6m': 
+        if (diffDays<181) {
+             return true;
+           }else{
+             return false;
+           }
+        case '1y': 
+        if (diffDays<365) {
+             return true;
+           }else{
+             return false;
+           }
+       case '31day': 
+        if (diffDays>30) {
+             return true;
+           }else{
+             return false;
+           }
+        case 'all':return true
+        default: return false;
+      }
+ }
+ unique(array){
+         return array.filter(function(el, index, arr) {
+                  return index == arr.indexOf(el);     
+              }); 
+}
+
+  onApplyFilter(){
+        this.filterApplyStatus=true
+       let finalData= this.dataAfterLanguage.concat(this.dataAfterDist,
+                                                    this.dataAfterBlock,this.onMobileStatusData,
+                                                    this.onHyperData,this.onModrateData,this.onInactiveData,
+                                                    this.onInactiveData,this.onMaleData,this.onFemaleData,
+                                                    this.onInfluencereData,this.onVerifiedData,this.onUnverifiedData);
+       if (this.unique(finalData).length>0) {
+            this.dataAfterFilterApply=this.unique(finalData)
+            this.userData=this.unique(finalData);
+            this.dataForSorting=this.unique(finalData);
+         // code...
+       }
+      this.afterApplyStatus.unverified=this.rigthSide.unverified
+      this.afterApplyStatus.verified=this.rigthSide.verified
+      this.afterApplyStatus.influencere=this.rigthSide.influencere
+      this.afterApplyStatus.female=this.rigthSide.female
+      this.afterApplyStatus.male=this.rigthSide.male
+      this.afterApplyStatus.active=this.rigthSide.active
+      this.afterApplyStatus.modrate=this.rigthSide.modrate
+      this.afterApplyStatus.hyper=this.rigthSide.hyper
+      this.afterApplyStatus.inactive=this.rigthSide.inactive
+      this.afterApplyStatus.mobileStatus=this.rigthSide.mobileStatus
+      let state=this.filterState.concat(this.selectedState)
+      let block=this.filterBlock.concat(this.selectedBlock)
+      let dist=this.filterDist.concat(this.selectedDist)
+      // if (this.unique(state).length>0) {
+         this.afterApplyStatus.state=this.unique(this.filterState)
+        // code...
+      //}
+      if (this.unique(block).length>0) {
+         this.afterApplyStatus.block=this.unique(block)
+        // code...
+      }
+     // if (this.unique(dist).length>0) {
+          this.afterApplyStatus.dist=this.unique(this.filterDist)
+        // code...
+     // }
+      this.afterApplyStatus.language=this.filterLanguage
+
+
+}
+
+onClearLangFilter(lang){
+    this.userData=this.userData.filter(arg=>arg.language!=lang)
+    this.afterApplyStatus.language= this.afterApplyStatus.language.filter(arg=>arg!=lang)
+    this.filterLanguage= this.filterLanguage.filter(arg=>arg!=lang)
+}
+onClearStateFilter(state){
+    this.userData=this.userData.filter(arg=>arg.state!=state)
+    this.afterApplyStatus.state=this.afterApplyStatus.state.filter(arg=>arg.name!=state)
+    this.filterState=this.filterState.filter(arg=>arg.name!=state)
+    this.selectedState=this.selectedState.filter(arg=>name!=state)
+}
+onClearDistFilter(dist){
+    this.userData=this.userData.filter(arg=>arg.district!=dist)
+    this.afterApplyStatus.dist=this.afterApplyStatus.dist.filter(arg=>arg.name!=dist)
+    this.filterDist=this.filterDist.filter(arg=>arg.name!=dist)
+    this.selectedDist=this.selectedDist.filter(arg=>arg!=dist)
+}
+onClearBlockFilter(block){
+    this.userData=this.userData.filter(arg=>arg.district!=block)
+    this.afterApplyStatus.block=this.afterApplyStatus.block.filter(arg=>arg.name!=block)
+    this.filterBlock=this.filterBlock.filter(arg=>arg.name!=block)
+    this.selectedBlock=this.selectedBlock.filter(arg=>arg.name!=block)
+}
+onClearmobileStatusFilter(){
+    this.userData=this.userData.filter(arg=>arg.mobileVerified!=true)
+    this.afterApplyStatus.mobileStatus=false
+    this.rigthSide.mobileStatus=false
+}
+onClearUnverifiedFilter(){
+    this.userData=this.userData.filter(arg=>arg.status==true)
+    this.afterApplyStatus.unverified=false
+    this.rigthSide.unverified=false
+}
+onClearVerifiedFilter(){
+    this.userData=this.userData.filter(arg=>arg.status!=true)
+    this.afterApplyStatus.verified=false
+    this.rigthSide.verified=false
+}
+onClearInfluencereFilter(){
+    this.userData=this.userData.filter(arg=>arg.influencere!=true)
+    this.afterApplyStatus.influencere=false
+    this.rigthSide.influencere=false
+}
+onClearFemaleFilter(){
+    this.userData=this.userData.filter(arg=>arg.gender!='female')
+    this.afterApplyStatus.female=false
+    this.rigthSide.female=false
+}
+onClearMaleFilter(){
+    this.userData=this.userData.filter(arg=>arg.gender!='male')
+    this.afterApplyStatus.male=false
+    this.rigthSide.male=false
+}
+onClearActiveFilter(){
+  this.afterApplyStatus.active=false
+  this.rigthSide.active=false
+     this.userData=this.userData.filter(arg=>this.getActiveStatus(arg.lastlogin,'7d')!=true)
+}
+onClearModrateFilter(){
+      this.afterApplyStatus.modrate=false
+      this.rigthSide.modrate=false
+     this.userData=this.userData.filter(arg=>this.getActiveStatus(arg.lastlogin,'15d')!=true)
+}
+onClearHyperFilter(){
+      this.afterApplyStatus.hyper=false
+      this.rigthSide.hyper=false
+     this.userData=this.userData.filter(arg=>this.getActiveStatus(arg.lastlogin,'1m')!=true)
+}
+onClearInactiveFilter(){
+       this.afterApplyStatus.inactive=false
+       this.rigthSide.inactive=false
+     this.userData=this.userData.filter(arg=>this.getActiveStatus(arg.lastlogin,'31day')!=true)
+}
+clearAll(){
+     this.afterApplyStatus.mobileStatus=false
+    this.rigthSide.mobileStatus=false
+    this.afterApplyStatus.unverified=false
+    this.rigthSide.unverified=false
+    this.afterApplyStatus.verified=false
+    this.rigthSide.verified=false
+    this.afterApplyStatus.influencere=false
+    this.rigthSide.influencere=false
+    this.afterApplyStatus.female=false
+    this.rigthSide.female=false
+    this.afterApplyStatus.male=false
+    this.rigthSide.male=false
+    this.afterApplyStatus.active=false
+    this.rigthSide.active=false
+this.afterApplyStatus.modrate=false
+this.rigthSide.modrate=false
+this.afterApplyStatus.hyper=false
+this.rigthSide.hyper=false
+this.afterApplyStatus.inactive=false
+this.rigthSide.inactive=false
+this.afterApplyStatus.languag=[]
+this.filterLanguage=[]
+this.afterApplyStatus.state=[]
+this.filterState=[]
+this.selectedState=[]
+this.afterApplyStatus.dist=[]
+this.filterDist=[]
+this.selectedDist=[]
+this.afterApplyStatus.block=[]
+this.filterBlock=[]
+this.userData=this.userDataBackup.slice(0)
+this.selectedBlock=[]
+this.filterApplyStatus=false
+this.stateListState[0].check=false
+      // for (var i = 0; i < this.stateListState.length; i++) {
+           let obj=this.stateListState[0].dist
+           // obj.check=false
+           for (var j = 0; j < obj.length; j++) {
+            let obj2=obj[j]
+            obj2.check=false
+            for (var k = 0; k < obj2.block.length; k++) {
+              let obj3=obj2.block[k]
+              obj3.check=false
+              // code...
+            }
+          // }
+      }
+      for (let i=0;i<this.stringResource.language.length;i++) {
+               this.stringResource.language[i].check=false
+            }
+}
+
+
+ onSortMulti(value){
+      //alert(value)
+ const data =this.dataForSorting.slice();
+    if (!value || value == '') {
+      this.userData = data;
+      
+      return;
+    }
+
+    this.userData.sort((a, b) => {
+      //alert(value)
+      let isAsc =  'asc';
+      switch (value) {
+
+        case 'session': return compare2(a.totalSessions, b.totalSessions, isAsc);
+        case 'time': return compare2(a.totalTime, b.totalTime, isAsc);
+        case 'avgs': return compare2((a.totalTime/a.totalSessions), (b.totalTime/b.totalSessions), isAsc);
+        case 'avgd': return compare2((a.totalTime/a.dayCount), (b.totalTime/b.dayCount), isAsc);
+        case 'page': return compare2(a.totalPageViews, b.totalPageViews, isAsc);
+        case 'avgp': return compare2((a.totalPageViews/a.totalSessions), (b.totalPageViews/b.totalSessions), isAsc);
+        case 'online': return compare2(a.lastlogin, b.lastlogin, isAsc);
+        case 'Like': return compare2(a.totalLikest, b.totalLikest, isAsc);
+        case 'share': return compare2(a.totalShares, b.totalShares, isAsc);
+        case 'comment': return compare2(a.totalComments, b.totalComments, isAsc);
+        case 'save': return compare2(a.totalSaves, b.totalSaves, isAsc);
+        case 'download': return compare2(a.totalDownloads, b.totalDownloads, isAsc);
+        case 'Submission': return compare2(a.totalSubmissions, b.totalSubmissions, isAsc);
+        case 'Call': return compare2(a.totalsCalls, b.totalsCalls, isAsc);
+        case 'CallMeBack': return compare2(a.totalCallBacks, b.totalCallBacks, isAsc);
+        case 'Publications': return compare2(a.totalPublications, b.totalPublications, isAsc);
+        case 'invite': return compare2(a.totalInvites, b.totalInvites, isAsc);
+        case 'conversation': return compare2(a.totalConversations, b.totalConversations, isAsc);
+        case 'apply': return compare2(a.apply, b.apply, isAsc);
+        case 'interested': return compare2(a.interested, b.interested, isAsc);
+        default: return 0;
+      }
+    });
+}
+// --------------------------------------8-12-17---------------------------------------
+  openFilterForSorting(){
+    console.log("awesome");
+    this.classForFilter="open";
+  }
+   deletUser(user): void {
+        let dialogRef = this.dialog.open(UserConfirmation, {
+            width: '400px',
+            disableClose: true,
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result=='yes') {
+            this.deletUserConfirm(user._id)
+          }
+        });
+    }
+  deletUserConfirm(id){
+       this.waitLoader = true;
+         this.userProvider.onDeleteUser(id)
+                .subscribe(data => {
+                    this.waitLoader = false;
+                    if (data.success==true) {
+                      // this.getUser()
+                      this.userData=this.userData.filter(arg=>arg._id !=id);
+                      this.userDataBackup=this.userDataBackup.filter(arg=>arg._id !=id);
+                      this.dataForSorting=this.dataForSorting.filter(arg=>arg._id !=id);
+                      this.dataAfterFilterApply=this.dataAfterFilterApply.filter(arg=>arg._id !=id);
+                    }
+                    
+                },error=>{
+                     
+                    alert(error)
+                    this.waitLoader = false;
+                }) 
+  }
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+function compare2(a, b, isAsc) {
+  return (b-a) 
+}
+
+@Component({
+  selector: 'user-confirmation-dialog',
+  templateUrl: 'confirmation.html',
+})
+
+export class UserConfirmation {
+   
+
+  constructor(
+    public dialogRef: MatDialogRef<UserConfirmation>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+        public dialog: MatDialog) {
+       }
+
+  onYesClick(): void {
+    this.dialogRef.close('yes');
+    // this.homePage.onDelete(this.data.admin)
+  }
+   onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+ 
+
 }

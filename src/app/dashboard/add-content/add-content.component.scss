@@ -35,7 +35,7 @@
 .mat-card {
     background: #4d4d4d;
     position: relative;
-    box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+    /* box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24); */
     border: none;
 }
 
@@ -77,17 +77,18 @@
 }
 #email-builder .email-builder-content [position-relative] {
     position: relative;
-    overflow: hidden;
+    overflow: auto;
     z-index: 0;
+    height: 890px;
     background-color: #e6e6e6;
     display: flex;
     flex-direction: column;
 }
 #email-builder .email-builder-content [position-relative] .builder {
-    display: flex;
-    flex: 1 1;
-    padding: 20px;
-    overflow-y: auto;
+    /* display: flex; */
+    flex: 1 1 auto;
+    padding: 15px;
+    /* overflow: auto; */
 }
 #email-builder .email-builder-content [position-relative] .builder .empty {
     min-height: 500px;
@@ -99,11 +100,19 @@
 }
 #email-builder .email-builder-content [position-relative] .builder .email-container {
     background-color: #222;
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
+    min-height: 800px;
     margin: 0 auto;
     padding: 10px;
     position: relative;
     box-sizing: border-box;
+    //overflow: auto;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    -moz-flex-direction: column;
+    -o-flex-direction: column;
 }
 
 #email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row {
@@ -122,6 +131,10 @@
 #email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row>* {
     flex: 1 1;
 }
+#email-builder .email-builder-content>:last-child .email-builder-element-edit-field .block-properties .form-row> .mat-form-field {
+    flex: 1 1 auto;
+}
+
 #email-builder .email-builder-content>:last-child .mat-btn-group-justify {
     display: flex;
     padding: 0;
@@ -129,6 +142,7 @@
 #email-builder .email-builder-content>:last-child .mat-btn-group-justify button {
     flex: 1 1 100%;
     margin: 0;
+    padding: 12px 0px;
 }
 
 #email-builder button.btn-custom {
@@ -275,3 +289,17 @@
 .form-group.grayClass label{
     color: #afafaf;
 }
+
+/* #email-builder .email-builder-content .builder .email-container{
+    max-height: 950px;
+    overflow: auto;
+} */
+
+.email-builder-element-edit-field{
+    width: 100%;
+    float: left;
+}
+.p-0{
+    padding: 0 !important;
+}
+

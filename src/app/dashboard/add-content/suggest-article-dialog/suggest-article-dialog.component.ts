@@ -52,7 +52,7 @@ export class SuggestArticleDialogComponent implements OnInit {
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sections=data;
+                  this.sections=data.filter(arg=>arg.deleteStatus!=true);
               },error=>{
                 this.waitLoader = false;
                   alert(error)
@@ -63,7 +63,7 @@ export class SuggestArticleDialogComponent implements OnInit {
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categories=data.response;
+                    this.categories=data.response.filter(arg=>arg.deleteStatus!=true);
                     console.log(JSON.stringify(data))
                 },error=>{
                   this.waitLoader = false;
@@ -75,7 +75,7 @@ export class SuggestArticleDialogComponent implements OnInit {
      this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategories=data.response;
+                    this.subCategories=data.response.filter(arg=>arg.deleteStatus!=true);
                     console.log(JSON.stringify(data))
                 },error=>{
                   this.waitLoader = false;
@@ -87,8 +87,8 @@ export class SuggestArticleDialogComponent implements OnInit {
       this.contentProvider.ongetSuggestedArticle(this.addContentRequest)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.suggestedArticalList=data.response;
-                    this.suggestedArticalListBackup=data.response;
+                    this.suggestedArticalList=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    this.suggestedArticalListBackup=data.response.filter(arg=>arg.deleteStatus!=true);;
                 },error=>{
                   this.waitLoader = false;
                     alert(error)

@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" >
     <div class="loader-box" *ngIf="waitLoader">
          <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
     </div>
@@ -7,9 +7,9 @@
         <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
     </div>
 
-    <div class="main-panel">
+    <div class="main-panel" >
         <app-navbar></app-navbar>
-        <div class="main-content">
+        <div class="main-content" (click)="onWindow()">
             <div class="container-fluid p-0">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
@@ -20,19 +20,21 @@
                                     <span class="hed"> Selected filter </span> | <span class="clar-filter" (click)="clearAll()"> Clear Filter </span>
                                 </div>
                                 <ul class="slctd-fltrli" type="none">
-                                    <li *ngFor="let lang of filterLanguageFilterPan" > {{lang}} <span (click)="onClearLangFilter(lang)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li *ngFor="let sec of filterSectionFilterPan"> {{findSec(sec)}} <span (click)="onClearSectionFilter(sec)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li *ngFor="let cat of filterCategoryFilterPan"> {{findCat(cat._id)}} <span (click)="onClearCategoryFilter(cat._id)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li *ngFor="let subCat of filterSubcategoryFilterPan"> {{findSubCat(subCat._id)}} <span (click)="onClearSubCategoryFilter(subCat._id)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="saveAsDraftStatus"> Draft <span (click)="onClearDraftFilter(saveAsDraftStatus)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="rejectStatus"> Rejected <span (click)="onClearRejectFilter(rejectStatus)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="sendForRevisionStatus"> Revision <span (click)="onClearRevisionFilter(sendForRevisionStatus)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="publishLaterStatus"> Scheduled <span (click)="onClearScheduledFilter(publishLaterStatus)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="publishStatus"> Published <span (click)="onClearPublishedFilter(publishStatus)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="activePriority"> Active priority content <span (click)="onClearactivePriorityFilter(activePriority)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="completed"> Completed priority content <span (click)="onClearcompletedFilter(completed)"> <i class="fa fa-times"></i> </span> </li>
-                                    <li  *ngIf="future"> Scheduled content <span (click)="onClearfutureFilter(future)"> <i class="fa fa-times"></i> </span> </li>
-                                    <!-- <li  *ngIf="filterLanguageSingle"> {{filterLanguageSingle}}<span (click)="onClearSingleFilter(filterLanguageSingle)"> <i class="fa fa-times"></i> </span> </li> -->
+                                    <li *ngFor="let lang of afterApplyStatus.language" > {{lang}} <span (click)="onClearLangFilter(lang)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let state of afterApplyStatus.state" > {{state.name}} <span (click)="onClearStateFilter(state.name)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let dist of afterApplyStatus.dist" > {{dist.name}} <span (click)="onClearDistFilter(dist.name)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let block of afterApplyStatus.block" > {{block.name}} <span (click)="onClearBlockFilter(block.name)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngIf="afterApplyStatus.mobileStatus" >Unverified mobile number  <span (click)="onClearmobileStatusFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngIf="afterApplyStatus.unverified" >Unverified  <span (click)="onClearUnverifiedFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                     <li *ngIf="afterApplyStatus.verified" >Verified  <span (click)="onClearVerifiedFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngIf="afterApplyStatus.influencere" >Influencere  <span (click)="onClearInfluencereFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngIf="afterApplyStatus.female" >Female  <span (click)="onClearFemaleFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngIf="afterApplyStatus.male" >Male  <span (click)="onClearMaleFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                     <li *ngIf="afterApplyStatus.active" >Active  <span (click)="onClearActiveFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                      <li *ngIf="afterApplyStatus.modrate" >Modrate  <span (click)="onClearModrateFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                       <li *ngIf="afterApplyStatus.hyper" >Hyper  <span (click)="onClearHyperFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                       <li *ngIf="afterApplyStatus.inactive" >Hyper  <span (click)="onClearInactiveFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                   
                                 </ul>
                             </div>
                         </div>
@@ -47,44 +49,44 @@
                                     <div class="col-md-5 col-sm-5 col-xs-12 p-0">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                         <mat-form-field>
-                                            <mat-select placeholder="Items per page">
-                                                <mat-option value="1"> 25 </mat-option>
-                                                <mat-option value="2"> 50 </mat-option>
-                                                <mat-option value="3"> 100 </mat-option>
-                                                <mat-option value="4"> 200 </mat-option>
-                                                <mat-option value="4"> All </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
+                                                <mat-select placeholder="Items per page" [(ngModel)]="limitedFilter.perPage" name="perpage" (change)="onPerPage(limitedFilter.perPage)">
+                                                    <mat-option value="25"> 25 </mat-option>
+                                                    <mat-option value="50"> 50 </mat-option>
+                                                    <mat-option value="100"> 100 </mat-option>
+                                                    <mat-option value="200"> 200 </mat-option>
+                                                    <mat-option value="All"> All </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <mat-form-field>
-                                                <mat-select placeholder="Time Range">
-                                                    <mat-option value="1"> 7d </mat-option>
-                                                    <mat-option value="2"> 15d </mat-option>
-                                                    <mat-option value="3"> 1m </mat-option>
-                                                    <mat-option value="4"> 3m </mat-option>
-                                                    <mat-option value="4"> 6m </mat-option>
-                                                    <mat-option value="4"> 1y </mat-option>
-                                                    <mat-option value="4"> all </mat-option>
+                                                <mat-select placeholder="Time Range" [(ngModel)]="limitedFilter.range" name="range" (change)="onRange(limitedFilter.range)">
+                                                    <mat-option value="7d"> 7d </mat-option>
+                                                    <mat-option value="15d"> 15d </mat-option>
+                                                    <mat-option value="1m"> 1m </mat-option>
+                                                    <mat-option value="3m"> 3m </mat-option>
+                                                    <mat-option value="6m"> 6m </mat-option>
+                                                    <mat-option value="1y"> 1y </mat-option>
+                                                    <mat-option value="all"> all </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div class="col-md-7 col-sm-7 col-xs-12 p-0">
-                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                       <!--  <div class="col-md-5 col-sm-5 col-xs-12">
                                         <mat-form-field>
-                                            <mat-select placeholder="State" multiple>
-                                                <mat-option value="1"> State1 </mat-option>
+                                            <mat-select placeholder="State" multiple [(ngModel)]="limitedFilter.state" name="state">
+                                              <mat-option [disabled]="state.name!='Maharashtra'" *ngFor="let state of stateListState" [value]="state.name"> {{state.name}} </mat-option>
                                                 <mat-option value="2"> State2 </mat-option>
                                                 <mat-option value="3"> State3 </mat-option>
                                                 <mat-option value="4"> State4 </mat-option>
                                                 <mat-option value="4"> State5 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                        </div> -->
+                                        <!-- <div class="col-md-3 col-sm-3 col-xs-12">
                                             <button class="btn btn-success" (click)="openDialog2()"> District + </button>
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="col-md-3 col-sm-3 col-xs-12">
                                             <button class="btn btn-success" (click)="openDialog2()"> Block + </button>
                                         </div> -->
@@ -96,19 +98,21 @@
                                                 <i class="material-icons">tune</i>
                                             </a>
                                             <ul class="dropdown-menu">
-												<li> <a> <mat-checkbox value="1"> Time spent             </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="2"> Avg time spent/day     </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="3"> Avg time Spent/session </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="4"> Page views             </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="5"> Avg Page views/session </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="6"> Number of sesions      </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="7"> Last seen online       </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="8"> Number of comments     </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="9"> Number of likes        </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="10"> Number of saves       </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="11"> Number of downloads   </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="12"> Number of invites     </mat-checkbox> </a> </li>
-												<li> <a> <mat-checkbox value="13"> Number of coversions  </mat-checkbox> </a> </li>
+                                              <mat-radio-group [(ngModel)]="limitedFilter.sort" name="multiSort" (change)="onSortMulti(limitedFilter.sort)">
+												<li> <a> <mat-radio-button value="time"> Time spent             </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="avgd"> Avg time spent/day     </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="avgs"> Avg time Spent/session </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="page"> Page views             </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="avgp"> Avg Page views/session </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="session"> Number of sesions      </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="online"> Last seen online       </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="comment"> Number of comments     </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="Like"> Number of likes        </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="save"> Number of saves       </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="download"> Number of downloads   </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="invite"> Number of invites     </mat-radio-button> </a> </li>
+												<li> <a> <mat-radio-button value="conversation"> Number of coversions  </mat-radio-button> </a> </li>
+                                            </mat-radio-group>
                                             </ul>
                                         </div>
 	                                </div>
@@ -123,8 +127,10 @@
 		                                            <th colspan="7"> Platform Interaction </th>
 		                                            <th colspan="5"> User Engagement </th>
 		                                            <th colspan="4"> Call To Action </th>
+                                                    <th colspan="2"> User contribution </th>
 		                                            <th> Influencer </th>
 		                                            <th> Referral Code </th>
+                                                    <th> Delete User </th>
 		                                        </tr>
 		                                        <tr>
                                                     <th> </th>
@@ -143,6 +149,7 @@
                                                     <th mat-sort-header="share">
                                                         <a matTooltipPosition="above"  matTooltip="Share" class="tltip_ico">
                                                            <!--  <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter>  -->
+                                                            <i class="fa fa-share-alt"></i>
                                                         </a>
                                                     </th>
                                                     <th mat-sort-header="comment">
@@ -160,8 +167,8 @@
                                                             <!-- <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter>  --><i class="icon-donload"></i>
                                                         </a>
                                                     </th>
-                                                    <th mat-sort-header="Submission">
-                                                        <a matTooltipPosition="above"  matTooltip="Submission" class="tltip_ico">
+                                                    <th mat-sort-header="apply">
+                                                        <a matTooltipPosition="above"  matTooltip="Apply" class="tltip_ico">
                                                             <!-- <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter>  --><i class="icon-check"></i>
                                                         </a>
                                                     </th>
@@ -175,24 +182,35 @@
                                                             <!-- <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> --><i class="icon-callme"></i> 
                                                         </a>
                                                     </th>
-                                                    <th mat-sort-header="Publications">
-                                                        <a matTooltipPosition="above"  matTooltip="Publications" class="tltip_ico">
+                                                    <th mat-sort-header="imtrested">
+                                                        <a matTooltipPosition="above"  matTooltip="I'm Interested" class="tltip_ico">
                                                             <!-- <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> --> <i class="icon-click"></i>
                                                         </a>
                                                     </th>
-
+                                                    <th mat-sort-header="submission">
+                                                        <a matTooltipPosition="above"  matTooltip="Submission" class="tltip_ico">
+                                                            Submission
+                                                        </a>
+                                                    </th>
+                                                    <th mat-sort-header="publication">
+                                                        <a matTooltipPosition="above"  matTooltip="Publication" class="tltip_ico">
+                                                            Publication
+                                                        </a>
+                                                    </th>
+                                                    
                                                     <th></th>
                                                     <th></th>
 
                                                 </tr>
 		                                    </thead>
 		                                    <tbody>
-		                                        <tr *ngFor="let user of userData">
-		                                            <td class="text-left">
+		                                        <tr *ngFor="let user of userData;let i=index">
+		                                            <td *ngIf="i<limit" class="text-left">
                                                         <div class="cont-img dp">
                                                             <img [src]="user.userImage" class="img-responsive" />
                                                             <div class="text-switch text-center">
-                                                                <span>Enable </span>
+                                                                <span *ngIf="!user.status">Enable </span>
+                                                                <span *ngIf="user.status">Disable </span>
                                                                 <span class="cus-switch">
                                                                     <label class="switch m-b-0">
                                                                         <input type="checkbox" [(ngModel)]="user.status"  (change)="onStatusChange(user)"/>
@@ -203,40 +221,46 @@
                                                         </div>
                                                         <div class="media-box cont-dtl">
                                                             <p> {{user.firstName}}{{user.lastNmae}}</p>
-                                                            <p> {{user.block}} | {{user.district}} | {{user.state}} </p>
+                                                            <p> {{user.blockRegional}} | {{user.districtRegional}} | {{user.stateRegional}} </p>
                                                             <p class="{{mobileVerification(user.mobileVerified)}}"> {{user.mobileNumber}} </p>
                                                         </div>
                                                     </td>
-		                                            <td> {{user.totalSessions}} </td>
-		                                            <td> {{getTotalTime(user.totalTime)}} </td>
-		                                            <td> {{avgTimePerSession(user.totalTime,user.totalSessions)}} </td>
-                                                    <td>{{avgTimePerDay(user.totalTime,user.dayCount)}} </td>
-		                                            <td>{{user.totalPageViews}}</td>
-		                                            <td> {{avgPageViewPerSession(user.totalPageViews,user.totalSessions)}} </td>
-		                                            <td class="width10px"> <p> {{getTime(user.lastlogin)}} </p> <p>{{getDate(user.lastlogin)}}</p> </td>
-		                                            <td> {{user.totalLikes}}</td>
-		                                            <td> {{user.totalShares}} </td>
-		                                            <td> {{user.totalComments}}</td>
-		                                            <td> {{user.totalSaves}} </td>
-		                                            <td> {{user.totalDownloads}}</td>
-		                                            <td> {{user.totalSubmissions}}</td>
-                                                    <td> {{user.totalsCalls}}</td>
-                                                    <td> {{user.totalCallBacks}} </td>
-		                                            <td>{{user.totalPublications}} </td>
-		                                            <td> 
+		                                            <td *ngIf="i<limit"> {{user.totalSessions}} </td>
+		                                            <td *ngIf="i<limit"> {{getTotalTime(user.totalTime)}} </td>
+		                                            <td *ngIf="i<limit"> {{avgTimePerSession(user.totalTime,user.totalSessions)}} </td>
+                                                    <td *ngIf="i<limit">{{avgTimePerDay(user.totalTime,user.dayCount)}} </td>
+		                                            <td *ngIf="i<limit">{{user.totalPageViews}}</td>
+		                                            <td *ngIf="i<limit"> {{avgPageViewPerSession(user.totalPageViews,user.totalSessions)}} </td>
+		                                            <td *ngIf="i<limit" class="width10px"> <p> {{getTime(user.lastlogin)}} </p> <p>{{getDate(user.lastlogin)}}</p> </td>
+		                                            <td *ngIf="i<limit"> {{user.totalLikes}}</td>
+		                                            <td *ngIf="i<limit"> {{user.totalShares}} </td>
+		                                            <td *ngIf="i<limit"> {{user.totalComments}}</td>
+		                                            <td *ngIf="i<limit"> {{user.totalSaves}} </td>
+		                                            <td *ngIf="i<limit"> {{user.totalDownloads}}</td>
+		                                            <td *ngIf="i<limit"> {{user.apply}}</td>
+                                                    <td *ngIf="i<limit"> {{user.totalsCalls}}</td>
+                                                    <td *ngIf="i<limit"> {{user.totalCallBacks}} </td>
+		                                            <td *ngIf="i<limit">{{user.interested}} </td>
+                                                    <td *ngIf="i<limit">{{user.totalSubmissions}} </td>
+                                                    <td *ngIf="i<limit">{{user.totalPublications}} </td>
+		                                            <td *ngIf="i<limit"> 
                                                     	<div class="cus-switch user">
-                                                            <span>Enable</span>
+                                                            <span *ngIf="!user.influencer">Enable</span>
+                                                            <span *ngIf="user.influencer"> Disable</span>
                                                             <label class="switch m-b-0">
                                                                 <input type="checkbox" [(ngModel)]="user.influencer"  (change)="onInfluencerStatusChange(user)"/>
                                                                 <span class="slider round"></span>
                                                             </label>
                                                         </div>
-                                                        <a  (click)="openDialog(user)"> View </a>
+                                                        <a href="javascript:void(0);" (click)="openDialog(user)"> View </a>
                                                     </td>
-                                                    <td class="media-box width20">
+                                                    <td *ngIf="i<limit" class="media-box width20">
                                                     	<p> Referral code: {{user.referralCode}} </p>
                                                         <p> No. of invites: {{user.totalInvites}}</p>
                                                         <p> No. of conversation:{{user.totalConversations}} </p>
+                                                    </td>
+                                                     <td *ngIf="i<limit" class="td-icon">
+                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico" (click)="deletUser(user)"> <i class="fa fa-trash"></i> </a>
                                                     </td>
 
 		                                        </tr>
@@ -260,7 +284,7 @@
                                                             <p class="text-danger">9874563210 </p>
                                                         </div>
                                                     </td>
-                                                    <td> 56 </td>
+                                                    <td *ngIf="i<limit"> 56 </td>
                                                     <td> 250 Hours 30 Min </td>
                                                     <td> 250 Hours 30 Min </td>
                                                     <td> 250 Hours 30 Min </td>
@@ -369,13 +393,13 @@
     </div>
 
     <div class="fixed-plugin">
-	    <div class="filter-plugin">
-	        <a href="javascript:void(0);">
+	    <div class="filter-plugin {{classToOpenDiv}}">
+	        <a href="javascript:void(0);" (click)="openFilter()">
 	            <i class="material-icons">sort</i>
 	        </a>
 	        <ul class="sidebar-filter" type="none">
 	        	<div class="left-content">
-	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
+	        		<div class="close-filter" (click)="onWindow()"> <span> <i class="fa fa-times"></i> </span> </div>
                     <!-- <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> Select State</h5>
                         <div class="wrapFilter-div">
@@ -391,11 +415,9 @@
                     <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> Select Language</h5>
                         <div class="wrapFilter-div">
-                            <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Language1</mat-checkbox></li>
-                                <li><mat-checkbox>Language2</mat-checkbox></li>
-                                <li><mat-checkbox>Language3</mat-checkbox></li>
-                                <li><mat-checkbox>Language4</mat-checkbox></li>
+                            <ul class="filters-ul" type="none" *ngIf="stringResource">
+                                 <li *ngFor="let lang of stringResource.language" ><mat-checkbox [(ngModel)]="lang.check" (change)="onSelectLang(lang)">{{lang.language}}</mat-checkbox></li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -404,9 +426,9 @@
                         <h5 class="filter-heading"> State</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>State1</mat-checkbox></li>
-                                <li><mat-checkbox>State2</mat-checkbox></li>
-                                <li><mat-checkbox>State3</mat-checkbox></li>
+                             <!--   // <li *ngFor="let state of stateList"><mat-checkbox>State1</mat-checkbox></li> -->
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].check" [disabled]="stateListState[0].name!='Maharashtra'" (change)="onSateSelect(stateListState[0])">{{stateListState[0].name}} </mat-checkbox></li>
+                                <li><mat-checkbox [disabled]="stateListState[1].name!='Maharashtra'">{{stateListState[1].name}}</mat-checkbox></li>
                                 <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
                             </ul>
                         </div>
@@ -414,10 +436,10 @@
                     <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> District</h5>
                         <div class="wrapFilter-div">
-                            <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>District1</mat-checkbox></li>
-                                <li><mat-checkbox>District2</mat-checkbox></li>
-                                <li><mat-checkbox>District3</mat-checkbox></li>
+                            <ul class="filters-ul" type="none" *ngIf="stateListState[0].check">
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[0].check" (change)="onChangeDist(stateListState[0].dist[0].check,0)">{{stateListState[0].dist[0].name}}</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[1].check" (change)="onChangeDist(stateListState[0].dist[1].check,1)">{{stateListState[0].dist[1].name}}</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[2].check" (change)="onChangeDist(stateListState[0].dist[2].check,2)">{{stateListState[0].dist[2].name}}</mat-checkbox></li>
                                 <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
                             </ul>
                         </div>
@@ -425,29 +447,43 @@
                     <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> Block</h5>
                         <div class="wrapFilter-div">
-                            <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Block1</mat-checkbox></li>
-                                <li><mat-checkbox>Block2</mat-checkbox></li>
-                                <li><mat-checkbox>Block3</mat-checkbox></li>
+                            <ul class="filters-ul" type="none" *ngIf="stateListState[0].dist[0].check && activeDist==0">
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[0].block[0].check" (change)="onChangeBlock(stateListState[0].dist[0].block[0])">{{stateListState[0].dist[0].block[0].name}}</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[0].block[1].check" (change)="onChangeBlock(stateListState[0].dist[0].block[1])">{{stateListState[0].dist[0].block[1].name}}</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[0].block[2].check" (change)="onChangeBlock(stateListState[0].dist[0].block[2])">{{stateListState[0].dist[0].block[2].name}}</mat-checkbox></li>
+                                <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
+                            </ul>
+                            <ul class="filters-ul" type="none" *ngIf="stateListState[0].dist[1].check && activeDist==1">
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[1].block[0].check" (change)="onChangeBlock(stateListState[0].dist[1].block[0])">{{stateListState[0].dist[1].block[0].name}}</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[1].block[1].check" (change)="onChangeBlock(stateListState[0].dist[1].block[1])">{{stateListState[0].dist[1].block[1].name}}</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[1].block[2].check" (change)="onChangeBlock(stateListState[0].dist[1].block[2])">{{stateListState[0].dist[1].block[2].name}}</mat-checkbox></li>
+                                <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
+                            </ul>
+                            <ul class="filters-ul" type="none" *ngIf="stateListState[0].dist[2].check && activeDist==2">
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[2].block[0].check" (change)="onChangeBlock(stateListState[0].dist[2].block[0])">{{stateListState[0].dist[2].block[0].name}}</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[2].block[1].check" (change)="onChangeBlock(stateListState[0].dist[2].block[1])">{{stateListState[0].dist[2].block[1].name}}</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="stateListState[0].dist[2].block[2].check" (change)="onChangeBlock(stateListState[0].dist[2].block[2])">{{stateListState[0].dist[2].block[2].name}}</mat-checkbox></li>
                                 <li><a (click)="openDialog2()" href="javascript:void(0);">View More +</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="wrapFilter-ul">
+                        <h5 class="filter-heading">Mobile Status</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Unverified mobile number</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.mobileStatus"  (change)="onMobileStatus(rigthSide.mobileStatus)">Unverified mobile number</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
                     <div class="wrapFilter-ul">
+
                         <h5 class="filter-heading"> Active user</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Hyper active</mat-checkbox></li>
-                                <li><mat-checkbox>Moderatley active</mat-checkbox></li>
-                                <li><mat-checkbox>active</mat-checkbox></li>
-                                <li><mat-checkbox>Inactive</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.hyper" (change)="onHyper(rigthSide.hyper)" >Hyper active</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.modrate" (change)="onModrate(rigthSide.modrate)" >Moderatley active</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.active" (change)="onActive(rigthSide.active)" >active</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.inactive" (change)="onInactive(rigthSide.inactive)" >Inactive</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
@@ -455,8 +491,8 @@
                         <h5 class="filter-heading"> Gender</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Male</mat-checkbox></li>
-                                <li><mat-checkbox>Female</mat-checkbox></li>
+                                <li><mat-checkbox  [(ngModel)]="rigthSide.male" (change)="onMale(rigthSide.male)">Male</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.female" (change)="onFemale(rigthSide.female)">Female</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
@@ -464,14 +500,14 @@
                         <h5 class="filter-heading"> User</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Influencers</mat-checkbox></li>
-                                <li><mat-checkbox>Verified</mat-checkbox></li>
-                                <li><mat-checkbox>Unverified</mat-checkbox></li>
+                                <li><mat-checkbox  [(ngModel)]="rigthSide.influencere" (change)="onInfluencere(rigthSide.influencere)" >Influencers</mat-checkbox></li>
+                                <li><mat-checkbox  [(ngModel)]="rigthSide.verified" (change)="onVerified(rigthSide.verified)" >Verified</mat-checkbox></li>
+                                <li><mat-checkbox  [(ngModel)]="rigthSide.unverified" (change)="onUnverified(rigthSide.unverified)" >Unverified</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
                     <div class="btns-filter">
-                        <a class="btn custom-btn">Apply Filter </a>
+                        <a class="btn custom-btn close-filter" (click)="onApplyFilter()">Apply Filter </a>
                     </div>
 
                 </div>

@@ -1,4 +1,7 @@
 <div class="wrapper">
+    <div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
     <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
         <app-sidebar></app-sidebar>
         <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
@@ -14,11 +17,13 @@
                     	<div class="card m-t-0">
                     		<div class="card-content">
 	                            <div class="select-head">
-	                                <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
+	                                <span class="hed"> Selected filter </span> | <span class="clar-filter" (click)="clearAll()"> Clear Filter </span>
 	                            </div>
 	                            <ul class="slctd-fltrli" type="none">
-	                                <li> News <span> <i class="fa fa-times"></i> </span> </li>
-	                                <li> Sports News <span> <i class="fa fa-times"></i> </span> </li>
+	                                <li *ngFor="let lang of filterLanguageFilterPan" > {{lang}} <span (click)="onClearLangFilter(lang)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let sec of filterSectionFilterPan"> {{findSec(sec)}} <span (click)="onClearSectionFilter(sec)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let cat of filterCategoryFilterPan"> {{findCat(cat._id)}} <span (click)="onClearCategoryFilter(cat._id)"> <i class="fa fa-times"></i> </span> </li>
+                                    <li *ngFor="let subCat of filterSubcategoryFilterPan"> {{findSubCat(subCat._id)}} <span (click)="onClearSubCategoryFilter(subCat._id)"> <i class="fa fa-times"></i> </span> </li>
 	                            </ul>
                           	</div>
                         </div>
@@ -32,24 +37,28 @@
                                 <div class="row">
 	                                <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <mat-select placeholder="Items per page">
-                                                <mat-option value="1"> 25 </mat-option>
-                                                <mat-option value="2"> 50 </mat-option>
-                                                <mat-option value="3"> 100 </mat-option>
-                                                <mat-option value="4"> 200 </mat-option>
-                                                <mat-option value="4"> All </mat-option>
-                                            </mat-select>
+                                           <mat-form-field>
+                                                <mat-select placeholder="Items per page" [(ngModel)]="limitedFilter.perPage" name="perpage" (change)="onPerPage(limitedFilter.perPage)">
+                                                    <mat-option value="25"> 25 </mat-option>
+                                                    <mat-option value="50"> 50 </mat-option>
+                                                    <mat-option value="100"> 100 </mat-option>
+                                                    <mat-option value="200"> 200 </mat-option>
+                                                    <mat-option value="All"> All </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <mat-select placeholder="Time Range">
-                                                <mat-option value="1"> 7d </mat-option>
-                                                <mat-option value="2"> 15d </mat-option>
-                                                <mat-option value="3"> 1m </mat-option>
-                                                <mat-option value="4"> 3m </mat-option>
-                                                <mat-option value="4"> 6m </mat-option>
-                                                <mat-option value="4"> 1y </mat-option>
-                                                <mat-option value="4"> all </mat-option>
-                                            </mat-select>
+                                            <mat-form-field>
+                                                <mat-select placeholder="Time Range" [(ngModel)]="limitedFilter.range" name="range" (change)="onRange(limitedFilter.range)">
+                                                    <mat-option value="7d"> 7d </mat-option>
+                                                    <mat-option value="15d"> 15d </mat-option>
+                                                    <mat-option value="1m"> 1m </mat-option>
+                                                    <mat-option value="3m"> 3m </mat-option>
+                                                    <mat-option value="6m"> 6m </mat-option>
+                                                    <mat-option value="1y"> 1y </mat-option>
+                                                    <mat-option value="all"> all </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
                                     </div>
                                     
@@ -60,18 +69,18 @@
                                                 <i class="material-icons">tune</i>
                                             </a>
                                             <ul class="dropdown-menu">
-                                            	<mat-radio-group>
-													<li> <a> <mat-radio-button value="8">  Number of comments   </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="9">  Number of Shares     </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="9">  Number of likes      </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="10"> Number of saves      </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="11"> Number of downloads  </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="4">  Page views           </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="12"> Unique views         </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="1"> No of click on apply  </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="2"> No of click on i'm interested</mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="3"> No of click on call me</mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="5"> No of click on call</mat-radio-button> </a> </li>
+                                            	<mat-radio-group [(ngModel)]="limitedFilter.sort" name="multiSort" (change)="onSortMulti(limitedFilter.sort)">
+													<li> <a> <mat-radio-button value="comment">  Number of comments   </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="share">  Number of Shares     </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="like">  Number of likes      </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="save"> Number of saves      </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="download"> Number of downloads  </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="pageViews">  Page views           </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="uniquePage"> Unique views         </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="apply"> No of click on apply  </mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="interested"> No of click on i'm interested</mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="callMeBack"> No of click on call me</mat-radio-button> </a> </li>
+													<li> <a> <mat-radio-button value="call"> No of click on call</mat-radio-button> </a> </li>
 												</mat-radio-group>
                                             </ul>
                                         </div>
@@ -80,78 +89,144 @@
 
                                 <div class="row">
 	                                <div class="dshbrd-table table-responsive">
-	                                	<table class="table table-striped user-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+	                                	<table class="table table-striped user-table" matSort (matSortChange)="sortData($event)">
 	                                        <thead class="text-danger">
 		                                        <tr>
-		                                            <th> Section Details </th>
+		                                            <th  > Section Details </th>
 		                                            <th colspan="5"> Views </th>
 		                                            <th colspan="2"> Time </th>
-		                                            <!-- <th><mfDefaultSorter by="session"> Spent/session</mfDefaultSorter> </th> -->
+		                                            <!-- <th  mat-sort-header="session"><mfDefaultSorter by="session"> Spent/session</mfDefaultSorter> </th> -->
 		                                            <th colspan="5"> User Engagement </th>
 		                                            <th colspan="4"> Call To Action </th>
 		                                        </tr>
 		                                        <tr>
-                                                    <th> </th>
-                                                    <th><mfDefaultSorter by="page">Page Views</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="unique"> Unique Views</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="avgp"> Avg. Page Views / Day</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="avgp"> Avg. Page Views / Month</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="avgs"> Avg. Page Views / Session</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="time"> Total Time Spent</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="avgt"> Avg Time</mfDefaultSorter> </th>
+                                                    <th  > </th>
+                                                    <th  mat-sort-header="pageViews">Page Views</th>
+                                                    <th  mat-sort-header="uniquePage">Unique Views</th>
+                                                    <th  mat-sort-header="avgPageDay">Avg. Page Views / Day </th>
+                                                    <th  mat-sort-header="avgPageMonth">Avg. Page Views / Month</th>
+                                                    <th  mat-sort-header="avgPerSession">Avg. Page Views / Session</th>
+                                                    <th  mat-sort-header="totalTime">Total Time Spent</th>
+                                                    <th  mat-sort-header="avgTime">Avg Time</th>
                                                     
-                                                    <th>
-                                                        <a matTooltipPosition="above" matTooltip="Like" class="tltip_ico">
-                                                            <mfDefaultSorter by="thumb"> <i class="fa fa-thumbs-up"></i> </mfDefaultSorter> 
+                                                    <th  mat-sort-header="like">
+                                                        <a matTooltipPosition="above" matTooltip="Kadak" class="tltip_ico">
+                                                             <i class="icon-okay"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="share">
                                                         <a matTooltipPosition="above" matTooltip="Share" class="tltip_ico">
-                                                            <mfDefaultSorter by="share"> <i class="fa fa-share"></i> </mfDefaultSorter> 
+                                                            <i class="fa fa-share-alt"></i>  
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="comment">
                                                         <a matTooltipPosition="above" matTooltip="Comment" class="tltip_ico">
-                                                            <mfDefaultSorter by="comment"> <i class="fa fa-comment"></i> </mfDefaultSorter> 
+                                                            <i class="icon-msg"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="save">
                                                         <a matTooltipPosition="above" matTooltip="Save" class="tltip_ico">
-                                                            <mfDefaultSorter by="square"> <i class="fa fa-check-square"></i> </mfDefaultSorter> 
+                                                            <i class="icon-badge"></i>  
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="download">
                                                         <a matTooltipPosition="above" matTooltip="Download" class="tltip_ico">
-                                                            <mfDefaultSorter by="download"> <i class="fa fa-cloud-download"></i> </mfDefaultSorter> 
+                                                            <i class="icon-donload"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
-                                                        <a matTooltipPosition="above" matTooltip="Completed" class="tltip_ico">
-                                                            <mfDefaultSorter by="text"> <i class="fa fa-file-text"></i> </mfDefaultSorter> 
+                                                    <th  mat-sort-header="apply">
+                                                        <a matTooltipPosition="above" matTooltip="Apply" class="tltip_ico">
+                                                            <i class="icon-check"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
-                                                        <a matTooltipPosition="above" matTooltip="Call Me" class="tltip_ico">
-                                                            <mfDefaultSorter by="phone"> <i class="fa fa-phone-square"></i> </mfDefaultSorter> 
+                                                    <th  mat-sort-header="call">
+                                                        <a matTooltipPosition="above" matTooltip="Call" class="tltip_ico">
+                                                            <i class="icon-call"></i> 
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th  mat-sort-header="callMeBack">
                                                         <a matTooltipPosition="above" matTooltip="Call Me Back" class="tltip_ico">
-                                                            <mfDefaultSorter by="volume"> <i class="fa fa-volume-control-phone"></i> </mfDefaultSorter> 
+                                                            <i class="icon-callme"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
-                                                        <a matTooltipPosition="above" matTooltip="Check" class="tltip_ico">
-                                                            <mfDefaultSorter by="check"> <i class="fa fa-check-square-o"></i> </mfDefaultSorter> 
+                                                    <th  mat-sort-header="interested">
+                                                        <a matTooltipPosition="above" matTooltip="I'm Interested" class="tltip_ico">
+                                                            <i class="icon-click"></i> 
                                                         </a>
                                                     </th>
                                                 </tr>
 		                                    </thead>
 		                                    <tbody>
-		                                        <tr>
+		                                        <tr *ngFor="let data of sectiondata;let i=index">
+		                                            <td *ngIf="i<limit" class="width170px">
+                                                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">
+	                                                        {{data.sectionName}}
+	                                                    </a>
+                                                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">
+                                                            {{data.sectionName}}|<span class="dark_ylw" >{{data.categoryName}}</span>
+                                                        </a>
+                                                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" *ngIf="data.sectionName && data.categoryName && data.subCategoryName">
+                                                            {{data.sectionName}}|<span class="dark_ylw">{{data.categoryName}}</span>|<span class="dark_ylw" >{{data.subCategoryName}}</span>
+                                                        </a>
+                                                    </td>
+		                                            <td *ngIf="i<limit"> {{data.totalViews}} </td>
+		                                            <td *ngIf="i<limit"> {{data.uniqueViews}} </td>
+		                                            <td *ngIf="i<limit"> {{getPageViewDay(data.totalViews,data.dateOfCreation)}} </td>
+		                                            <td *ngIf="i<limit"> {{getPageViewMonth(data.totalViews,data.dateOfCreation)}} </td>
+		                                            <td *ngIf="i<limit"> {{getPageViewSession(data.totalViews,data.totalSessions)}} </td>
+		                                            <td *ngIf="i<limit"> {{getTotalTime(data.totalTime)}} </td>
+		                                            <td *ngIf="i<limit"> {{getAvgTime(data.totalTime,data.totalSessions)}} </td>
+                                                    <td *ngIf="i<limit"> 
+                                                        <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getLike(data._id,'section')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getLike(data._id,'category')}}</span> 
+                                                        <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getLike(data._id,'subcategory')}}</span> 
+                                                    </td>
+                                                    <td *ngIf="i<limit"> 
+                                                        <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getShare(data._id,'section')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getShare(data._id,'category')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getShare(data._id,'subcategory')}}</span>
+                                                    </td>
+                                                    <td *ngIf="i<limit"> 
+                                                        <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getComment(data._id,'section')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getComment(data._id,'category')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getComment(data._id,'subcategory')}}</span>
+                                                    </td>
+                                                    <td *ngIf="i<limit"> 
+                                                        <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getSave(data._id,'section')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getSave(data._id,'category')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getSave(data._id,'subcategory')}}</span>
+                                                    </td>
+                                                    <td *ngIf="i<limit"> 
+                                                        <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getDownload(data._id,'section')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getDownload(data._id,'category')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getDownload(data._id,'subcategory')}}</span>
+                                                    </td>
+                                                    <td *ngIf="i<limit"> 
+                                                        <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getApply(data._id,'section')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getApply(data._id,'category')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getApply(data._id,'subcategory')}}</span>
+                                                    </td>
+                                                    <td *ngIf="i<limit"> 
+                                                        <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getCall(data._id,'section')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getCall(data._id,'category')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getCall(data._id,'subcategory')}}</span>
+                                                    </td>
+                                                    <td *ngIf="i<limit"> 
+                                                        <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getCallMeBAck(data._id,'section')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getCallMeBAck(data._id,'category')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getCallMeBAck(data._id,'subcategory')}}</span>
+                                                    </td>
+                                                    <td *ngIf="i<limit"> 
+                                                        <span *ngIf="data.sectionName && !data.categoryName && !data.subCategoryName">{{getIntrested(data._id,'section')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && !data.subCategoryName">{{getIntrested(data._id,'category')}}</span>
+                                                        <span *ngIf="data.sectionName && data.categoryName && data.subCategoryName">{{getIntrested(data._id,'subcategory')}}</span>
+                                                    </td>
+
+		                                        </tr>
+		                                        <!-- <tr>
 		                                            <td class="width170px">
                                                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-	                                                        News
+	                                                        News  <span class="dark_ylw">Sports News</span>
 	                                                    </a>
                                                     </td>
 		                                            <td> 10,00,000 </td>
@@ -219,39 +294,8 @@
 		                                            <td> 125 </td>
 		                                            <td> 56 </td>
 
-		                                        </tr>
-		                                        <tr>
-		                                            <td class="width170px">
-                                                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-	                                                        News | <span class="dark_ylw">Sports News</span>
-	                                                    </a>
-                                                    </td>
-		                                            <td> 10,00,000 </td>
-		                                            <td> 1,00,000 </td>
-		                                            <td> 56 </td>
-		                                            <td> 44 </td>
-		                                            <td> 125 </td>
-		                                            <td> 40 </td>
-		                                            <td> 150 </td>
-                                                    <td> 758 </td>
-		                                            <td> 80 </td>
-		                                            <td> 50 </td>
-		                                            <td> 50 </td>
-		                                            <td> 68 </td>
-		                                            <td> 75 </td>
-		                                            <td> 56 </td>
-		                                            <td> 125 </td>
-		                                            <td> 56 </td>
-
-		                                        </tr>
+		                                        </tr> -->
 		                                    </tbody>
-		                                    <tfoot>
-	                                            <tr>
-	                                                <td colspan="14">
-	                                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-	                                                </td>
-	                                            </tr>
-                                            </tfoot>
 	                                    </table>
 	                                </div>
                                 </div>
@@ -273,7 +317,7 @@
 	        <ul class="sidebar-filter" type="none">
 	        	<div class="left-content">
 	        		<div class="close-filter"> <span> <i class="fa fa-times"></i> </span> </div>
-                    <div class="wrapFilter-ul">
+                    <!-- <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> Select State</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
@@ -283,16 +327,16 @@
                                 <li><mat-checkbox>State4</mat-checkbox></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="wrapFilter-ul">
                         <h5 class="filter-heading"> Select Language</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Language1</mat-checkbox></li>
-                                <li><mat-checkbox>Language2</mat-checkbox></li>
+                                <li *ngFor="let lang of stringResource.language" ><mat-checkbox [(ngModel)]="lang.check" (change)="onSelectLang(lang)">{{lang.language}}</mat-checkbox></li>
+                                <!-- <li><mat-checkbox>Language2</mat-checkbox></li>
                                 <li><mat-checkbox>Language3</mat-checkbox></li>
-                                <li><mat-checkbox>Language4</mat-checkbox></li>
+                                <li><mat-checkbox>Language4</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
@@ -301,8 +345,7 @@
                         <h5 class="filter-heading"> Section</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>News</mat-checkbox></li>
-                                <li><mat-checkbox>Jobs</mat-checkbox></li>
+                                <li  *ngFor="let sec of sections" ><mat-checkbox [(ngModel)]="sec.check" (change)="forSection(sec)">{{sec.sectionName}}</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
@@ -310,8 +353,7 @@
                         <h5 class="filter-heading"> Category </h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Sport News</mat-checkbox></li>
-                                <li><mat-checkbox>Technology News</mat-checkbox></li>
+                                <li  *ngFor="let cat of categories" ><mat-checkbox [(ngModel)]="cat.check" (change)="forCategory(cat)">{{cat.categoryName}}</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
@@ -319,13 +361,13 @@
                         <h5 class="filter-heading"> Sub-category</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox>Cricket news</mat-checkbox></li>
-                                <li><mat-checkbox>Football news</mat-checkbox></li>
+                                <li  *ngFor="let subcat of subCategory" ><mat-checkbox [(ngModel)]="subcat.check" (change)="forSubCategory(subcat)">{{subcat.subCategoryName}}</mat-checkbox></li>
+                               <!--  <li><mat-checkbox>Cricket</mat-checkbox></li> -->
                             </ul>
                         </div>
                     </div>
                     <div class="btns-filter">
-                        <a class="btn custom-btn">Apply Filter </a>
+                        <a class="btn custom-btn close-filter" (click)="onApplyFilter()">Apply Filter </a>
                     </div>
                 </div>
 	        </ul>

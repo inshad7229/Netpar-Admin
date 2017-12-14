@@ -112,27 +112,27 @@
                                     <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                           <mat-form-field>
-                                                <mat-select placeholder="Items Per Page" [(ngModel)]="filterValue.perPage">
-                                                    <mat-option value="1"> 25 </mat-option>
-                                                    <mat-option value="2"> 50 </mat-option>
-                                                    <mat-option value="3"> 100 </mat-option>
-                                                    <mat-option value="4"> 200 </mat-option>
-                                                    <mat-option value="4"> All </mat-option>
+                                                <mat-select placeholder="Items per page" [(ngModel)]="limitedFilter.perPage" name="perpage" (change)="onPerPage(limitedFilter.perPage)">
+                                                    <mat-option value="25"> 25 </mat-option>
+                                                    <mat-option value="50"> 50 </mat-option>
+                                                    <mat-option value="100"> 100 </mat-option>
+                                                    <mat-option value="200"> 200 </mat-option>
+                                                    <mat-option value="All"> All </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                          <mat-form-field>
-                                            <mat-select placeholder="Time Range" [(ngModel)]="filterValue.timeRange">
-                                                <mat-option value="1"> 7d </mat-option>
-                                                <mat-option value="2"> 15d </mat-option>
-                                                <mat-option value="3"> 1m </mat-option>
-                                                <mat-option value="4"> 3m </mat-option>
-                                                <mat-option value="4"> 6m </mat-option>
-                                                <mat-option value="4"> 1y </mat-option>
-                                                <mat-option value="4"> all </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
+                                                <mat-select placeholder="Time Range" [(ngModel)]="limitedFilter.range" name="range" (change)="onRange(limitedFilter.range)">
+                                                    <mat-option value="7d"> 7d </mat-option>
+                                                    <mat-option value="15d"> 15d </mat-option>
+                                                    <mat-option value="1m"> 1m </mat-option>
+                                                    <mat-option value="3m"> 3m </mat-option>
+                                                    <mat-option value="6m"> 6m </mat-option>
+                                                    <mat-option value="1y"> 1y </mat-option>
+                                                    <mat-option value="all"> all </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                         </div>
                                     </div>
                                 </div>
@@ -204,11 +204,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody *ngIf="contentList">
-                                                <tr *ngFor="let content of contentList">
-                                                    <td class="vertical-top">
+                                                <tr *ngFor="let content of contentList;let i=index">
+                                                    <td *ngIf="i<limit" class="vertical-top">
                                                         <mat-checkbox [(ngModel)]="content.editcheck" (change)="onCheckBox(content._id)"></mat-checkbox>
                                                     </td>
-                                                    <td class="td-wdth282 text-left">
+                                                    <td *ngIf="i<limit" class="td-wdth282 text-left">
                                                         <div class="cont-img">
                                                             <img *ngIf="!content.thumbnailPicture" src="./assets/img/placeholder5.png" class="img-responsive" />
                                                             <img *ngIf="content.thumbnailPicture" [src]="content.thumbnailPicture" class="img-responsive" />
@@ -224,39 +224,44 @@
                                                         </div>
                                                         <div class="cont-dtl">
                                                             <div>  {{content.headline}}</div>
-                                                            <div> <strong> Posted by: </strong> Rohan Sen </div>
+                                                            <div> <strong> Posted by: </strong> {{content.userList[0].firstName}} {{content.userList[0].lastName}}</div>
                                                             <div class=""> 
                                                                 <a href="javascript:;">
-                                                                    News | <span class="dark_ylw">Sports News</span>
+                                                                    {{content.sectionName}} | <span class="dark_ylw">{{content.categoryName}}</span>
                                                                 </a>
                                                             </div>
                                                             <div class="m-t-5"> 
                                                                 <a href="javascript:;" class="text-success" (click)="onView(content)"> <i class="fa fa-eye"></i> View </a> |
                                                                 <a href="javascript:;" class="text-danger" (click)="onEdit(content)"> <i class="fa fa-pencil" ></i> Edit </a>
+
+                                                                <!-- <input #foo [(ngModel)]="content._id" name="category_{{i}}" type="hidden"> -->
+                                                                | <a href="javascript:;" class="text-primary" (click)="onCopyLink(content._id)"> <i class="fa fa-clone" ></i> Copy </a>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="td-wdth155 text-left">
+                                                    <td *ngIf="i<limit" class="td-wdth155 text-left">
                                                         <p *ngIf="content.publishStatus==true"> <strong> Published </strong> /Rejected: {{content.publishDate}} </p>
                                                         <p *ngIf="content.rejectStatus==true"> Published / <strong>Rejected </strong>: {{content.rejectDate}} </p>
                                                         <p> Creation: {{content.dateOfCreation}}</p>
                                                         <p *ngIf="content.submitForreview==true"> Submit for Review: <strong> {{content.submitforreviewDate}}</strong> </p>
                                                     </td>
-                                                    <td>{{content.likeCount}}</td> <td> {{content.shareCount}}</td> <td>{{content.commentCount}}</td> <td> 
-                                                    {{content.saveCount}}</td> <td> {{content.downloadCount}}</td>
-                                                    <td> {{content.applyCount}}</td> <td>{{content.callCount}}</td> <td>{{content.callMeBackCount}} </td> <td> {{content.imIntrestedCount}} </td> 
-                                                    <td>{{content.pageView}}</td>
+                                                    <td *ngIf="i<limit">{{content.likeCount}}</td>
+                                                    <td *ngIf="i<limit"> {{content.shareCount}}</td>
+                                                    <td *ngIf="i<limit">{{content.commentCount}}</td>
+                                                    <td *ngIf="i<limit">{{content.saveCount}}</td>
+                                                    <td *ngIf="i<limit"> {{content.downloadCount}}</td>
+
+                                                    <td  class="download_file" *ngIf="i<limit" (click)="onApply(content._id)"> {{content.applyCount}}</td>
+                                                    <td class="download_file" *ngIf="i<limit" (click)="onCall(content._id)">{{content.callCount}}</td>
+                                                    <td class="download_file" *ngIf="i<limit" (click)="onCallMeBack(content._id)">{{content.callMeBackCount}} </td>
+                                                    <td class="download_file" *ngIf="i<limit" (click)="onIntrested(content._id)"> {{content.imIntrestedCount}} </td> 
+                                                    
+                                                    <td *ngIf="i<limit">{{content.pageView}}</td>
 
                                                 </tr>
                                                 
                                             </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <td colspan="14">
-                                                   <!--  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator> -->
-                                                </td>
-                                            </tr>
-                                            </tfoot>
+                                            
                                         </table>
                                         <!-- <table class="table">
                                         	<thead class="text-danger">

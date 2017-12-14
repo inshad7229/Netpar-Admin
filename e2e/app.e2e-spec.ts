@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('netpar App', () => {
+describe('netpar-admin-five App', () => {
   let page: AppPage;
 
   beforeEach(() => {

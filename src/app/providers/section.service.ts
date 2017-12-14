@@ -367,4 +367,37 @@ onGetSingleSubCategoryData(id):  Observable<any> {
             return error;
         });
     }
+
+    onGetAllCategory():  Observable<any> {
+        let api =  ENV.mainApi+"getAllCategories";
+         let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(api,options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
+
+    onEditCateTemp(tempId,req): Observable < any > {
+         let api = ENV.mainApi + "templatateCategoryUpdate/" + tempId;
+
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({
+            headers: headers
+        });
+        return this.http.put(api, JSON.stringify(req), options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
 }

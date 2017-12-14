@@ -8,7 +8,7 @@ import { ToastsManager , Toast} from 'ng2-toastr';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import {DndModule} from 'ng2-dnd';
-import {ColorPickerService} from 'angular4-color-picker';
+// import {ColorPickerService} from 'angular4-color-picker';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { EditorComponent } from './editor/editor.component';
 import { ImageResizerComponent } from './imageResizer/imageResizer.component';
@@ -158,6 +158,8 @@ export class AddContentComponent implements OnInit {
     ///for call and user button active index////
     currentCallActiveIndex
     currenUserActiveIndex
+    saveFlag1:boolean
+    saveFlag2:boolean
     stringResource:StringResource=new  StringResource()
     contentId
     public get imageToDisplayHorigontal() {
@@ -167,14 +169,14 @@ export class AddContentComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${300}x${180}`;
+        return `http://placehold.it/${300}x${300}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
             width: parseInt('300', 10),
-            height: parseInt('180', 10)
+            height: parseInt('300', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -212,33 +214,7 @@ export class AddContentComponent implements OnInit {
      stateCtrl: FormControl;
   filteredStates: Observable<any[]>;
 
-  states: any[] = [
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    }
-  ];
-	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
+	constructor(private dialog: MatDialog, 
 		        private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
 		        vcr: ViewContainerRef,
 		        public toastr: ToastsManager,
@@ -249,7 +225,7 @@ export class AddContentComponent implements OnInit {
             private translationService:TranslationService,
 		        private contentService:ContentService) {
 		
-		this.ckeditorContent = `<p>My HTML</p>`;
+		this.ckeditorContent = null
 				this.addContentRequest.tags=[]
 				/*tinymce.init({
 				  skin_url: 'assets/skins/lightgray'
@@ -562,7 +538,7 @@ export class AddContentComponent implements OnInit {
 	addImage(){
         this.listOne.push({tag:"image",backgroundColor:'#FFFFFF',
           top:'10px',bottom:'10px',
-          right:'10px',left:'10px',
+          right:'6px',left:'6px',
           buttonText:'button',width:'75%',
           url:'./assets/img/cover.jpeg',
           altTag:'file not found',title:'Title', 
@@ -614,10 +590,28 @@ export class AddContentComponent implements OnInit {
        btn1:null,
        btn2:null,
        btn3:null,
+       count1:0,
+       count2:0,
+       count3:0,
        btn4:null,
        btn5:null,
       count:this.gridCount,
-      downloadable:true
+      top1:'12px',bottom1:'12px',
+      right1:'6px',left1:'6px',
+      top2:'12px',bottom2:'12px',
+      right2:'6px',left2:'6px',
+       top3:'12px',bottom3:'12px',
+      right3:'6px',left3:'6px',
+      mtop1:'0px',mbottom1:'0px',
+      mright1:'0px',mleft1:'0px',
+      mtop2:'0px',mbottom2:'0px',
+      mright2:'0px',mleft2:'0px',
+      mtop3:'0px',mbottom3:'0px',
+      mright3:'0px',mleft3:'0px',
+       downloadable:true,
+       outline1:false,
+       outline2:false,
+       outline3:false
 
   })
   }
@@ -627,8 +621,29 @@ export class AddContentComponent implements OnInit {
        btn2:null,
        btn3:null,
        btn4:null,
+       count1:0,
+       count2:0,
+       count3:0,
+       phone1:null,
+       phone2:null,
+       phone3:null,
        count:this.gridCount,
-       downloadable:true
+      top1:'12px',bottom1:'12px',
+      right1:'6px',left1:'6px',
+      top2:'12px',bottom2:'12px',
+      right2:'6px',left2:'6px',
+      top3:'12px',bottom3:'12px',
+      right3:'6px',left3:'6px',
+      mtop1:'0px',mbottom1:'0px',
+      mright1:'0px',mleft1:'0px',
+      mtop2:'0px',mbottom2:'0px',
+      mright2:'0px',mleft2:'0px',
+      mtop3:'0px',mbottom3:'0px',
+      mright3:'0px',mleft3:'0px',
+       downloadable:true,
+       outline1:false,
+       outline2:false,
+       outline3:false
 
   })
   }
@@ -636,79 +651,148 @@ export class AddContentComponent implements OnInit {
 		this.googleFromatata.tag="form"; 
 		// this.googleFromatata.url=null;
 	}
+  onRemoveGoogleForm(){
+    this.googleFromatata.tag="null"; 
+    this.googleFromatata.formURL=null
+    this.googleFromatata.url=null
+  }
 
 
 
 	addApply(flag){
 	
-		
-		if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-          this.callToActionButton.push({tag:'button',title:'Apply',status:true})
-		}
+		  this.listOne.push({tag:"apply",backgroundColor:'#FFFFFF',
+          top:'10px',bottom:'10px',
+          right:'10px',left:'10px',
+          outline:false,
+          count:0
+         })
+		// if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+  //         this.callToActionButton.push({tag:'button',title:'Apply',status:true})
+		// }
 	}
 	addCall(flag){
-	   
-		if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-           this.callToActionButton.push({tag:'button',title:'Call',status:true})
-       }
+	    this.listOne.push({tag:"call",backgroundColor:'#FFFFFF',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
+          aligment:'center',
+          outline:false,
+          phone:null,
+          count:0
+         })
+		// if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+  //          this.callToActionButton.push({tag:'button',title:'Call',status:true})
+  //      }
 	}
 	addCallMe(flag){
 		
-		if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-            this.callToActionButton.push({tag:'button',title:'Call me back',status:true})
-           }
+		// if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+  //           this.callToActionButton.push({tag:'button',title:'Call me back',status:true})
+  //          }
+  this.listOne.push({tag:"callMeBack",backgroundColor:'#FFFFFF',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
+          aligment:'center',
+          outline:false,
+          phone:null,
+          count:0
+         })
 	}
 	addIntrested(flag){
       
-		if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-        this.callToActionButton.push({tag:'button',title:"Im Interested",status:true})
-       }
+		// if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+  //       this.callToActionButton.push({tag:'button',title:"Im Interested",status:true})
+  //      }
+    this.listOne.push({tag:"intrested",backgroundColor:'#FFFFFF',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
+          aligment:'center',
+          outline:false,
+          count:0
+         })
 	}
 	addlike(flag){
 		
-		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-           this.userEngaButton.push({tag:'button',title:"Kadak",status:true})
-       }
+		// if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+  //          this.userEngaButton.push({tag:'button',title:"Kadak",status:true})
+  //      }
+  this.listOne.push({tag:"like",backgroundColor:'#FFFFFF',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
+          aligment:'center',
+          outline:false,
+          count:0
+         })
 	}
 	addshare(flag){
 		
-		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-          this.userEngaButton.push({tag:'button',title:"Share",status:true})
-        }
+		// if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+  //         this.userEngaButton.push({tag:'button',title:"Share",status:true})
+  //       }
+  this.listOne.push({tag:"share",backgroundColor:'#FFFFFF',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
+          aligment:'center',
+          outline:false,
+          count:0
+         })
 	}
 	addcomment(flag){
 		
-		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-           this.userEngaButton.push({tag:'button',title:"Comment",status:true})
-       } 
+		// if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+  //          this.userEngaButton.push({tag:'button',title:"Comment",status:true})
+  //      } 
+  this.listOne.push({tag:"comment",backgroundColor:'#FFFFFF',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
+          aligment:'center',
+          outline:false,
+          count:0
+         })
 	}
 	addsave(flag){
-		
-		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-         this.userEngaButton.push({tag:'button',title:"Save",status:true})
-       }
+		  this.listOne.push({tag:"save",backgroundColor:'#FFFFFF',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
+          aligment:'center',
+          outline:false,
+          count:0
+         })
+		// if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+  //        this.userEngaButton.push({tag:'button',title:"Save",status:true})
+  //      }
 	}
 	addownload(flag){
 		
-		if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
-         this.userEngaButton.push({tag:'button',title:"Download",status:true})
-      }
+		// if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
+  //        this.userEngaButton.push({tag:'button',title:"Download",status:true})
+  //     }
+  this.listOne.push({tag:"download",backgroundColor:'#FFFFFF',
+          top:'12px',bottom:'12px',
+          right:'6px',left:'6px',
+          aligment:'center',
+          outline:false,
+          count:0
+         })
 	}
 
-OnFirstCall(i){
+OnFirstCall(i,item){
+  this.rightPan=item
   //alert(this.currentIndex)
   this.currentIndex=i;
   this.currentCallActiveIndex=1
  console.log('currentIndex',this.currentIndex)
  console.log('call index',this.currentCallActiveIndex)
 }
-OnSecondCall(i){
+OnSecondCall(i,item){
+  this.rightPan=item
   this.currentIndex=i;
   this.currentCallActiveIndex=2
    console.log('currentIndex',this.currentIndex)
  console.log('call index',this.currentCallActiveIndex)
 }
-OnThirdCall(i){
+OnThirdCall(i,item){
+  this.rightPan=item
    this.currentIndex=i;
    this.currentCallActiveIndex=3
     console.log('currentIndex',this.currentIndex)
@@ -720,20 +804,22 @@ OnFourthCall(i){
     console.log('currentIndex',this.currentIndex)
  console.log('call index',this.currentCallActiveIndex)
 }
-OnFirstUser(i){
-
+OnFirstUser(i,item){
+this.rightPan=item
   this.currentIndex=i;
-  this.currenUserActiveIndex=1
+  this.currenUserActiveIndex='1'
  console.log('currentIndex',this.currentIndex)
  console.log('user index',this.currenUserActiveIndex)
 }
-OnSecondtUser(i){
+OnSecondtUser(i,item){
+  this.rightPan=item
   this.currentIndex=i;
   this.currenUserActiveIndex=2
    console.log('currentIndex',this.currentIndex)
  console.log('user index',this.currenUserActiveIndex)
 }
-OnThirdtUser(i){
+OnThirdtUser(i,item){
+  this.rightPan=item
   this.currentIndex=i;
   this.currenUserActiveIndex=3
    console.log('currentIndex',this.currentIndex)
@@ -870,6 +956,61 @@ addownloadRight(Download){
   //     this.listOne[this.currentIndex].btn5=Kadak
   // }
 }
+
+ remUserBtn1(i){
+    this.currentIndex=i
+    this.listOne[this.currentIndex].btn1=null
+    this.listOne[this.currentIndex].top1='12px'
+    this.listOne[this.currentIndex].bottom1='12px'
+    this.listOne[this.currentIndex].right1='6px'
+    this.listOne[this.currentIndex].left1='6px'
+    this.listOne[this.currentIndex].outline1=false
+  }
+  remUserBtn2(i){
+    this.currentIndex=i
+    this.listOne[this.currentIndex].btn2=null
+    this.listOne[this.currentIndex].top2='12px'
+    this.listOne[this.currentIndex].bottom2='12px'
+    this.listOne[this.currentIndex].right2='6px'
+    this.listOne[this.currentIndex].left2='6px'
+    this.listOne[this.currentIndex].outline2=false
+  }
+  remUserBtn3(i){
+    this.currentIndex=i
+    this.listOne[this.currentIndex].btn3=null
+    this.listOne[this.currentIndex].top2='12px'
+    this.listOne[this.currentIndex].bottom2='12px'
+    this.listOne[this.currentIndex].right2='6px'
+    this.listOne[this.currentIndex].left2='6px'
+    this.listOne[this.currentIndex].outline2=false
+  }
+  remCallBtn1(i){
+    this.currentIndex=i
+    this.listOne[this.currentIndex].btn1=null
+    this.listOne[this.currentIndex].top1='12px'
+    this.listOne[this.currentIndex].bottom1='12px'
+    this.listOne[this.currentIndex].right1='6px'
+    this.listOne[this.currentIndex].left1='6px'
+    this.listOne[this.currentIndex].outline1=false
+  }
+  remCallBtn2(i){
+    this.currentIndex=i
+    this.listOne[this.currentIndex].btn2=null
+    this.listOne[this.currentIndex].top2='12px'
+    this.listOne[this.currentIndex].bottom2='12px'
+    this.listOne[this.currentIndex].right2='6px'
+    this.listOne[this.currentIndex].left2='6px'
+    this.listOne[this.currentIndex].outline2=false
+  }
+  remCallBtn3(i){
+    this.currentIndex=i
+    this.listOne[this.currentIndex].btn3=null
+    this.listOne[this.currentIndex].top3='12px'
+    this.listOne[this.currentIndex].bottom3='12px'
+    this.listOne[this.currentIndex].right3='6px'
+    this.listOne[this.currentIndex].left3='6px'
+    this.listOne[this.currentIndex].outline3=false
+  }
 	onClickOnDragItem(index,item,ref?){
       //alert(index)
       this.showRightpan=true;
@@ -936,6 +1077,10 @@ addownloadRight(Download){
 	}
 	onFormUrlChange(url){
       this.googleFromatata.formURL=this.sanitizer.bypassSecurityTrustResourceUrl(url)
+
+                      this.toastr.info('You have from link below the content body')
+                      // code...
+                   
 	}
 	onaltTagChange(){
       this.listOne[this.currentIndex].altTag=this.rightPan.altTag
@@ -1023,10 +1168,10 @@ addownloadRight(Download){
 	 this.mouseDownIndex=i;
     //console.log('mousedown',i)
    }
-	// itemSwapped(i){
-	//  this.afterDragIndex=i;
-	//  //console.log('mouseUp',i)
-	// }
+	itemSwapped(i){
+	 this.afterDragIndex=i;
+	 //console.log('mouseUp',i)
+	}
 	ontagsChange(){
 		this.listOne[this.currentIndex].tags=this.rightPan.tags	
 	}
@@ -1246,9 +1391,130 @@ addownloadRight(Download){
     removeUerButton(i){
             this.userEngaButton.splice(i,1)
     }
+   onOutLine(){
+     this.listOne[this.currentIndex].outline=true
+   }
+   onFilled(){
+     this.listOne[this.currentIndex].outline=false
+   }
+   onOutLine1(){
+     this.listOne[this.currentIndex].outline1=true
+   }
+   onFilled1(){
+     this.listOne[this.currentIndex].outline1=false
+   }
+   onTopChange1(){
+     this.listOne[this.currentIndex].top1=this.rightPan.top1
+  }
+  onRigthChange1(){
+     this.listOne[this.currentIndex].right1=this.rightPan.right1
+  }
+  onBottonChange1(){
+      this.listOne[this.currentIndex].bottom1=this.rightPan.bottom1
+  }
+  onLeftChange1(){
+       this.listOne[this.currentIndex].left1=this.rightPan.left1
+  }
+   onOutLine2(){
+     this.listOne[this.currentIndex].outline2=true
+   }
+   onFilled2(){
+     this.listOne[this.currentIndex].outline2=false
+   }
+   onTopChange2(){
+     this.listOne[this.currentIndex].top2=this.rightPan.top2
+  }
+  onRigthChange2(){
+     this.listOne[this.currentIndex].right2=this.rightPan.right2
+  }
+  onBottonChange2(){
+      this.listOne[this.currentIndex].bottom2=this.rightPan.bottom2
+  }
+  onLeftChange2(){
+       this.listOne[this.currentIndex].left2=this.rightPan.left2
+  }
+
+   onOutLine3(){
+     this.listOne[this.currentIndex].outline3=true
+   }
+   onFilled3(){
+     this.listOne[this.currentIndex].outline3=false
+   }
+   onTopChange3(){
+     this.listOne[this.currentIndex].top3=this.rightPan.top3
+  }
+  onRigthChange3(){
+     this.listOne[this.currentIndex].right3=this.rightPan.right3
+  }
+  onBottonChange3(){
+      this.listOne[this.currentIndex].bottom3=this.rightPan.bottom3
+  }
+  onLeftChange3(){
+       this.listOne[this.currentIndex].left3=this.rightPan.left3
+  }
+
+
+
+
+  /////////////////////////////margin///////////
+   monTopChange1(){
+     this.listOne[this.currentIndex].mtop1=this.rightPan.mtop1
+  }
+  monRigthChange1(){
+     this.listOne[this.currentIndex].mright1=this.rightPan.mright1
+  }
+  monBottonChange1(){
+      this.listOne[this.currentIndex].mbottom1=this.rightPan.mbottom1
+  }
+  monLeftChange1(){
+       this.listOne[this.currentIndex].mleft1=this.rightPan.mleft1
+  }
+   
+   monTopChange2(){
+     this.listOne[this.currentIndex].mtop2=this.rightPan.mtop2
+  }
+  monRigthChange2(){
+     this.listOne[this.currentIndex].mright2=this.rightPan.mright2
+  }
+  monBottonChange2(){
+      this.listOne[this.currentIndex].mbottom2=this.rightPan.mbottom2
+  }
+  monLeftChange2(){
+       this.listOne[this.currentIndex].mleft2=this.rightPan.mleft2
+  }
+   monTopChange3(){
+     this.listOne[this.currentIndex].mtop3=this.rightPan.mtop3
+  }
+  monRigthChange3(){
+     this.listOne[this.currentIndex].mright3=this.rightPan.mright3
+  }
+  monBottonChange3(){
+      this.listOne[this.currentIndex].mbottom3=this.rightPan.mbottom3
+  }
+  monLeftChange3(){
+       this.listOne[this.currentIndex].mleft3=this.rightPan.mleft3
+  }
 	video(video1){
 		//console.log(video1)
 	}
+  onPhoneChange3(){
+  this.listOne[this.currentIndex].phone3=this.rightPan.phone3
+  }
+  onPhoneChange2(){
+  this.listOne[this.currentIndex].phone2=this.rightPan.phone2
+  }
+  onPhoneChange1(){
+  this.listOne[this.currentIndex].phone1=this.rightPan.phone1
+  }
+  onPhoneChange(){
+     this.listOne[this.currentIndex].phone=this.rightPan.phone
+  }
+onDeleteBody(){
+  //alert('hy')
+  this.listOne=[]
+  this.showRightpan=false
+}
+ 
 	/*demo:any
   	
 	transferData: Object = {id: 1, msg: 'Hello'};
@@ -1258,6 +1524,7 @@ addownloadRight(Download){
     items = [
             {name:'Textbox'},
             {name:'Textarea'},
+            
 			{name:'File_Upload'},
 			{name:'Video'},
 			{name:'Audio'},
@@ -1334,9 +1601,13 @@ addownloadRight(Download){
 
     saveImageFromCroppieHorigontal() {
         this.currentImageHorigontal = this.croppieImageHorigontal;
+        if (this.currentImageHorigontal) {
+         this.saveFlag2=true
+        }
     }
 
     cancelCroppieEditHorigontal() {
+      this.saveFlag2=false
         this.croppieImageHorigontal = '';
         this.currentImageHorigontal = ''
     }
@@ -1368,9 +1639,13 @@ addownloadRight(Download){
 
     saveImageFromCroppieThumbnail() {
         this.currentImageThumbnail = this.croppieImageThumbnail;
+        if (this.currentImageThumbnail) {
+         this.saveFlag1=true
+        }
     }
 
     cancelCroppieEditThumbnail() {
+        this.saveFlag1=false
         this.croppieImageThumbnail = '';
         this.currentImageThumbnail = ''
     }
@@ -1403,7 +1678,7 @@ addownloadRight(Download){
 	              this.sectionService.onGetSection()
 	            .subscribe(data => {
 	                this.waitLoader = false;
-	                this.sectionsData=data;
+	                this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);;
 	                if (this.addContentRequest.language) {
 	                     this.sections=data.filter(arg=>arg.language==this.addContentRequest.language);;
 	                }
@@ -1419,9 +1694,9 @@ addownloadRight(Download){
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesData=data.response;
+                    this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true);
                      if (this.addContentRequest.language) {
-	                     this.categories=data.response.filter(arg=>arg.language==this.addContentRequest.language);;
+	                     this.categories=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }
                     //console.log(JSON.stringify(data))
                 },error=>{
@@ -1435,9 +1710,9 @@ addownloadRight(Download){
    	this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryData=data.response;
+                    this.subCategoryData=data.response.filter(arg=>arg.deleteStatus!=true);
                      if (this.addContentRequest.language) {
-	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language);;
+	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }
                 },error=>{
                 	 this.waitLoader = false;
@@ -2918,19 +3193,54 @@ addownloadRight(Download){
         });
 	  }
 
-    format(rightPan){
+    format(rightPan,text,flag,index){
+      if (index) {
+        this.currentIndex=index
+      }
       let dialogRef = this.dialog.open(EditorComponent, {
             width: '400px',
-            data:{text:rightPan.text,lang:this.addContentRequest.language,editedStatus:rightPan.editedStatus}
+            data:{text:text,lang:this.addContentRequest.language,editedStatus:rightPan.editedStatus}
         });
         dialogRef.afterClosed().subscribe(result => {
           //alert(JSON.stringify(result))
           if (result) {
-             this.listOne[this.currentIndex].text=result.text;
-             this.listOne[this.currentIndex].editedStatus=true
+               if (flag=='right') {
+                if (this.listOne[this.currentIndex].text=='Dummy Text') {
+                this.listOne[this.currentIndex].text=result.text;
+                this.listOne[this.currentIndex].editedStatus=true
+                this.ckeditorContent=null
+                }else{
+                this.listOne[this.currentIndex].text=result.text
+                this.listOne[this.currentIndex].editedStatus=true
+                this.ckeditorContent=null
+                }
+               }else if (flag=='center') {
+                this.listOne[this.currentIndex].text=result.text;
+               }
+               
+             // this.listOne[this.currentIndex].text=result.text;
+             // this.listOne[this.currentIndex].editedStatus=true
           }
       
         });
+    }
+    onTextEdit(rightPan,text,flag,index){
+      if (index) {
+        this.currentIndex=index
+      }
+      this.rightPan=rightPan
+      this.ckeditorContent=text.replace(/<{1}[^<>]{1,}>{1}/g," ")
+    }
+    saveText(rightPan,text){
+      if (this.listOne[this.currentIndex].text=='Dummy Text') {
+          this.listOne[this.currentIndex].text=text
+          this.listOne[this.currentIndex].editedStatus=true
+          this.ckeditorContent=null
+      }else{
+        this.listOne[this.currentIndex].text=text
+        this.listOne[this.currentIndex].editedStatus=true
+        this.ckeditorContent=null
+      }
     }
     onImage(i,item){
          this.currentIndex=i;
@@ -3695,7 +4005,7 @@ addownloadRight(Download){
      this.onCaptionChange()
    }
     else if (this.currentInputTag=='textInput') {
-       this.rightPan.text=output
+       this.ckeditorContent=output
        //this.onTextChange()
          }
    //this.addCategoryRequest.categoryName=output
@@ -3728,7 +4038,7 @@ onKeyUp(event){
                this.rightPan.caption=output
                this.onCaptionChange()
              }else if (this.currentInputTag=='textInput') {
-                   this.rightPan.text=output
+                   this.ckeditorContent=output
                    //this.onTextChange()
              }
         //this.addCategoryRequest.categoryName=output
@@ -3755,7 +4065,7 @@ onKeyUp(event){
            this.onCaptionChange()
          }
          else if (this.currentInputTag=='textInput') {
-           this.rightPan.text=output
+           this.ckeditorContent=output
             //this.onTextChange()
          }
         //this.addCategoryRequest.categoryName=output
@@ -3785,6 +4095,10 @@ onKeyUp(event){
          }else if (this.currentInputTag=='caption') {
            this.rightPan.caption=output
            this.onCaptionChange()
+         }
+          else if (this.currentInputTag=='textInput') {
+           this.ckeditorContent=output
+            //this.onTextChange()
          }
         //this.addCategoryRequest.categoryName=output
         this.appProvider.current.suggestedString=[]

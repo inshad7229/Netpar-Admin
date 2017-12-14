@@ -38,12 +38,19 @@ export class AddCategoryComponent implements OnInit {
     currentString:any;
     sendString:any;
     selectedValue:any;
+    currentInputTag
     currentActiveIndex:number;
     outputStringArrayLength:number;
     caretPos
     elementRefrence:any;
     inputStringLength:number
     outputStringLength:number
+    saveFlag1:boolean
+    saveFlag2:boolean
+    oldCategoryView:string;
+    oldListingView:string
+    listingTempId:any
+    categoryTempId:any
     addCategoryRequest:AddCategoryRequest=new AddCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -53,14 +60,14 @@ export class AddCategoryComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${300}x${180}`;
+        return `http://placehold.it/${300}x${50}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
             width: parseInt('300', 10),
-            height: parseInt('180', 10)
+            height: parseInt('50', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -189,9 +196,13 @@ export class AddCategoryComponent implements OnInit {
 
     saveImageFromCroppieHorigontal() {
         this.currentImageHorigontal = this.croppieImageHorigontal;
+        if (this.currentImageHorigontal) {
+         this.saveFlag2=true
+        }
     }
 
     cancelCroppieEditHorigontal() {
+        this.saveFlag2=false
         this.croppieImageHorigontal = '';
         this.currentImageHorigontal = ''
     }
@@ -223,9 +234,13 @@ export class AddCategoryComponent implements OnInit {
 
     saveImageFromCroppieThumbnail() {
         this.currentImageThumbnail = this.croppieImageThumbnail;
+        if (this.currentImageThumbnail) {
+         this.saveFlag1=true
+        }
     }
 
     cancelCroppieEditThumbnail() {
+      this.saveFlag1=false
         this.croppieImageThumbnail = '';
         this.currentImageThumbnail = ''
     }
@@ -253,10 +268,90 @@ export class AddCategoryComponent implements OnInit {
      onAddCategory(){
       this.waitLoader =true;
       if (this.addCategoryRequest._id) {
+                 let date=new Date().toISOString()
                  let localsection=this.sections.filter(arg=>arg._id==this.addCategoryRequest.sectionId)
                  this.addCategoryRequest.sectionName=localsection[0].sectionName;
                  this.addCategoryRequest.thumbnailImage=this.currentImageThumbnail;
                  this.addCategoryRequest.horigontalImage=this.currentImageHorigontal;
+                 if (this.oldCategoryView!=this.addCategoryRequest.categoryFormat) {
+                     console.log(this.oldCategoryView)
+                     if (this.addCategoryRequest.categoryFormat=='Category-view Template One') {
+                         let data=this.stringResource.categoryTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.categoryFormat)
+                         this.categoryTempId=data[0]._id
+                         this.addCategoryRequest.templateoneStartDate=date
+                     }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Two') {
+                          let data=this.stringResource.categoryTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.categoryFormat)
+                         this.categoryTempId=data[0]._id
+                         this.addCategoryRequest.templatetwoStartDate=date
+                     }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Three') {
+                          let data=this.stringResource.categoryTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.categoryFormat)
+                         this.categoryTempId=data[0]._id
+                         this.addCategoryRequest.templatethreeStartDate=date
+                     }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Four') {
+                          let data=this.stringResource.categoryTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.categoryFormat)
+                         this.categoryTempId=data[0]._id
+                         this.addCategoryRequest.templatefourStartDate=date
+                     }
+
+                     if( this.oldCategoryView=='Category-view Template One') {
+                         this.addCategoryRequest.templateoneendDate=date
+                     }else if ( this.oldCategoryView=='Category-view Template Two') {
+                         this.addCategoryRequest.templatetwoendDate=date
+                     }else if ( this.oldCategoryView=='Category-view Template Three') {
+                         this.addCategoryRequest.templatethreeendDate=date
+                     }else if ( this.oldCategoryView=='Category-view Template Four') {
+                         this.addCategoryRequest.templatefourendDate=date
+                     }
+                 }
+                
+
+                 if (this.oldListingView!=this.addCategoryRequest.listViewFormat) {
+                     if (this.addCategoryRequest.listViewFormat=='Listing-view Template One') {
+                          let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+                         this.listingTempId=data[0]._id
+                         this.addCategoryRequest.templateonelistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Two') {
+                         let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+                         this.listingTempId=data[0]._id
+                         this.addCategoryRequest.templatetwolistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Three') {
+                         let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+                         this.listingTempId=data[0]._id
+                         this.addCategoryRequest.templatethreelistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Four') {
+                         let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+                         this.listingTempId=data[0]._id
+                         this.addCategoryRequest.templatefourlistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Five') {
+                         let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+                         this.listingTempId=data[0]._id
+                         this.addCategoryRequest.templatefivelistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Six') {
+                         let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+                         this.listingTempId=data[0]._id
+                         this.addCategoryRequest.templatesixlistingStartDate=date
+                     }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Seven') {
+                         let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+                         this.listingTempId=data[0]._id
+                         this.addCategoryRequest.templatesevenlistingStartDate=date
+                     }
+
+                      if (this.oldListingView=='Listing-view Template One') {
+                         this.addCategoryRequest.templateonelistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Two') {
+                         this.addCategoryRequest.templatetwolistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Three') {
+                         this.addCategoryRequest.templatethreelistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Four') {
+                         this.addCategoryRequest.templatefourlistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Five') {
+                         this.addCategoryRequest.templatefivelistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Six') {
+                         this.addCategoryRequest.templatesixlistingendDate=date
+                     }else if ( this.oldListingView=='Listing-view Template Seven') {
+                         this.addCategoryRequest.templatesevenlistingendDate=date
+                     }
+                }
                  this.sectionService.onEditCategory(this.addCategoryRequest)
                         .subscribe(data => {
                             this.waitLoader = false;
@@ -268,7 +363,14 @@ export class AddCategoryComponent implements OnInit {
                                 });
                             }
                             else if (data.success == true) {
-                              
+                                // alert('list'+this.listingTempId)
+                                // alert('cat'+this.categoryTempId)
+                                  if (this.listingTempId) {
+                                      this.updateListTemp(this.addCategoryRequest.sectionName,this.addCategoryRequest.categoryName)
+                                  }
+                                  if (this.categoryTempId){
+                                      this.updateCateTemp(this.addCategoryRequest.sectionName,this.addCategoryRequest.categoryName)
+                                  }
                                  this.router.navigate(['/view-section'],{ skipLocationChange: true });
                             }
                             console.log(JSON.stringify(data))
@@ -289,6 +391,55 @@ export class AddCategoryComponent implements OnInit {
          this.addCategoryRequest.updatedDate=null;
          this.addCategoryRequest.enableDisableDate=null;
          this.addCategoryRequest.publishUnbuplishDate=null;
+         if ( this.addCategoryRequest.categoryFormat=='Category-view Template One') {
+             let data=this.stringResource.categoryTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.categoryFormat)
+              this.categoryTempId=data[0]._id
+             this.addCategoryRequest.templateoneStartDate=date
+         }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Two') {
+             let data=this.stringResource.categoryTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.categoryFormat)
+             this.categoryTempId=data[0]._id
+             this.addCategoryRequest.templatetwoStartDate=date
+         }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Three') {
+             let data=this.stringResource.categoryTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.categoryFormat)
+             this.categoryTempId=data[0]._id
+             this.addCategoryRequest.templatethreeStartDate=date
+         }else if ( this.addCategoryRequest.categoryFormat=='Category-view Template Four') {
+             let data=this.stringResource.categoryTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.categoryFormat)
+             this.categoryTempId=data[0]._id
+             this.addCategoryRequest.templatefourStartDate=date
+         }
+
+
+         if (this.addCategoryRequest.listViewFormat=='Listing-view Template One') {
+             let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+              this.listingTempId=data[0]._id
+             this.addCategoryRequest.templateonelistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Two') {
+             let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+              this.listingTempId=data[0]._id
+             this.addCategoryRequest.templatetwolistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Three') {
+             let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+              this.listingTempId=data[0]._id
+             this.addCategoryRequest.templatethreelistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Four') {
+             let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+              this.listingTempId=data[0]._id
+             this.addCategoryRequest.templatefourlistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Five') {
+             let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+              this.listingTempId=data[0]._id
+             this.addCategoryRequest.templatefivelistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Six') {
+             let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+              this.listingTempId=data[0]._id
+             this.addCategoryRequest.templatesixlistingStartDate=date
+         }else if ( this.addCategoryRequest.listViewFormat=='Listing-view Template Seven') {
+             let data=this.stringResource.listingTemplate.filter(arg=>arg.templateName==this.addCategoryRequest.listViewFormat)
+              this.listingTempId=data[0]._id
+             this.addCategoryRequest.templatesevenlistingStartDate=date
+         }
+
          this.sectionService.onAddCategory(this.addCategoryRequest)
                 .subscribe(data => {
                     this.waitLoader = false;
@@ -300,7 +451,12 @@ export class AddCategoryComponent implements OnInit {
                         });
                     }
                     else if (data.success == true) {
-                      
+                         if (this.listingTempId) {
+                                    this.updateListTemp(this.addCategoryRequest.sectionName,this.addCategoryRequest.categoryName)
+                             }
+                         if (this.categoryTempId){
+                                      this.updateCateTemp(this.addCategoryRequest.sectionName,this.addCategoryRequest.categoryName)
+                          }
                         this.router.navigate(['/view-section'],{ skipLocationChange: true });
                     }
                     console.log(JSON.stringify(data))
@@ -316,7 +472,7 @@ export class AddCategoryComponent implements OnInit {
          this.sectionService.onGetSection()
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.sectionsData=data;
+                    this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);
                     if (this.addCategoryRequest.language) {
                          this.sections=data.filter(arg=>arg.language==this.addCategoryRequest.language);;
                     }
@@ -333,6 +489,8 @@ export class AddCategoryComponent implements OnInit {
                         this.addCategoryRequest=data.response[0]
                         this.currentImageThumbnail=this.addCategoryRequest.thumbnailImage;
                         this.currentImageHorigontal=this.addCategoryRequest.horigontalImage;
+                        this.oldCategoryView=this.addCategoryRequest.categoryFormat
+                        this.oldListingView=this.addCategoryRequest.listViewFormat
                         if (this.addCategoryRequest.language && this.sectionsData) {
                            this.sections=this.sectionsData.filter(arg=>arg.language==this.addCategoryRequest.language);;
                           }
@@ -391,9 +549,10 @@ onClickListTemp(j){
 //    this.appProvider.current.suggestedString=[]
 //   console.log(output)
 //  }
-  onTransliteration(value,event){
+  onTransliteration(value,event,tag){
    var myEl=event.target
    this.elementRefrence=event
+   this.currentInputTag=tag
    let post =this.getCaretPos(event)
    this.currentString=value
    let subValue=value.substring(0, post)
@@ -431,7 +590,18 @@ onClickListTemp(j){
    this.outputStringLength=state.length
    let replaceWith=state+' '
    let output=this.currentString.replace(this.sendString ,replaceWith)
-   this.addCategoryRequest.categoryName=output
+  // this.addCategoryRequest.categoryName=output
+    if ( this.currentInputTag=='category') {
+     this.addCategoryRequest.categoryName=output
+   }else if(this.currentInputTag=='title'){
+     this.addCategoryRequest.titleForm=output
+   }else if (this.currentInputTag=='guildTextForForm') {
+     this.addCategoryRequest.guildTextForForm=output
+   }else if (this.currentInputTag=='guildTextForMedia') {
+     this.addCategoryRequest.guildTextForMedia=output
+   }
+
+
    let sumIndex=(this.caretPos+this.outputStringLength)-this.inputStringLength
    this.appProvider.current.suggestedString=[]
  }
@@ -443,12 +613,28 @@ onKeyUp(event){
         if (this.currentActiveIndex==-1 || this.currentActiveIndex==0) {
          let replaceWith=this.appProvider.current.suggestedString[0]
          let output=this.currentString.replace(this.sendString ,replaceWith)
-        this.addCategoryRequest.categoryName=output
+         if ( this.currentInputTag=='category') {
+             this.addCategoryRequest.categoryName=output
+           }else if(this.currentInputTag=='title'){
+             this.addCategoryRequest.titleForm=output
+           }else if (this.currentInputTag=='guildTextForForm') {
+             this.addCategoryRequest.guildTextForForm=output
+           }else if (this.currentInputTag=='guildTextForMedia') {
+             this.addCategoryRequest.guildTextForMedia=output
+           }
         this.appProvider.current.suggestedString=[]
         }else{
          let replaceWith=this.appProvider.current.suggestedString[this.currentActiveIndex]
          let output=this.currentString.replace(this.sendString ,replaceWith)
-        this.addCategoryRequest.categoryName=output
+        if ( this.currentInputTag=='category') {
+         this.addCategoryRequest.categoryName=output
+       }else if(this.currentInputTag=='title'){
+         this.addCategoryRequest.titleForm=output
+       }else if (this.currentInputTag=='guildTextForForm') {
+         this.addCategoryRequest.guildTextForForm=output
+       }else if (this.currentInputTag=='guildTextForMedia') {
+         this.addCategoryRequest.guildTextForMedia=output
+       }
          this.appProvider.current.suggestedString=[]
         }
     }
@@ -458,7 +644,15 @@ onKeyUp(event){
    if (this.outputStringArrayLength>0) {
         let replaceWith=this.selectedValue+' '
         let output=this.currentString.replace(this.sendString ,replaceWith)
-        this.addCategoryRequest.categoryName=output
+         if ( this.currentInputTag=='category') {
+             this.addCategoryRequest.categoryName=output
+           }else if(this.currentInputTag=='title'){
+             this.addCategoryRequest.titleForm=output
+           }else if (this.currentInputTag=='guildTextForForm') {
+             this.addCategoryRequest.guildTextForForm=output
+           }else if (this.currentInputTag=='guildTextForMedia') {
+             this.addCategoryRequest.guildTextForMedia=output
+           }
         this.appProvider.current.suggestedString=[]
     }
   }else if (event.keyCode==38) {
@@ -501,4 +695,34 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
       range.select();
     }
   }
+
+updateListTemp(sectionName,cateName){
+    let a={
+         sectionName:sectionName,
+         categoryName:cateName
+    }
+  this.sectionService.onEditCateTemp(this.listingTempId,a)
+            .subscribe(data =>{
+                        
+                      
+                                           
+                },error=>{
+                  
+                    
+                }) 
+}
+updateCateTemp(sectionName,cateName){
+   let a={
+         sectionName:sectionName,
+         categoryName:cateName
+    }
+       this.sectionService.onEditCateTemp(this.categoryTempId,a)
+            .subscribe(data =>{
+                       
+                                           
+                },error=>{
+                  
+                }) 
+    
+ }
 }

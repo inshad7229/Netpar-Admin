@@ -155,6 +155,7 @@ export class EditAdminComponent implements AfterViewInit {
             'elementAnalytics': [null],
             'templateAnalytics': [null],
             'googleAnalytics': [null],
+            'flurryAnalytics': [null],
              'language1':[null],
               'firstName1':[null],
               'lastName1':[null],
@@ -708,7 +709,7 @@ export class EditAdminComponent implements AfterViewInit {
                     console.log('in get section ')
                     console.log(JSON.stringify(this.options))
                     this.waitLoader = false;
-                    this.sections=data;
+                    this.sections=data.filter(arg=>arg.deleteStatus!=true);;
                     for (let  i =0 ; i<this.sections.length; i++) {
                        var obj=this.sections[i]
                        // var obj2=[]

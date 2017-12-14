@@ -46,6 +46,8 @@ export class AddSubcategoryComponent implements OnInit {
     elementRefrence:any;
     inputStringLength:number
     outputStringLength:number
+    saveFlag1:boolean
+    saveFlag2:boolean
     addSubCategoryRequest: AddSubCategoryRequest=new  AddSubCategoryRequest()
     stringResource:StringResource=new  StringResource()
     public get imageToDisplayHorigontal() {
@@ -55,14 +57,14 @@ export class AddSubcategoryComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${300}x${180}`;
+        return `http://placehold.it/${300}x${50}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
             width: parseInt('300', 10),
-            height: parseInt('180', 10)
+            height: parseInt('50', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -183,9 +185,13 @@ export class AddSubcategoryComponent implements OnInit {
 
     saveImageFromCroppieHorigontal() {
         this.currentImageHorigontal = this.croppieImageHorigontal;
+        if (this.currentImageHorigontal) {
+            this.saveFlag2=true
+        }
     }
 
     cancelCroppieEditHorigontal() {
+        this.saveFlag2=false
         this.croppieImageHorigontal = '';
         this.currentImageHorigontal = ''
     }
@@ -217,9 +223,13 @@ export class AddSubcategoryComponent implements OnInit {
 
     saveImageFromCroppieThumbnail() {
         this.currentImageThumbnail = this.croppieImageThumbnail;
+        if (this.currentImageThumbnail) {
+            this.saveFlag1=true
+        }
     }
 
     cancelCroppieEditThumbnail() {
+        this.saveFlag1=false
         this.croppieImageThumbnail = '';
         this.currentImageThumbnail = ''
     }
@@ -250,9 +260,9 @@ export class AddSubcategoryComponent implements OnInit {
          this.sectionService.onGetCategory(this.addSubCategoryRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesData=data.response;
+                    this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (this.addSubCategoryRequest.language) {
-                         this.sections=this.sectionsData.filter(arg=>arg.language==this.addSubCategoryRequest.language);
+                         this.sections=this.sectionsData.filter(arg=>arg.language==this.addSubCategoryRequest.language  && arg.deleteStatus!=true);
                          this.categories=data.response.filter(arg=>arg.language==this.addSubCategoryRequest.language);
                     }
                     console.log(JSON.stringify(data))
@@ -332,9 +342,9 @@ export class AddSubcategoryComponent implements OnInit {
                       this.sectionService.onGetSection()
                     .subscribe(data => {
                         this.waitLoader = false;
-                        this.sectionsData=data;
+                        this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);
                     if (this.addSubCategoryRequest.language) {
-                         this.sections=data.filter(arg=>arg.language==this.addSubCategoryRequest.language);;
+                         this.sections=data.filter(arg=>arg.language==this.addSubCategoryRequest.language && arg.deleteStatus!=true);;
                     }
                     },error=>{
                       this.waitLoader = false;

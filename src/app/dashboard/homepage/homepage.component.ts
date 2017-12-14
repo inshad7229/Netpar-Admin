@@ -14,6 +14,8 @@ import {AddContentRequest} from '../../models/content.modal'
 import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
+import { Sort } from '@angular/material';
+import {Clipboard} from 'ts-clipboard';
 
 import {ContentViewHomeDialogComponent} from './content-view-home-dialog/content-view-home-dialog.component';
 import { ViewContentComponent,ContentConfirmation } from '../view-content/view-content.component';
@@ -116,6 +118,10 @@ export class HomepageComponent implements OnInit {
     activePriority:boolean
     completed:boolean
     future:boolean
+    limitedFilter
+    limit
+    filterApplyStatus:boolean=false
+    dataForSorting:any
     stringResource:StringResource=new  StringResource()
   constructor(private dialog: MatDialog,
              private fb: FormBuilder,
@@ -131,6 +137,9 @@ export class HomepageComponent implements OnInit {
                 this.filterValue={}
                 this.filterRequest={}
                 this.sendData={} 
+                this.limitedFilter={}
+                this.limitedFilter.perPage='25'
+                this.limit=25
             }
   openDialog(flag) {
     let dialogRef = this.dialog.open(HomeDialogComponent, {
@@ -184,6 +193,7 @@ export class HomepageComponent implements OnInit {
             if($trigger !== e.target && !$trigger.has(e.target).length){
                 $('.sidebar-filter').closest('.filter-plugin').removeClass('open');
             }
+           
         });
     
     this.getList()
@@ -194,8 +204,10 @@ export class HomepageComponent implements OnInit {
      this.contentService.onGetPageWiseContent('sortlistForHomepage')
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.contentList=data.response
-                        this.contentBackup=data.response.slice(0)
+                        this.contentList=data.response.filter(arg=>arg.deleteStatus!=true);
+                        this.dataForSorting=data.response.filter(arg=>arg.deleteStatus!=true);
+                        this.contentBackup=data.response.filter(arg=>arg.deleteStatus!=true).slice(0)
+                        this.contentListBackup=data.response.filter(arg=>arg.deleteStatus!=true).slice(0)
                         // this.localAdminList=data.response;
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -288,7 +300,11 @@ export class HomepageComponent implements OnInit {
     this.appProvider.current.currentContentData=data;
     this.router.navigate(['/add-content'],{ skipLocationChange: true });
   }
-
+onCopyLink(id){
+  let a="http://europa.promaticstechnologies.com/netpar-pwa-dev/#/shareArticle/"+id
+  Clipboard.copy(a);
+  this.toastr.info('Article link copied,You can share now')
+}
 
 
    getSectionList(){
@@ -296,7 +312,7 @@ export class HomepageComponent implements OnInit {
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   this.waitLoader =false;
@@ -308,7 +324,11 @@ export class HomepageComponent implements OnInit {
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    if (data.response.length==0) {
+                      this.toastr.info('This section do not have any category')
+                      // code...
+                    }
                     this.categories=this.categories.concat(this.categoriesBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -321,7 +341,11 @@ export class HomepageComponent implements OnInit {
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    if (data.response.length==0) {
+                      this.toastr.info('This category do not have any subcategory')
+                      // code...
+                    }
                     this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -329,6 +353,44 @@ export class HomepageComponent implements OnInit {
                     alert(error)
                 }) 
    }
+   onselectSate(state){
+ // alert(state)
+  let filterData=[]
+  this.selectedSate=state;
+  console.log(state)
+  if (state.length>0) {
+      for (let i =0 ;i<state.length;i++) {
+         filterData.push(this.contentListBackup.filter(arg=>arg.applicableStateLists.indexOf(state[i])!=-1))
+       }
+       this.contentList=filterData[0]
+       this.contentAfterState=this.contentList.slice(0)
+   }else{
+      this.contentList=this.contentListBackup
+      this.contentAfterState=this.contentList.slice(0)
+   }
+   if (this.filterValue.language) {
+       this.contentList=this.contentList.filter(arg=>arg.language==this.filterValue.language)
+   }
+
+}
+// onselectLang(language){
+//   let filterData=[]
+//  if (this.filterValue.state && this.filterValue.state.length>0) {
+//       for (let i =0 ;i<this.filterValue.state.length;i++) {
+//          filterData.push(this.contentListBackup.filter(arg=>arg.applicableStateLists.indexOf(this.filterValue.state[i])!=-1))
+//        }
+//        this.contentList=filterData[0]
+//        this.contentAfterState=this.contentList.slice(0)
+//    }else{
+//       this.contentList=this.contentListBackup
+//        this.contentAfterState=this.contentList.slice(0)
+//    }
+//    if (this.filterValue.language) {
+//        this.contentList=this.contentList.filter(arg=>arg.language==this.filterValue.language)
+//    }
+//   this.filterLanguageSingle=language;
+//  // this.contentList=this.contentListBackup.filter(arg=>arg.language==language)
+// }
    openFilter(){
      if (this.filterValue.language) {
         for (let i=0;i<this.stringResource.language.length;i++) {
@@ -472,7 +534,7 @@ export class HomepageComponent implements OnInit {
 
   onApplyFilter(){
         if (this.filterLanguage.length>0 ) {
-           this.sendData.languages=this.filterRequest.language
+           this.sendData.languages=this.filterLanguage.slice(0);
         }else{
            delete(this.sendData.languages)
         }
@@ -567,8 +629,10 @@ export class HomepageComponent implements OnInit {
                         }
                         else if (data.success == true) {
                           this.waitLoader =false;
-                           this.contentList=data.response;
-                           this.contentListBackup=data.response.slice(0);
+                           this.contentList=data.response.filter(arg=>arg.deleteStatus!=true);
+                           this.dataForSorting=data.response.filter(arg=>arg.deleteStatus!=true)
+                           this.filterApplyStatus=true
+                           this.contentListBackup=data.response.filter(arg=>arg.deleteStatus!=true).slice(0);
                            this.filterLanguageFilterPan=this.filterLanguage.slice(0);
                            this.filterSectionFilterPan=this.filterSection.slice(0);
                            this.filterCategoryFilterPan=this.filterCategory.slice(0);
@@ -701,6 +765,7 @@ export class HomepageComponent implements OnInit {
             this.activePriority=false
             this.completed=false
             this.future=false
+            this.dataForSorting=this.contentBackup.slice(0)
             this.contentList=this.contentBackup.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
@@ -721,4 +786,111 @@ export class HomepageComponent implements OnInit {
                this.statusPriority[i].check=false
             }
         }
+
+ sortData(sort: Sort) {
+    //  this.contentBackup
+    // this.contentList
+    const data =this.dataForSorting.slice();
+    if (!sort.active || sort.direction == '') {
+      this.contentList = data;
+      
+      return;
+    }
+
+    this.contentList = data.sort((a, b) => {
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'Kadak': return compare(a.likeCount, b.likeCount, isAsc);
+        case 'share': return compare(a.shareCount, b.shareCount, isAsc);
+        case 'comment': return compare(a.commentCount, b.commentCount, isAsc);
+        case 'save': return compare(a.saveCount, b.saveCount, isAsc);
+        case 'download': return compare(a.downloadCount, b.downloadCount, isAsc);
+        case 'apply': return compare(a.applyCount, b.applyCount, isAsc);
+        case 'call': return compare(a.callCount, b.callCount, isAsc);
+        case 'call_Me_Back': return compare(a.callMeBackCount, b.callMeBackCount, isAsc);
+        case 'interested': return compare(a.imIntrestedCount, b.imIntrestedCount, isAsc);
+        case 'pageview': return compare(a.pageView, b.pageView, isAsc);
+        default: return 0;
+      }
+    });
+  }
+   onPerPage(perPage){
+      if (perPage=='25') {
+           this.limit=25
+        // code...
+      }else if (perPage=='50') {
+        this.limit=50
+        // code...
+      }else if (perPage=='100') {
+        this.limit=100
+        // code...
+      }else if (perPage=='200') {
+        this.limit=100
+        // code...
+      }else if (perPage=='All') {
+        this.limit=this.contentList.length
+        // code...
+      }
+    }
+onRange(range){
+  //alert(range)
+  if (this.filterApplyStatus) {
+     this.contentList=this.contentListBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true)
+  }else{
+    this.contentList=this.contentBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true) 
+  }
+
+  this.dataForSorting=this.contentList
+}
+getStatus(time,range):boolean {
+  let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(time);
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  console.log(diffDays)
+  switch (range) {
+        case '7d':
+         console.log('7d')
+          if (diffDays<8) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '15d': 
+        if (diffDays<16) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '1m': 
+        if (diffDays<31) {
+             return true;
+           }else{
+             return false;
+           }
+        case '3m':
+        if (diffDays<91) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '6m': 
+        if (diffDays<181) {
+             return true;
+           }else{
+             return false;
+           }
+        case '1y': 
+        if (diffDays<365) {
+             return true;
+           }else{
+             return false;
+           }
+        case 'all':return true
+        default: return false;
+      }
+ }     
+}
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

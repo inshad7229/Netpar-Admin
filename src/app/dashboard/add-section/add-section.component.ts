@@ -43,6 +43,9 @@ export class AddSectionComponent implements OnInit {
     elementRefrence:any;
     inputStringLength:number
     outputStringLength:number
+    saveFlag1:boolean
+    saveFlag2:boolean
+    oldSectionView:string;
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -50,14 +53,14 @@ export class AddSectionComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${300}x${180}`;
+        return `http://placehold.it/${300}x${50}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
             width: parseInt('300', 10),
-            height: parseInt('180', 10)
+            height: parseInt('50', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -155,6 +158,7 @@ export class AddSectionComponent implements OnInit {
                     }
                     else if (data.success == true) {
                      this.addSectionModel=data.response[0];
+                      this.oldSectionView=this.addSectionModel.sectionViewFormat
                      //this.croppieImageThumbnail =data.response[0].thumbnailImage;
                      this.currentImageThumbnail =data.response[0].thumbnailImage 
                     // this.croppieImageHorigontal =data.response[0].horigontalImage;
@@ -199,11 +203,15 @@ export class AddSectionComponent implements OnInit {
 
     saveImageFromCroppieHorigontal() {
         this.currentImageHorigontal = this.croppieImageHorigontal;
+        if (this.currentImageHorigontal) {
+          this.saveFlag2=true
+        }
     }
 
     cancelCroppieEditHorigontal() {
         this.croppieImageHorigontal = '';
         this.currentImageHorigontal = ''
+        this.saveFlag2=false
     }
 
     imageUploadEventHorigontal(evt: any) {
@@ -233,9 +241,13 @@ export class AddSectionComponent implements OnInit {
 
     saveImageFromCroppieThumbnail() {
         this.currentImageThumbnail = this.croppieImageThumbnail;
+        if (this.currentImageThumbnail) {
+          this.saveFlag1=true
+        }
     }
 
     cancelCroppieEditThumbnail() {
+        this.saveFlag1=false
         this.croppieImageThumbnail = '';
         this.currentImageThumbnail = ''
     }
@@ -265,8 +277,22 @@ export class AddSectionComponent implements OnInit {
 
    //   if(this.app)
    if (this.addSectionModel._id) {
+            let date=new Date().toISOString()
             this.addSectionModel.thumbnailImage=this.currentImageThumbnail;
             this.addSectionModel.horigontalImage=this.currentImageHorigontal;
+             if (this.oldSectionView!=this.addSectionModel.sectionViewFormat) {
+                     console.log(this.oldSectionView)
+                     if (this.addSectionModel.sectionViewFormat=='Section Template One') {
+                         this.addSectionModel.templateoneStartDate=date
+                     }else if ( this.addSectionModel.sectionViewFormat=='Section Template Two') {
+                         this.addSectionModel.templatetwoStartDate=date
+                     }
+                     if( this.oldSectionView=='Section Template One') {
+                         this.addSectionModel.templateoneendDate=date
+                     }else if ( this.oldSectionView=='Section Template Two') {
+                         this.addSectionModel.templatetwoendDate=date
+                     }
+                 }
             this.sectionService.onEditSection(this.addSectionModel)
             .subscribe(data => {
                 this.waitLoader = false;
@@ -299,6 +325,11 @@ export class AddSectionComponent implements OnInit {
      this.addSectionModel.updatedDate=null;
      this.addSectionModel.enableDisableDate=null;
      this.addSectionModel.publishUnbuplishDate=null;
+          if ( this.addSectionModel.sectionViewFormat=='Section Template One') {
+             this.addSectionModel.templateoneStartDate=date
+         }else if ( this.addSectionModel.sectionViewFormat=='Section Template Two') {
+             this.addSectionModel.templatetwoStartDate=date
+         }
       this.sectionService.onAddSection(this.addSectionModel)
                 .subscribe(data => {
                     this.waitLoader = false;
@@ -338,7 +369,7 @@ export class AddSectionComponent implements OnInit {
    let localValue=subValue.split(' ')
    let length=localValue.length
    let letstring=localValue[length-1]
-   let replcedstring=letstring.match(/[a-zA-Z]+/g);
+   let replcedstring=letstring.match(/[a-zA-Z0-9]+/g);
    let stringForSend
    if (replcedstring) {
      stringForSend=replcedstring[0]
@@ -349,7 +380,7 @@ export class AddSectionComponent implements OnInit {
    else if(stringForSend=='') {
        return 
      }
-   else if (/^[a-zA-Z]+$/.test(stringForSend)) {
+   else if (/^[a-zA-Z0-9]+$/.test(stringForSend)) {
     this.sendString=stringForSend.toString()
     this.translationService.onGetSuggetiion(stringForSend)
         .subscribe(data => {     

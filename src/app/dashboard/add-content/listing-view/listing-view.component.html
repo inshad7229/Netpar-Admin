@@ -7,7 +7,9 @@
         <div class="suggested-ulist list-view7">
             <div class="view-lists grid-1">
                 <a  class="color-red">
-                    <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+                   <!--  <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive">  -->
+                     <img class="img-effect img-responsive"  *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
+                    <img class="img-effect img-responsive"  *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" /> 
                     <div class="list-text-wrap one-heading">
                         <div class="text-red"></div>
                         <div class="suggested-div">
@@ -41,7 +43,12 @@
             Listing View <span class="pull-right"> <i class="fa fa-angle-right"></i> </span>
         </div> -->
         <div class="list-view8">
-            <div class=""> <a ><img class="img-responsive"  [src]="forContent.thumbnailPicture" /> </a> </div>
+            <div class=""> 
+                <a >
+                    <img class="img-responsive"  *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
+                    <img class="img-responsive"  *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" />
+              </a> 
+         </div>
             <div class=""> <a > <img class="img-responsive" src="./assets/img/img-2.jpg" /></a> </div>
             <div class=""> <a > <img class="img-responsive" src="./assets/img/img-3.jpg" /></a> </div>
             <div class=""> <a > <img class="img-responsive" src="./assets/img/img-4.jpg" /></a> </div>
@@ -55,8 +62,10 @@
    <div *ngIf="layout=='Listing-view Template Four'">
        
         <div class="view-lists grid-1">
-            <a  class="color-red">
-                <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+            <a  class="color-red"><!-- 
+                <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive">  -->
+                <img class="img-effect img-responsive"  *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
+                    <img class="img-effect img-responsive"  *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" />
                 <div class="list-text-wrap one-heading">
                     <div class="text-red">{{forContent.sectionName}} </div>
                     <div class="suggested-div">
@@ -70,7 +79,9 @@
         </div>
         <div class="view-lists grid-1">
             <a  class="color-red">
-                <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+              <!--   <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive">  -->
+                <img class="img-effect img-responsive"  *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
+                    <img class="img-effect img-responsive"  *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" />
                 <div class="list-text-wrap one-heading">
                     <div class="text-red">{{forContent.sectionName}} </div>
                     <div class="suggested-div">
@@ -84,7 +95,9 @@
         </div>
         <div class="view-lists grid-1">
             <a  class="color-red">
-                <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+                <!-- <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> -->
+                <img class="img-effect img-responsive"  *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
+                    <img class="img-effect img-responsive"  *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" /> 
                 <div class="list-text-wrap one-heading">
                     <div class="text-red">{{forContent.sectionName}} </div>
                     <div class="suggested-div">
@@ -137,7 +150,9 @@
         
         <div class="view-lists grid-2" >
             <a  class="color-blue">
-                <img [src]="forContent.thumbnailPicture"> 
+               <!--  <img [src]="forContent.thumbnailPicture"> --> 
+               <img   *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
+                    <img   *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" />
                 <div class="suggested-div">
                     <div class="line"></div>
                     <div class="suggested-text">{{forContent.sectionName}} </div>
@@ -165,7 +180,9 @@
         <div class="list-view7">
             <div class="view-lists grid-1">
                 <a  class="color-red">
-                    <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> 
+                   <!--  <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive"> -->
+                    <img class="img-effect img-responsive"  *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
+                    <img class="img-effect img-responsive"  *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" /> 
                     <div class="list-text-wrap one-heading">
                         <div class="text-red">{{forContent.sectionName}} </div>
                         <div class="suggested-div">
