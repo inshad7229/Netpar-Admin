@@ -885,7 +885,7 @@ onApply(id){
    }
   }
   let dialogRef = this.dialog.open(downloadContentConfirmation, {
-            width: '400px',
+            width: '800px',
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -1218,6 +1218,9 @@ export class downloadContentConfirmation {
   }
 onEmailPress(){
   this.emailstatus=true
+}
+onClosed(){
+   this.dialogRef.close();
 }
  
  

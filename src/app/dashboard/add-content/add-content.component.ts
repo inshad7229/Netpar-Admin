@@ -213,7 +213,7 @@ export class AddContentComponent implements OnInit {
     }
      stateCtrl: FormControl;
   filteredStates: Observable<any[]>;
-
+  youtubeUrl='<iframe width="560" height="315" src="https://www.youtube.com/embed/VpUEo28SQsU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>'
 	constructor(private dialog: MatDialog, 
 		        private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
 		        vcr: ViewContainerRef,
@@ -1069,10 +1069,13 @@ addownloadRight(Download){
   	   		 this.documentFileData[index].file=null
   	  	}
   	  }
-      if ((this.listOne[this.currentIndex].tag=='video' || this.listOne[this.currentIndex].tag=='audio' ) && this.ref) {
-      	//console.log(this.ref);
-      	this.ref.load();
-    	this.ref.play();
+      if (this.ref) {
+        if ((this.listOne[this.currentIndex].tag=='video' || this.listOne[this.currentIndex].tag=='audio' ) && this.ref) {
+        	//console.log(this.ref);
+        	this.ref.load();
+      	this.ref.play();
+        }
+        // code...
       }
 	}
 	onFormUrlChange(url){
@@ -1812,7 +1815,7 @@ onDeleteBody(){
       let searchData=searchUser.trim()
       let searchArray=searchData.split(' ')
       console.log(searchArray)
-      if (searchArray.legth==1) {
+      if (searchArray.length==1) {
          if (searchData == '') {
               this.localAdminList = this.adminList;
               return;
@@ -4142,5 +4145,13 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
       range.moveStart('character', selectionStart);
       range.select();
     }
+  }
+
+  getTypeFile(url){
+   if (url.indexOf('<iframe')==-1) {
+     return true
+   }else{
+     return false
+   }
   }
 }

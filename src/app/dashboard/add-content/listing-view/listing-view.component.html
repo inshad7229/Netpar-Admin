@@ -23,7 +23,31 @@
             </div>
         </div>
     </div>
-
+    <div class="article-sec" *ngIf="layout=='Listing-view Template Two'">
+                <div class="card cus-card">
+                    <div class="list-view">
+                        <div class="big-view" >
+                            <div class="innerbig-view">
+                                <img src="{{forContent.horizontalPicture}}" class="img-effect img-responsive" *ngIf="forContent.horizontalPicture" />
+                                <img src="http://placehold.it/300x300" class="img-effect img-responsive" *ngIf="!forContent.horizontalPicture" />
+                                <p class="overlay-text">{{forContent.headline}} </p>
+                            </div>
+                        </div>
+                        <div class="temp-2 view-lists grid-2 list-view2" >
+                            <a class="color-yellow">
+                                <div class="suggested-div">
+                                    <div class="line"></div>
+                                    <div class="suggested-text">{{forContent.tagline}}</div>
+                                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                                </div>
+                                <img src="{{forContent.thumbnailPicture}}" *ngIf="forContent.thumbnailPicture">
+                                <img src="http://placehold.it/300x300" *ngIf="!forContent.thumbnailPicture"> 
+                                <div class="list-text-wrap"> {{forContent.headline.slice(0,25)}}</div>
+                            </a>
+                        </div>  
+                    </div>
+                </div>
+            </div>
     <div class="view-lists" *ngIf="layout=='Listing-view Template Five'">
         <a  class="color-red">
             <div class="simple-list">

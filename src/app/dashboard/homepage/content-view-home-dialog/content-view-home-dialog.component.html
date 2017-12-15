@@ -30,58 +30,90 @@
 			<a class="text-orange" ><span class="span-icns"> <i class="icon-donload"></i></span> Download </a> 
 		</li>
 	</ul>
-	<div class="inner-card " *ngFor="let content of forContent.contentBody">
-		<div class="form-group" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor,extAlign:content.aligment}">
-			<img [src]="content.url" class="img-responsive rad-shad" [ngStyle]="{width:content.widthImg+'px',
+    <div class="inner-card " *ngFor="let content of forContent.contentBody">
+        <div class="form-group" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor,extAlign:content.aligment}">
+            <img [src]="content.url" class="img-responsive rad-shad" [ngStyle]="{width:content.widthImg+'px',
                                                                                           height:content.heightImg+'px',
                                                                                           display: content.display,paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" />
-		</div>
-		<div [ngStyle]="{background:content.backgroundColor}" *ngIf="content.tag=='text'">
-			<div class="text-light" [innerHTML]="getHtml(content.text)" ></div>
-		</div>
-		
-		<audio controls style="width:100%" *ngIf="content.tag=='audio'">
-	        <source [src]="content.url"  type="audio/mpeg" />
-	        Your browser does not support the audio element.
-	    </audio>
-    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.tag=='video'">
-	        <source [src]="content.url" type="video/mp4">
-	    </video>
+        </div>
+        <div [ngStyle]="{background:content.backgroundColor}" *ngIf="content.tag=='text'">
+            <div class="text-light" [innerHTML]="getHtml(content.text)" ></div>
+        </div>
+        <div *ngIf="content.tag=='audio'">
+            <audio *ngIf="getTypeFile(content.url)==true" controls style="width:100%" >
+            <source [src]="content.url"  type="audio/mpeg" />
+            Your browser does not support the audio element.
+           </audio>
+          <!--  <div class="iframe-video" *ngIf="getTypeFile(content.url)==false" [innerHTML]="getHtml(content.url)"></div> --> 
+        </div>
+        <div *ngIf="content.tag=='video'">
+            <video  *ngIf="getTypeFile(content.url)==true" id="my-video" controls preload="auto" width="100%" >
+                <source [src]="content.url" type="video/mp4">
+            </video>
+             <div class="iframe-video" *ngIf="getTypeFile(content.url)==false" [innerHTML]="getHtml(content.url)"></div>
+            
+        </div>
         <div style="text-align: center;" *ngIf="content.tag=='document'" document>
-        	<img width="50%" style="display: inline-block;" src="./assets/img/JAVA.png"></div>
-	    <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" *ngIf="content.tag=='grid'">
+            <img width="50%" style="display: inline-block;" src="./assets/img/JAVA.png"></div>
+        <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" *ngIf="content.tag=='grid'">
             <tbody>
                 <tr style="text-align: center;">
                     <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
-                        <audio controls style="width:100%" *ngIf="content.audiourl1!=null">
-					        <source [src]="content.audiourl1"  type="audio/mpeg" />
-					        Your browser does not support the audio element.
-					    </audio>
-				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl1!=null">
-					        <source [src]="content.videourl1" type="video/mp4">
-					    </video>
+                        <div *ngIf="content.audiourl1!=null">
+                            <audio *ngIf="getTypeFile(content.audiourl1)==true" controls style="width:100%" >
+                                 <source [src]="content.audiourl1"  type="audio/mpeg" />
+                                 Your browser does not support the audio element.
+                           </audio>
+                           <!-- <div class="iframe-video" *ngIf="getTypeFile(content.audiourl1)==false" [innerHTML]="getHtml(content.audiourl1)"></div> -->
+                        </div>
+                        <div *ngIf="content.videourl1!=null">
+                            <video *ngIf="getTypeFile(content.videourl1)==true" id="my-video" controls preload="auto" width="100%" >
+                                <source [src]="content.videourl1" type="video/mp4">
+                            </video>
+                            <div class="iframe-video" *ngIf="getTypeFile(content.videourl1)==false" [innerHTML]="getHtml(content.videourl1)"></div>
+                            
+                        </div>
                         <img *ngIf="content.documenturl1!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
                         <img *ngIf="content.imgurl1!=null" style="width:100%" [src]="content.imgurl1">
                     </td>
                     <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
-                        <audio controls style="width:100%" *ngIf="content.audiourl2!=null">
-					        <source [src]="content.audiourl2"  type="audio/mpeg" />
-					        Your browser does not support the audio element.
-					    </audio>
-				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl2!=null">
-					        <source [src]="content.videourl2" type="video/mp4">
-					    </video>
+                        <div *ngIf="content.audiourl2!=null">
+                            
+                            <audio *ngIf="getTypeFile(content.audiourl2)==true" controls style="width:100%" >
+                                <source [src]="content.audiourl2"  type="audio/mpeg" />
+                             Your browser does not support the audio element.
+                            </audio>
+                            <!-- <div class="iframe-video" *ngIf="getTypeFile(content.audiourl2)==false" [innerHTML]="getHtml(content.audiourl2)"></div> -->
+                        </div>
+                        <div *ngIf="content.videourl2!=null">
+                            <video  *ngIf="getTypeFile(content.videourl2)==true" id="my-video" controls preload="auto" width="100%" >
+                            <source [src]="content.videourl2" type="video/mp4">
+                             </video>
+                             <div class="iframe-video" *ngIf="getTypeFile(content.videourl2)==false" [innerHTML]="getHtml(content.videourl2)"></div>
+                            
+                        </div>
+                        
                         <img *ngIf="content.documenturl2!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
                         <img *ngIf="content.imgurl2!=null" style="width:100%" [src]="content.imgurl2">
                     </td>
                    <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
-                        <audio controls style="width:100%" *ngIf="content.audiourl3!=null">
-					        <source [src]="content.audiourl3"  type="audio/mpeg" />
-					        Your browser does not support the audio element.
-					    </audio>
-				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl3!=null">
-					        <source [src]="content.videourl3" type="video/mp4">
-					    </video>
+                        <div *ngIf="content.audiourl3!=null">
+                            
+                            <audio  *ngIf="getTypeFile(content.audiourl3)==true" controls style="width:100%" >
+                            <source [src]="content.audiourl3"  type="audio/mpeg" />
+                            Your browser does not support the audio element.
+                        </audio>
+                        <!-- <div class="iframe-video" *ngIf="getTypeFile(content.audiourl3)==false" [innerHTML]="getHtml(content.audiourl3)"></div> -->
+                        </div>
+                        <div *ngIf="content.videourl3!=null">
+                            <video *ngIf="getTypeFile(content.videourl3)==true" id="my-video" controls preload="auto" width="100%" >
+                            <source [src]="content.videourl3" type="video/mp4">
+                            </video>
+                            <div class="iframe-video" *ngIf="getTypeFile(content.videourl3)==false" [innerHTML]="getHtml(content.videourl3)"></div>
+                            
+                        </div>
+                        
+                        
                         <img *ngIf="content.documenturl3!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
                         <img *ngIf="content.imgurl3!=null" style="width:100%" [src]="content.imgurl3">
                     </td>
@@ -496,326 +528,326 @@
             </table>
         </div>
         <div class="builder-element" *ngIf="content.tag=='userEngBtn'" >
-	        <button *ngIf="content.btn1==null && content.btn2==null && content.btn3==null" type="button" class="btn custom-btn btn-round" >Click  me</button>
-	                       
-	        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
-	            <tbody>
-	                <tr class="btns">
-	                    <td style="" >
-	                        <span *ngIf="content.btn1=='Kadak'">
-	                            <span class="btn danger" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                                <i class="icon-okay"></i> कडक
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                                <span class="text-danger">
-	                                    <span class="">
-	                                        <i class="icon-okay"></i>
-	                                    </span>
-	                                    कडक
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+            <button *ngIf="content.btn1==null && content.btn2==null && content.btn3==null" type="button" class="btn custom-btn btn-round" >Click  me</button>
+                           
+            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+                <tbody>
+                    <tr class="btns">
+                        <td style="" >
+                            <span *ngIf="content.btn1=='Kadak'">
+                                <span class="btn danger" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                    <i class="icon-okay"></i> कडक
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                    <span class="text-danger">
+                                        <span class="">
+                                            <i class="icon-okay"></i>
+                                        </span>
+                                        कडक
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn1=='Comment'">
-	                            <span class="btn rose" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                                <i class="icon-msg"></i> कमेंट
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                                <span class="text-rose">
-	                                    <span class="">
-	                                        <i class="icon-msg"></i>
-	                                    </span>
-	                                    कमेंट
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                            <span *ngIf="content.btn1=='Comment'">
+                                <span class="btn rose" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                    <i class="icon-msg"></i> कमेंट
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                    <span class="text-rose">
+                                        <span class="">
+                                            <i class="icon-msg"></i>
+                                        </span>
+                                        कमेंट
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn1=='Save'">
-	                            <span class="btn primary" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                                <i class="icon-badge"></i> साठवा
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                                <span class="text-primary">
-	                                    
-	                                    साठवा
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                            <span *ngIf="content.btn1=='Save'">
+                                <span class="btn primary" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                    <i class="icon-badge"></i> साठवा
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                    <span class="text-primary">
+                                        
+                                        साठवा
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn1=='Download'">
-	                            <span class="btn orange" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                                <i class="icon-donload"></i> डाउनलोड
-	                                
-	                            </span>
+                            <span *ngIf="content.btn1=='Download'">
+                                <span class="btn orange" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                    <i class="icon-donload"></i> डाउनलोड
+                                    
+                                </span>
 
-	                            <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                                <span class="text-orange">
-	                                    <span class="">
-	                                        <i class="icon-donload"></i>
-	                                    </span>
-	                                    डाउनलोड
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                                <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                    <span class="text-orange">
+                                        <span class="">
+                                            <i class="icon-donload"></i>
+                                        </span>
+                                        डाउनलोड
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn1=='Share'" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                            <span class="btn warning" *ngIf="content.outline1==false">
-	                                <i class="fa fa-share-alt"></i> सामायिक करा
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
-	                                <span class="text-warning">
-	                                    <span class="">
-	                                        <i class="fa fa-share-alt"></i>
-	                                    </span>
-	                                    सामायिक करा
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                            <span *ngIf="content.btn1=='Share'" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                <span class="btn warning" *ngIf="content.outline1==false">
+                                    <i class="fa fa-share-alt"></i> सामायिक करा
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+                                    <span class="text-warning">
+                                        <span class="">
+                                            <i class="fa fa-share-alt"></i>
+                                        </span>
+                                        सामायिक करा
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                    </td>
+                        </td>
 
-	                    <td style="" >
-	                        <span *ngIf="content.btn2=='Kadak'">
-	                            <span class="btn danger" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <i class="icon-okay"></i> कडक
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <span class="text-danger">
-	                                    <span class="">
-	                                        <i class="icon-okay"></i>
-	                                    </span>
-	                                    कडक
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                        <td style="" >
+                            <span *ngIf="content.btn2=='Kadak'">
+                                <span class="btn danger" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <i class="icon-okay"></i> कडक
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <span class="text-danger">
+                                        <span class="">
+                                            <i class="icon-okay"></i>
+                                        </span>
+                                        कडक
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn2=='Comment'">
-	                            <span class="btn rose" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <i class="icon-msg"></i> कमेंट
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <span class="text-rose">
-	                                    <span class="">
-	                                        <i class="icon-msg"></i>
-	                                    </span>
-	                                    कमेंट
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                            <span *ngIf="content.btn2=='Comment'">
+                                <span class="btn rose" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <i class="icon-msg"></i> कमेंट
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <span class="text-rose">
+                                        <span class="">
+                                            <i class="icon-msg"></i>
+                                        </span>
+                                        कमेंट
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn2=='Save'">
-	                            <span class="btn primary" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <i class="icon-badge"></i> साठवा
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <span class="text-primary">
-	                                    
-	                                    साठवा
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                            <span *ngIf="content.btn2=='Save'">
+                                <span class="btn primary" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <i class="icon-badge"></i> साठवा
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <span class="text-primary">
+                                        
+                                        साठवा
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn2=='Download'">
-	                            <span class="btn orange" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <i class="icon-donload"></i> डाउनलोड
-	                                
-	                            </span>
+                            <span *ngIf="content.btn2=='Download'">
+                                <span class="btn orange" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <i class="icon-donload"></i> डाउनलोड
+                                    
+                                </span>
 
-	                            <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <span class="text-orange">
-	                                    <span class="">
-	                                        <i class="icon-donload"></i>
-	                                    </span>
-	                                    डाउनलोड
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                                <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <span class="text-orange">
+                                        <span class="">
+                                            <i class="icon-donload"></i>
+                                        </span>
+                                        डाउनलोड
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn2=='Share'">
-	                            <span class="btn warning" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <i class="fa fa-share-alt"></i> सामायिक करा
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
-	                                <span class="text-warning">
-	                                    <span class="">
-	                                        <i class="fa fa-share-alt"></i>
-	                                    </span>
-	                                    सामायिक करा
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                            <span *ngIf="content.btn2=='Share'">
+                                <span class="btn warning" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <i class="fa fa-share-alt"></i> सामायिक करा
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+                                    <span class="text-warning">
+                                        <span class="">
+                                            <i class="fa fa-share-alt"></i>
+                                        </span>
+                                        सामायिक करा
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                    </td>
-	                    <td style="">
-	                        <span *ngIf="content.btn3=='Kadak'">
-	                            <span class="btn danger" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <i class="icon-okay"></i> कडक
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <span class="text-danger">
-	                                    <span class="">
-	                                        <i class="icon-okay"></i>
-	                                    </span>
-	                                    कडक
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                        </td>
+                        <td style="">
+                            <span *ngIf="content.btn3=='Kadak'">
+                                <span class="btn danger" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <i class="icon-okay"></i> कडक
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <span class="text-danger">
+                                        <span class="">
+                                            <i class="icon-okay"></i>
+                                        </span>
+                                        कडक
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn3=='Comment'">
-	                            <span class="btn rose"  *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <i class="icon-msg"></i> कमेंट
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <span class="text-rose">
-	                                    <span class="">
-	                                        <i class="icon-msg"></i>
-	                                    </span>
-	                                    कमेंट
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                            <span *ngIf="content.btn3=='Comment'">
+                                <span class="btn rose"  *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <i class="icon-msg"></i> कमेंट
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <span class="text-rose">
+                                        <span class="">
+                                            <i class="icon-msg"></i>
+                                        </span>
+                                        कमेंट
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn3=='Save'">
-	                            <span class="btn primary" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <i class="icon-badge"></i> साठवा
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline3==true"  [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <span class="text-primary">
-	                                    
-	                                    साठवा
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                            <span *ngIf="content.btn3=='Save'">
+                                <span class="btn primary" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <i class="icon-badge"></i> साठवा
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline3==true"  [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <span class="text-primary">
+                                        
+                                        साठवा
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn3=='Download'">
-	                            <span class="btn orange" *ngIf="content.outline3==false"  [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <i class="icon-donload"></i> डाउनलोड
-	                                
-	                            </span>
+                            <span *ngIf="content.btn3=='Download'">
+                                <span class="btn orange" *ngIf="content.outline3==false"  [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <i class="icon-donload"></i> डाउनलोड
+                                    
+                                </span>
 
-	                            <span class="btn not_default" *ngIf="content.outline3==true"[ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <span class="text-orange">
-	                                    <span class="">
-	                                        <i class="icon-donload"></i>
-	                                    </span>
-	                                    डाउनलोड
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                                <span class="btn not_default" *ngIf="content.outline3==true"[ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <span class="text-orange">
+                                        <span class="">
+                                            <i class="icon-donload"></i>
+                                        </span>
+                                        डाउनलोड
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                        <span *ngIf="content.btn3=='Share'">
-	                            <span class="btn warning" *ngIf="content.outline3==false"  [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <i class="fa fa-share-alt"></i> सामायिक करा
-	                                
-	                            </span>
-	                            <span class="btn not_default" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
-	                                <span class="text-warning">
-	                                    <span class="">
-	                                        <i class="fa fa-share-alt"></i>
-	                                    </span>
-	                                    सामायिक करा
-	                                    
-	                                </span>
-	                            </span>
-	                        </span>
+                            <span *ngIf="content.btn3=='Share'">
+                                <span class="btn warning" *ngIf="content.outline3==false"  [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <i class="fa fa-share-alt"></i> सामायिक करा
+                                    
+                                </span>
+                                <span class="btn not_default" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+                                    <span class="text-warning">
+                                        <span class="">
+                                            <i class="fa fa-share-alt"></i>
+                                        </span>
+                                        सामायिक करा
+                                        
+                                    </span>
+                                </span>
+                            </span>
 
-	                    </td>
-	                    
+                        </td>
+                        
 
-	                </tr>
-	            </tbody>
-	        </table>
-    	</div>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <!--   <ul class="like-bar no-brd" *ngIf="content.tag=='userEngBtn'">
-        	<li class="{{getClass1(content)}}">
-				<a *ngIf="content.btn1=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
-				<a *ngIf="content.btn1=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
-				<a *ngIf="content.btn1=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
-				<a *ngIf="content.btn1=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
-				<a *ngIf="content.btn1=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
-			</li>
-			<li class="{{getClass2(content)}}">
-				<a *ngIf="content.btn2=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
-				<a *ngIf="content.btn2=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
-				<a *ngIf="content.btn2=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
-				<a *ngIf="content.btn2=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
-				<a *ngIf="content.btn2=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
-			</li>
-			<li class="{{getClass3(content)}}">
-				<a *ngIf="content.btn3=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
-				<a *ngIf="content.btn3=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
-				<a *ngIf="content.btn3=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
-				<a *ngIf="content.btn3=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
-				<a *ngIf="content.btn3=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
-			</li>
-			<li class="{{getClass4(content)}}">
-				<a *ngIf="content.btn4=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
-				<a *ngIf="content.btn4=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
-				<a *ngIf="content.btn4=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
-				<a *ngIf="content.btn4=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
-				<a *ngIf="content.btn4=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a> 
-			</li>
-			<li class="{{getClass5(content)}}">
-				<a *ngIf="content.btn5=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
-				<a *ngIf="content.btn5=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
-				<a *ngIf="content.btn5=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
-				<a *ngIf="content.btn5=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
-				<a *ngIf="content.btn5=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
-			</li>
-		</ul>
-		<ul class="like-bar no-brd" *ngIf="content.tag=='CallToActBtn'">
-        	<li class="{{getClass6(content)}}">
-				<a *ngIf="content.btn1=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
-				<a *ngIf="content.btn1=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
-				<a *ngIf="content.btn1=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
-				<a *ngIf="content.btn1=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a> 
-			</li>
-			<li class="{{getClass7(content)}}">
-				<a *ngIf="content.btn2=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
-				<a *ngIf="content.btn2=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
-				<a *ngIf="content.btn2=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
-				<a *ngIf="content.btn2=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a>
-			</li>
-			<li class="{{getClass8(content)}}">
-				<a *ngIf="content.btn3=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
-				<a *ngIf="content.btn3=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
-				<a *ngIf="content.btn3=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
-				<a *ngIf="content.btn3=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a> 
-			</li>
-			<li class="{{getClass9(content)}}">
-				<a *ngIf="content.btn4=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
-				<a *ngIf="content.btn4=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
-				<a *ngIf="content.btn4=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
-				<a *ngIf="content.btn4=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a>
-			</li>
-		</ul> -->
+            <li class="{{getClass1(content)}}">
+                <a *ngIf="content.btn1=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+                <a *ngIf="content.btn1=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+                <a *ngIf="content.btn1=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+                <a *ngIf="content.btn1=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+                <a *ngIf="content.btn1=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+            </li>
+            <li class="{{getClass2(content)}}">
+                <a *ngIf="content.btn2=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+                <a *ngIf="content.btn2=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+                <a *ngIf="content.btn2=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+                <a *ngIf="content.btn2=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+                <a *ngIf="content.btn2=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+            </li>
+            <li class="{{getClass3(content)}}">
+                <a *ngIf="content.btn3=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+                <a *ngIf="content.btn3=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+                <a *ngIf="content.btn3=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+                <a *ngIf="content.btn3=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+                <a *ngIf="content.btn3=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+            </li>
+            <li class="{{getClass4(content)}}">
+                <a *ngIf="content.btn4=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+                <a *ngIf="content.btn4=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+                <a *ngIf="content.btn4=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+                <a *ngIf="content.btn4=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+                <a *ngIf="content.btn4=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a> 
+            </li>
+            <li class="{{getClass5(content)}}">
+                <a *ngIf="content.btn5=='Kadak'" class="text-danger"><span class="span-icns"> <i class="icon-okay"></i></span> Kadak </a>
+                <a *ngIf="content.btn5=='Share'" class="text-danger"><span class="span-icns"><i class="fa fa-share-alt"></i></span> Share </a>
+                <a *ngIf="content.btn5=='Comment'" class="text-rose"><span class="span-icns"><i class="icon-msg"></i></span> Comment </a>
+                <a *ngIf="content.btn5=='Save'" class="text-primary"><span class="span-icns"><i class="icon-badge"></i></span> Save </a>
+                <a *ngIf="content.btn5=='Download'" class="text-orange"><span class="span-icns"><i class="icon-donload"></i></span> Download </a>
+            </li>
+        </ul>
+        <ul class="like-bar no-brd" *ngIf="content.tag=='CallToActBtn'">
+            <li class="{{getClass6(content)}}">
+                <a *ngIf="content.btn1=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+                <a *ngIf="content.btn1=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+                <a *ngIf="content.btn1=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+                <a *ngIf="content.btn1=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a> 
+            </li>
+            <li class="{{getClass7(content)}}">
+                <a *ngIf="content.btn2=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+                <a *ngIf="content.btn2=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+                <a *ngIf="content.btn2=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+                <a *ngIf="content.btn2=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a>
+            </li>
+            <li class="{{getClass8(content)}}">
+                <a *ngIf="content.btn3=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+                <a *ngIf="content.btn3=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+                <a *ngIf="content.btn3=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+                <a *ngIf="content.btn3=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a> 
+            </li>
+            <li class="{{getClass9(content)}}">
+                <a *ngIf="content.btn4=='ImInterested'" class="text-danger"><span class="span-icns"> <i class="icon-click"></i></span> Im Interested </a>
+                <a *ngIf="content.btn4=='Call'" class="text-danger"><span class="span-icns"><i class="icon-call"></i></span> Call </a>
+                <a *ngIf="content.btn4=='Apply'" class="text-rose"><span class="span-icns"><i class="icon-check"></i></span> Apply </a> 
+                <a *ngIf="content.btn4=='callmeback'" class="text-primary"><span class="span-icns"><i class="icon-callme"></i></span> call me back </a>
+            </li>
+        </ul> -->
 
-	</div>
+    </div>
     <div *ngIf="forContent.googleForm==true || forContent.googleForm=='true'">
     	<iframe  [src]="googleFormUrl(forContent.googleFormUrl)" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
     </div>

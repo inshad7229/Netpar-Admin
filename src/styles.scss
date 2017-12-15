@@ -1679,3 +1679,40 @@ table.view-sec-table tbody td:first-child{
     width: auto;
     max-width: none;
 }
+
+.iframe-video iframe{
+    width: 100%;
+}
+
+.mat-sort-header-container{
+    justify-content: center;
+}
+
+.view-lists.grid-2.list-view2 > a img{
+ float: left; max-width: 75px;
+}
+.list-view .list-view2 .list-text-wrap{
+  margin-left: 80px; padding-right: 0;
+}
+ .view-lists.grid-2.list-view2 > a img{
+  border-radius: 5px;
+}
+
+.suggested-div .suggested-text {
+  max-height: 41px;
+  overflow: hidden;
+}.color-yellow .suggested-icons {
+  background-color: #ffcc00;
+}.view-lists.grid-3 .line, .view-lists.grid-2 .line {
+  margin: 3px 0;
+}.view-lists .line {
+  float: left;
+  margin: 6px 0 0;
+  width: 100%;
+}
+.innerbig-view {
+  float: left;
+  height: 200px;
+  position: relative;
+  width: 100%;
+}

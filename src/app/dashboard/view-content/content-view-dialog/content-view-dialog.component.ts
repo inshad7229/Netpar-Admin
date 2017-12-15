@@ -76,5 +76,11 @@ export class ContentViewDialogComponent implements OnInit {
        return 'active'
       }
     }
-
+     getTypeFile(url){
+   if (url.indexOf('<iframe')==-1) {
+     return true
+   }else{
+     return false
+   }
+  }
 }

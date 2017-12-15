@@ -14,7 +14,7 @@ export class ListingViewComponent implements OnInit {
 	@Inject(MAT_DIALOG_DATA) public data: any) {
 	this.forContent=this.data.forContent 
 	this.layout=this.data.layout
-	console.log(this.forContent)
+	console.log(this.layout)
 }
 
 	ngOnInit() {
