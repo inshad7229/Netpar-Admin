@@ -31,9 +31,9 @@
                                     <li *ngIf="afterApplyStatus.female" >Female  <span (click)="onClearFemaleFilter()"> <i class="fa fa-times"></i> </span> </li>
                                     <li *ngIf="afterApplyStatus.male" >Male  <span (click)="onClearMaleFilter()"> <i class="fa fa-times"></i> </span> </li>
                                      <li *ngIf="afterApplyStatus.active" >Active  <span (click)="onClearActiveFilter()"> <i class="fa fa-times"></i> </span> </li>
-                                      <li *ngIf="afterApplyStatus.modrate" >Modrate  <span (click)="onClearModrateFilter()"> <i class="fa fa-times"></i> </span> </li>
-                                       <li *ngIf="afterApplyStatus.hyper" >Hyper  <span (click)="onClearHyperFilter()"> <i class="fa fa-times"></i> </span> </li>
-                                       <li *ngIf="afterApplyStatus.inactive" >Hyper  <span (click)="onClearInactiveFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                      <li *ngIf="afterApplyStatus.modrate" > Moderately Active  <span (click)="onClearModrateFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                       <li *ngIf="afterApplyStatus.hyper" >Hyper Active  <span (click)="onClearHyperFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                       <li *ngIf="afterApplyStatus.inactive" >Inactive  <span (click)="onClearInactiveFilter()"> <i class="fa fa-times"></i> </span> </li>
                                    
                                 </ul>
                             </div>
@@ -480,9 +480,9 @@
                         <h5 class="filter-heading"> Active user</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox [(ngModel)]="rigthSide.hyper" (change)="onHyper(rigthSide.hyper)" >Hyper active</mat-checkbox></li>
-                                <li><mat-checkbox [(ngModel)]="rigthSide.modrate" (change)="onModrate(rigthSide.modrate)" >Moderatley active</mat-checkbox></li>
-                                <li><mat-checkbox [(ngModel)]="rigthSide.active" (change)="onActive(rigthSide.active)" >active</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.hyper" (change)="onHyper(rigthSide.hyper)" >Hyper Active</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.modrate" (change)="onModrate(rigthSide.modrate)" >Moderately Active</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.active" (change)="onActive(rigthSide.active)" >Active</mat-checkbox></li>
                                 <li><mat-checkbox [(ngModel)]="rigthSide.inactive" (change)="onInactive(rigthSide.inactive)" >Inactive</mat-checkbox></li>
                             </ul>
                         </div>

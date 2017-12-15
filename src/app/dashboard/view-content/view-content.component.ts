@@ -885,7 +885,7 @@ onApply(id){
    }
   }
   let dialogRef = this.dialog.open(downloadContentConfirmation, {
-            width: '800px',
+            width: '380px',
         });
 
         dialogRef.afterClosed().subscribe(result => {
