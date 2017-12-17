@@ -213,7 +213,7 @@
                                                                 <span *ngIf="user.status">Disable </span>
                                                                 <span class="cus-switch">
                                                                     <label class="switch m-b-0">
-                                                                        <input type="checkbox" [(ngModel)]="user.status"  (change)="onStatusChange(user)"/>
+                                                                        <input type="checkbox" [(ngModel)]="user.status"  (change)="deletUser(user,'status')"/>
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </span>
@@ -248,7 +248,7 @@
                                                             <span *ngIf="!user.influencer">Enable</span>
                                                             <span *ngIf="user.influencer"> Disable</span>
                                                             <label class="switch m-b-0">
-                                                                <input type="checkbox" [(ngModel)]="user.influencer"  (change)="onInfluencerStatusChange(user)"/>
+                                                                <input type="checkbox" [(ngModel)]="user.influencer"  (change)="onInfluencerStatusChange(user,'influencer')"/>
                                                                 <span class="slider round"></span>
                                                             </label>
                                                         </div>
@@ -260,7 +260,7 @@
                                                         <p> No. of conversation:{{user.totalConversations}} </p>
                                                     </td>
                                                      <td *ngIf="i<limit" class="td-icon">
-                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico" (click)="deletUser(user)"> <i class="fa fa-trash"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico" (click)="deletUser(user,'delete')"> <i class="fa fa-trash"></i> </a>
                                                     </td>
 
 		                                        </tr>

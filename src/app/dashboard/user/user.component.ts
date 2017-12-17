@@ -985,14 +985,26 @@ this.stateListState[0].check=false
     console.log("awesome");
     this.classForFilter="open";
   }
-   deletUser(user): void {
+   deletUser(user,flag): void {
         let dialogRef = this.dialog.open(UserConfirmation, {
             width: '400px',
             disableClose: true,
+            data:{flag:flag,user:user}
         });
         dialogRef.afterClosed().subscribe(result => {
           if (result=='yes') {
-            this.deletUserConfirm(user._id)
+            if (flag=='delete') {
+                this.deletUserConfirm(user._id)
+              // code...
+            }else if (flag=='status') {
+              // code...
+              this.onStatusChange(user)
+            }
+          }else if (result=='no') {
+            if (flag=='status') {
+              // code...
+              this.getUser()
+            }
           }
         });
     }
@@ -1006,7 +1018,10 @@ this.stateListState[0].check=false
                       this.userData=this.userData.filter(arg=>arg._id !=id);
                       this.userDataBackup=this.userDataBackup.filter(arg=>arg._id !=id);
                       this.dataForSorting=this.dataForSorting.filter(arg=>arg._id !=id);
-                      this.dataAfterFilterApply=this.dataAfterFilterApply.filter(arg=>arg._id !=id);
+                      if (this.dataAfterFilterApply) {
+                        this.dataAfterFilterApply=this.dataAfterFilterApply.filter(arg=>arg._id !=id);
+                        // code...
+                      }
                     }
                     
                 },error=>{
@@ -1030,11 +1045,14 @@ function compare2(a, b, isAsc) {
 
 export class UserConfirmation {
    
-
+ flag;
+ userData
   constructor(
     public dialogRef: MatDialogRef<UserConfirmation>,
     @Inject(MAT_DIALOG_DATA) public data: any,
         public dialog: MatDialog) {
+       this.flag=this.data.flag;
+       this.userData=this.data.user
        }
 
   onYesClick(): void {
@@ -1042,7 +1060,7 @@ export class UserConfirmation {
     // this.homePage.onDelete(this.data.admin)
   }
    onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('no');
   }
 
 

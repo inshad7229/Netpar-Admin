@@ -260,7 +260,7 @@ export class AddContentComponent implements OnInit {
 								'subCategoryName':[null],
 								'subCategoryId':[null],
 								'headline':[null , Validators.compose([Validators.required, Validators.maxLength(200)])],
-								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(100)])],
+								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(500)])],
 								'tags':[null],
 								'dateOfCreation':[null],
 								'typeOfUser':[null, Validators.compose([Validators.required])],
@@ -2018,20 +2018,20 @@ onDeleteBody(){
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   if (this.sections.length>0) {
+		   if (this.sections && this.sections.length>0) {
 		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
           if (localsection.length>0) {
 		        this.addContentRequest.sectionName=localsection[0].sectionName;
           }
 		   }
-		   if (this.categories.length>0) {
+		   if (this.categories && this.categories.length>0) {
 		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
          if (localcategory.length>0) {
            // code...
 		        this.addContentRequest.categoryName=localcategory[0].categoryName;
          }
 		   }
-		  if (this.subCategory.length>0) {
+		  if (this.subCategory && this.subCategory.length>0) {
 		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
          if (localsubcategory.length>0) {
            // code...
@@ -2092,20 +2092,20 @@ onDeleteBody(){
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		 if (this.sections.length>0) {
+		 if (this.sections && this.sections.length>0) {
           let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
           if (localsection.length>0) {
             this.addContentRequest.sectionName=localsection[0].sectionName;
           }
        }
-       if (this.categories.length>0) {
+       if (this.categories && this.categories.length>0) {
          let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
          if (localcategory.length>0) {
            // code...
             this.addContentRequest.categoryName=localcategory[0].categoryName;
          }
        }
-      if (this.subCategory.length>0) {
+      if (this.subCategory && this.subCategory.length>0) {
          let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
          if (localsubcategory.length>0) {
            // code...
