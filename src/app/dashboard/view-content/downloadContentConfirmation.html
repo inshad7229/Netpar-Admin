@@ -1,0 +1,27 @@
+<div class="modal-header" style="width: 377px">
+	<h4 class="modal-title" >Confirmation <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
+</div>
+<div style="background-color: #EEEEEE;padding: 10px;width: 100%">
+	<div *ngIf="!emailstatus">
+		 <h3>Hey !!</h3>
+		<div >
+			<p>Please select option for data extract ? </p>
+		</div>
+		<div  >
+			<button class="btn btn-round btn-mat btn-disabled btn-success" style="width: 48%" (click)="onExcel()">Excel</button>
+			<button class="btn btn-round btn-mat btn-disabled btn-danger" style="width: 48%" (click)="onEmailPress()">Email</button>
+		</div>
+	</div>
+	<div *ngIf="emailstatus"  style="width: 100%">
+		 <h3>Hey !!</h3>
+	<div >
+		<mat-form-field>
+            <input matInput placeholder="Enter Email" type="text" name="email" [(ngModel)]="email">     
+        </mat-form-field>  
+	</div>
+	<div  >
+		<button class="btn btn-round btn-mat btn-disabled btn-danger" style="width: 48%" (click)="onEmail()">Submit</button>
+	</div>
+	</div>
+	
+</div>

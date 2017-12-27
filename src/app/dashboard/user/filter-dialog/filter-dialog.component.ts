@@ -19,29 +19,64 @@ export class FilterDialogComponent implements OnInit {
   waitLoader
   selectedData
   listBlock
+  selectedBlock
   stateResource:StateResource=new StateResource()
 	constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<FilterDialogComponent>,
   	@Inject(MAT_DIALOG_DATA) public data: any,private stateService:StateService) {
     this.selectedData={}
-    this.stateListState=this.stateResource.state
+    this.stateListState=this.data.state
+    if (this.stateListState[0].check==true) {
+     let a=[]
+     let b=[]
+     a.push(this.stateListState[0].name)
+     this.selectedData.state=a
+     for (let  i = 0; i<this.stateListState[0].dist.length; i++) {
+        if (this.stateListState[0].dist[i].check==true) {
+          b.push(this.stateListState[0].dist[i].name)
+        }
+     }
+    this.selectedData.dist=b
+    }
+    this.getDistList()
 
   }
+   getDistList(){
+     let stateData=this.stateListState.slice()
+     this.stateListDist=stateData.filter(arg=>arg.check==true)
+     let dist=[]
+     for (var i =0; i<this.stateListDist.length; i++) {
+          let obj=this.stateListState[i]
+          dist=dist.concat(obj.dist)
+      }
+    this.listDist=dist
+    this.getBlocList()
+   }
 
+   getBlocList(){
+       let distData= this.listDist.slice()
+       this.stateListBlock=distData.filter(arg=>arg.check==true)
+       let block=[]
+       for (var i =0; i<this.stateListBlock.length; i++) {
+            let obj=this.stateListBlock[i]
+            block=block.concat(obj.block)
+        }
+      this.listBlock=block
+   }
   	ngOnInit() {
-  	  this.stateService.getStates()
-                .then(data => {
-                    this.stateList = data;
-                    // this.stateListState=data
-                    // this.stateListBlock
-                    // this.stateListDist
-                    // this.userData=data.response;
-                    // this.userDataBackup=data.response
+  	  // this.stateService.getStates()
+     //            .then(data => {
+     //                this.stateList = data;
+     //                // this.stateListState=data
+     //                // this.stateListBlock
+     //                // this.stateListDist
+     //                // this.userData=data.response;
+     //                // this.userDataBackup=data.response
                     
-                },error=>{
+     //            },error=>{
                      
-                    alert(error)
-                    this.waitLoader = false;
-                })
+     //                alert(error)
+     //                this.waitLoader = false;
+     //            })
   	}
 
   	onClosed(){
@@ -151,4 +186,22 @@ getBlockStatus(i){
      }
    }
  }
+ getSelectedBlock(){
+  this.selectedBlock=this.listBlock.filter(arg=>arg.check==true)
+ }
+clearAll(){
+  for (let i = 0; i < this.listBlock.length; i++) {
+    this.listBlock[i].check=false
+  }
+  this.selectedBlock=this.listBlock.filter(arg=>arg.check==true)
+}
+selectAll(){
+for (let i = 0; i < this.listBlock.length; i++) {
+    this.listBlock[i].check=true
+  }
+  this.selectedBlock=this.listBlock.filter(arg=>arg.check==true)
+}
+onSave(){
+  this.dialogRef.close({state:this.selectedData.state,dist:this.selectedData.dist,block:this.selectedBlock});
+}
 }

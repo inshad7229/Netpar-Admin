@@ -1,8 +1,8 @@
 <div class="modal-header">
 	<h4 class="modal-title" >Languages <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
 </div>
-<div class="modal-body">
-    <mat-list>
+<div class="modal-body" style="width: 400px;">
+    <mat-list *ngIf="language && language.length>0">
 		<mat-list-item *ngFor="let lang Of language">{{lang.language}} </mat-list-item>
 		<!-- <mat-list-item> Hindi </mat-list-item>
 		<mat-list-item> Punjabi </mat-list-item>
@@ -11,4 +11,5 @@
 		<mat-list-item> English </mat-list-item> -->
 
 	</mat-list>
+	<p *ngIf="!language || language.length==0">No languages active for this admin</p>
 </div>

@@ -7,9 +7,9 @@ import { ToastsManager , Toast} from 'ng2-toastr';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import {DndModule} from 'ng2-dnd';
-import {ColorPickerService} from 'angular4-color-picker';
+// import {ColorPickerService} from 'angular4-color-picker';
 import {MatSort} from '@angular/material';
-import {DataTableModule} from "angular2-datatable";
+// import {DataTableModule} from "angular2-datatable";
 import {DataSource} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -88,8 +88,9 @@ export class CommentComponent implements OnInit {
     commentListBackup
     limitedFilter
     limit
+    filterApplyStatus:boolean=false
     stringResource:StringResource=new  StringResource()
-  constructor(private dialog: MatDialog, private cpService: ColorPickerService,
+  constructor(private dialog: MatDialog, 
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
             vcr: ViewContainerRef,
             public toastr: ToastsManager,
@@ -133,7 +134,7 @@ export class CommentComponent implements OnInit {
                     this.waitLoader = false;
                     if (data.success==true) {
                       // code...
-                      this.commentData=data.response;
+                      this.commentData=data.response.filter(arg=>arg.deleteStatus==false);
                       this.commentList=data.response.filter(arg=>arg.deleteStatus==false)
                       this.commentListBackup=this.commentList.slice(0); 
                     }
@@ -224,7 +225,7 @@ export class CommentComponent implements OnInit {
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   this.waitLoader =false;
@@ -237,7 +238,7 @@ export class CommentComponent implements OnInit {
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This section do not have any category')
                       // code...
@@ -255,7 +256,7 @@ export class CommentComponent implements OnInit {
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This category do not have any subcategory')
                       // code...
@@ -444,6 +445,7 @@ export class CommentComponent implements OnInit {
                         }
                         else if (data.success == true) {
                           this.waitLoader =false;
+                          this.filterApplyStatus=true
                            //this.commentList=data.response;
                            if (this.filterRequest.Deleted) {
                             this.commentList=data.response.filter(arg=>arg.deleteStatus==true)
@@ -519,6 +521,7 @@ export class CommentComponent implements OnInit {
             this.Reviewed=false;
             this.Deleted=false;
             this.Needtoreview=false;
+            this.filterApplyStatus=false
             this.commentList=this.commentBackup.slice(0)
              for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
@@ -557,8 +560,61 @@ export class CommentComponent implements OnInit {
       }
     }
 onRange(range){
-
+  //alert(range)
+  if (this.filterApplyStatus) {
+     this.commentList=this.commentListBackup.filter(arg=>this.getStatus(arg.dateOfComment,range)==true)
+  }else{
+    this.commentList=this.commentData.filter(arg=>this.getStatus(arg.dateOfComment,range)==true) 
+  }
 }
+getStatus(time,range):boolean {
+  let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(time);
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  console.log(diffDays)
+  switch (range) {
+        case '7d':
+         console.log('7d')
+          if (diffDays<8) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '15d': 
+        if (diffDays<16) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '1m': 
+        if (diffDays<31) {
+             return true;
+           }else{
+             return false;
+           }
+        case '3m':
+        if (diffDays<91) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '6m': 
+        if (diffDays<181) {
+             return true;
+           }else{
+             return false;
+           }
+        case '1y': 
+        if (diffDays<365) {
+             return true;
+           }else{
+             return false;
+           }
+        case 'all':return true
+        default: return false;
+      }
+ }
   
 }
 

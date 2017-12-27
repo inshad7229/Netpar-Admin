@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatListModule} from '@angular/material';
 import {UserService} from '../../../providers/user.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import {AppProvider} from '../../../providers/app.provider'
 
 @Component({
   selector: 'app-media-dialog',
@@ -13,7 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MediaDialogComponent implements OnInit {
   media
   constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<MediaDialogComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any,private sanitizer: DomSanitizer,private userProvider:UserService) {
+  @Inject(MAT_DIALOG_DATA) public data: any,private sanitizer: DomSanitizer,private userProvider:UserService,private appProvider:AppProvider) {
     this.media=data
    }
 

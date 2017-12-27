@@ -7,14 +7,15 @@ import { ToastsManager , Toast} from 'ng2-toastr';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import {DndModule} from 'ng2-dnd';
-import {ColorPickerService} from 'angular4-color-picker';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+// import {ColorPickerService} from 'angular4-color-picker';
 
 import { NgxCroppieComponent } from 'ngx-croppie';
 import { ViewDialogComponent } from './view-dialog/view-dialog.component';
 import { ContentViewDialogComponent } from './content-view-dialog/content-view-dialog.component';
 
 import {MatSort} from '@angular/material';
-import {DataTableModule} from "angular2-datatable";
+// import {DataTableModule} from "angular2-datatable";
 import {DataSource} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -28,7 +29,12 @@ import {AddContentRequest} from '../../models/content.modal'
 import {AppProvider} from '../../providers/app.provider'
 import {AdminService} from '../../providers/admin.service'
 import {ContentService} from '../../providers/content.service'
+import {UserService} from '../../providers/user.service';
+import {ExcelService} from '../../providers/excel/excel.service';
 import { Sort } from '@angular/material';
+// import Clipboard from 'clipboard';
+import {Clipboard} from 'ts-clipboard';
+import { forkJoin } from "rxjs/observable/forkJoin";
 
 declare var jquery:any;
 declare var $ :any;
@@ -37,7 +43,7 @@ declare var $ :any;
   selector: 'app-view-content',
   templateUrl: './view-content.component.html',
   styleUrls: ['./view-content.component.scss'],
-  providers:[ContentService,AdminService,SectionService]
+  providers:[ContentService,AdminService,SectionService,UserService,ExcelService]
 })
 export class ViewContentComponent implements OnInit {
     waitLoader
@@ -62,7 +68,7 @@ export class ViewContentComponent implements OnInit {
     selectedId=[]
     status=[
       {
-        _id:"saveAsDraftStatus",
+        _id:"मुकुल",
         value:"Draft",
         check:false
 
@@ -110,8 +116,11 @@ export class ViewContentComponent implements OnInit {
     publishStatus:boolean;
     limit:number
     limitedFilter
+    filterApplyStatus:boolean=false
+    dataForSorting:any
+    userData
     stringResource:StringResource=new  StringResource()
-  	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
+  	constructor(private dialog: MatDialog,
             private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
             vcr: ViewContainerRef,
             public toastr: ToastsManager,
@@ -119,7 +128,10 @@ export class ViewContentComponent implements OnInit {
             private sectionService:SectionService,
             private appProvider: AppProvider,
             private adminService:AdminService,
-            private contentService:ContentService) {
+            private contentService:ContentService,
+            private userProvider:UserService,
+            private excelService: ExcelService) {
+
                 this.toastr.setRootViewContainerRef(vcr);
                 this.filterValue={}
                 this.filterRequest={} 
@@ -174,11 +186,13 @@ export class ViewContentComponent implements OnInit {
     }
     getList(){
       this.waitLoader = true;
-     this.contentService.ongetContentList()
+     forkJoin([  this.contentService.ongetContentList(),this.userProvider.onGetAllUser()])
             .subscribe(data =>{
                         this.waitLoader = false;
-                        this.contentBackup=data.response;
-                        this.contentList=data.response
+                        this.contentBackup=data[0].response.filter(arg=>arg.deleteStatus!=true);;
+                        this.contentList=data[0].response.filter(arg=>arg.deleteStatus!=true);
+                        this.dataForSorting=data[0].response.filter(arg=>arg.deleteStatus!=true);
+                         this.userData=data[1].response;
                         this.contentListBackup=this.contentList.slice(0);        
                         // this.localAdminList=data.response;
                    // console.log(JSON.stringify(data))
@@ -207,7 +221,7 @@ export class ViewContentComponent implements OnInit {
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   this.waitLoader =false;
@@ -219,7 +233,7 @@ export class ViewContentComponent implements OnInit {
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This section do not have any category')
                       // code...
@@ -236,7 +250,7 @@ export class ViewContentComponent implements OnInit {
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This category do not have any subcategory')
                       // code...
@@ -403,22 +417,84 @@ export class ViewContentComponent implements OnInit {
              
       }
       onApplyFilter(){
+        // let demo=[]
+        //   if (this.filterLanguage.length>0 ) {
+        //   this.filterRequest.language={
+        //      $in:this.filterLanguage
+        //    }
+        //     demo.push({language:this.filterRequest.language})
+        //   }else{
+        //     delete(this.filterRequest.language)
+        //   }
+
+        //   if (this.filterSection.length>0) {
+        //     // code...
+        //       this.filterRequest.sectionId={
+        //        $in:this.filterSection
+        //     }
+        //      demo.push({sectionId:this.filterRequest.sectionId})
+        //   }else{
+        //     delete(this.filterRequest.sectionId)
+        //   }
+        //   if (this.filterCategory.length>0) {
+        //     // code...
+        //     let category=[]
+        //     for(let i=0;i<this.filterCategory.length;i++){
+        //       category.push(this.filterCategory[i]._id)
+        //     }
+        //    this.filterRequest.categoryId={
+        //      $in:category}
+        //       demo.push({categoryId:this.filterRequest.categoryId})
+        //   }else{
+        //     delete(this.filterRequest.categoryId)
+        //   }
+        //   if (this.filterSubcategory.length>0 ) {
+        //     let subCategory=[]
+        //     for(let i=0;i<this.filterSubcategory.length;i++){
+        //       subCategory.push(this.filterSubcategory[i]._id)
+        //     }
+        //   this.filterRequest.subCategoryId=
+        //    {$in:subCategory}
+        //    demo.push({subCategoryId:this.filterRequest.subCategoryId})
+        //   }else{
+        //     delete(this.filterRequest.subCategoryId)
+        //   }
+
+        //    if(this.filterRequest.saveAsDraftStatus){
+        //          demo.push({saveAsDraftStatus:this.filterRequest.saveAsDraftStatus})
+        //     }
+        //     if(this.filterRequest.rejectStatus){
+        //        demo.push({rejectStatus:this.filterRequest.rejectStatus})
+              
+        //     }
+        //     if(this.filterRequest.sendForRevisionStatus){
+        //            demo.push({sendForRevisionStatus:this.filterRequest.sendForRevisionStatus})
+              
+        //     }
+        //     if(this.filterRequest.publishLaterStatus){
+        //           demo.push({publishLaterStatus:this.filterRequest.publishLaterStatus})
+              
+        //     }
+        //     if(this.filterRequest.publishStatus){
+        //         demo.push({publishStatus:this.filterRequest.publishStatus})
+        //     }
+      
+
+
+
         let demo=[]
           if (this.filterLanguage.length>0 ) {
-          this.filterRequest.language={
-             $in:this.filterLanguage
-           }
-            demo.push({language:this.filterRequest.language})
+          this.filterRequest.language=this.filterLanguage
+            //demo.push({language:this.filterRequest.language})
           }else{
             delete(this.filterRequest.language)
           }
 
           if (this.filterSection.length>0) {
             // code...
-              this.filterRequest.sectionId={
-               $in:this.filterSection
-            }
-             demo.push({sectionId:this.filterRequest.sectionId})
+              this.filterRequest.sectionId=this.filterSection
+        
+             //demo.push({sectionId:this.filterRequest.sectionId})
           }else{
             delete(this.filterRequest.sectionId)
           }
@@ -428,9 +504,8 @@ export class ViewContentComponent implements OnInit {
             for(let i=0;i<this.filterCategory.length;i++){
               category.push(this.filterCategory[i]._id)
             }
-           this.filterRequest.categoryId={
-             $in:category}
-              demo.push({categoryId:this.filterRequest.categoryId})
+           this.filterRequest.categoryId=category
+              //demo.push({categoryId:this.filterRequest.categoryId})
           }else{
             delete(this.filterRequest.categoryId)
           }
@@ -439,9 +514,9 @@ export class ViewContentComponent implements OnInit {
             for(let i=0;i<this.filterSubcategory.length;i++){
               subCategory.push(this.filterSubcategory[i]._id)
             }
-          this.filterRequest.subCategoryId=
-           {$in:subCategory}
-           demo.push({subCategoryId:this.filterRequest.subCategoryId})
+          this.filterRequest.subCategoryId=subCategory
+           // {$in:subCategory}
+           // demo.push({subCategoryId:this.filterRequest.subCategoryId})
           }else{
             delete(this.filterRequest.subCategoryId)
           }
@@ -466,13 +541,15 @@ export class ViewContentComponent implements OnInit {
             }
       
           let demo2=[];
-          demo2.push({$or:demo})
+          // demo2.push({$or:demo})
+          demo2.push(demo)
            demo2.push({deleteStatus:false})
            let demo3={
              $and:demo2
            }
+         this.filterRequest.deleteStatus=false
          this.waitLoader =true;
-              this.contentService.onApplyFilter(demo3)
+              this.contentService.onApplyFilter(this.filterRequest)
               .subscribe(data => {
                      if (data.success == false) {
                            this.waitLoader =false;
@@ -484,11 +561,13 @@ export class ViewContentComponent implements OnInit {
                         else if (data.success == true) {
                           this.waitLoader =false;
                            this.contentList=data.response;
+                           this.dataForSorting=data.response;
                            this.contentListBackup=this.contentList.slice(0);
                            this.filterLanguageFilterPan=this.filterLanguage.slice(0);
                            this.filterSectionFilterPan=this.filterSection.slice(0);
                            this.filterCategoryFilterPan=this.filterCategory.slice(0);
                            this.filterSubcategoryFilterPan=this.filterSubcategory.slice(0);
+                           this.filterApplyStatus=true
                             if(this.filterRequest.saveAsDraftStatus){
                                  this.saveAsDraftStatus=true; 
                             }
@@ -584,6 +663,10 @@ export class ViewContentComponent implements OnInit {
             this.filterSectionFilterPan=[]
             this.filterCategoryFilterPan=[]
             this.filterSubcategoryFilterPan=[]
+            this.filterLanguage=[]
+            this.filterSection=[]
+            this.filterCategory=[]
+            this.filterSubcategory=[]
             this.saveAsDraftStatus=false;
             this.rejectStatus=false;
             this.sendForRevisionStatus=false;
@@ -593,7 +676,15 @@ export class ViewContentComponent implements OnInit {
             this.selectedSate=null
             this.filterValue.state=null
             this.filterValue.language=null
+            this.contentListBackup=null
+            this.filterApplyStatus=false
+            this.filterRequest.saveAsDraftStatus=false
+            this.filterRequest.rejectStatus=false
+            this.filterRequest.sendForRevisionStatus=false
+            this.filterRequest.publishLaterStatus=false
+            this.filterRequest.publishStatus=false
             this.contentList=this.contentBackup.slice(0)
+            this.dataForSorting=this.contentBackup.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
             }
@@ -664,7 +755,7 @@ onCheckBox(_id){
    sortData(sort: Sort) {
     //  this.contentBackup
     // this.contentList
-    const data =this.contentBackup.slice();
+    const data =this.dataForSorting.slice();
     if (!sort.active || sort.direction == '') {
       this.contentList = data;
       
@@ -708,9 +799,233 @@ onCheckBox(_id){
       }
     }
 onRange(range){
-
+  //alert(range)
+  if (this.filterApplyStatus) {
+     this.contentList=this.contentListBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true)
+  }else{
+    this.contentList=this.contentBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true) 
+  }
+  this.dataForSorting=this.contentList
 }
-      
+onCopyLink(id){
+  let a="http://europa.promaticstechnologies.com/netpar-pwa-dev/#/shareArticle/"+id
+  Clipboard.copy(a);
+  this.toastr.info('Article link copied,You can share now')
+}
+getStatus(time,range):boolean {
+  let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(time);
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  console.log(diffDays)
+  switch (range) {
+        case '7d':
+         console.log('7d')
+          if (diffDays<8) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '15d': 
+        if (diffDays<16) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '1m': 
+        if (diffDays<31) {
+             return true;
+           }else{
+             return false;
+           }
+        case '3m':
+        if (diffDays<91) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '6m': 
+        if (diffDays<181) {
+             return true;
+           }else{
+             return false;
+           }
+        case '1y': 
+        if (diffDays<365) {
+             return true;
+           }else{
+             return false;
+           }
+        case 'all':return true
+        default: return false;
+      }
+ } 
+
+onApply(id){
+ let contentData=this.contentBackup.filter(arg=>arg._id==id)
+  let contentDetails=[]
+  let userDetails=[]
+  contentDetails.push({'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                       })
+  for (let i =0;  i < this.userData.length; i++) {
+   if(contentData[0].apply.indexOf(this.userData[i]._id)!=-1){
+   userDetails.push({
+                      'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                      'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'State':this.userData[i].state,'District':this.userData[i].district,
+                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
+   }
+  }
+  let dialogRef = this.dialog.open(downloadContentConfirmation, {
+            width: '380px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+           if (result=='excel') {
+            this.excel(userDetails,'interested')
+          }else if (result.flag=='email') {
+             this.email(userDetails,'interested',result.email)
+          }
+   });
+}
+onCall(id){
+  let contentData=this.contentBackup.filter(arg=>arg._id==id)
+  let contentDetails=[]
+  let userDetails=[]
+  contentDetails.push({'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName
+                       })
+  for (let i =0;  i < this.userData.length; i++) {
+   if(contentData[0].call.indexOf(this.userData[i]._id)!=-1){
+    userDetails.push({
+                      'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                      'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'State':this.userData[i].state,'District':this.userData[i].district,
+                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
+   }
+  }
+
+   let dialogRef = this.dialog.open(downloadContentConfirmation, {
+            width: '400px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+           if (result=='excel') {
+            this.excel(userDetails,'interested')
+          }else if (result.flag=='email') {
+             this.email(userDetails,'interested',result.email)
+          }
+   });
+}
+onCallMeBack(id){
+  let contentData=this.contentBackup.filter(arg=>arg._id==id)
+  let contentDetails=[]
+  let userDetails=[]
+  contentDetails.push({'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                       })
+  for (let i =0;  i < this.userData.length; i++) {
+   if(contentData[0].callmeback.indexOf(this.userData[i]._id)!=-1){
+   userDetails.push({
+                      'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                      'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'State':this.userData[i].state,'District':this.userData[i].district,
+                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
+   }
+  }
+
+   let dialogRef = this.dialog.open(downloadContentConfirmation, {
+            width: '400px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result=='excel') {
+            this.excel(userDetails,'interested')
+          }else if (result.flag=='email') {
+             this.email(userDetails,'interested',result.email)
+          }
+   });
+//  this.excelService.exportAsExcelFile(contentDetails, userDetails,'callmeback');
+//   new Angular2Csv(this.status, 'My Report');
+// alert(id)
+}
+onIntrested (id) {
+ 
+   let contentData=this.contentBackup.filter(arg=>arg._id==id)
+  let contentDetails=[]
+  let userDetails=[]
+  // contentDetails.push({'Headline':contentData[0].headline,
+  //                     'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+  //                     'Section Name':contentData[0].sectionName,
+  //                     'Category Name':contentData[0].categoryName,
+  //                     'SubCategory Name':contentData[0].subCategoryName,
+  //                      })
+  for (let i =0;  i < this.userData.length; i++) {
+     console.log('bahar',this.userData[i]._id)
+   if(contentData[0].interested.indexOf(this.userData[i]._id)!=-1){
+     console.log('if',this.userData[i]._id)
+    userDetails.push({
+                      'Headline':contentData[0].headline,
+                      'Author':contentData[0].userList[0].firstName+' '+contentData[0].userList[0].firstName,
+                      'Section Name':contentData[0].sectionName,
+                      'Category Name':contentData[0].categoryName,
+                      'SubCategory Name':contentData[0].subCategoryName,
+                      'First Name':this.userData[i].firstName,'Last Name':this.userData[i].lastName,
+                      'State':this.userData[i].state,'District':this.userData[i].district,
+                      'Block':this.userData[i].block,'Mobile Number':this.userData[i].mobileNumber})
+   }
+  }
+ let dialogRef = this.dialog.open(downloadContentConfirmation, {
+            width: '400px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result=='excel') {
+            this.excel(userDetails,'interested')
+          }else if (result.flag=='email') {
+             this.email(userDetails,'interested',result.email)
+          }
+   });
+//  this.excelService.exportAsExcelFile(contentDetails, userDetails,'interested');
+//   new Angular2Csv(this.status, 'My Report');
+// alert(id)
+}
+excel(userDetails,fileName){
+  console.log(JSON.stringify(userDetails))
+    this.excelService.exportAsExcelFileSingle(userDetails,fileName);
+  } 
+  email(userDetails,fileName,email){
+      this.waitLoader = true;
+                this.contentService.onEmailExcel(userDetails,fileName,email)
+              .subscribe(data => {
+                  this.waitLoader = false;
+                  
+              },error=>{
+                  this.waitLoader =false;
+                  alert(error)
+              })
+  }   
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
@@ -869,6 +1184,44 @@ export class ContentConfirmation {
     this.dialogRef.close();
   }
 
+ 
+ 
+
+}
+
+
+@Component({
+  selector: 'downloadcontent-confirmation-dialog',
+  templateUrl: 'downloadContentConfirmation.html',
+})
+
+export class downloadContentConfirmation {
+   
+  msg;
+ emailstatus:boolean=false
+ email
+  constructor(
+    public dialogRef: MatDialogRef<downloadContentConfirmation>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+        private router: Router,
+        private appProvider: AppProvider,
+        public dialog: MatDialog) {
+      
+       }
+
+  onExcel(): void {
+    this.dialogRef.close('excel');
+    // this.homePage.onDelete(this.data.admin)
+  }
+   onEmail(): void {
+    this.dialogRef.close({email:this.email,flag:'email'});
+  }
+onEmailPress(){
+  this.emailstatus=true
+}
+onClosed(){
+   this.dialogRef.close();
+}
  
  
 

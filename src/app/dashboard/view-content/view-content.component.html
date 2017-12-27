@@ -224,7 +224,7 @@
                                                         </div>
                                                         <div class="cont-dtl">
                                                             <div>  {{content.headline}}</div>
-                                                            <div> <strong> Posted by: </strong> {{content.userList[0].firstName}} {{content.userList[0].lastName}}</div>
+                                                            <div *ngIf="content.userList && content.userList.length>0"> <strong> Posted by: </strong> {{content.userList[0].firstName}} {{content.userList[0].lastName}}</div>
                                                             <div class=""> 
                                                                 <a href="javascript:;">
                                                                     {{content.sectionName}} | <span class="dark_ylw">{{content.categoryName}}</span>
@@ -233,6 +233,9 @@
                                                             <div class="m-t-5"> 
                                                                 <a href="javascript:;" class="text-success" (click)="onView(content)"> <i class="fa fa-eye"></i> View </a> |
                                                                 <a href="javascript:;" class="text-danger" (click)="onEdit(content)"> <i class="fa fa-pencil" ></i> Edit </a>
+
+                                                                <!-- <input #foo [(ngModel)]="content._id" name="category_{{i}}" type="hidden"> -->
+                                                                | <a href="javascript:;" class="text-primary" (click)="onCopyLink(content._id)"> <i class="fa fa-clone" ></i> Copy </a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -242,9 +245,17 @@
                                                         <p> Creation: {{content.dateOfCreation}}</p>
                                                         <p *ngIf="content.submitForreview==true"> Submit for Review: <strong> {{content.submitforreviewDate}}</strong> </p>
                                                     </td>
-                                                    <td *ngIf="i<limit">{{content.likeCount}}</td> <td *ngIf="i<limit"> {{content.shareCount}}</td> <td *ngIf="i<limit">{{content.commentCount}}</td> <td *ngIf="i<limit"> 
-                                                    {{content.saveCount}}</td> <td *ngIf="i<limit"> {{content.downloadCount}}</td>
-                                                    <td *ngIf="i<limit"> {{content.applyCount}}</td> <td *ngIf="i<limit">{{content.callCount}}</td> <td *ngIf="i<limit">{{content.callMeBackCount}} </td> <td *ngIf="i<limit"> {{content.imIntrestedCount}} </td> 
+                                                    <td *ngIf="i<limit">{{content.likeCount}}</td>
+                                                    <td *ngIf="i<limit"> {{content.shareCount}}</td>
+                                                    <td *ngIf="i<limit">{{content.commentCount}}</td>
+                                                    <td *ngIf="i<limit">{{content.saveCount}}</td>
+                                                    <td *ngIf="i<limit"> {{content.downloadCount}}</td>
+
+                                                    <td  class="download_file" *ngIf="i<limit" (click)="onApply(content._id)"> {{content.applyCount}}</td>
+                                                    <td class="download_file" *ngIf="i<limit" (click)="onCall(content._id)">{{content.callCount}}</td>
+                                                    <td class="download_file" *ngIf="i<limit" (click)="onCallMeBack(content._id)">{{content.callMeBackCount}} </td>
+                                                    <td class="download_file" *ngIf="i<limit" (click)="onIntrested(content._id)"> {{content.imIntrestedCount}} </td> 
+                                                    
                                                     <td *ngIf="i<limit">{{content.pageView}}</td>
 
                                                 </tr>

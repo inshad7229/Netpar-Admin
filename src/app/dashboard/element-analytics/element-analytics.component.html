@@ -70,19 +70,19 @@
                                                 <i class="material-icons">tune</i>
                                             </a>
                                             <ul class="dropdown-menu">
-                                            	<mat-radio-group>
-													<li> <a> <mat-radio-button value="8">  Number of comments   </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="9">  Number of Shares     </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="9">  Number of likes      </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="10"> Number of saves      </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="11"> Number of downloads  </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="4">  Page views           </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="12"> Unique views         </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="1"> No of click on apply  </mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="2"> No of click on i'm interested</mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="3"> No of click on call me</mat-radio-button> </a> </li>
-													<li> <a> <mat-radio-button value="5"> No of click on call</mat-radio-button> </a> </li>
-												</mat-radio-group>
+                                                <mat-radio-group [(ngModel)]="limitedFilter.sort" name="multiSort" (change)="onSortMulti(limitedFilter.sort)">
+                                                    <li> <a> <mat-radio-button value="comment">  Number of comments   </mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="share">  Number of Shares     </mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="Kadak">  Number of likes      </mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="save"> Number of saves      </mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="download"> Number of downloads  </mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="pageViews">  Page views           </mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="uniquePage"> Unique views         </mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="apply"> No of click on apply  </mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="interested"> No of click on i'm interested</mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="call_Me_Back"> No of click on call me</mat-radio-button> </a> </li>
+                                                    <li> <a> <mat-radio-button value="call"> No of click on call</mat-radio-button> </a> </li>
+                                                </mat-radio-group>
                                             </ul>
                                         </div>
 	                                </div>
@@ -90,67 +90,70 @@
 
                                 <div class="row">
 	                                <div class="dshbrd-table table-responsive">
-	                                	<table class="table table-striped user-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+	                                	<table class="table table-striped user-table" matSort (matSortChange)="sortData($event)">
 	                                        <thead class="text-danger">
 		                                        <tr>
 		                                            <th> Name Of Element </th>
-		                                            <th colspan="2"> Views </th>
+		                                            <th colspan="3"> Views </th>
 		                                            <th colspan="5"> User Engagement Buttons </th>
 		                                            <th colspan="4"> Call to action Buttons </th>
 		                                        </tr>
 		                                        <tr>
                                                     <th> </th>
-                                                    <th><mfDefaultSorter by="page">Page Views</mfDefaultSorter> </th>
-                                                    <th><mfDefaultSorter by="unique"> Unique Views</mfDefaultSorter> </th>
-                                                    <th>
+                                                    <th  mat-sort-header="pageViews">Page Views</th>
+                                                    <th  mat-sort-header="uniquePage">Unique Views</th>
+                                                    <th  mat-sort-header="continue"> Continue Reading </th>
+                                                   <th class="icon-wdth" mat-sort-header="Kadak">
                                                         <a matTooltipPosition="above" matTooltip="Kadak" class="tltip_ico">
-                                                            <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter>  -->
+                                                            <i class="icon-okay"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="share">
                                                         <a matTooltipPosition="above" matTooltip="Share" class="tltip_ico">
-                                                            <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="share"> <i class="fa fa-share-alt"></i> </mfDefaultSorter>  -->
+                                                            <i class="fa fa-share-alt"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="comment">
                                                         <a matTooltipPosition="above" matTooltip="Comment" class="tltip_ico">
-                                                            <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> 
+                                                           <!--  <mfDefaultSorter by="comment"> <i class="icon-msg"></i> </mfDefaultSorter> --> <i class="icon-msg"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="save">
                                                         <a matTooltipPosition="above" matTooltip="Save" class="tltip_ico">
-                                                            <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="square"> <i class="icon-badge"></i> </mfDefaultSorter> --> <i class="icon-badge"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="download">
                                                         <a matTooltipPosition="above" matTooltip="Download" class="tltip_ico">
-                                                            <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="download"> <i class="icon-donload"></i> </mfDefaultSorter>  --><i class="icon-donload"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="apply">
                                                         <a matTooltipPosition="above" matTooltip="Apply" class="tltip_ico">
-                                                            <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="text"> <i class="icon-check"></i> </mfDefaultSorter>  --><i class="icon-check"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="call">
                                                         <a matTooltipPosition="above" matTooltip="Call" class="tltip_ico">
-                                                            <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter> 
+                                                           <!--  <mfDefaultSorter by="phone"> <i class="icon-call"></i> </mfDefaultSorter>  --><i class="icon-call"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="call_Me_Back">
                                                         <a matTooltipPosition="above" matTooltip="Call Me Back" class="tltip_ico">
-                                                            <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="volume"> <i class="icon-callme"></i> </mfDefaultSorter>  --><i class="icon-callme"></i>
                                                         </a>
                                                     </th>
-                                                    <th>
+                                                    <th class="icon-wdth" mat-sort-header="interested">
                                                         <a matTooltipPosition="above" matTooltip="I'm Interested" class="tltip_ico">
-                                                            <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter> 
+                                                            <!-- <mfDefaultSorter by="check"> <i class="icon-click"></i> </mfDefaultSorter>  --><i class="icon-click"></i>
                                                         </a>
                                                     </th>
                                                 </tr>
 		                                    </thead>
 		                                    <tbody *ngIf="contentData">
-		                                        <tr>
+		                                       <!--  <tr>
 		                                            <td class="text-left">
                                                         Text Only
                                                     </td>
@@ -285,13 +288,31 @@
                                                     <td> {{getCallMeBAck('Text + Multiple')}} </td>
                                                     <td> {{getIntrested('Text + Multiple')}} </td>
 
+                                                </tr> -->
+                                                <tr *ngFor="let data of arrangedData">
+                                                    <td class="text-left">
+                                                        {{data.tag}}
+                                                    </td>
+                                                    <td> {{data.pageView}} </td>
+                                                    <td> {{data.uniqueViews}} </td>
+                                                    <td> {{data.continueReading}} </td>
+                                                    <td> {{data.likeCount}} </td>
+                                                    <td> {{data.shareCount}} </td>
+                                                    <td> {{data.commentCount}} </td>
+                                                    <td> {{data.saveCount}} </td>
+                                                    <td> {{data.downloadCount}} </td>
+                                                    <td> {{data.applyCount}} </td>
+                                                    <td> {{data.callCount}} </td>
+                                                    <td> {{data.callMeBackCount}} </td>
+                                                    <td> {{data.imIntrestedCount}} </td>
+
                                                 </tr>
 
 		                                    </tbody>
 		                                    <tfoot>
 	                                            <tr>
 	                                                <td colspan="14">
-	                                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+	                                                    
 	                                                </td>
 	                                            </tr>
                                             </tfoot>

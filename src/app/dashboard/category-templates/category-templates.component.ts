@@ -33,7 +33,7 @@ export class CategoryTemplatesComponent implements OnInit {
                     }
                     else if (data[0].success == true || data[1].success == true) {
                      this.categortTemplateList=data[0].response;
-                     this.categoryList=data[1].response
+                     this.categoryList=data[1].response.filter(arg=>arg.deleteStatus!=true);
                   
                     }                 
                 },error=>{
@@ -96,22 +96,22 @@ getCategoryName(name){
   }
 }
 
-	config: SwiperOptions = {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        spaceBetween: 30,
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        coverflow: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows : true
-        }
-    };
+	// config: SwiperOptions = {
+ //        pagination: '.swiper-pagination',
+ //        paginationClickable: true,
+ //        nextButton: '.swiper-button-next',
+ //        prevButton: '.swiper-button-prev',
+ //        spaceBetween: 30,
+ //        effect: 'coverflow',
+ //        grabCursor: true,
+ //        centeredSlides: true,
+ //        slidesPerView: 'auto',
+ //        coverflow: {
+ //            rotate: 50,
+ //            stretch: 0,
+ //            depth: 100,
+ //            modifier: 1,
+ //            slideShadows : true
+ //        }
+ //    };
 }

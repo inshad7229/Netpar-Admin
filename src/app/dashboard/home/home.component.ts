@@ -100,10 +100,10 @@ export class HomeComponent implements OnInit {
             this.toastr.error( 'Something went worng please try again after some time !!','Error !!. ',{toastLife: 3000, showCloseButton: true});
         })
     }
-    openDialog(admin): void {
+    openDialog(admin,flag): void {
     let dialogRef = this.dialog.open(AdminConfirmation, {
-      width: '250px',
-      data: { admin: admin}
+      width: '330px',
+      data: { admin: admin,flag:flag}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -112,7 +112,18 @@ export class HomeComponent implements OnInit {
       // alert(JSON.stringify(result))
       if (result) {
           // code...
-        this.onDelete(result)
+          if (flag=='delete') {
+            this.onDelete(result)
+            // code...
+          }else{
+           this.onStatusChange(result)
+          }
+      }else{
+        if (flag=='status') {
+             this.getAdminList()
+            // code...
+          }
+       
       }
      // this.animal = result;
     });

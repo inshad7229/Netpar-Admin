@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewContainerRef } from '@angular/core';
-import {DataTableModule} from "angular2-datatable";
+// import {DataTableModule} from "angular2-datatable";
 import {SectionService} from '../../providers/section.service'
 import {ContentService} from '../../providers/content.service'
 import {AppProvider} from '../../providers/app.provider'
@@ -121,6 +121,8 @@ stringResource:StringResource=new  StringResource()
     sectiondataAfterFilter
     limitedFilter
     limit
+    dataForSorting
+    filterApplyStatus:boolean=false;
   constructor(private sectionService: SectionService, private contentService:ContentService,vcr: ViewContainerRef,
                       public toastr: ToastsManager) {
                 this.toastr.setRootViewContainerRef(vcr);
@@ -198,6 +200,7 @@ stringResource:StringResource=new  StringResource()
 
                         }
                     }
+                    this.dataForSorting=this.sectiondata.slice(0)
                     console.log(JSON.stringify(this.sectiondata))
                 }
             }, error => {
@@ -496,15 +499,18 @@ if(totalViews && totalSessions){
   }
 }
 getAvgTime(totalTime,totalSessions){
+  //console.log(totalTime)
   if(totalTime && totalSessions){
      let hourse
     let min
     if (totalTime>60) {
-       let totalmin=Math.floor(totalTime/60);
+      let time =parseInt(totalTime)
+      console.log(time)
+       let totalmin=Math.floor(time/60);
        let totalminPerSession=Math.floor(totalmin/totalSessions);
        if (totalminPerSession>60) {
-          hourse=Math.floor(totalminPerSession/60)
-          min=totalminPerSession%60
+          hourse=Math.round(totalminPerSession/60)
+          min=Math.round(totalminPerSession%60)
           return hourse+' Hours '+min+' Min'
        }else{
            return totalminPerSession+' Min'
@@ -522,7 +528,8 @@ getTotalTime(totalTime){
     let hourse
     let min
     if (totalTime>60) {
-       let totalmin=Math.floor(totalTime/60);
+       let time =parseInt(totalTime)
+       let totalmin=Math.floor(time/60);
        if (totalmin>60) {
           hourse=Math.floor(totalmin/60)
           min=totalmin%60
@@ -541,7 +548,7 @@ getTotalTime(totalTime){
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
                   if (data.response.length==0) {
                       this.toastr.info('This section do not have any category')
                       // code...
@@ -557,7 +564,7 @@ getTotalTime(totalTime){
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This category do not have any subategory')
                       // code...
@@ -574,7 +581,7 @@ getTotalTime(totalTime){
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -672,6 +679,8 @@ getTotalTime(totalTime){
        let finalData= this.dataAfterLanguage.concat(this.dataAfterSection,this.dataAfterCategory,this.dataAfterSubCategory);
        this.sectiondata=this.unique(finalData)
        this.sectiondataAfterFilter=this.unique(finalData)
+       this.dataForSorting=this.sectiondata
+       this.filterApplyStatus=true
        this.filterLanguageFilterPan=this.filterLanguage.slice(0);
        this.filterSectionFilterPan=this.filterSection.slice(0);
        this.filterCategoryFilterPan=this.filterCategory.slice(0);
@@ -716,6 +725,8 @@ unique(array){
             this.selectedSate=null
             this.filterValue.state=null
             this.filterValue.language=null
+            this.filterApplyStatus=false
+            this.dataForSorting=this.forFilterData.slice(0)
             this.sectiondata=this.forFilterData.slice(0)
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
@@ -750,14 +761,67 @@ unique(array){
       }
     }
 onRange(range){
-
+  //alert(range)
+  if (this.filterApplyStatus) {
+     this.sectiondata=this.sectiondataAfterFilter.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true)
+  }else{
+    this.sectiondata=this.forFilterData.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true) 
+  }
 }
+getStatus(time,range):boolean {
+  let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(time);
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  console.log(diffDays)
+  switch (range) {
+        case '7d':
+         console.log('7d')
+          if (diffDays<8) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '15d': 
+        if (diffDays<16) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '1m': 
+        if (diffDays<31) {
+             return true;
+           }else{
+             return false;
+           }
+        case '3m':
+        if (diffDays<91) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '6m': 
+        if (diffDays<181) {
+             return true;
+           }else{
+             return false;
+           }
+        case '1y': 
+        if (diffDays<365) {
+             return true;
+           }else{
+             return false;
+           }
+        case 'all':return true
+        default: return false;
+      }
+ }
 sortData(sort: Sort) {
     //  this.contentBackup
     // this.contentList
     // this.userData=data.response;
     //                 this.userDataBackup=data.response
-    const data =this.forFilterData.slice();
+    const data =this.dataForSorting.slice();
     if (!sort.active || sort.direction == '') {
       this.sectiondata = data;
       
@@ -775,18 +839,53 @@ sortData(sort: Sort) {
         case 'avgPerSession': return compare(this.getPageViewSession(a.totalViews,a.totalSessions),this.getPageViewSession(b.totalViews,b.totalSessions), isAsc);
         case 'totalTime': return compare(this.sortgetTotalTime(a.totalTime), this.sortgetTotalTime(b.totalTime), isAsc);
         case 'avgTime': return compare(this.sortgetAvgTime(a.totalTime,a.totalSessions), this.sortgetAvgTime(b.totalTime,b.totalSessions), isAsc);
-        case 'Like': return compare(this.sortgetLike(a), this.sortgetLike(b), isAsc);
+        case 'like': return compare(this.sortgetLike(a), this.sortgetLike(b), isAsc);
         case 'share': return compare(this.sortgetShare(a), this.sortgetShare(b), isAsc);
         case 'comment': return compare(this.sortgetComment(a), this.sortgetComment(b), isAsc);
         case 'save': return compare(this.sortgetSave(a), this.sortgetSave(b), isAsc);
         case 'download': return compare(this.sortgetDownload(a), this.sortgetDownload(b), isAsc);
         case 'apply': return compare(this.sortgetApply(a), this.sortgetApply(b), isAsc);
-        case 'Call': return compare(this.sortgetCall(a), this.sortgetCall(b), isAsc);
-        case 'CallMeBack': return compare(this.sortgetCallMeBAck(a), this.sortgetCallMeBAck(b), isAsc);
+        case 'call': return compare(this.sortgetCall(a), this.sortgetCall(b), isAsc);
+        case 'callMeBack': return compare(this.sortgetCallMeBAck(a), this.sortgetCallMeBAck(b), isAsc);
         case 'interested': return compare(this.sortgetIntrested(a), this.sortgetIntrested(b), isAsc);
 
          
 
+        default: return 0;
+      }
+    });
+  }
+
+    onSortMulti(value){
+      //alert(value)
+    const data =this.dataForSorting.slice();
+    if (!value || value == '') {
+      this.contentData = data;
+      
+      return;
+    }
+
+    this.sectiondata.sort((a, b) => {
+      //alert(value)
+      let isAsc =  'asc';
+      switch (value) {
+
+       case 'pageViews': return compare2(a.totalViews, b.totalViews, isAsc);
+        case 'uniquePage': return compare2(a.uniqueViews, b.uniqueViews, isAsc);
+        case 'avgPageDay': return compare2(this.getPageViewDay(a.totalViews,a.dateOfCreation), this.getPageViewDay(b.totalViews,b.dateOfCreation), isAsc);
+        case 'avgPageMonth': return compare2(this.getPageViewMonth(a.totalViews,a.dateOfCreation), this.getPageViewMonth(b.totalViews,b.dateOfCreation), isAsc);
+        case 'avgPerSession': return compare2(this.getPageViewSession(a.totalViews,a.totalSessions),this.getPageViewSession(b.totalViews,b.totalSessions), isAsc);
+        case 'totalTime': return compare2(this.sortgetTotalTime(a.totalTime), this.sortgetTotalTime(b.totalTime), isAsc);
+        case 'avgTime': return compare2(this.sortgetAvgTime(a.totalTime,a.totalSessions), this.sortgetAvgTime(b.totalTime,b.totalSessions), isAsc);
+        case 'like': return compare2(this.sortgetLike(a), this.sortgetLike(b), isAsc);
+        case 'share': return compare2(this.sortgetShare(a), this.sortgetShare(b), isAsc);
+        case 'comment': return compare2(this.sortgetComment(a), this.sortgetComment(b), isAsc);
+        case 'save': return compare2(this.sortgetSave(a), this.sortgetSave(b), isAsc);
+        case 'download': return compare2(this.sortgetDownload(a), this.sortgetDownload(b), isAsc);
+        case 'apply': return compare2(this.sortgetApply(a), this.sortgetApply(b), isAsc);
+        case 'call': return compare2(this.sortgetCall(a), this.sortgetCall(b), isAsc);
+        case 'callMeBack': return compare2(this.sortgetCallMeBAck(a), this.sortgetCallMeBAck(b), isAsc);
+        case 'interested': return compare2(this.sortgetIntrested(a), this.sortgetIntrested(b), isAsc);
         default: return 0;
       }
     });
@@ -1034,4 +1133,7 @@ sortgetTotalTime(totalTime){
 }
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+function compare2(a, b, isAsc) {
+  return (b-a) 
 }

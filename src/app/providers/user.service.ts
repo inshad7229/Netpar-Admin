@@ -4,6 +4,8 @@ import { ResponseContentType } from '@angular/http';
 import { Observable} from 'rxjs/Rx'
 import FileSaver from 'file-saver';
 import "rxjs"
+import {AppProvider} from './app.provider';
+
 
 
 import  {ENV} from '../env'
@@ -13,12 +15,27 @@ import  {ENV} from '../env'
 export class UserService {
 
 
-    constructor(private http: Http)
+    constructor(private http: Http,private appProvider:AppProvider)
     { }
 
 
      onGetAllUser():  Observable<any> {
         let api =  ENV.mainApi+"getAllMembers";
+         let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': localStorage['token']
+        });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(api,options).map(response => {
+            console.log("customer Info datais " + response);
+            return response.json();
+        }).catch(error => {
+            return error;
+        });
+    }
+
+    onDeleteUser(id){
+        let api =  ENV.mainApi+"deleteUser/"+id;
          let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': localStorage['token']
@@ -137,6 +154,7 @@ headers.append('method', 'GET');
 // })
 // }
 download(url,type) {
+    this.appProvider.current.loadingFlag=true
     let typeOfmedia
     let filenameMedia=url.split('/')
     let length=filenameMedia.length
@@ -158,6 +176,7 @@ download(url,type) {
             headers: new Headers({'Content-type': 'application/json'})
         }).subscribe(
             (response) => {
+                this.appProvider.current.loadingFlag=false
                 var blob = new Blob([response.blob()], {type: typeOfmedia});
                 var filename = filenameMedia[length-1];
                 FileSaver.saveAs(blob, filename);

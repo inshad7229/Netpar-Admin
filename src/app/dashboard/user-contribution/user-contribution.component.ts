@@ -6,6 +6,7 @@ import {StringResource} from '../../models/saredResources'
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { forkJoin } from "rxjs/observable/forkJoin";
 import {MediaDialogComponent} from './media-dialog/media-dialog.component'
+import {AppProvider} from '../../providers/app.provider'
 import 'rxjs/Rx'
 declare var jquery:any;
 declare var $ :any;
@@ -82,10 +83,12 @@ export class UserContributionComponent implements OnInit {
     Rejected
     limitedFilter
 limit
+filterApplyStatus:boolean=false
     stringResource:StringResource=new  StringResource()
   	constructor(private userProvider:UserService,private sectionService:SectionService,private dialog: MatDialog,
       vcr: ViewContainerRef,
-                      public toastr: ToastsManager
+                      public toastr: ToastsManager,
+                      private appProvider: AppProvider,
                       ) {
                           this.toastr.setRootViewContainerRef(vcr);
   		        this.filterValue={}
@@ -122,7 +125,7 @@ limit
                       this.userContriDataBackup=results[0].response;
                       this.userData=results[2].response;
                       this.userDataBackup=results[2].response;
-                      this.sectionsBack=results[1];
+                      this.sectionsBack=results[1].filter(arg=>arg.deleteStatus!=true);;
                       this.sections=this.sections.concat(this.sectionsBack)
                     }
                     
@@ -259,7 +262,7 @@ downloadFile(data: Response){
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (data.response.length==0) {
                       this.toastr.info('This section do not have any category')
                       // code...
@@ -276,7 +279,9 @@ downloadFile(data: Response){
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+
+
                     if (data.response.length==0) {
                       this.toastr.info('This category do not have any subcategory')
                       // code...
@@ -292,21 +297,22 @@ downloadFile(data: Response){
     getUserState(userId){
       let sec =this.userData.filter(arg=>arg._id==userId)
         if (sec.length>0) {
-            return sec[0].state;
+            return sec[0].stateRegional
+
         }
            //this.userData
     }
     getUserDistrict(userId){
       let sec =this.userData.filter(arg=>arg._id==userId)
         if (sec.length>0) {
-            return sec[0].district;
+            return sec[0].districtRegional;
         }
 
     }
     getUserBlock(userId){
       let sec =this.userData.filter(arg=>arg._id==userId)
         if (sec.length>0) {
-            return sec[0].block;
+            return sec[0].blockRegional;
         }
 
     }
@@ -478,6 +484,7 @@ onApplyFilter(){
        this.filterSectionFilterPan=this.filterSection.slice(0);
        this.filterCategoryFilterPan=this.filterCategory.slice(0);
        this.filterSubcategoryFilterPan=this.filterSubcategory.slice(0);
+       this.filterApplyStatus=true
        if (this.filterRequest.underReview) {
          this.underReview=true;
        }
@@ -683,6 +690,7 @@ unique(array){
             this.underReview=false
             this.Published=false
             this.Rejected=false
+            this.filterApplyStatus=false
             this.userContriData=this.userContriDataBackup
             for (let i=0;i<this.stringResource.language.length;i++) {
                this.stringResource.language[i].check=false
@@ -705,7 +713,7 @@ unique(array){
           if (type=='image' || type=='audio' || type=='video') {
             
                 let dialogRef = this.dialog.open(MediaDialogComponent, {
-                  width: '800px',
+                  width: '600px',
                   data:{url:url,type:type}
               });
               dialogRef.afterClosed().subscribe(result => {
@@ -736,6 +744,59 @@ unique(array){
       }
     }
 onRange(range){
-
+  //alert(range)
+  if (this.filterApplyStatus) {
+     this.userContriData=this.afterFilterUserContriData.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true)
+  }else{
+    this.userContriData=this.userContriDataBackup.filter(arg=>this.getStatus(arg.dateOfCreation,range)==true) 
+  }
 }
+getStatus(time,range):boolean {
+  let oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+  let firstDate = new Date();
+  let secondDate = new Date(time);
+  let diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+  console.log(diffDays)
+  switch (range) {
+        case '7d':
+         console.log('7d')
+          if (diffDays<8) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '15d': 
+        if (diffDays<16) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '1m': 
+        if (diffDays<31) {
+             return true;
+           }else{
+             return false;
+           }
+        case '3m':
+        if (diffDays<91) {
+             return true;
+           }else{
+             return false;
+           } 
+        case '6m': 
+        if (diffDays<181) {
+             return true;
+           }else{
+             return false;
+           }
+        case '1y': 
+        if (diffDays<365) {
+             return true;
+           }else{
+             return false;
+           }
+        case 'all':return true
+        default: return false;
+      }
+ }
 }

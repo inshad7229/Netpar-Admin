@@ -369,7 +369,7 @@ export class AddSectionComponent implements OnInit {
    let localValue=subValue.split(' ')
    let length=localValue.length
    let letstring=localValue[length-1]
-   let replcedstring=letstring.match(/[a-zA-Z]+/g);
+   let replcedstring=letstring.match(/[a-zA-Z0-9]+/g);
    let stringForSend
    if (replcedstring) {
      stringForSend=replcedstring[0]
@@ -380,7 +380,7 @@ export class AddSectionComponent implements OnInit {
    else if(stringForSend=='') {
        return 
      }
-   else if (/^[a-zA-Z]+$/.test(stringForSend)) {
+   else if (/^[a-zA-Z0-9]+$/.test(stringForSend)) {
     this.sendString=stringForSend.toString()
     this.translationService.onGetSuggetiion(stringForSend)
         .subscribe(data => {     

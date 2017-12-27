@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpModule, Http, JsonpModule } from "@angular/http";
 import { MatProgressBarModule } from "@angular/material";
+import { MatIconModule} from "@angular/material";
 import {MatCheckboxModule} from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material';
@@ -24,11 +25,14 @@ import { LoginComponent } from './login/login.component';
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
+
 
 
   ],
@@ -41,6 +45,7 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatProgressBarModule,
     MatSelectModule,
+    MatIconModule,
     MatProgressSpinnerModule,
     RouterModule.forRoot([]),
     

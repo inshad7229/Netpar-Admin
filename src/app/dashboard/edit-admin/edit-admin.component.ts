@@ -46,6 +46,7 @@ export class EditAdminComponent implements AfterViewInit {
     tempCustomerBase64
     data: any;
     disable: boolean;
+    emailConfirmationMsg: boolean;
     localImage: any
     options = [
     //{
@@ -709,7 +710,7 @@ export class EditAdminComponent implements AfterViewInit {
                     console.log('in get section ')
                     console.log(JSON.stringify(this.options))
                     this.waitLoader = false;
-                    this.sections=data;
+                    this.sections=data.filter(arg=>arg.deleteStatus!=true);;
                     for (let  i =0 ; i<this.sections.length; i++) {
                        var obj=this.sections[i]
                        // var obj2=[]
@@ -1101,5 +1102,33 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
       range.select();
     }
   }
+  email(){
+      if (this.register.alternativeEmail) {
+          if (this.register.alternativeEmail==this.register.email) {
+          this.emailConfirmationMsg=true
+          }else{
+             this.emailConfirmationMsg=false
+          }
+          // code...
+      }else{
+          this.emailConfirmationMsg=false
+      }
+
+
+  }
+confirmEmail(){
+    if (this.register.email) {
+       // alert('hy')
+          if (this.register.alternativeEmail==this.register.email) {
+              this.emailConfirmationMsg=true
+          }else{
+             this.emailConfirmationMsg=false
+          }
+          // code...
+      }else{
+          this.emailConfirmationMsg=false
+      }
+}
+
 }
 

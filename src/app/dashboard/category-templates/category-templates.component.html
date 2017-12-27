@@ -21,19 +21,19 @@
                                 <h4 class="card-title">Category Template</h4>
                                 <div class="row">
                                     <div class="template-table dshbrd-table table-responsive">
-                                        <table class="table table-striped user-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+                                        <table class="table table-striped user-table" >
                                             <thead class="text-danger">
                                                 <tr>
                                                     <th> Template </th>
                                                     <th> Template Name </th>
                                                     <th> Active In Category </th>
-                                                    <th> Start Time </th>
-                                                    <th> End Time </th>
+                                                    <th> Start Date &amp; Time </th>
+                                                    <th> End Date &amp; Time </th>
                                                 </tr>
                                                
                                             </thead>
-                                            <tbody>
-                                                <tr *ngFor="let list of categortTemplateList">
+                                            <tbody *ngIf="categortTemplateList">
+                                                <tr *ngFor="let list of categortTemplateList | orderBy">
                                                     <td class="text-center">
                                                         <div class="cont-img templt-img">
                                                             <img class="img-responsive" src="./assets/img/category-view/{{getImagePath(list.templateName)}}" />

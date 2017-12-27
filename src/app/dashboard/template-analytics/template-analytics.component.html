@@ -1,4 +1,7 @@
 <div class="wrapper">
+	 <div class="loader-box" *ngIf="waitLoader">
+         <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
     <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
         <app-sidebar></app-sidebar>
         <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
@@ -16,33 +19,55 @@
                             </div>
                             <div class="card-content">
                                 <h4 class="card-title">Template Analytics</h4>
-                                <mat-tab-group>
-								  	<mat-tab label="Category Template">
-								  		<div class="row">
+                                <div class="row">
+	                                <mat-tab-group>
+									  	<mat-tab label="Category Template">
+									  		
 			                                <div class="dshbrd-table table-responsive">
 			                                	<table class="table table-striped user-table" >
 			                                        <thead class="text-danger">
 				                                        <tr>
-				                                            <th> Section Name </th>
-				                                            <th> Category Name </th>
-				                                            <th> Time Period </th>
+				                                        	<th> Templates </th>
 				                                            <th> Category Template </th>
-				                                            <th> Click through Conversion </th>
-				                                            <th> Section-wise Click through rate </th>
+				                                            <th> Section Name </th>
+				                                            <th> Category Name </th>
+				                                            <th class="width-280"> Time Period </th>
+				                                            <th class="width-120"> Click through Conversion </th>
+				                                            <th class="width-120"> Section-wise Click through rate </th>
 				                                        </tr>
 				                                       
 				                                    </thead>
 				                                    <tbody>
-				                                        <tr>
-				                                        	<td> <a href="javascript:;"> News </a> </td>
+				                                        <tr *ngFor="let cat of categoryResult; let i=index">
+				                                        	<td>
+				                                        		<div class="cont-img templt-img">
+		                                                            <img class="img-responsive" src="./assets/img/category-view/{{getImagePath(cat.templateName)}}" />
+		                                                        </div>
+				                                        	</td>
+				                                        	<td> {{cat.templateName}} </td>
+				                                        	
+				                                        	<td> <div *ngFor="let catt of cat.categories" href="javascript:;"> {{catt.sectionName}} </div> </td>
 				                                            <td>
-				                                            	<a href="javascript:;">
-				                                            		News | <span class="dark_ylw">Sports News</span>
+				                                            	<div href="javascript:;" *ngFor="let catt of cat.categories">
+				                                            		{{catt.sectionName}} | <span class="dark_ylw">{{catt.categoryName}} </span>
+			                                                    </div>
+		                                                    </td>
+				                                            <td> <div  *ngFor="let catt of cat.categories ; let j=index">
+				                                            {{getSartDateTime(i,j)}} {{getStartTime(i,j)}} - {{geteEndDateTime(i,j)}} {{getEndTime(i,j)}} </div></td>
+				                                           <!--  <td> {{cat.templateName}} </td> -->
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
+				                                        </tr>
+				                                      <!--   <tr>
+				                                        	<td> <a *ngFor="let catt of cat.categories" href="javascript:;"> {{catt.sectionName}} </a> </td>
+				                                            <td>
+				                                            	<a href="javascript:;" *ngFor="let catt of cat.categories">
+				                                            		{{catt.sectionName}} | <span class="dark_ylw">{{catt.categoryName}} </span>
 			                                                    </a>
 		                                                    </td>
-				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
-				                                            <td> Sport News </td>
-				                                            <td> 300 </td>
+				                                            <td> <span  *ngFor="let catt of cat.categories">18th Aug, 09:00 AM - 19th Aug 10 PM </span></td>
+				                                            
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
 				                                            <td> 500 </td>
 				                                        </tr>
 				                                        <tr>
@@ -56,43 +81,63 @@
 				                                            <td> Sport News </td>
 				                                            <td> 300 </td>
 				                                            <td> 500 </td>
-				                                        </tr>
-				                                        <tr>
-				                                        	<td> <a href="javascript:;"> News </a> </td>
-				                                            <td>
-				                                            	<a href="javascript:;">
-				                                            		News | <span class="dark_ylw">Sports News</span>
-			                                                    </a>
-		                                                    </td>
-				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
-				                                            <td> Sport News </td>
-				                                            <td> 300 </td>
-				                                            <td> 500 </td>
-				                                        </tr>
+				                                        </tr> -->
 
 				                                    </tbody>
 			                                    </table>
-			                                </div>
-		                                </div>
-								  	</mat-tab>
-								  	<mat-tab label="Listing View Template">
-								  		<div class="row">
-			                                <div class="dshbrd-table table-responsive">
+				                            </div>
+		                                
+									  	</mat-tab>
+									  	<mat-tab label="Listing View Template">
+								  		    <div class="dshbrd-table table-responsive">
 			                                	<table class="table table-striped user-table" >
 			                                        <thead class="text-danger">
 				                                        <tr>
+				                                            <th> Templates </th>
+				                                            <th> Listing View Template </th>
 				                                            <th> Section Name </th>
 				                                            <th> Category Name </th>
-				                                            <th> Time Period </th>
-				                                            <th> Listing View Template </th>
-				                                            <th> Click through Conversion </th>
-				                                            <th> Section-wise Click through rate </th>
-				                                            <th> Avg. time spent / session </th>
+				                                            <th class="width-280"> Time Period </th>
+				                                            <th class="width-120"> Click through Conversion </th>
+				                                            <th class="width-120"> Section-wise Click through rate </th>
+				                                           <!--  <th> Avg. time spent / session </th> -->
 				                                        </tr>
 				                                       
 				                                    </thead>
 				                                    <tbody>
-				                                        <tr>
+				                                        <tr *ngFor="let cat of listingResult; let i=index">
+				                                        	<td>
+				                                        		<div class="cont-img templt-img">
+		                                                            <img class="img-responsive" src="./assets/img/listing-view/{{getImagePath2(cat.templateName)}}" />
+		                                                        </div>
+				                                        	</td>
+				                                        	<td> {{cat.templateName}} </td>
+				                                        	<td> <div *ngFor="let catt of cat.categories" href="javascript:;"> {{catt.sectionName}} </div> </td>
+				                                            <td>
+				                                            	<div href="javascript:;" *ngFor="let catt of cat.categories">
+				                                            		{{catt.sectionName}} | <span class="dark_ylw">{{catt.categoryName}} </span>
+			                                                    </div>
+		                                                    </td>
+				                                            <td> <div  *ngFor="let catt of cat.categories ; let j=index">
+				                                            {{getSartDateTimeList(i,j)}} {{getStartTimeList(i,j)}} - {{geteEndDateTimeList(i,j)}} {{getEndTimeList(i,j)}} </div></td>
+				                                           
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
+				                                           <!--  <td> 50 </td> -->
+				                                        </tr>
+				                                        <!-- <tr>
+				                                        	<td> <a href="javascript:;"> News </a> </td>
+				                                            <td>
+				                                            	<a href="javascript:;">
+				                                            		News | <span class="dark_ylw">Sports News</span>
+			                                                    </a>
+		                                                    </td>
+				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
+				                                            <td> Sport News </td>
+				                                            <td> {{cal(cat.totalClick,cat.totalViews)}} </td>
+				                                            <td> 500 </td>
+				                                        </tr> -->
+				                                        <!-- <tr>
 				                                        	<td> <a href="javascript:;"> News </a> </td>
 				                                            <td>
 				                                            	<a href="javascript:;">
@@ -103,41 +148,13 @@
 				                                            <td> Sport News </td>
 				                                            <td> 300 </td>
 				                                            <td> 500 </td>
-				                                            <td> 50 </td>
-				                                        </tr>
-				                                        <tr>
-				                                        	<td> <a href="javascript:;"> News </a> </td>
-				                                            <td>
-				                                            	<a href="javascript:;">
-				                                            		News | <span class="dark_ylw">Sports News</span>
-			                                                    </a>
-		                                                    </td>
-				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
-				                                            <td> Sport News </td>
-				                                            <td> 300 </td>
-				                                            <td> 500 </td>
-				                                            <td> 50 </td>
-				                                        </tr>
-				                                        <tr>
-				                                        	<td> <a href="javascript:;"> News </a> </td>
-				                                            <td>
-				                                            	<a href="javascript:;">
-				                                            		News | <span class="dark_ylw">Sports News</span>
-			                                                    </a>
-		                                                    </td>
-				                                            <td> 18th Aug, 09:00 AM - 19th Aug 10 PM</td>
-				                                            <td> Sport News </td>
-				                                            <td> 300 </td>
-				                                            <td> 500 </td>
-				                                            <td> 50 </td>
-				                                        </tr>
-
+				                                        </tr> -->
 				                                    </tbody>
 			                                    </table>
 			                                </div>
-		                                </div>
-								  	</mat-tab>
-								</mat-tab-group>
+									  	</mat-tab>
+									</mat-tab-group>
+								</div>
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,7 @@ import { ToastsManager , Toast} from 'ng2-toastr';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import {DndModule} from 'ng2-dnd';
-import {ColorPickerService} from 'angular4-color-picker';
+// import {ColorPickerService} from 'angular4-color-picker';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { EditorComponent } from './editor/editor.component';
 import { ImageResizerComponent } from './imageResizer/imageResizer.component';
@@ -169,14 +169,14 @@ export class AddContentComponent implements OnInit {
         if (this.imageUrl) {
             return this.imageUrl;
         }
-        return `http://placehold.it/${300}x${50}`;
+        return `http://placehold.it/${300}x${300}`;
     }
 
     public get croppieOptionsHorigontal(): CroppieOptions {
         const opts: CroppieOptions = {};
         opts.viewport = {
             width: parseInt('300', 10),
-            height: parseInt('50', 10)
+            height: parseInt('300', 10)
         };
         opts.boundary = {
             width: parseInt(this.widthPx, 10),
@@ -213,34 +213,8 @@ export class AddContentComponent implements OnInit {
     }
      stateCtrl: FormControl;
   filteredStates: Observable<any[]>;
-
-  states: any[] = [
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    }
-  ];
-	constructor(private dialog: MatDialog, private cpService: ColorPickerService,
+  youtubeUrl='<iframe width="560" height="315" src="https://www.youtube.com/embed/VpUEo28SQsU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>'
+	constructor(private dialog: MatDialog, 
 		        private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
 		        vcr: ViewContainerRef,
 		        public toastr: ToastsManager,
@@ -286,7 +260,7 @@ export class AddContentComponent implements OnInit {
 								'subCategoryName':[null],
 								'subCategoryId':[null],
 								'headline':[null , Validators.compose([Validators.required, Validators.maxLength(200)])],
-								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(100)])],
+								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(500)])],
 								'tags':[null],
 								'dateOfCreation':[null],
 								'typeOfUser':[null, Validators.compose([Validators.required])],
@@ -616,6 +590,9 @@ export class AddContentComponent implements OnInit {
        btn1:null,
        btn2:null,
        btn3:null,
+       count1:0,
+       count2:0,
+       count3:0,
        btn4:null,
        btn5:null,
       count:this.gridCount,
@@ -644,6 +621,12 @@ export class AddContentComponent implements OnInit {
        btn2:null,
        btn3:null,
        btn4:null,
+       count1:0,
+       count2:0,
+       count3:0,
+       phone1:null,
+       phone2:null,
+       phone3:null,
        count:this.gridCount,
       top1:'12px',bottom1:'12px',
       right1:'6px',left1:'6px',
@@ -668,6 +651,11 @@ export class AddContentComponent implements OnInit {
 		this.googleFromatata.tag="form"; 
 		// this.googleFromatata.url=null;
 	}
+  onRemoveGoogleForm(){
+    this.googleFromatata.tag="null"; 
+    this.googleFromatata.formURL=null
+    this.googleFromatata.url=null
+  }
 
 
 
@@ -676,7 +664,8 @@ export class AddContentComponent implements OnInit {
 		  this.listOne.push({tag:"apply",backgroundColor:'#FFFFFF',
           top:'10px',bottom:'10px',
           right:'10px',left:'10px',
-          outline:false
+          outline:false,
+          count:0
          })
 		// if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
   //         this.callToActionButton.push({tag:'button',title:'Apply',status:true})
@@ -687,7 +676,9 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          phone:null,
+          count:0
          })
 		// if (this.callToActionButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
   //          this.callToActionButton.push({tag:'button',title:'Call',status:true})
@@ -702,7 +693,9 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          phone:null,
+          count:0
          })
 	}
 	addIntrested(flag){
@@ -714,7 +707,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 	}
 	addlike(flag){
@@ -727,6 +721,7 @@ export class AddContentComponent implements OnInit {
           right:'6px',left:'6px',
           aligment:'center',
           outline:false,
+          count:0
          })
 	}
 	addshare(flag){
@@ -738,7 +733,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 	}
 	addcomment(flag){
@@ -750,7 +746,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 	}
 	addsave(flag){
@@ -758,7 +755,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 		// if (this.userEngaButton.map(function (img) { return img.title; }).indexOf(flag)==-1) {
   //        this.userEngaButton.push({tag:'button',title:"Save",status:true})
@@ -773,7 +771,8 @@ export class AddContentComponent implements OnInit {
           top:'12px',bottom:'12px',
           right:'6px',left:'6px',
           aligment:'center',
-          outline:false
+          outline:false,
+          count:0
          })
 	}
 
@@ -1070,10 +1069,13 @@ addownloadRight(Download){
   	   		 this.documentFileData[index].file=null
   	  	}
   	  }
-      if ((this.listOne[this.currentIndex].tag=='video' || this.listOne[this.currentIndex].tag=='audio' ) && this.ref) {
-      	//console.log(this.ref);
-      	this.ref.load();
-    	this.ref.play();
+      if (this.ref) {
+        if ((this.listOne[this.currentIndex].tag=='video' || this.listOne[this.currentIndex].tag=='audio' ) && this.ref) {
+        	//console.log(this.ref);
+        	this.ref.load();
+      	this.ref.play();
+        }
+        // code...
       }
 	}
 	onFormUrlChange(url){
@@ -1498,6 +1500,18 @@ addownloadRight(Download){
 	video(video1){
 		//console.log(video1)
 	}
+  onPhoneChange3(){
+  this.listOne[this.currentIndex].phone3=this.rightPan.phone3
+  }
+  onPhoneChange2(){
+  this.listOne[this.currentIndex].phone2=this.rightPan.phone2
+  }
+  onPhoneChange1(){
+  this.listOne[this.currentIndex].phone1=this.rightPan.phone1
+  }
+  onPhoneChange(){
+     this.listOne[this.currentIndex].phone=this.rightPan.phone
+  }
 onDeleteBody(){
   //alert('hy')
   this.listOne=[]
@@ -1667,7 +1681,7 @@ onDeleteBody(){
 	              this.sectionService.onGetSection()
 	            .subscribe(data => {
 	                this.waitLoader = false;
-	                this.sectionsData=data;
+	                this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);;
 	                if (this.addContentRequest.language) {
 	                     this.sections=data.filter(arg=>arg.language==this.addContentRequest.language);;
 	                }
@@ -1683,9 +1697,9 @@ onDeleteBody(){
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesData=data.response;
+                    this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true);
                      if (this.addContentRequest.language) {
-	                     this.categories=data.response.filter(arg=>arg.language==this.addContentRequest.language);;
+	                     this.categories=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }
                     //console.log(JSON.stringify(data))
                 },error=>{
@@ -1699,9 +1713,9 @@ onDeleteBody(){
    	this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryData=data.response;
+                    this.subCategoryData=data.response.filter(arg=>arg.deleteStatus!=true);
                      if (this.addContentRequest.language) {
-	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language);;
+	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }
                 },error=>{
                 	 this.waitLoader = false;
@@ -1801,7 +1815,7 @@ onDeleteBody(){
       let searchData=searchUser.trim()
       let searchArray=searchData.split(' ')
       console.log(searchArray)
-      if (searchArray.legth==1) {
+      if (searchArray.length==1) {
          if (searchData == '') {
               this.localAdminList = this.adminList;
               return;
@@ -2004,20 +2018,20 @@ onDeleteBody(){
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   if (this.sections.length>0) {
+		   if (this.sections && this.sections.length>0) {
 		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
           if (localsection.length>0) {
 		        this.addContentRequest.sectionName=localsection[0].sectionName;
           }
 		   }
-		   if (this.categories.length>0) {
+		   if (this.categories && this.categories.length>0) {
 		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
          if (localcategory.length>0) {
            // code...
 		        this.addContentRequest.categoryName=localcategory[0].categoryName;
          }
 		   }
-		  if (this.subCategory.length>0) {
+		  if (this.subCategory && this.subCategory.length>0) {
 		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
          if (localsubcategory.length>0) {
            // code...
@@ -2078,20 +2092,20 @@ onDeleteBody(){
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		 if (this.sections.length>0) {
+		 if (this.sections && this.sections.length>0) {
           let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
           if (localsection.length>0) {
             this.addContentRequest.sectionName=localsection[0].sectionName;
           }
        }
-       if (this.categories.length>0) {
+       if (this.categories && this.categories.length>0) {
          let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
          if (localcategory.length>0) {
            // code...
             this.addContentRequest.categoryName=localcategory[0].categoryName;
          }
        }
-      if (this.subCategory.length>0) {
+      if (this.subCategory && this.subCategory.length>0) {
          let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
          if (localsubcategory.length>0) {
            // code...
@@ -3235,7 +3249,7 @@ onDeleteBody(){
          this.currentIndex=i;
          this.rightPan=item
         let dialogRef = this.dialog.open(ImageResizerComponent, {
-            width: '400px',
+            width: '750px',
             data:{item:item,lang:this.addContentRequest.language}
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -4104,6 +4118,12 @@ onKeyUp(event){
      }else{
        this.currentActiveIndex=this.currentActiveIndex+1
      }
+  }else if (event.keyCode==188) {
+    let a=this.addContentRequest.tag.replace(",", "")
+    if (a.length>0) {
+      this.onAddTags(a)
+      // code...
+    }
   }
 
 }
@@ -4131,5 +4151,13 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
       range.moveStart('character', selectionStart);
       range.select();
     }
+  }
+
+  getTypeFile(url){
+   if (url.indexOf('<iframe')==-1) {
+     return true
+   }else{
+     return false
+   }
   }
 }

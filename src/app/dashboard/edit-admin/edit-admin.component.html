@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <input matInput name="email" placeholder="Email *" type="email"  [formControl]="complexForm.controls['email']" [(ngModel)]="register.email" [readonly]="disable">
+                                            <input matInput name="email" placeholder="Email *" type="email"  [formControl]="complexForm.controls['email']" [(ngModel)]="register.email" [readonly]="disable" (input)="email()">
                                             <mat-error  *ngIf="complexForm.controls['email'].hasError('required')">
                                                Email is <strong>required</strong>
                                              </mat-error>
@@ -102,12 +102,15 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
-                                            <input matInput name="alteremail" placeholder="Alternate Email *" type="email"  [formControl]="complexForm.controls['alternativeEmail']" [(ngModel)]="register.alternativeEmail" [readonly]="disable">
+                                            <input matInput name="alteremail" placeholder="Alternate Email *" type="email"  [formControl]="complexForm.controls['alternativeEmail']" [(ngModel)]="register.alternativeEmail" [readonly]="disable" (input)="confirmEmail()">
                                             <mat-error  *ngIf="complexForm.controls['alternativeEmail'].hasError('required')">
                                                Email is <strong>required</strong>
                                              </mat-error>
                                              <mat-error  *ngIf="complexForm.controls['alternativeEmail'].hasError('pattern')">
                                               Please insert valid email id
+                                             </mat-error>
+                                             <mat-error  *ngIf="emailConfirmationMsg==true">
+                                              Email and alternative email can't be same
                                              </mat-error>
                                         </mat-form-field>
                                     </div>
@@ -776,7 +779,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn custom-btn" [disabled]="!complexForm.valid" (click)="onRegister()"> Submit </button>
+                            <button class="btn custom-btn" [disabled]="!complexForm.valid || emailConfirmationMsg==true" (click)="onRegister()"> Submit </button>
                         </div>
 
                     </div>

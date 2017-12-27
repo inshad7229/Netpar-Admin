@@ -17,3 +17,19 @@ table tbody td.width20{
 .dshbrd-table table thead tr th{
 	text-transform: unset;
 }
+
+.user_status{
+	width: 100%;
+	float: left;
+}
+.user_status .badge{
+	width: 14px;
+	height: 14px;
+	padding: 0; 
+}
+.user_status .badge.offline{
+	background-color: red; 
+}
+.user_status .badge.online{
+	background-color: green; 
+}
