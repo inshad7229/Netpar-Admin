@@ -1,6 +1,7 @@
-import { Component, OnInit,ViewContainerRef } from '@angular/core';
+import { Component, OnInit,ViewChild,Inject,ViewContainerRef } from '@angular/core';
 import { Routes, RouterModule ,Router,RouterLinkActive} from '@angular/router';
 import {AppProvider} from '../../providers/app.provider'
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 declare const $: any;
 declare interface RouteInfo {
     path: string;
@@ -53,11 +54,13 @@ secAnalLink=' '
 artiAnalLink=' '
 elemAnalLink=' '
 tempAnalLink=' '
-
+netparUser
   constructor(private route:Router,
-             private activeLink:RouterLinkActive,private appProvider:AppProvider) { }
+             private activeLink:RouterLinkActive,private appProvider:AppProvider,public dialog: MatDialog,) { }
 
   ngOnInit() {
+     this.netparUser=JSON.parse(localStorage['netparUser'])
+     console.log(JSON.stringify(this.netparUser))
     //alert(this.route.url)
    this.appProvider.current.adminPageFlag
 this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -545,68 +548,232 @@ this.menuItems = ROUTES.filter(menuItem => menuItem);
 }
 
 onHomeTemp(){
- this.route.navigate(['/home']);
+    if (this.netparUser.viewEditAdministrator==true) {
+         this.route.navigate(['/home']);
+        // code...
+    }else{
+        let flag='Administrator View'
+        this.openDilog(flag)
+
+    }
 }
 goToAddAdmin(){
-  this.appProvider.current.adminPageFlag='foradd'
-  this.route.navigate(['/edit-admin']);
+  if (this.netparUser.addAdministrator==true) {
+         this.appProvider.current.adminPageFlag='foradd'
+          this.route.navigate(['/edit-admin']);
+        // code...
+    }else{
+        let flag='Administrator Add'
+        this.openDilog(flag)
+        
+    }
+ 
 }
 onSecTemp(){
-  this.route.navigate(['/section-templates']);
+    if (this.netparUser.sectionTemplate==true) {
+         this.route.navigate(['/section-templates']);
+        // code...
+    }else{
+        let flag='Section Template'
+        this.openDilog(flag)
+        
+    }
+  
 }
 onCatTemp(){
-  this.route.navigate(['/category-templates']);
+     if (this.netparUser.categoryTemplate==true) {
+         this.route.navigate(['/category-templates']);
+        // code...
+    }else{
+        let flag='Category Template'
+        this.openDilog(flag)
+        
+    }
+  
 }
 onListingTemp(){
-  this.route.navigate(['/list-templates']);
+    if (this.netparUser.listingView==true) {
+         this.route.navigate(['/list-templates']);
+        // code...
+    }else{
+        let flag='Listing Template'
+        this.openDilog(flag)
+        
+    }
+  
 }
 onViewSecAction(){
-this.appProvider.current.actionFlag='menu'
-this.route.navigate(['/view-section']);
+    if (this.netparUser.viewEditSection==true) {
+         this.appProvider.current.actionFlag='menu'
+         this.route.navigate(['/view-section']);
+        // code...
+    }else{
+        let flag='View Section'
+        this.openDilog(flag)
+        
+    }
+
 }
 onAddSecAction(){
-this.appProvider.current.actionFlag='menu'
-this.route.navigate(['/add-section']);
+    if (this.netparUser.addSection==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/add-section']);
+        // code...
+    }else{
+        let flag='Add Section'
+        this.openDilog(flag)
+        
+    }
+
 }
 onAddCatAction(){
-this.appProvider.current.actionFlag='menu'
-this.route.navigate(['/add-category']);
+    if (this.netparUser.addcategory==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/add-category']);
+        // code...
+    }else{
+        let flag='Add Category'
+        this.openDilog(flag)
+        
+    }
+
 }
 onAddSubcatAction(){
-this.appProvider.current.actionFlag='menu'
-this.route.navigate(['/add-subcategory']);
+    if (this.netparUser.addSubcategory==true) {
+         this.appProvider.current.actionFlag='menu'
+         this.route.navigate(['/add-subcategory']);
+        // code...
+    }else{
+        let flag='Add SubCategory'
+        this.openDilog(flag)
+        
+    }
 }
 onViewContent(){
-this.route.navigate(['/view-content']);
+
+if (this.netparUser.contentManagement==true) {
+         this.route.navigate(['/view-content']);
+        // code...
+    }else{
+        let flag='View Content'
+        this.openDilog(flag)
+        
+    }
 }
 onAddContent(){
-this.appProvider.current.actionFlag='menu'
-this.route.navigate(['/add-content']);
+
+    if (this.netparUser.addContentManagement==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/add-content']);
+        // code...
+    }else{
+        let flag='Add Content'
+        this.openDilog(flag)
+        
+    }
+
 }
 onComment(){
-this.route.navigate(['/comment']);
+  if (this.netparUser.commentManagement==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/comment'])
+        // code...
+    }else{
+        let flag='Comment Management'
+        this.openDilog(flag)
+        
+    }  
+
 }
 onUserContribution(){
-this.route.navigate(['/user-contribution']);
+    if (this.netparUser.userContributionManagement==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/user-contribution']);
+        // code...
+    }else{
+        let flag='User Contribution Management'
+        this.openDilog(flag)
+        
+    } 
+
 }
 onHomePage(){
-this.route.navigate(['/homepage']);
+
+    if (this.netparUser.homepageManagement==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/homepage']);
+        // code...
+    }else{
+        let flag='Homepage Management'
+        this.openDilog(flag)
+        
+    }
+
 }
 onUser(){
-this.route.navigate(['/user']);
+    if (this.netparUser.userManagement==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/user']);
+        // code...
+    }else{
+        let flag='User Management'
+        this.openDilog(flag)
+        
+    }
+
 }
 onSectionAnalytics(){
-this.route.navigate(['/section-analytics']);
+    if (this.netparUser.sectionAnalytics==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/section-analytics']);
+        // code...
+    }else{
+        let flag='Section Analytics'
+        this.openDilog(flag)
+        
+    }
+
 }
 onArticleAnalytics(){
-this.route.navigate(['/article-analytics']);
+    if (this.netparUser.articleAnalytics==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/article-analytics']);
+        // code...
+    }else{
+        let flag='Article Analytics'
+        this.openDilog(flag)
+        
+    }
+
 }
 onElemaentAnalytics(){
-this.route.navigate(['/element-analytics']);
+    if (this.netparUser.elementAnalytics==true) {
+         this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/element-analytics']);
+        // code...
+    }else{
+        let flag='Element Analytics'
+        this.openDilog(flag)
+        
+    }
+
 }
 onTemplateAnalytics(){
-this.route.navigate(['/template-analytics']);
+    if (this.netparUser.templateAnalytics==true) {
+          this.appProvider.current.actionFlag='menu'
+          this.route.navigate(['/template-analytics']);
+        // code...
+    }else{
+        let flag='Template Analytics'
+        this.openDilog(flag)
+        
+    }
+
 }
+
+
+
+
 goToAddSection(){
   this.appProvider.current.sectionAddFlag='foradd'
   this.route.navigate(['/edit-admin']);
@@ -627,14 +794,41 @@ onAction(){
 }
 
 onGoogle(){
- window.open('https://analytics.google.com/analytics/')
+    if (this.netparUser.templateAnalytics==true) {
+          this.appProvider.current.actionFlag='menu'
+          window.open('https://analytics.google.com/analytics/')
+        // code...
+    }else{
+        let flag='Google Analytics'
+        this.openDilog(flag)
+        
+    }
+ 
 }
 onFlurry(){
- window.open('https://developer.yahoo.com/analytics/')
+    if (this.netparUser.flurryAnalytics==true) {
+          this.appProvider.current.actionFlag='menu'
+          window.open('https://developer.yahoo.com/analytics/')
+        // code...
+    }else{
+        let flag='Flurry Analytics'
+        this.openDilog(flag)
+        
+    }
+ 
 }
 
+openDilog(lang): void {
+        let dialogRef = this.dialog.open(SideBarConfirmation, {
+            width: '400px',
+            data:{flag:lang},
+        });
+        dialogRef.afterClosed().subscribe(result => {
+      
+        });
+    }
 
-  /*ngOnInit() {
+      /*ngOnInit() {
       System.import('../../assets/js/sidebar-moving-tab.js');
         this.menuItems = ROUTES.filter(menuItem => menuItem);
   }*/
@@ -645,4 +839,34 @@ onFlurry(){
   //     }
   //     return true;
   // };
+}
+
+
+@Component({
+  selector: 'sidebar-confirmation-dialog',
+  templateUrl: 'confirmation.html'
+})
+
+export class SideBarConfirmation {
+   
+
+  constructor(
+    public dialogRef: MatDialogRef<SideBarConfirmation>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+        private router: Router,
+        private appProvider: AppProvider,
+        public dialog: MatDialog) {
+       }
+
+  onYesClick(): void {
+    this.dialogRef.close(this.data.admin);
+    // this.homePage.onDelete(this.data.admin)
+  }
+   onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+ 
+
 }
