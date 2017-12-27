@@ -32,8 +32,8 @@
                                                 </tr>
                                                
                                             </thead>
-                                            <tbody>
-                                                 <tr *ngFor="let list of categortTemplateList">
+                                            <tbody *ngIf="categortTemplateList">
+                                                 <tr *ngFor="let list of categortTemplateList | orderBy ">
                                                     <td class="text-center">
                                                         <div class="cont-img templt-img">
                                                             <img class="img-responsive" src="./assets/img/listing-view/{{getImagePath(list.templateName)}}" />

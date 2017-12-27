@@ -3,7 +3,8 @@
 </div>	
 <div class="modal-header">
 	<div >
-		<p>Are you sure you want to delete this {{data.flag}}? </p>
+		<p *ngIf="data.action=='delete'">Are you sure you want to delete this {{data.flag}}? </p>
+		<p *ngIf="data.action=='status'">Are you sure you want to <span *ngIf="!data.value.status">disable</span><span *ngIf="data.value.status">enable</span> this {{data.flag}}? </p>
 	</div>
 	<div  >
 		<button class="btn btn-round btn-mat btn-disabled btn-success" style="width: 48%" (click)="onYesClick()">Yes</button>

@@ -4118,6 +4118,12 @@ onKeyUp(event){
      }else{
        this.currentActiveIndex=this.currentActiveIndex+1
      }
+  }else if (event.keyCode==188) {
+    let a=this.addContentRequest.tag.replace(",", "")
+    if (a.length>0) {
+      this.onAddTags(a)
+      // code...
+    }
   }
 
 }

@@ -68,6 +68,7 @@ import { SimpleTinyComponent } from './tiny/tiny.component';
 import { TrimPipe } from '../pipes/trim/trim.pipe';
 import {TrimDirective  } from '../directives/trim/trim.directive';
 import {ClipDirective  } from '../directives/clip/clip.directive';
+import { OrderByPipe } from '../pipes/orderBy/order-by.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -153,7 +154,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               ClipDirective,
               SectionConfirmation,
               downloadContentConfirmation,
-              UserConfirmation
+              UserConfirmation,
+              OrderByPipe
 
            ],
 

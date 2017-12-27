@@ -46,6 +46,7 @@ export class EditAdminComponent implements AfterViewInit {
     tempCustomerBase64
     data: any;
     disable: boolean;
+    emailConfirmationMsg: boolean;
     localImage: any
     options = [
     //{
@@ -1101,5 +1102,33 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
       range.select();
     }
   }
+  email(){
+      if (this.register.alternativeEmail) {
+          if (this.register.alternativeEmail==this.register.email) {
+          this.emailConfirmationMsg=true
+          }else{
+             this.emailConfirmationMsg=false
+          }
+          // code...
+      }else{
+          this.emailConfirmationMsg=false
+      }
+
+
+  }
+confirmEmail(){
+    if (this.register.email) {
+       // alert('hy')
+          if (this.register.alternativeEmail==this.register.email) {
+              this.emailConfirmationMsg=true
+          }else{
+             this.emailConfirmationMsg=false
+          }
+          // code...
+      }else{
+          this.emailConfirmationMsg=false
+      }
+}
+
 }
 

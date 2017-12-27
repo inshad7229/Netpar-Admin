@@ -195,10 +195,17 @@ getTotalTime(totalTime){
        let totalmin=Math.floor(totalTime/60);
        if (totalmin>60) {
           hourse=Math.floor(totalmin/60)
+          //min=totalminPerSession%60
           min=totalmin%60
-          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
+            if (hourse==Infinity || hourse==NaN) {
+           hourse=0
+          }
+          if (min==Infinity || min==NaN) {
+           min=0
+          }
+          return hourse+' Hours '+min+' Min'
        }else{
-           return totalmin.toFixed(2)+' Min'
+           return totalmin+' Min'
        }
     }
     else{
@@ -215,10 +222,16 @@ avgTimePerSession(totalTime,totalSessions){
        let totalminPerSession=Math.floor(totalmin/totalSessions);
        if (totalminPerSession>60) {
           hourse=Math.floor(totalminPerSession/60)
+           if (hourse==Infinity || hourse==NaN) {
+           hourse=0
+          }
           min=totalminPerSession%60
-          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
+          if (min==Infinity || min==NaN) {
+           min=0
+          }
+          return hourse+' Hours '+min+' Min'
        }else{
-           return totalminPerSession.toFixed(2)+' Min'
+           return totalminPerSession+' Min'
        }
     }
     else{
@@ -252,8 +265,14 @@ avgTimePerDay(totalTime,dayCount){
        let totalmindayCount=Math.floor(totalmin/dayCount);
        if (totalmindayCount>60) {
           hourse=Math.floor(totalmindayCount/60)
+          if (hourse==Infinity || hourse==NaN) {
+           hourse=0
+          }
           min=totalmindayCount%60
-          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
+          if (min==Infinity || min==NaN) {
+           min=0
+          }
+          return hourse+' Hours '+min+' Min'
        }else{
            return totalmindayCount+' Min'
        }
