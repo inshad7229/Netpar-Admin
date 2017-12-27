@@ -799,4 +799,4 @@ updateCateTemp(sectionName,cateName){
                                 // code...
                             }
  }
-}
+

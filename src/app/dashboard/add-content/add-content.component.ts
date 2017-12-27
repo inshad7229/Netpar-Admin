@@ -1681,7 +1681,7 @@ onDeleteBody(){
 	              this.sectionService.onGetSection()
 	            .subscribe(data => {
 	                this.waitLoader = false;
-	                this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);;
+	                this.sectionsData=data.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );;
 	                if (this.addContentRequest.language) {
 	                     this.sections=data.filter(arg=>arg.language==this.addContentRequest.language);;
 	                }
@@ -1697,7 +1697,7 @@ onDeleteBody(){
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true);
+                    this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );
                      if (this.addContentRequest.language) {
 	                     this.categories=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }
@@ -1713,7 +1713,7 @@ onDeleteBody(){
    	this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryData=data.response.filter(arg=>arg.deleteStatus!=true);
+                    this.subCategoryData=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );
                      if (this.addContentRequest.language) {
 	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }

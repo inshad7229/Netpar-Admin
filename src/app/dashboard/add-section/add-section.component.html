@@ -76,7 +76,7 @@
                                                     <div class="fileinput-new thumbnail" *ngIf="!croppieImageThumbnail">
                                                         <img alt="..."  [src]="imageToDisplayThumbnail">
                                                     </div>
-                                                    <p *ngIf="saveFlag1">Image Saved</p>
+                                                    <p *ngIf="saveFlag1">your changes have been saved, click on submit to apply</p>
                                                     <div class="fileinput-preview fileinput-exists" style="display:none;">
                                                          <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieThumbnail(myForm)">
                                                         Save
@@ -105,7 +105,7 @@
                                                     <div class="fileinput-new thumbnail" *ngIf="!croppieImageHorigontal">
                                                         <img alt="..."  [src]="imageToDisplayHorigontal">
                                                     </div>
-                                                    <p *ngIf="saveFlag2">Image Saved</p>
+                                                    <p *ngIf="saveFlag2">your changes have been saved, click on submit to apply</p>
                                                     <div class="fileinput-preview fileinput-exists" style="display:none;">
                                                         <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieHorigontal(myForm)">
                                                         Save

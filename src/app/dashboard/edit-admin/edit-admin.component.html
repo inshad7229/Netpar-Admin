@@ -665,7 +665,7 @@
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                 <label class="form-group col-md-12">Role as: *</label>
                                                 
-                                                    <mat-radio-group  name="roleAdministrator"  [formControl]="complexForm.controls['role']" [(ngModel)]="register.role" >
+                                                    <mat-radio-group  name="roleAdministrator"  [formControl]="complexForm.controls['role']" [(ngModel)]="register.role" (change)="onRoleChange(register.role)">
                                                         <mat-radio-button value="superAdmin" class="col-md-6 col-sm-6 col-xs-12">Super Administrator</mat-radio-button>
                                                         <mat-radio-button value="contentWriter" class="col-md-6 col-sm-6 col-xs-12">Content Writer</mat-radio-button>
                                                         <mat-radio-button value="businessUser" class="col-md-6 col-sm-6 col-xs-12">Business User</mat-radio-button>

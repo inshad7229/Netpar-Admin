@@ -25,7 +25,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { MODULE_COMPONENTS, MODULE_ROUTES } from './dashboard.routes';
 import { FooterComponent } from '../components/footer/footer.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
-import { SidebarComponent } from '../components/sidebar/sidebar.component';
+import { SidebarComponent ,SideBarConfirmation} from '../components/sidebar/sidebar.component';
 
 
 import { EditAdminComponent } from './edit-admin/edit-admin.component';
@@ -155,12 +155,25 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
               SectionConfirmation,
               downloadContentConfirmation,
               UserConfirmation,
-              OrderByPipe
+              OrderByPipe,
+              SideBarConfirmation
 
            ],
 
-entryComponents: [DialogComponent,AdminConfirmation, ViewDialogComponent, HomeDialogComponent, PriorityDialogComponent, UserDialogComponent ,LanguageDialogComponent,SuggestArticleDialogComponent,DragDropComponent,ContentViewComponent,
-ListingViewComponent,ContentViewDialogComponent,ContentConfirmation,FilterDialogComponent,UserConfirmation,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent,CommentConfirmation,MediaDialogComponent,SectionConfirmation,downloadContentConfirmation ],
+entryComponents: [DialogComponent,AdminConfirmation,
+ ViewDialogComponent, HomeDialogComponent, 
+ PriorityDialogComponent, 
+ UserDialogComponent ,
+ LanguageDialogComponent,
+ SuggestArticleDialogComponent,
+ DragDropComponent,
+ ContentViewComponent,
+ListingViewComponent,
+ContentViewDialogComponent,
+ContentConfirmation,
+FilterDialogComponent,
+SideBarConfirmation,
+UserConfirmation,EditorComponent,ContentViewHomeDialogComponent,ContentViewPriorityDialogComponent,ImageResizerComponent,CommentConfirmation,MediaDialogComponent,SectionConfirmation,downloadContentConfirmation ],
 providers:[TrimPipe,{
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

@@ -31,7 +31,7 @@ export class ListTemplatesComponent implements OnInit {
                     }
                     else if (data[0].success == true || data[1].success == true) {
                      this.categortTemplateList=data[0].response;
-                     this.categoryList=data[1].response.filter(arg=>arg.deleteStatus!=true);
+                     this.categoryList=data[1].response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true )
                   
                     }                 
                 },error=>{
