@@ -45,6 +45,7 @@ export class UserComponent implements OnInit {
     onInfluencereData=[]
     onVerifiedData=[]
     onUnverifiedData=[]
+    onOnlineData=[]
     onSelectLangData=[]
     statusMobileStatusData
     statusHyperData
@@ -697,7 +698,13 @@ onUnverified(status){
    this.onUnverifiedData=[]
  }
 }
-
+onOnline(status){
+  if (status==true) {
+   this.onOnlineData=this.userDataBackup.filter(arg=>arg.onlineStatus =='online')
+ }else{
+   this.onOnlineData=[]
+ }
+}
 onSelectLang(lang){
   if (lang.check==true) {
       this.filterLanguage.push(lang.language)
@@ -778,7 +785,7 @@ getActiveStatus(time,range):boolean {
                                                     this.dataAfterBlock,this.onMobileStatusData,
                                                     this.onHyperData,this.onModrateData,this.onInactiveData,
                                                     this.onInactiveData,this.onMaleData,this.onFemaleData,
-                                                    this.onInfluencereData,this.onVerifiedData,this.onUnverifiedData);
+                                                    this.onInfluencereData,this.onVerifiedData,this.onUnverifiedData,this.onOnlineData);
        if (this.unique(finalData).length>0) {
             this.dataAfterFilterApply=this.unique(finalData)
             this.userData=this.unique(finalData);
@@ -795,6 +802,7 @@ getActiveStatus(time,range):boolean {
       this.afterApplyStatus.hyper=this.rigthSide.hyper
       this.afterApplyStatus.inactive=this.rigthSide.inactive
       this.afterApplyStatus.mobileStatus=this.rigthSide.mobileStatus
+      this.afterApplyStatus.onlineStatus=this.rigthSide.online
       let state=this.filterState.concat(this.selectedState)
       let block=this.filterBlock.concat(this.selectedBlock)
       let dist=this.filterDist.concat(this.selectedDist)
@@ -888,6 +896,12 @@ onClearInactiveFilter(){
        this.rigthSide.inactive=false
      this.userData=this.userData.filter(arg=>this.getActiveStatus(arg.lastlogin,'31day')!=true)
 }
+
+onClearOnlineStatusFilter(){
+   this.userData=this.userData.filter(arg=>arg.onlineStatus !='online')
+   this.afterApplyStatus.onlineStatus=false
+   this.rigthSide.online=false
+}
 clearAll(){
      this.afterApplyStatus.mobileStatus=false
     this.rigthSide.mobileStatus=false
@@ -921,8 +935,11 @@ this.afterApplyStatus.block=[]
 this.filterBlock=[]
 this.userData=this.userDataBackup.slice(0)
 this.selectedBlock=[]
+this.onUnverifiedData=[]
 this.filterApplyStatus=false
 this.stateListState[0].check=false
+this.afterApplyStatus.onlineStatus=false
+this.rigthSide.online=false
       // for (var i = 0; i < this.stateListState.length; i++) {
            let obj=this.stateListState[0].dist
            // obj.check=false

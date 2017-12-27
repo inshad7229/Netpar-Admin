@@ -34,6 +34,7 @@
                                       <li *ngIf="afterApplyStatus.modrate" > Moderately Active  <span (click)="onClearModrateFilter()"> <i class="fa fa-times"></i> </span> </li>
                                        <li *ngIf="afterApplyStatus.hyper" >Hyper Active  <span (click)="onClearHyperFilter()"> <i class="fa fa-times"></i> </span> </li>
                                        <li *ngIf="afterApplyStatus.inactive" >Inactive  <span (click)="onClearInactiveFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                       <li *ngIf="afterApplyStatus.onlineStatus" >Online  <span (click)="onClearOnlineStatusFilter()"> <i class="fa fa-times"></i> </span> </li>
                                    
                                 </ul>
                             </div>
@@ -217,6 +218,14 @@
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </span>
+                                                            </div>
+                                                            <div class="user_status" *ngIf="user.onlineStatus=='offline'">
+                                                                <span class="badge offline"> </span>
+                                                                Offline
+                                                            </div>
+                                                            <div class="user_status"  *ngIf="user.onlineStatus=='online'">
+                                                                <span class="badge online"> </span>
+                                                                Online
                                                             </div>
                                                         </div>
                                                         <div class="media-box cont-dtl">
@@ -503,6 +512,7 @@
                                 <li><mat-checkbox  [(ngModel)]="rigthSide.influencere" (change)="onInfluencere(rigthSide.influencere)" >Influencers</mat-checkbox></li>
                                 <li><mat-checkbox  [(ngModel)]="rigthSide.verified" (change)="onVerified(rigthSide.verified)" >Verified</mat-checkbox></li>
                                 <li><mat-checkbox  [(ngModel)]="rigthSide.unverified" (change)="onUnverified(rigthSide.unverified)" >Unverified</mat-checkbox></li>
+                                <li><mat-checkbox  [(ngModel)]="rigthSide.online" (change)="onOnline(rigthSide.online)" >Online User</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>
