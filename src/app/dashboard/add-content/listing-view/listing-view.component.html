@@ -1,12 +1,12 @@
-<div class="modal-header">
+<div class="modal-header" style="width: 400px"> 
 	<h4 class="modal-title" >Listing View <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span> </h4>
 </div>
-<div class="modal-body">
+<div class="modal-body" style="width: 400px">
 
 	<div class="inner-card" *ngIf="layout=='Listing-view Template Three' ||layout=='Not Applicable'">
         <div class="suggested-ulist list-view7">
             <div class="view-lists grid-1">
-                <a  class="color-red">
+                <a  class="color-yellow">
                    <!--  <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive">  -->
                      <img class="img-effect img-responsive"  *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
                     <img class="img-effect img-responsive"  *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" /> 
@@ -21,11 +21,163 @@
                     <div class="line"></div>
                 </a>
             </div>
+
+            <div class="view-lists grid-1">
+                <a  class="color-red">
+                   <!--  <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive">  -->
+                    <img class="img-effect img-responsive" src="./assets/img/img_r-3.jpg" />
+                    <div class="list-text-wrap one-heading">
+                        <div class="text-red"></div>
+                        <div class="suggested-div">
+                            <div class="suggested-text"> Lorem ipsum dolor sit amet </div>
+                        </div>
+                        <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit</div>
+                    </div>
+                    <!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
+                    <div class="line"></div>
+                </a>
+            </div>
+            <div class="view-lists grid-1">
+                <a  class="color-red">
+                   <!--  <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive">  -->
+                    <img class="img-effect img-responsive" src="./assets/img/img_r-3.jpg" />
+                    <div class="list-text-wrap one-heading">
+                        <div class="text-red"></div>
+                        <div class="suggested-div">
+                            <div class="suggested-text"> Lorem ipsum dolor sit amet </div>
+                        </div>
+                        <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit</div>
+                    </div>
+                    <!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
+                    <div class="line"></div>
+                </a>
+            </div>
+            <div class="view-lists grid-1">
+                <a  class="color-red">
+                   <!--  <img [src]="forContent.thumbnailPicture" class="img-effect img-responsive">  -->
+                    <img class="img-effect img-responsive" src="./assets/img/img_r-3.jpg" />
+                    <div class="list-text-wrap one-heading">
+                        <div class="text-red"></div>
+                        <div class="suggested-div">
+                            <div class="suggested-text"> Lorem ipsum dolor sit amet </div>
+                        </div>
+                        <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit</div>
+                    </div>
+                    <!-- <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div> -->
+                    <div class="line"></div>
+                </a>
+            </div>
         </div>
     </div>
+    <div class="article-sec" *ngIf="layout=='Listing-view Template Two'">
+        <div class="card cus-card">
+            <div class="list-view">
+                <div class="big-view" >
+                    <div class="innerbig-view">
+                        <img src="{{forContent.horizontalPicture}}" class="img-effect img-responsive" *ngIf="forContent.horizontalPicture" />
+                        <img src="http://placehold.it/300x300" class="img-effect img-responsive" *ngIf="!forContent.horizontalPicture" />
+                        <p class="overlay-text">{{forContent.headline}} </p>
+                    </div>
+                </div>
+                <div class="temp-2 view-lists grid-2 list-view2" >
+                    <a class="color-yellow">
+                        <div class="suggested-div">
+                            <div class="line"></div>
+                            <div class="suggested-text">{{forContent.tagline}}</div>
+                            <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                        </div>
+                        <img src="{{forContent.thumbnailPicture}}" *ngIf="forContent.thumbnailPicture">
+                        <img src="http://placehold.it/300x300" *ngIf="!forContent.thumbnailPicture"> 
+                        <div class="list-text-wrap"> {{forContent.headline.slice(0,25)}}</div>
+                    </a>
+                </div>  
 
-    <div class="view-lists" *ngIf="layout=='Listing-view Template Five'">
-        <a  class="color-red">
+                <div class="temp-2 view-lists grid-2 list-view2" >
+                    <a class="color-yellow">
+                        <div class="suggested-div">
+                            <div class="line"></div>
+                            <div class="suggested-text">Lorem is dummy text</div>
+                            <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                        </div>
+                        <img src="{{forContent.thumbnailPicture}}" *ngIf="forContent.thumbnailPicture">
+                        <img src="http://placehold.it/300x300" *ngIf="!forContent.thumbnailPicture"> 
+                        <div class="list-text-wrap"> {{forContent.headline.slice(0,25)}}</div>
+                    </a>
+                </div>  
+                <div class="temp-2 view-lists grid-2 list-view2" >
+                    <a class="color-yellow">
+                        <div class="suggested-div">
+                            <div class="line"></div>
+                            <div class="suggested-text">{{forContent.tagline}}</div>
+                            <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                        </div>
+                        <img src="{{forContent.thumbnailPicture}}" *ngIf="forContent.thumbnailPicture">
+                        <img src="http://placehold.it/300x300" *ngIf="!forContent.thumbnailPicture"> 
+                        <div class="list-text-wrap"> {{forContent.headline.slice(0,25)}}</div>
+                    </a>
+                </div>  
+                <div class="temp-2 view-lists grid-2 list-view2" >
+                    <a class="color-yellow">
+                        <div class="suggested-div">
+                            <div class="line"></div>
+                            <div class="suggested-text">{{forContent.tagline}}</div>
+                            <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                        </div>
+                        <img src="{{forContent.thumbnailPicture}}" *ngIf="forContent.thumbnailPicture">
+                        <img src="http://placehold.it/300x300" *ngIf="!forContent.thumbnailPicture"> 
+                        <div class="list-text-wrap"> {{forContent.headline.slice(0,25)}}</div>
+                    </a>
+                </div>  
+                <div class="temp-2 view-lists grid-2 list-view2" >
+                    <a class="color-yellow">
+                        <div class="suggested-div">
+                            <div class="line"></div>
+                            <div class="suggested-text">{{forContent.tagline}}</div>
+                            <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                        </div>
+                        <img src="{{forContent.thumbnailPicture}}" *ngIf="forContent.thumbnailPicture">
+                        <img src="http://placehold.it/300x300" *ngIf="!forContent.thumbnailPicture"> 
+                        <div class="list-text-wrap"> {{forContent.headline.slice(0,25)}}</div>
+                    </a>
+                </div>  
+            </div>
+        </div>
+    </div>
+    <div class="view-lists" *ngIf="layout=='Listing-view Template Five'" style="width: 380px">
+        <a class="color-red">
+            <div class="simple-list">
+                <div class="text-red">{{forContent.categoryName}} </div>
+                <div class="suggested-div">
+                    <div class="suggested-text">{{forContent.sectionName}} </div>
+                </div>
+                <div class="detail-text">{{forContent.headline}} </div>
+                <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+            </div>
+            <div class="line"></div>
+        </a>
+        <a class="color-yellow">
+            <div class="simple-list">
+                <div class="text-red">{{forContent.categoryName}} </div>
+                <div class="suggested-div">
+                    <div class="suggested-text">{{forContent.sectionName}} </div>
+                </div>
+                <div class="detail-text">{{forContent.headline}} </div>
+                <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+            </div>
+            <div class="line"></div>
+        </a>
+        <a class="color-red">
+            <div class="simple-list">
+                <div class="text-red">{{forContent.categoryName}} </div>
+                <div class="suggested-div">
+                    <div class="suggested-text">{{forContent.sectionName}} </div>
+                </div>
+                <div class="detail-text">{{forContent.headline}} </div>
+                <div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+            </div>
+            <div class="line"></div>
+        </a>
+        <a class="color-yellow">
             <div class="simple-list">
                 <div class="text-red">{{forContent.categoryName}} </div>
                 <div class="suggested-div">
@@ -39,27 +191,57 @@
     </div>
 
     <div *ngIf="layout=='Listing-view Template Seven'">
-       <!--  <div class="list-heading">
-            Listing View <span class="pull-right"> <i class="fa fa-angle-right"></i> </span>
-        </div> -->
+        <div class="list-heading">
+            {{forContent.headline}}  <span class="pull-right"> <i class="fa fa-angle-right"></i> </span>
+        </div>
         <div class="list-view8">
-            <div class=""> 
-                <a >
+            <!-- <div class=""> 
+                <a>
                     <img class="img-responsive"  *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
                     <img class="img-responsive"  *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" />
-              </a> 
-         </div>
-            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-2.jpg" /></a> </div>
+                </a> 
+            </div> -->
+            <div class="image-list-seven" *ngFor="let img of image"> <a > <img class="img-responsive" src="{{img.url}}" /></a> </div>
+         <!--    <div class=""> <a > <img class="img-responsive" src="./assets/img/img-3.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-4.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-5.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-6.jpg" /></a> </div>
             <div class=""> <a > <img class="img-responsive" src="./assets/img/img-3.jpg" /></a> </div>
             <div class=""> <a > <img class="img-responsive" src="./assets/img/img-4.jpg" /></a> </div>
             <div class=""> <a > <img class="img-responsive" src="./assets/img/img-5.jpg" /></a> </div>
             <div class=""> <a > <img class="img-responsive" src="./assets/img/img-6.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-4.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-5.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-6.jpg" /></a> </div> -->
+        </div>
+        <div class="list-heading">
+            {{forContent.headline}}  <span class="pull-right"> <i class="fa fa-angle-right"></i> </span>
+        </div>
+        <div class="list-view8">
+            <!-- <div class=""> 
+                <a>
+                    <img class="img-responsive"  *ngIf="forContent.thumbnailPicture && forContent.thumbnailPicture !=''" [src]="forContent.thumbnailPicture" />
+                    <img class="img-responsive"  *ngIf="!forContent.thumbnailPicture || forContent.thumbnailPicture =='' " src="http://placehold.it/300x300" />
+                </a> 
+            </div> -->
+            <div class="image-list-seven" *ngFor="let img of image"> <a > <img class="img-responsive" src="{{img.url}}" /></a> </div>
+         <!--    <div class=""> <a > <img class="img-responsive" src="./assets/img/img-3.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-4.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-5.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-6.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-3.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-4.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-5.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-6.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-4.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-5.jpg" /></a> </div>
+            <div class=""> <a > <img class="img-responsive" src="./assets/img/img-6.jpg" /></a> </div> -->
         </div>
         
     </div>
     
  
-   <div *ngIf="layout=='Listing-view Template Four'">
+   <div *ngIf="layout=='Listing-view Template Four'" class="list-view">
        
         <div class="view-lists grid-1">
             <a  class="color-red"><!-- 
@@ -146,7 +328,7 @@
    </div>
 
    
-    <div *ngIf="layout=='Listing-view Template One'">
+    <div *ngIf="layout=='Listing-view Template One'" class="list-view">
         
         <div class="view-lists grid-2" >
             <a  class="color-blue">
@@ -162,6 +344,39 @@
             </a>
         </div>
 
+        <div class="view-lists grid-2">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
+        <div class="view-lists grid-2">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
+        <div class="view-lists grid-2">
+            <a  class="color-blue">
+                <img src="./assets/img/img_r-4.jpg"> 
+                <div class="suggested-div">
+                    <div class="line"></div>
+                    <div class="suggested-text">News </div>
+                    <div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+                </div>
+                <div class="detail-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. </div>
+            </a>
+        </div>
         <div class="view-lists grid-2">
             <a  class="color-blue">
                 <img src="./assets/img/img_r-4.jpg"> 

@@ -27,13 +27,13 @@
                                                     <th> Template </th>
                                                     <th> Template Name </th>
                                                     <th> Active In Category </th>
-                                                    <th> Start Time </th>
-                                                    <th> End Time </th>
+                                                    <th> Start Date &amp; Time </th>
+                                                    <th> End Date &amp; Time </th>
                                                 </tr>
                                                
                                             </thead>
-                                            <tbody>
-                                                <tr *ngFor="let list of categortTemplateList">
+                                            <tbody *ngIf="categortTemplateList">
+                                                <tr *ngFor="let list of categortTemplateList | orderBy">
                                                     <td class="text-center">
                                                         <div class="cont-img templt-img">
                                                             <img class="img-responsive" src="./assets/img/category-view/{{getImagePath(list.templateName)}}" />

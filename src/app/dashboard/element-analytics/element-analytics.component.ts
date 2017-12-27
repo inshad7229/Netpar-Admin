@@ -181,6 +181,7 @@ export class ElementAnalyticsComponent implements OnInit {
                                               tag:'Text Only',
                                               pageView:this.getPageView('Text Only'),
                                               uniqueViews:this.getUniquePageView('Text Only'),
+                                              continueReading:this.getContinuneReading('Text Only'),
                                               likeCount:this.getLike('Text Only'),
                                               shareCount:this.getShare('Text Only'),
                                               commentCount:this.getComment('Text Only'),
@@ -195,6 +196,7 @@ export class ElementAnalyticsComponent implements OnInit {
                                               tag:'Photo Only',
                                               pageView:this.getPageView('Photo Only'),
                                               uniqueViews:this.getUniquePageView('Photo Only'),
+                                              continueReading:this.getContinuneReading('Photo Only'),
                                               likeCount:this.getLike('Photo Only'),
                                               shareCount:this.getShare('Photo Only'),
                                               commentCount:this.getComment('Photo Only'),
@@ -209,6 +211,7 @@ export class ElementAnalyticsComponent implements OnInit {
                                               tag:'Audio Only',
                                               pageView:this.getPageView('Audio Only'),
                                               uniqueViews:this.getUniquePageView('Audio Only'),
+                                              continueReading:this.getContinuneReading('Audio Only'),
                                               likeCount:this.getLike('Audio Only'),
                                               shareCount:this.getShare('Audio Only'),
                                               commentCount:this.getComment('Audio Only'),
@@ -223,6 +226,7 @@ export class ElementAnalyticsComponent implements OnInit {
                                               tag:'Video Only',
                                               pageView:this.getPageView('Video Only'),
                                               uniqueViews:this.getUniquePageView('Video Only'),
+                                              continueReading:this.getContinuneReading('Video Only'),
                                               likeCount:this.getLike('Video Only'),
                                               shareCount:this.getShare('Video Only'),
                                               commentCount:this.getComment('Video Only'),
@@ -237,6 +241,7 @@ export class ElementAnalyticsComponent implements OnInit {
                                               tag:'Text + Video',
                                               pageView:this.getPageView('Text + Video'),
                                               uniqueViews:this.getUniquePageView('Text + Video'),
+                                              continueReading:this.getContinuneReading('Text Only'),
                                               likeCount:this.getLike('Text + Video'),
                                               shareCount:this.getShare('Text + Video'),
                                               commentCount:this.getComment('Text + Video'),
@@ -251,6 +256,7 @@ export class ElementAnalyticsComponent implements OnInit {
                                               tag:'Text + Audio',
                                               pageView:this.getPageView('Text + Audio'),
                                               uniqueViews:this.getUniquePageView('Text + Audio'),
+                                              continueReading:this.getContinuneReading('Text + Audio'),
                                               likeCount:this.getLike('Text + Audio'),
                                               shareCount:this.getShare('Text + Audio'),
                                               commentCount:this.getComment('Text + Audio'),
@@ -265,6 +271,7 @@ export class ElementAnalyticsComponent implements OnInit {
                                               tag:'Text + Photo',
                                               pageView:this.getPageView('Text + Photo'),
                                               uniqueViews:this.getUniquePageView('Text + Photo'),
+                                              continueReading:this.getContinuneReading('Text + Photo'),
                                               likeCount:this.getLike('Text + Photo'),
                                               shareCount:this.getShare('Text + Photo'),
                                               commentCount:this.getComment('Text + Photo'),
@@ -279,6 +286,7 @@ export class ElementAnalyticsComponent implements OnInit {
                                               tag:'Text + Multiple',
                                               pageView:this.getPageView('Text + Multiple'),
                                               uniqueViews:this.getUniquePageView('Text + Multiple'),
+                                              continueReading:this.getContinuneReading('Text + Multiple'),
                                               likeCount:this.getLike('Text + Multiple'),
                                               shareCount:this.getShare('Text + Multiple'),
                                               commentCount:this.getComment('Text + Multiple'),
@@ -328,6 +336,19 @@ export class ElementAnalyticsComponent implements OnInit {
       }else{
         return value
       }
+    }
+    getContinuneReading(mimeType){
+      let value=0
+      let data= this.contentData.filter(arg=>arg.mimeType==mimeType)
+      if (data.length>0) {
+        for (var i = 0; i<data.length; i++) {
+          value=value+data[i].continueReading
+        }
+        return value
+      }else{
+        return value
+      }
+      
     }
     getLike(mimeType){
       let value=0

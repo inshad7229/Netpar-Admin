@@ -136,9 +136,11 @@ export class AddCategoryComponent implements OnInit {
                 'callToActBtnInterested':[null],
                 'callToActBtnCall':[null],
                 'language':[null]
+
             
         })
         this.toastr.setRootViewContainerRef(vcr);
+        
     }
 
   ngOnInit() {
@@ -475,7 +477,20 @@ export class AddCategoryComponent implements OnInit {
                     this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);
                     if (this.addCategoryRequest.language) {
                          this.sections=data.filter(arg=>arg.language==this.addCategoryRequest.language);;
+
                     }
+                    if (this.sections && this.addCategoryRequest.sectionId) {
+                             let secData=this.sections.filter(arg=>arg._id==this.addCategoryRequest.sectionId);
+                            if (secData.length>0) {
+                                if (secData[0].categoryView=='no' || secData[0].categoryView=='No') {
+                                  this.addCategoryForm.controls['categoryView'].disable()
+                                  this.addCategoryRequest.categoryView='no'
+                                }else{
+                                  this.addCategoryForm.controls['categoryView'].enable()   
+                                }
+                                // code...
+                            }
+                           }
                 },error=>{
                     this.waitLoader =false;
                     alert(error)
@@ -506,6 +521,37 @@ export class AddCategoryComponent implements OnInit {
                                  this.stringResource.listingTemplate[i].status="active"
                                }
                             }
+                           if (this.sections) {
+                             let secData=this.sections.filter(arg=>arg._id==this.addCategoryRequest.sectionId);
+                            if (secData.length>0) {
+                                if (secData[0].categoryView=='no' || secData[0].categoryView=='No') {
+                                  this.addCategoryForm.controls['categoryView'].disable()
+                                  this.addCategoryRequest.categoryView='no'
+                                }else{
+                                  this.addCategoryForm.controls['categoryView'].enable()   
+                                }
+                                // code...
+                            }
+                           }
+                           if (this.addCategoryRequest.contributionForm=='no' || this.addCategoryRequest.contributionForm=='No') {
+                                  this.addCategoryForm.controls['titleForm'].disable()
+                                  this.addCategoryForm.controls['guildTextForForm'].disable()
+                                  this.addCategoryForm.controls['guildTextForMedia'].disable()
+                                }else{
+                                  this.addCategoryForm.controls['titleForm'].enable()
+                                  this.addCategoryForm.controls['guildTextForForm'].enable()
+                                  this.addCategoryForm.controls['guildTextForMedia'].enable()   
+                                }
+                            // let secData=this.sections.filter(arg=>arg._id==this.addCategoryRequest.sectionId);
+                            // if (secData.length>0) {
+                            //     if (secData[0].categoryView=='no' || secData[0].categoryView=='No') {
+                            //       this.addCategoryForm.controls['categoryView'].disable()
+                            //       this.addCategoryRequest.categoryView='no'
+                            //     }else{
+                            //       this.addCategoryForm.controls['categoryView'].enable()   
+                            //     }
+                            //     // code...
+                            // }
                                            
                 },error=>{
                   this.waitLoader =false;
@@ -724,5 +770,33 @@ updateCateTemp(sectionName,cateName){
                   
                 }) 
     
+ }
+ onsectionChange(id){
+    // alert('hy')
+     let secData=this.sections.filter(arg=>arg._id==id);
+     console.log(JSON.stringify(secData))
+                            if (secData.length>0) {
+                                if (secData[0].categoryView=='no' || secData[0].categoryView=='No') {
+                                  this.addCategoryForm.controls['categoryView'].disable()
+                                  this.addCategoryRequest.categoryView='no'
+                                }else{
+                                  this.addCategoryForm.controls['categoryView'].enable()   
+                                }
+                                // code...
+                            }
+ }
+ onUserChange(value){
+   // alert(value)
+                                if (value=='no' || value=='No') {
+                                  this.addCategoryForm.controls['titleForm'].disable()
+                                  this.addCategoryForm.controls['guildTextForForm'].disable()
+                                  this.addCategoryForm.controls['guildTextForMedia'].disable()
+                                }else{
+                                  this.addCategoryForm.controls['titleForm'].enable()
+                                  this.addCategoryForm.controls['guildTextForForm'].enable()
+                                  this.addCategoryForm.controls['guildTextForMedia'].enable()   
+                                }
+                                // code...
+                            }
  }
 }

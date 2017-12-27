@@ -713,7 +713,7 @@ unique(array){
           if (type=='image' || type=='audio' || type=='video') {
             
                 let dialogRef = this.dialog.open(MediaDialogComponent, {
-                  width: '800px',
+                  width: '600px',
                   data:{url:url,type:type}
               });
               dialogRef.afterClosed().subscribe(result => {

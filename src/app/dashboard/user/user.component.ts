@@ -45,6 +45,7 @@ export class UserComponent implements OnInit {
     onInfluencereData=[]
     onVerifiedData=[]
     onUnverifiedData=[]
+    onOnlineData=[]
     onSelectLangData=[]
     statusMobileStatusData
     statusHyperData
@@ -194,10 +195,17 @@ getTotalTime(totalTime){
        let totalmin=Math.floor(totalTime/60);
        if (totalmin>60) {
           hourse=Math.floor(totalmin/60)
+          //min=totalminPerSession%60
           min=totalmin%60
-          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
+            if (hourse==Infinity || hourse==NaN) {
+           hourse=0
+          }
+          if (min==Infinity || min==NaN) {
+           min=0
+          }
+          return hourse+' Hours '+min+' Min'
        }else{
-           return totalmin.toFixed(2)+' Min'
+           return totalmin+' Min'
        }
     }
     else{
@@ -214,10 +222,16 @@ avgTimePerSession(totalTime,totalSessions){
        let totalminPerSession=Math.floor(totalmin/totalSessions);
        if (totalminPerSession>60) {
           hourse=Math.floor(totalminPerSession/60)
+           if (hourse==Infinity || hourse==NaN) {
+           hourse=0
+          }
           min=totalminPerSession%60
-          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
+          if (min==Infinity || min==NaN) {
+           min=0
+          }
+          return hourse+' Hours '+min+' Min'
        }else{
-           return totalminPerSession.toFixed(2)+' Min'
+           return totalminPerSession+' Min'
        }
     }
     else{
@@ -251,8 +265,14 @@ avgTimePerDay(totalTime,dayCount){
        let totalmindayCount=Math.floor(totalmin/dayCount);
        if (totalmindayCount>60) {
           hourse=Math.floor(totalmindayCount/60)
+          if (hourse==Infinity || hourse==NaN) {
+           hourse=0
+          }
           min=totalmindayCount%60
-          return hourse.toFixed(2)+' Hours '+min.toFixed(2)+' Min'
+          if (min==Infinity || min==NaN) {
+           min=0
+          }
+          return hourse+' Hours '+min+' Min'
        }else{
            return totalmindayCount+' Min'
        }
@@ -309,6 +329,7 @@ onSateSelect(stateListState){
 openDialog2(): void {
         let dialogRef = this.dialog.open(FilterDialogComponent, {
             width: '800px',
+            panelClass: 'my-dialog',
             data:{state:this.stateListState}
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -697,7 +718,13 @@ onUnverified(status){
    this.onUnverifiedData=[]
  }
 }
-
+onOnline(status){
+  if (status==true) {
+   this.onOnlineData=this.userDataBackup.filter(arg=>arg.onlineStatus =='online')
+ }else{
+   this.onOnlineData=[]
+ }
+}
 onSelectLang(lang){
   if (lang.check==true) {
       this.filterLanguage.push(lang.language)
@@ -778,7 +805,7 @@ getActiveStatus(time,range):boolean {
                                                     this.dataAfterBlock,this.onMobileStatusData,
                                                     this.onHyperData,this.onModrateData,this.onInactiveData,
                                                     this.onInactiveData,this.onMaleData,this.onFemaleData,
-                                                    this.onInfluencereData,this.onVerifiedData,this.onUnverifiedData);
+                                                    this.onInfluencereData,this.onVerifiedData,this.onUnverifiedData,this.onOnlineData);
        if (this.unique(finalData).length>0) {
             this.dataAfterFilterApply=this.unique(finalData)
             this.userData=this.unique(finalData);
@@ -795,6 +822,7 @@ getActiveStatus(time,range):boolean {
       this.afterApplyStatus.hyper=this.rigthSide.hyper
       this.afterApplyStatus.inactive=this.rigthSide.inactive
       this.afterApplyStatus.mobileStatus=this.rigthSide.mobileStatus
+      this.afterApplyStatus.onlineStatus=this.rigthSide.online
       let state=this.filterState.concat(this.selectedState)
       let block=this.filterBlock.concat(this.selectedBlock)
       let dist=this.filterDist.concat(this.selectedDist)
@@ -811,7 +839,7 @@ getActiveStatus(time,range):boolean {
         // code...
      // }
       this.afterApplyStatus.language=this.filterLanguage
-
+      this.classToOpenDiv="";
 
 }
 
@@ -888,6 +916,12 @@ onClearInactiveFilter(){
        this.rigthSide.inactive=false
      this.userData=this.userData.filter(arg=>this.getActiveStatus(arg.lastlogin,'31day')!=true)
 }
+
+onClearOnlineStatusFilter(){
+   this.userData=this.userData.filter(arg=>arg.onlineStatus !='online')
+   this.afterApplyStatus.onlineStatus=false
+   this.rigthSide.online=false
+}
 clearAll(){
      this.afterApplyStatus.mobileStatus=false
     this.rigthSide.mobileStatus=false
@@ -921,8 +955,11 @@ this.afterApplyStatus.block=[]
 this.filterBlock=[]
 this.userData=this.userDataBackup.slice(0)
 this.selectedBlock=[]
+this.onUnverifiedData=[]
 this.filterApplyStatus=false
 this.stateListState[0].check=false
+this.afterApplyStatus.onlineStatus=false
+this.rigthSide.online=false
       // for (var i = 0; i < this.stateListState.length; i++) {
            let obj=this.stateListState[0].dist
            // obj.check=false
@@ -985,14 +1022,26 @@ this.stateListState[0].check=false
     console.log("awesome");
     this.classForFilter="open";
   }
-   deletUser(user): void {
+   deletUser(user,flag): void {
         let dialogRef = this.dialog.open(UserConfirmation, {
-            width: '400px',
+            width: '330px',
             disableClose: true,
+            data:{flag:flag,user:user}
         });
         dialogRef.afterClosed().subscribe(result => {
           if (result=='yes') {
-            this.deletUserConfirm(user._id)
+            if (flag=='delete') {
+                this.deletUserConfirm(user._id)
+              // code...
+            }else if (flag=='status') {
+              // code...
+              this.onStatusChange(user)
+            }
+          }else if (result=='no') {
+            if (flag=='status') {
+              // code...
+              this.getUser()
+            }
           }
         });
     }
@@ -1006,7 +1055,10 @@ this.stateListState[0].check=false
                       this.userData=this.userData.filter(arg=>arg._id !=id);
                       this.userDataBackup=this.userDataBackup.filter(arg=>arg._id !=id);
                       this.dataForSorting=this.dataForSorting.filter(arg=>arg._id !=id);
-                      this.dataAfterFilterApply=this.dataAfterFilterApply.filter(arg=>arg._id !=id);
+                      if (this.dataAfterFilterApply) {
+                        this.dataAfterFilterApply=this.dataAfterFilterApply.filter(arg=>arg._id !=id);
+                        // code...
+                      }
                     }
                     
                 },error=>{
@@ -1030,11 +1082,14 @@ function compare2(a, b, isAsc) {
 
 export class UserConfirmation {
    
-
+ flag;
+ userData
   constructor(
     public dialogRef: MatDialogRef<UserConfirmation>,
     @Inject(MAT_DIALOG_DATA) public data: any,
         public dialog: MatDialog) {
+       this.flag=this.data.flag;
+       this.userData=this.data.user
        }
 
   onYesClick(): void {
@@ -1042,7 +1097,7 @@ export class UserConfirmation {
     // this.homePage.onDelete(this.data.admin)
   }
    onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('no');
   }
 
 

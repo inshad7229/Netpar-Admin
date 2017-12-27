@@ -39,49 +39,81 @@
 		<div [ngStyle]="{background:content.backgroundColor}" *ngIf="content.tag=='text'">
 			<div class="text-light" [innerHTML]="getHtml(content.text)" ></div>
 		</div>
-		
-		<audio controls style="width:100%" *ngIf="content.tag=='audio'">
-	        <source [src]="content.url"  type="audio/mpeg" />
-	        Your browser does not support the audio element.
-	    </audio>
-    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.tag=='video'">
-	        <source [src]="content.url" type="video/mp4">
-	    </video>
+		<div *ngIf="content.tag=='audio'">
+            <audio *ngIf="getTypeFile(content.url)==true" controls style="width:100%" >
+            <source [src]="content.url"  type="audio/mpeg" />
+            Your browser does not support the audio element.
+           </audio>
+           <!-- <div class="iframe-video" *ngIf="getTypeFile(content.url)==false" [innerHTML]="getHtml(content.url)"></div>  -->
+        </div>
+		<div *ngIf="content.tag=='video'">
+        	<video  *ngIf="getTypeFile(content.url)==true" id="my-video" controls preload="auto" width="100%" >
+    	        <source [src]="content.url" type="video/mp4">
+    	    </video>
+             <div class="iframe-video" *ngIf="getTypeFile(content.url)==false" [innerHTML]="getHtml(content.url)"></div>
+            
+        </div>
         <div style="text-align: center;" *ngIf="content.tag=='document'" document>
         	<img width="50%" style="display: inline-block;" src="./assets/img/JAVA.png"></div>
 	    <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" *ngIf="content.tag=='grid'">
             <tbody>
                 <tr style="text-align: center;">
                     <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
-                        <audio controls style="width:100%" *ngIf="content.audiourl1!=null">
-					        <source [src]="content.audiourl1"  type="audio/mpeg" />
-					        Your browser does not support the audio element.
-					    </audio>
-				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl1!=null">
-					        <source [src]="content.videourl1" type="video/mp4">
-					    </video>
+                        <div *ngIf="content.audiourl1!=null">
+                            <audio *ngIf="getTypeFile(content.audiourl1)==true" controls style="width:100%" >
+                                 <source [src]="content.audiourl1"  type="audio/mpeg" />
+                                 Your browser does not support the audio element.
+                           </audio>
+                          <!--  <div class="iframe-video" *ngIf="getTypeFile(content.audiourl1)==false" [innerHTML]="getHtml(content.audiourl1)"></div> -->
+                        </div>
+                        <div *ngIf="content.videourl1!=null">
+    				    	<video *ngIf="getTypeFile(content.videourl1)==true" id="my-video" controls preload="auto" width="100%" >
+    					        <source [src]="content.videourl1" type="video/mp4">
+    					    </video>
+                            <div class="iframe-video" *ngIf="getTypeFile(content.videourl1)==false" [innerHTML]="getHtml(content.videourl1)"></div>
+                            
+                        </div>
                         <img *ngIf="content.documenturl1!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
                         <img *ngIf="content.imgurl1!=null" style="width:100%" [src]="content.imgurl1">
                     </td>
                     <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
-                        <audio controls style="width:100%" *ngIf="content.audiourl2!=null">
-					        <source [src]="content.audiourl2"  type="audio/mpeg" />
-					        Your browser does not support the audio element.
-					    </audio>
-				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl2!=null">
-					        <source [src]="content.videourl2" type="video/mp4">
-					    </video>
+                        <div *ngIf="content.audiourl2!=null">
+                            
+                            <audio *ngIf="getTypeFile(content.audiourl2)==true" controls style="width:100%" >
+                                <source [src]="content.audiourl2"  type="audio/mpeg" />
+                             Your browser does not support the audio element.
+                            </audio>
+                           <!--  <div class="iframe-video" *ngIf="getTypeFile(content.audiourl2)==false" [innerHTML]="getHtml(content.audiourl2)"></div> -->
+                        </div>
+                        <div *ngIf="content.videourl2!=null">
+                            <video  *ngIf="getTypeFile(content.videourl2)==true" id="my-video" controls preload="auto" width="100%" >
+                            <source [src]="content.videourl2" type="video/mp4">
+                             </video>
+                             <div class="iframe-video" *ngIf="getTypeFile(content.videourl2)==false" [innerHTML]="getHtml(content.videourl2)"></div>
+                            
+                        </div>
+				    	
                         <img *ngIf="content.documenturl2!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
                         <img *ngIf="content.imgurl2!=null" style="width:100%" [src]="content.imgurl2">
                     </td>
                    <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
-                        <audio controls style="width:100%" *ngIf="content.audiourl3!=null">
-					        <source [src]="content.audiourl3"  type="audio/mpeg" />
-					        Your browser does not support the audio element.
-					    </audio>
-				    	<video id="my-video" controls preload="auto" width="100%" *ngIf="content.videourl3!=null">
-					        <source [src]="content.videourl3" type="video/mp4">
-					    </video>
+                        <div *ngIf="content.audiourl3!=null">
+                            
+                            <audio  *ngIf="getTypeFile(content.audiourl3)==true" controls style="width:100%" >
+                            <source [src]="content.audiourl3"  type="audio/mpeg" />
+                            Your browser does not support the audio element.
+                        </audio>
+                        <!-- <div class="iframe-video" *ngIf="getTypeFile(content.audiourl3)==false" [innerHTML]="getHtml(content.audiourl3)"></div> -->
+                        </div>
+                        <div *ngIf="content.videourl3!=null">
+                            <video *ngIf="getTypeFile(content.videourl3)==true" id="my-video" controls preload="auto" width="100%" >
+                            <source [src]="content.videourl3" type="video/mp4">
+                            </video>
+                            <div class="iframe-video" *ngIf="getTypeFile(content.videourl3)==false" [innerHTML]="getHtml(content.videourl3)"></div>
+                            
+                        </div>
+                        
+				    	
                         <img *ngIf="content.documenturl3!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
                         <img *ngIf="content.imgurl3!=null" style="width:100%" [src]="content.imgurl3">
                     </td>

@@ -31,9 +31,10 @@
                                     <li *ngIf="afterApplyStatus.female" >Female  <span (click)="onClearFemaleFilter()"> <i class="fa fa-times"></i> </span> </li>
                                     <li *ngIf="afterApplyStatus.male" >Male  <span (click)="onClearMaleFilter()"> <i class="fa fa-times"></i> </span> </li>
                                      <li *ngIf="afterApplyStatus.active" >Active  <span (click)="onClearActiveFilter()"> <i class="fa fa-times"></i> </span> </li>
-                                      <li *ngIf="afterApplyStatus.modrate" >Modrate  <span (click)="onClearModrateFilter()"> <i class="fa fa-times"></i> </span> </li>
-                                       <li *ngIf="afterApplyStatus.hyper" >Hyper  <span (click)="onClearHyperFilter()"> <i class="fa fa-times"></i> </span> </li>
-                                       <li *ngIf="afterApplyStatus.inactive" >Hyper  <span (click)="onClearInactiveFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                      <li *ngIf="afterApplyStatus.modrate" > Moderately Active  <span (click)="onClearModrateFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                       <li *ngIf="afterApplyStatus.hyper" >Hyper Active  <span (click)="onClearHyperFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                       <li *ngIf="afterApplyStatus.inactive" >Inactive  <span (click)="onClearInactiveFilter()"> <i class="fa fa-times"></i> </span> </li>
+                                       <li *ngIf="afterApplyStatus.onlineStatus" >Online  <span (click)="onClearOnlineStatusFilter()"> <i class="fa fa-times"></i> </span> </li>
                                    
                                 </ul>
                             </div>
@@ -213,10 +214,18 @@
                                                                 <span *ngIf="user.status">Disable </span>
                                                                 <span class="cus-switch">
                                                                     <label class="switch m-b-0">
-                                                                        <input type="checkbox" [(ngModel)]="user.status"  (change)="onStatusChange(user)"/>
+                                                                        <input type="checkbox" [(ngModel)]="user.status"  (change)="deletUser(user,'status')"/>
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </span>
+                                                            </div>
+                                                            <div class="user_status" *ngIf="user.onlineStatus=='offline'">
+                                                                <span class="badge offline"> </span>
+                                                                Offline
+                                                            </div>
+                                                            <div class="user_status"  *ngIf="user.onlineStatus=='online'">
+                                                                <span class="badge online"> </span>
+                                                                Online
                                                             </div>
                                                         </div>
                                                         <div class="media-box cont-dtl">
@@ -248,7 +257,7 @@
                                                             <span *ngIf="!user.influencer">Enable</span>
                                                             <span *ngIf="user.influencer"> Disable</span>
                                                             <label class="switch m-b-0">
-                                                                <input type="checkbox" [(ngModel)]="user.influencer"  (change)="onInfluencerStatusChange(user)"/>
+                                                                <input type="checkbox" [(ngModel)]="user.influencer"  (change)="onInfluencerStatusChange(user,'influencer')"/>
                                                                 <span class="slider round"></span>
                                                             </label>
                                                         </div>
@@ -260,7 +269,7 @@
                                                         <p> No. of conversation:{{user.totalConversations}} </p>
                                                     </td>
                                                      <td *ngIf="i<limit" class="td-icon">
-                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico" (click)="deletUser(user)"> <i class="fa fa-trash"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico" (click)="deletUser(user,'delete')"> <i class="fa fa-trash"></i> </a>
                                                     </td>
 
 		                                        </tr>
@@ -480,9 +489,9 @@
                         <h5 class="filter-heading"> Active user</h5>
                         <div class="wrapFilter-div">
                             <ul class="filters-ul" type="none">
-                                <li><mat-checkbox [(ngModel)]="rigthSide.hyper" (change)="onHyper(rigthSide.hyper)" >Hyper active</mat-checkbox></li>
-                                <li><mat-checkbox [(ngModel)]="rigthSide.modrate" (change)="onModrate(rigthSide.modrate)" >Moderatley active</mat-checkbox></li>
-                                <li><mat-checkbox [(ngModel)]="rigthSide.active" (change)="onActive(rigthSide.active)" >active</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.hyper" (change)="onHyper(rigthSide.hyper)" >Hyper Active</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.modrate" (change)="onModrate(rigthSide.modrate)" >Moderately Active</mat-checkbox></li>
+                                <li><mat-checkbox [(ngModel)]="rigthSide.active" (change)="onActive(rigthSide.active)" >Active</mat-checkbox></li>
                                 <li><mat-checkbox [(ngModel)]="rigthSide.inactive" (change)="onInactive(rigthSide.inactive)" >Inactive</mat-checkbox></li>
                             </ul>
                         </div>
@@ -503,6 +512,7 @@
                                 <li><mat-checkbox  [(ngModel)]="rigthSide.influencere" (change)="onInfluencere(rigthSide.influencere)" >Influencers</mat-checkbox></li>
                                 <li><mat-checkbox  [(ngModel)]="rigthSide.verified" (change)="onVerified(rigthSide.verified)" >Verified</mat-checkbox></li>
                                 <li><mat-checkbox  [(ngModel)]="rigthSide.unverified" (change)="onUnverified(rigthSide.unverified)" >Unverified</mat-checkbox></li>
+                                <li><mat-checkbox  [(ngModel)]="rigthSide.online" (change)="onOnline(rigthSide.online)" >Online User</mat-checkbox></li>
                             </ul>
                         </div>
                     </div>

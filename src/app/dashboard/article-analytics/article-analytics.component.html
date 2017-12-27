@@ -162,7 +162,7 @@
                                                         </div>
                                                         <div class="cont-dtl">
                                                             <div> {{content.headline}} </div>
-                                                            <div> <strong> Posted by: </strong> {{content.userList[0].firstName}} {{content.userList[0].lastName}}</div>
+                                                            <div *ngIf="content.userList && content.userList.length>0"> <strong> Posted by: </strong> {{content.userList[0].firstName}} {{content.userList[0].lastName}}</div>
                                                             <div class=""> 
                                                                 <a href="javascript:;">
                                                                     {{content.sectionName}} | <span class="dark_ylw">{{content.categoryName}}</span>

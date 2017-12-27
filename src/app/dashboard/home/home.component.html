@@ -49,7 +49,7 @@
                                                     </td>
                                                     <td class="td-icon">
                                                         {{admin.firstName}} {{admin.lastName}}
-                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico" (click)="openDialog(admin)"> <i class="fa fa-trash"></i> </a>
+                                                        <a matTooltipPosition="above" matTooltip="Delete" class="tltip_ico" (click)="openDialog(admin,'delete')"> <i class="fa fa-trash"></i> </a>
                                                         <a matTooltipPosition="above" matTooltip="Edit" (click)="editAdmin(admin,'allEdit')" class="tltip_ico"> <i class="fa fa-edit"></i> </a>
                                                     </td>
                                                     <td>
@@ -59,7 +59,7 @@
                                                             <span *ngIf="admin.status==true">Enable</span>
                                                             <span *ngIf="admin.status==false" >Disable</span>
                                                             <label class="switch m-b-0">
-                                                                <input type="checkbox"  [(ngModel)]="admin.status"  (change)="onStatusChange(admin)" />
+                                                                <input type="checkbox"  [(ngModel)]="admin.status"  (change)="openDialog(admin,'status')" />
                                                                 <span class="slider round"></span>
                                                             </label>
                                                         </div>

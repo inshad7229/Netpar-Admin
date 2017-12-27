@@ -18,7 +18,7 @@
                                 <i class="material-icons">show_chart</i>
                             </div>
                             <div class="card-content">
-                                <h4 class="card-title">List view Template</h4>
+                                <h4 class="card-title">Listing View Template</h4>
                                 <div class="row">
                                     <div class="template-table dshbrd-table table-responsive">
                                         <table class="table table-striped user-table" >
@@ -32,8 +32,8 @@
                                                 </tr>
                                                
                                             </thead>
-                                            <tbody>
-                                                 <tr *ngFor="let list of categortTemplateList">
+                                            <tbody *ngIf="categortTemplateList">
+                                                 <tr *ngFor="let list of categortTemplateList | orderBy ">
                                                     <td class="text-center">
                                                         <div class="cont-img templt-img">
                                                             <img class="img-responsive" src="./assets/img/listing-view/{{getImagePath(list.templateName)}}" />

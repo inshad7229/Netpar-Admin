@@ -110,7 +110,7 @@
                                                     </td>
                                                     <td *ngIf="i<limit" class="td-wdth25">
                                                         <div class="media-box" *ngFor="let media of contri.media; let j=index">
-                                                            <p><a class="text-primary" > Media{{j+1}} <i class="material-icons" (click)="openMedia(media.url,media.type)">file_download</i> </a> | Type: {{media.type}} | Size: {{getSize(media.size)}} </p>
+                                                            <p><a class="text-primary"  (click)="openMedia(media.url,media.type)"> Media{{j+1}} <i class="material-icons">file_download</i> </a> | Type: {{media.type}} | Size: {{getSize(media.size)}} </p>
                                                         </div>
                                                     </td>
                                                     <td *ngIf="i<limit" class="td-wdth9"><p>{{getTime(contri.dateOfCreation)}}</p>

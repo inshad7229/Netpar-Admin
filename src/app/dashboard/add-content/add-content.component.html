@@ -11,7 +11,7 @@
         <app-navbar></app-navbar>
         <div class="main-content">
             <div class="container-fluid p-0">
-                <mat-progress-bar *ngIf="waitLoader" mode="indeterminate"></mat-progress-bar>
+                <!-- <mat-progress-bar *ngIf="waitLoader" mode="indeterminate"></mat-progress-bar> -->
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
                         <div class="card" > 
@@ -171,7 +171,7 @@
                                                 only alphabets are acceptable 
                                                 </mat-error> -->
                                                 <mat-error  *ngIf="addContentForm.controls['tagline'].hasError('maxlength')">
-                                                max length is 100
+                                                max length is 500
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>  
@@ -409,42 +409,77 @@
                                                                                     <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;height: 100px;padding: 3px;" (click)="OnFirstGrid(i,item,audi01,video1)"
                                                                                          
                                                                                     >
-                                                                                       
-                                                                                        <audio #audi01 controls *ngIf="item.audiourl1!=null">
-                                                                                            <source [src]="safeURL(item.audiourl1)"  type="audio/mpeg" />
-                                                                                            Your browser does not support the audio element.
-                                                                                        </audio>
-                                                                                        <video #video1 *ngIf="item.videourl1!=null "  id="my-video" controls preload="auto" width="80%" (click)="video(video1)">
-                                                                                            <source [src]="safeURL(item.videourl1)" type="video/mp4">
-                                                                                        </video>
+                                                                                       <div *ngIf="item.audiourl1!=null">
+                                                                                            <audio *ngIf="getTypeFile(item.audiourl1)==true" #audi01 controls >
+                                                                                                <source [src]="safeURL(item.audiourl1)"  type="audio/mpeg" />
+                                                                                                Your browser does not support the audio element.
+                                                                                            </audio>
+                                                                                            <!-- <div class="iframe-video" *ngIf="getTypeFile(item.audiourl1)==false" [innerHTML]="getHtml(item.audiourl1)"></div> -->
+                                                                                       </div>
+                                                                                       <div *ngIf="item.videourl1!=null ">
+                                                                                                <video *ngIf="getTypeFile(item.videourl1)==true"  #video1   id="my-video" controls preload="auto" width="80%" (click)="video(video1)">
+                                                                                                <source [src]="safeURL(item.videourl1)" type="video/mp4">
+                                                                                              </video>
+                                                                                              <div class="iframe-video" *ngIf="getTypeFile(item.videourl1)==false" [innerHTML]="getHtml(item.videourl1)"></div>
+                                                                                       </div>
+                                                                                        
+                                                                                        
                                                                                          <img [src]="item.imgurl1" *ngIf="item.imgurl1!=null ">
                                                                                          <img src="./assets/img/JAVA.png" *ngIf="item.documenturl1!=null ">
                                                                                      
                                                                                         
                                                                                     </td>
                                                                                     <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;height: 100px;padding: 3px;" (click)="OnSecondGrid(i,item,audi02,video2)">
-                                                                                      
-                                                                                        <audio #audi02 controls *ngIf="item.audiourl2!=null">
+                                                                                         <div *ngIf="item.audiourl2!=null">
+                                                                                             <audio #audi02 controls *ngIf="getTypeFile(item.audiourl2)==true">
+                                                                                                <source [src]="safeURL(item.audiourl2)"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                            </audio>
+                                                                                            <!-- <div class="iframe-video" *ngIf="getTypeFile(item.audiourl2)==false" [innerHTML]="getHtml(item.audiourl2)"></div> -->
+                                                                                       </div>
+                                                                                        <!-- <audio #audi02 controls *ngIf="item.audiourl2!=null">
                                                                                             <source [src]="safeURL(item.audiourl2)"  type="audio/mpeg" />
                                                                                             Your browser does not support the audio element.
-                                                                                        </audio>
-                                                                                        <video #video2 *ngIf="item.videourl2!=null" #ref id="my-video" controls preload="auto" width="80%" >
+                                                                                        </audio> -->
+                                                                                        <div *ngIf="item.videourl2!=null ">
+                                                                                                <video #video2 *ngIf="getTypeFile(item.videourl2)==true" #video2 id="my-video" controls preload="auto" width="80%" >
+                                                                                                     <source [src]="safeURL(item.videourl2)" type="video/mp4">
+                                                                                                </video>
+                                                                                              <div class="iframe-video" *ngIf="getTypeFile(item.videourl2)==false" [innerHTML]="getHtml(item.videourl2)"></div>
+                                                                                       </div>
+                                                                                        <!-- <video #video2 *ngIf="item.videourl2!=null" #video2 id="my-video" controls preload="auto" width="80%" >
                                                                                             <source [src]="safeURL(item.videourl2)" type="video/mp4">
-                                                                                        </video>
+                                                                                        </video> -->
                                                                                          <img [src]="item.imgurl2" *ngIf="item.imgurl2!=null">
                                                                                          <img src="./assets/img/JAVA.png" *ngIf="item.documenturl2!=null">
                                                                                      
                                                                                         
                                                                                     </td>
                                                                                     <td [ngStyle]="{textAlign:item.aligment}" style="width: 33.33%;height: 100px;padding: 3px;" (click)="OnThirdGrid(i,item,audio3,video3)">
-                                                                                        
-                                                                                        <audio #audio3 controls *ngIf="item.audiourl3!=null">
+                                                                                        <div *ngIf="item.audiourl3!=null">
+                                                                                             <audio *ngIf="getTypeFile(item.audiourl3)==true" #audio3 controls >
+                                                                                                 <source [src]="safeURL(item.audiourl3)"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                            </audio>
+                                                                                            <!-- <div class="iframe-video" *ngIf="getTypeFile(item.audiourl3)==false" [innerHTML]="getHtml(item.audiourl3)"></div> -->
+                                                                                       </div>
+                                                                                        <!-- <audio #audi02 controls *ngIf="item.audiourl2!=null">
+                                                                                            <source [src]="safeURL(item.audiourl2)"  type="audio/mpeg" />
+                                                                                            Your browser does not support the audio element.
+                                                                                        </audio> -->
+                                                                                        <div *ngIf="item.videourl3!=null ">
+                                                                                                 <video #video3 *ngIf="item.videourl3!=null" #ref id="my-video" controls preload="auto" width="80%" >
+                                                                                                 <source [src]="safeURL(item.videourl3)" type="video/mp4">
+                                                                                                </video>
+                                                                                              <div class="iframe-video" *ngIf="getTypeFile(item.videourl3)==false" [innerHTML]="getHtml(item.videourl3)"></div>
+                                                                                       </div>
+                                                                                        <!-- <audio #audio3 controls *ngIf="item.audiourl3!=null">
                                                                                             <source [src]="safeURL(item.audiourl3)"  type="audio/mpeg" />
                                                                                             Your browser does not support the audio element.
                                                                                         </audio>
                                                                                         <video #video3 *ngIf="item.videourl3!=null" #ref id="my-video" controls preload="auto" width="80%" >
                                                                                             <source [src]="safeURL(item.videourl3)" type="video/mp4">
-                                                                                        </video>
+                                                                                        </video> -->
                                                                                          <img [src]="item.imgurl3" *ngIf="item.imgurl3!=null">
                                                                                          <img src="./assets/img/JAVA.png" *ngIf="item.documenturl3!=null">
                                                                                         
@@ -571,15 +606,22 @@
                                                                     <div class="builder-element" *ngIf="item.tag=='video'">
                                                                         <table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" [ngStyle]="{background:item.backgroundColor}" align="center" data-type="text-block">
                                                                             <tbody>
-                                                                                <tr (click)="onClickOnDragItem(i,item,ref)">
-                                                                                    <td [ngStyle]="{textAlign:item.aligment}">
+                                                                                <tr  (click)="onClickOnDragItem(i,item,ref)">
+                                                                                    <td  [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <video #ref id="my-video" controls preload="auto" width="80%" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
+                                                                                        <video *ngIf="getTypeFile(item.url)==true"  #ref id="my-video" controls preload="auto" width="80%" [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
                                                                                             <source [src]="safeURL(item.url)" type="video/mp4">
                                                                                         </video>
+                                                                                        <div class="iframe-video" *ngIf="getTypeFile(item.url)==false" [innerHTML]="getHtml(item.url)"></div> 
                                                                                         <figcaption>{{item.caption}}</figcaption>
                                                                                     </td>
+                                                                                        
                                                                                 </tr>
+                                                                                <!-- <tr   (click)="onClickOnDragItem(i,item)">
+                                                                                   
+                                                                                </tr> -->
+                                                                                
+                                                                               <!--  <iframe width="560" height="315" src="https://www.youtube.com/embed/VpUEo28SQsU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe> -->
                                                                             </tbody>
                                                                         </table>
                                                                         
@@ -590,10 +632,11 @@
                                                                                 <tr (click)="onClickOnDragItem(i,item,ref2)">
                                                                                     <td  [ngStyle]="{textAlign:item.aligment}">
                                                                                         <h5>{{item.title}}</h5>
-                                                                                        <audio #ref2 controls [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
+                                                                                        <audio *ngIf="getTypeFile(item.url)==true" #ref2 controls [ngStyle]="{width:item.width, display: item.display,paddingLeft:item.left, paddingRight: item.right,paddingTop:item.top,paddingBottom:item.bottom}">
                                                                                             <source [src]="safeURL(item.url)"  type="audio/mpeg" />
                                                                                             Your browser does not support the audio element.
                                                                                         </audio>
+                                                                                        <!-- <div class="iframe-video" *ngIf="getTypeFile(item.url)==false" [innerHTML]="getHtml(item.url)"></div> --> 
                                                                                         <figcaption [ngStyle]="{textAlign:item.aligment}">{{item.caption}}</figcaption>
                                                                                     </td>
                                                                                 </tr>
@@ -2720,7 +2763,7 @@
                                             <button class="btn custom-btn" (click)="listView()" [disabled]="!addContentForm.valid"> Listing View </button>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <button class="btn btn-warning" (click)="saveAsDraft()" [disabled]="!addContentForm.valid"> Save as draft </button>
+                                            <button class="btn btn-warning" (click)="saveAsDraft()" > Save as draft </button>
                                             <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser'"  (click)="submitForReview()" [disabled]="!addContentForm.valid"> Submit for review </button>
                                             <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" [disabled]="!addContentForm.valid" (click)="publish('Publish')" > Publish Now</button>
                                             <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" [disabled]="!addContentForm.valid"> Publish later </button>

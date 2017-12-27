@@ -213,7 +213,7 @@ export class AddContentComponent implements OnInit {
     }
      stateCtrl: FormControl;
   filteredStates: Observable<any[]>;
-
+  youtubeUrl='<iframe width="560" height="315" src="https://www.youtube.com/embed/VpUEo28SQsU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>'
 	constructor(private dialog: MatDialog, 
 		        private sanitizer: DomSanitizer,private fb: FormBuilder, private router: Router,
 		        vcr: ViewContainerRef,
@@ -260,7 +260,7 @@ export class AddContentComponent implements OnInit {
 								'subCategoryName':[null],
 								'subCategoryId':[null],
 								'headline':[null , Validators.compose([Validators.required, Validators.maxLength(200)])],
-								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(100)])],
+								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(500)])],
 								'tags':[null],
 								'dateOfCreation':[null],
 								'typeOfUser':[null, Validators.compose([Validators.required])],
@@ -1069,10 +1069,13 @@ addownloadRight(Download){
   	   		 this.documentFileData[index].file=null
   	  	}
   	  }
-      if ((this.listOne[this.currentIndex].tag=='video' || this.listOne[this.currentIndex].tag=='audio' ) && this.ref) {
-      	//console.log(this.ref);
-      	this.ref.load();
-    	this.ref.play();
+      if (this.ref) {
+        if ((this.listOne[this.currentIndex].tag=='video' || this.listOne[this.currentIndex].tag=='audio' ) && this.ref) {
+        	//console.log(this.ref);
+        	this.ref.load();
+      	this.ref.play();
+        }
+        // code...
       }
 	}
 	onFormUrlChange(url){
@@ -1812,7 +1815,7 @@ onDeleteBody(){
       let searchData=searchUser.trim()
       let searchArray=searchData.split(' ')
       console.log(searchArray)
-      if (searchArray.legth==1) {
+      if (searchArray.length==1) {
          if (searchData == '') {
               this.localAdminList = this.adminList;
               return;
@@ -2015,20 +2018,20 @@ onDeleteBody(){
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		   if (this.sections.length>0) {
+		   if (this.sections && this.sections.length>0) {
 		   	 let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
           if (localsection.length>0) {
 		        this.addContentRequest.sectionName=localsection[0].sectionName;
           }
 		   }
-		   if (this.categories.length>0) {
+		   if (this.categories && this.categories.length>0) {
 		   	let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
          if (localcategory.length>0) {
            // code...
 		        this.addContentRequest.categoryName=localcategory[0].categoryName;
          }
 		   }
-		  if (this.subCategory.length>0) {
+		  if (this.subCategory && this.subCategory.length>0) {
 		  	 let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
          if (localsubcategory.length>0) {
            // code...
@@ -2089,20 +2092,20 @@ onDeleteBody(){
 		      //console.log(JSON.stringify(this.listOne))
 		   	 }
 		   }
-		 if (this.sections.length>0) {
+		 if (this.sections && this.sections.length>0) {
           let localsection=this.sections.filter(arg=>arg._id==this.addContentRequest.sectionId)
           if (localsection.length>0) {
             this.addContentRequest.sectionName=localsection[0].sectionName;
           }
        }
-       if (this.categories.length>0) {
+       if (this.categories && this.categories.length>0) {
          let localcategory=this.categories.filter(arg=>arg._id==this.addContentRequest.categoryId)
          if (localcategory.length>0) {
            // code...
             this.addContentRequest.categoryName=localcategory[0].categoryName;
          }
        }
-      if (this.subCategory.length>0) {
+      if (this.subCategory && this.subCategory.length>0) {
          let localsubcategory=this.subCategory.filter(arg=>arg._id==this.addContentRequest.subCategoryId)
          if (localsubcategory.length>0) {
            // code...
@@ -3246,7 +3249,7 @@ onDeleteBody(){
          this.currentIndex=i;
          this.rightPan=item
         let dialogRef = this.dialog.open(ImageResizerComponent, {
-            width: '400px',
+            width: '750px',
             data:{item:item,lang:this.addContentRequest.language}
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -4115,6 +4118,12 @@ onKeyUp(event){
      }else{
        this.currentActiveIndex=this.currentActiveIndex+1
      }
+  }else if (event.keyCode==188) {
+    let a=this.addContentRequest.tag.replace(",", "")
+    if (a.length>0) {
+      this.onAddTags(a)
+      // code...
+    }
   }
 
 }
@@ -4142,5 +4151,13 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
       range.moveStart('character', selectionStart);
       range.select();
     }
+  }
+
+  getTypeFile(url){
+   if (url.indexOf('<iframe')==-1) {
+     return true
+   }else{
+     return false
+   }
   }
 }

@@ -263,13 +263,40 @@ export class AddSubcategoryComponent implements OnInit {
                     this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true);;
                     if (this.addSubCategoryRequest.language) {
                          this.sections=this.sectionsData.filter(arg=>arg.language==this.addSubCategoryRequest.language  && arg.deleteStatus!=true);
-                         this.categories=data.response.filter(arg=>arg.language==this.addSubCategoryRequest.language);
+                         this.categories=data.response.filter(arg=>arg.language==this.addSubCategoryRequest.language && arg.deleteStatus!=true);
+                    }
+                    if (this.addSubCategoryRequest.categoryId) {
+                        let secData=this.categories.filter(arg=>arg._id==this.addSubCategoryRequest.categoryId);
+                            if (secData.length>0) {
+                                if (secData[0].subCategoryView=='no' || secData[0].subCategoryView=='No') {
+                                  this.addSubCategoryForm.controls['subCategoryView'].disable()
+                                  this.addSubCategoryRequest.subCategoryView='no'
+                                }else{
+                                  this.addSubCategoryForm.controls['subCategoryView'].enable()   
+                                }
+                                // code...
+                            }
                     }
                     console.log(JSON.stringify(data))
                 },error=>{
                     alert(error)
                 }) 
     }
+
+     onCategoryChange(id){
+    // alert('hy')
+     let secData=this.categories.filter(arg=>arg._id==id);
+     console.log(JSON.stringify(secData))
+                            if (secData.length>0) {
+                                 if (secData[0].subCategoryView=='no' || secData[0].subCategoryView=='No') {
+                                  this.addSubCategoryForm.controls['subCategoryView'].disable()
+                                  this.addSubCategoryRequest.subCategoryView='no'
+                                }else{
+                                  this.addSubCategoryForm.controls['subCategoryView'].enable()   
+                                }
+                                // code...
+                            }
+ }
     onAddSubcategory(){
 
         this.waitLoader = true;
