@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit {
     }
     openDialog(admin): void {
     let dialogRef = this.dialog.open(AdminConfirmation, {
-      width: '250px',
+      width: '330px',
       data: { admin: admin}
     });
 

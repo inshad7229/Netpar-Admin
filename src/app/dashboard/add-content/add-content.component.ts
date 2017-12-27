@@ -3249,7 +3249,7 @@ onDeleteBody(){
          this.currentIndex=i;
          this.rightPan=item
         let dialogRef = this.dialog.open(ImageResizerComponent, {
-            width: '400px',
+            width: '750px',
             data:{item:item,lang:this.addContentRequest.language}
         });
         dialogRef.afterClosed().subscribe(result => {

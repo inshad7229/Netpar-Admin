@@ -310,6 +310,7 @@ onSateSelect(stateListState){
 openDialog2(): void {
         let dialogRef = this.dialog.open(FilterDialogComponent, {
             width: '800px',
+            panelClass: 'my-dialog',
             data:{state:this.stateListState}
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -819,7 +820,7 @@ getActiveStatus(time,range):boolean {
         // code...
      // }
       this.afterApplyStatus.language=this.filterLanguage
-
+      this.classToOpenDiv="";
 
 }
 
@@ -1004,7 +1005,7 @@ this.rigthSide.online=false
   }
    deletUser(user,flag): void {
         let dialogRef = this.dialog.open(UserConfirmation, {
-            width: '400px',
+            width: '330px',
             disableClose: true,
             data:{flag:flag,user:user}
         });
