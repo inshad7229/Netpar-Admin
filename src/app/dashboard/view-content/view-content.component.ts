@@ -68,7 +68,7 @@ export class ViewContentComponent implements OnInit {
     selectedId=[]
     status=[
       {
-        _id:"मुकुल",
+        _id:"saveAsDraftStatus",
         value:"Draft",
         check:false
 
@@ -701,7 +701,23 @@ export class ViewContentComponent implements OnInit {
                this.status[i].check=false
             }
         }
-
+closedFilter(){
+  for (let i=0;i<this.stringResource.language.length;i++) {
+               this.stringResource.language[i].check=false
+            }
+            for (let i=0;i<this.sections.length;i++) {
+               this.sections[i].check=false
+            }
+            for (let i=0;i<this.categories.length;i++) {
+               this.categories[i].check=false
+            }
+            for (let i=0;i<this.subCategory.length;i++) {
+               this.subCategory[i].check=false
+            }
+            for (let i=0;i<this.status.length;i++) {
+               this.status[i].check=false
+            }
+}
 onselectSate(state){
  // alert(state)
   let filterData=[]
