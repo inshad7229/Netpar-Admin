@@ -17,7 +17,7 @@
                     	<div class="card m-t-0">
                     		<div class="card-content">
 	                            <div class="select-head">
-	                                <span class="hed"> Selected filter </span> | <span class="clar-filter"> Clear Filter </span>
+	                                <span class="hed"> Selected filter </span> | <span class="clar-filter" (click)="clearAll()"> Clear Filter </span>
 	                            </div>
 	                            <ul class="slctd-fltrli" type="none">
                                     <li *ngFor="let lang of filterLanguageFilterPan" > {{lang}} <span (click)="onClearLangFilter(lang)"> <i class="fa fa-times"></i> </span> </li>

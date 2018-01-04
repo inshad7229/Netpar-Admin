@@ -711,7 +711,7 @@ export class EditAdminComponent implements AfterViewInit {
                     console.log('in get section ')
                     console.log(JSON.stringify(this.options))
                     this.waitLoader = false;
-                    this.sections=data.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );;
+                    this.sections=data.filter(arg=>arg.deleteStatus!=true);;
                     for (let  i =0 ; i<this.sections.length; i++) {
                        var obj=this.sections[i]
                        // var obj2=[]

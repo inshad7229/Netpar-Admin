@@ -27,8 +27,8 @@
                                                     <th> Template </th>
                                                     <th> Template Name </th>
                                                     <th> Active In Category </th>
-                                                    <th> Start Date &amp; Time </th>
-                                                    <th> End Date &amp; Time </th>
+                                                    <th> Start Date And Time </th>
+                                                    <th> End Date And Time </th>
                                                 </tr>
                                                
                                             </thead>
@@ -46,18 +46,21 @@
                                                     <td> {{getEndTime(list.endTime)}}, {{getEndDate(list.endTime)}} </td> -->
                                                     <td>
                                                         <ul *ngFor="let cat of getCategoryName(list.templateName)">
-                                                            <li *ngIf="list.templateName=='Category-view Template One'">{{getStartTime(cat.templateoneStartDate)}}, {{getStartDate(cat.templateoneStartDate)}}</li>
-                                                            <li *ngIf="list.templateName=='Category-view Template Two'">{{getStartTime(cat.templatetwoStartDate)}}, {{getStartDate(cat.templatetwoStartDate)}}</li>
-                                                            <li *ngIf="list.templateName=='Category-view Template Three'">{{getStartTime(cat.templatethreeStartDate)}}, {{getStartDate(cat.templatethreeStartDate)}}</li>
-                                                            <li *ngIf="list.templateName=='Category-view Template Four'">{{getStartTime(cat.templatefourStartDate)}}, {{getStartDate(cat.templatefourStartDate)}}</li>
+                                                            <li *ngIf="list.templateName=='Category-view Template One'">
+                                                            {{getStartDate(cat.templateoneStartDate)}},
+                                                            {{getStartTime(cat.templateoneStartDate)}}</li>
+                                                            <li *ngIf="list.templateName=='Category-view Template Two'">
+                                                            {{getStartDate(cat.templatetwoStartDate)}},{{getStartTime(cat.templatetwoStartDate)}}</li>
+                                                            <li *ngIf="list.templateName=='Category-view Template Three'">{{getStartDate(cat.templatethreeStartDate)}},{{getStartTime(cat.templatethreeStartDate)}}</li>
+                                                            <li *ngIf="list.templateName=='Category-view Template Four'"> {{getStartDate(cat.templatefourStartDate)}},{{getStartTime(cat.templatefourStartDate)}}</li>
                                                         </ul>
                                                    </td>
                                                     <td>
                                                         <ul *ngFor="let cat of getCategoryName(list.templateName)">
-                                                            <li *ngIf="list.templateName=='Category-view Template One'"> {{getEndTime(cat.templateoneendDate)}}, {{getEndDate(cat.templateoneendDate)}} </li>
-                                                            <li *ngIf="list.templateName=='Category-view Template Two'"> {{getEndTime(cat.templatetwoendDate)}}, {{getEndDate(cat.templatetwoendDate)}} </li>
-                                                            <li *ngIf="list.templateName=='Category-view Template Three'"> {{getEndTime(cat.templatethreeendDate)}}, {{getEndDate(cat.templatethreeendDate)}} </li>
-                                                            <li *ngIf="list.templateName=='Category-view Template Four'"> {{getEndTime(cat.templatefourendDate)}}, {{getEndDate(cat.templatefourendDate)}} </li>
+                                                            <li *ngIf="list.templateName=='Category-view Template One'"> {{getEndDate(cat.templateoneendDate)}},{{getEndTime(cat.templateoneendDate)}} </li>
+                                                            <li *ngIf="list.templateName=='Category-view Template Two'"> {{getEndDate(cat.templatetwoendDate)}},{{getEndTime(cat.templatetwoendDate)}} </li>
+                                                            <li *ngIf="list.templateName=='Category-view Template Three'">  {{getEndDate(cat.templatethreeendDate)}},{{getEndTime(cat.templatethreeendDate)}} </li>
+                                                            <li *ngIf="list.templateName=='Category-view Template Four'">  {{getEndDate(cat.templatefourendDate)}},{{getEndTime(cat.templatefourendDate)}} </li>
                                                         </ul> 
                                                     </td>
                                                 </tr>

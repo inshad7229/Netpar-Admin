@@ -109,10 +109,10 @@
                                              <mat-error  *ngIf="complexForm.controls['alternativeEmail'].hasError('pattern')">
                                               Please insert valid email id
                                              </mat-error>
-                                             <mat-error  *ngIf="emailConfirmationMsg==true">
-                                              Email and alternative email can't be same
-                                             </mat-error>
                                         </mat-form-field>
+                                             <p *ngIf="emailConfirmationMsg==true" style="color: red">
+                                              Email and alternative email can't be same
+                                             </p>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <mat-form-field>
@@ -703,7 +703,7 @@
                                                         <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionManagement']" [(ngModel)]="register.sectionManagement"  (change)="onPriviliegesChange('section',register.sectionManagement)" >Section Management</mat-checkbox>
                                                     </div>
                                                     <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSection']" [(ngModel)]="register.addSection"  (change)="onPriviliegesChange('sectionOption')" >Add Section</mat-checkbox >
-                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addcategory']" [(ngModel)]="register.addcategory"  (change)="onPriviliegesChange('sectionOption')" >Add category</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addcategory']" [(ngModel)]="register.addcategory"  (change)="onPriviliegesChange('sectionOption')" >Add Category</mat-checkbox>
                                                     <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addSubcategory']" [(ngModel)]="register.addSubcategory"  (change)="onPriviliegesChange('sectionOption')" >Add Subcategory</mat-checkbox>
                                                     <mat-checkbox class="col-md-12 col-sm-12 col-xs-12"  [formControl]="complexForm.controls['viewEditSection']" [(ngModel)]="register.viewEditSection"  (change)="onPriviliegesChange('sectionOption')"  >View/Edit Section</mat-checkbox>
                                                 </div>
@@ -713,10 +713,10 @@
                                                     <div class="privlig-header">
                                                         <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['templateManagement']" [(ngModel)]="register.templateManagement" (change)="onPriviliegesChange('template',register.templateManagement)" >Template Management</mat-checkbox>
                                                     </div>
-                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionTemplate']" [(ngModel)]="register.sectionTemplate" (change)="onPriviliegesChange('templateOption')" >Section Template</mat-checkbox>
-                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['categoryTemplate']" [(ngModel)]="register.categoryTemplate" (change)="onPriviliegesChange('templateOption')" >Category Template</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['sectionTemplate']" [(ngModel)]="register.sectionTemplate" (change)="onPriviliegesChange('templateOption')" >Section View Template</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['categoryTemplate']" [(ngModel)]="register.categoryTemplate" (change)="onPriviliegesChange('templateOption')" >Category View Template</mat-checkbox>
                                                     <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['listingView']" [(ngModel)]="register.listingView" (change)="onPriviliegesChange('templateOption')" >Listing View Template</mat-checkbox>
-                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageTemplate']" [(ngModel)]="register.homepageTemplate" (change)="onPriviliegesChange('templateOption')" >Homepage Template</mat-checkbox>
+                                                   <!--  <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['homepageTemplate']" [(ngModel)]="register.homepageTemplate" (change)="onPriviliegesChange('templateOption')" >Homepage Template</mat-checkbox> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -735,8 +735,8 @@
                                                     <div class="privlig-header">
                                                         <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['contentManagement']" [(ngModel)]="register.contentManagement" (change)="onPriviliegesChange('content',register.contentManagement)" >Content Management</mat-checkbox>
                                                     </div>
-                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addContentManagement']" [(ngModel)]="register.addContentManagement" (change)="onPriviliegesChange('contentOption')" >Add Content Management</mat-checkbox>
-                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['manageContentItem']" [(ngModel)]="register.manageContentItem" (change)="onPriviliegesChange('contentOption')" >Manage Content Item</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['addContentManagement']" [(ngModel)]="register.addContentManagement" (change)="onPriviliegesChange('contentOption')" >Add Content</mat-checkbox>
+                                                    <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['manageContentItem']" [(ngModel)]="register.manageContentItem" (change)="onPriviliegesChange('contentOption')" >View/Edit Content</mat-checkbox>
                                                     <mat-checkbox class="col-md-12 col-sm-12 col-xs-12" [formControl]="complexForm.controls['commentManagement']" [(ngModel)]="register.commentManagement" (change)="onPriviliegesChange('contentOption')" >Comment Management</mat-checkbox>
                                                 </div>
                                             </div>

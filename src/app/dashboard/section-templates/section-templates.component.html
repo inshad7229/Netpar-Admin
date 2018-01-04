@@ -27,8 +27,8 @@
                                                     <th> Template </th>
                                                     <th> Template Name </th>
                                                     <th> Active In Section </th>
-                                                    <th> Start Date &amp; Time </th>
-                                                    <th> End Date &amp; Time </th>
+                                                    <th> Start Date And Time </th>
+                                                    <th> End Date And Time </th>
                                                 </tr>
                                                
                                             </thead>
@@ -43,14 +43,23 @@
                                                     <td> <ul *ngFor="let cat of getCategoryName(list.templateName)"><li>{{cat.sectionName}}</li></ul> </td>
                                                      <td> 
                                                         <ul *ngFor="let cat of getCategoryName(list.templateName)">
-                                                            <li *ngIf="list.templateName=='Section Template One'">{{getStartTime(cat.templateoneStartDate)}}, {{getStartDate(cat.templateoneStartDate)}}</li>
-                                                            <li *ngIf="list.templateName=='Section Template Two'">{{getStartTime(cat.templatetwoStartDate)}}, {{getStartDate(cat.templatetwoStartDate)}}</li>
+                                                            <li *ngIf="list.templateName=='Section Template One'">
+                                                                {{getStartDate(cat.templateoneStartDate)}},
+                                                                {{getStartTime(cat.templateoneStartDate)}} 
+                                                            </li>
+                                                            <li *ngIf="list.templateName=='Section Template Two'"> {{getStartDate(cat.templatetwoStartDate)}},
+                                                            {{getStartTime(cat.templatetwoStartDate)}}
+                                                            </li>
                                                         </ul>
                                                      </td>
                                                     <td>
                                                         <ul *ngFor="let cat of getCategoryName(list.templateName)">
-                                                            <li *ngIf="list.templateName=='Section Template One'"> {{getEndTime(cat.templateoneendDate)}}, {{getEndDate(cat.templateoneendDate)}} </li>
-                                                            <li *ngIf="list.templateName=='Section Template Two'"> {{getEndTime(cat.templatetwoendDate)}}, {{getEndDate(cat.templatetwoendDate)}} </li>
+                                                            <li *ngIf="list.templateName=='Section Template One'">
+                                                            {{getEndDate(cat.templateoneendDate)}} , {{getEndTime(cat.templateoneendDate)}} 
+                                                            </li>
+                                                            <li *ngIf="list.templateName=='Section Template Two'">  
+                                                            {{getEndDate(cat.templatetwoendDate)}},
+                                                            {{getEndTime(cat.templatetwoendDate)}} </li>
                                                             
                                                         </ul> 
                                                     </td>
