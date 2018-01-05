@@ -93,16 +93,16 @@
 	                                	<table class="table table-striped user-table" matSort (matSortChange)="sortData($event)">
 	                                        <thead class="text-danger">
 		                                        <tr>
-		                                            <th> Name Of Element </th>
+		                                            <th colspan="2"> Name Of Element </th>
 		                                            <th colspan="3"> Views </th>
 		                                            <th colspan="5"> User Engagement Buttons </th>
 		                                            <th colspan="4"> Call to action Buttons </th>
 		                                        </tr>
 		                                        <tr>
                                                     <th> </th>
+                                                    <th  mat-sort-header="continue"> Continue Reading </th>
                                                     <th  mat-sort-header="pageViews">Page Views</th>
                                                     <th  mat-sort-header="uniquePage">Unique Views</th>
-                                                    <th  mat-sort-header="continue"> Continue Reading </th>
                                                    <th class="icon-wdth" mat-sort-header="Kadak">
                                                         <a matTooltipPosition="above" matTooltip="Kadak" class="tltip_ico">
                                                             <!-- <mfDefaultSorter by="thumb"> <i class="icon-okay"></i> </mfDefaultSorter>  -->
@@ -293,9 +293,9 @@
                                                     <td class="text-left">
                                                         {{data.tag}}
                                                     </td>
+                                                    <td> {{data.continueReading}} </td>
                                                     <td> {{data.pageView}} </td>
                                                     <td> {{data.uniqueViews}} </td>
-                                                    <td> {{data.continueReading}} </td>
                                                     <td> {{data.likeCount}} </td>
                                                     <td> {{data.shareCount}} </td>
                                                     <td> {{data.commentCount}} </td>
