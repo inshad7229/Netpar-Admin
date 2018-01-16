@@ -504,6 +504,7 @@ export class AddContentComponent implements OnInit {
         console.log('add'+tags)
         this.addContentRequest.tags.push({name:tags.trim()})
         this.addContentRequest.tag=''
+        this.addContentForm.controls['tags'].reset()
          //console.log('add',b)
        // this.addContentForm.controls['tags'].setValue(event)
         //this.addContentForm.controls['tags'].updateValueAndValidity()
@@ -4087,6 +4088,7 @@ onKeyUp(event){
            this.addContentRequest.tagline=output
          }else if (this.currentInputTag=='tag') {
            this.addContentRequest.tag=output
+           this.addContentForm.controls['tags'].reset()
          }else if (this.currentInputTag=='searchUser') {
            this.searchUser=output
          }else if (this.currentInputTag=='title') {

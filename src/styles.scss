@@ -1729,3 +1729,7 @@ table.view-sec-table tbody td:first-child{
   width: 100%;
   max-width: 90vw;
 }
+
+.mat-form-field-disabled .mat-form-field-label{
+  color: #bfbfbf;
+}
