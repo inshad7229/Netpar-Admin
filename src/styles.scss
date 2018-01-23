@@ -1733,3 +1733,234 @@ table.view-sec-table tbody td:first-child{
 .mat-form-field-disabled .mat-form-field-label{
   color: #bfbfbf;
 }
+
+
+/* 23-01-18 */
+
+.navbar .navbar-minimize {
+  float: left;
+  padding: 3px 0 0 15px;
+}
+.visible-on-sidebar-regular {
+  display: inline-block !important;
+}
+.visible-on-sidebar-mini {
+  display: none !important;
+}
+.sidebar, .main-panel, .sidebar-wrapper {
+  -webkit-transition-property: top, bottom, width;
+  transition-property: top, bottom, width;
+  -webkit-transition-duration: .2s, .2s, .35s;
+  transition-duration: .2s, .2s, .35s;
+  -webkit-transition-timing-function: linear, linear, ease;
+  transition-timing-function: linear, linear, ease;
+  -webkit-overflow-scrolling: touch;
+}
+.sidebar .logo {
+  padding: 15px 0px;
+  margin: 0;
+  display: block;
+  position: relative;
+  z-index: 4;
+}
+
+.sidebar .logo a.logo-mini {
+  opacity: 1;
+  float: left;
+}
+.sidebar .logo .simple-text, .off-canvas-sidebar .logo .simple-text{
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.sidebar .nav p {
+  margin: 0;
+  line-height: 30px;
+  font-size: 14px;
+  position: relative;
+  display: block;
+  height: auto;
+  white-space: nowrap;
+}
+.sidebar .nav li>a {
+  margin: 10px 15px 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.sidebar .user .info .caret {
+  right: 42px;
+}
+.sidebar .logo a.logo-normal {
+  display: block;
+  opacity: 1;
+  -webkit-transform: translate3d(0px, 0, 0);
+  -moz-transform: translate3d(0px, 0, 0);
+  -o-transform: translate3d(0px, 0, 0);
+  -ms-transform: translate3d(0px, 0, 0);
+  transform: translate3d(0px, 0, 0);
+}
+.sidebar-mini .sidebar .logo-img img, .sidebar-mini .off-canvas-sidebar .logo-img img{
+  -webkit-transition: all 150ms ease 0s;
+  -moz-transition: all 150ms ease 0s;
+  -o-transition: all 150ms ease 0s;
+  -ms-transition: all 150ms ease 0s;
+  transition: all 150ms ease 0s;
+}
+.sidebar .sidebar-wrapper>.nav [data-toggle="collapse"]~div>ul>li>a .sidebar-normal, .sidebar .sidebar-wrapper .user .info [data-toggle="collapse"]~div>ul>li>a .sidebar-normal {
+  margin: 0;
+  position: relative;
+  transform: translateX(0px);
+  opacity: 1;
+  white-space: nowrap;
+  display: block;
+}
+.sidebar .sidebar-wrapper>.nav [data-toggle="collapse"]~div>ul>li>a .sidebar-mini, .sidebar .sidebar-wrapper .user .info [data-toggle="collapse"]~div>ul>li>a .sidebar-mini {
+  text-transform: uppercase;
+  width: 30px;
+  margin-right: 15px;
+  text-align: center;
+  letter-spacing: 1px;
+  position: relative;
+  float: left;
+  display: inherit;
+}
+.sidebar .sidebar-wrapper .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal, .sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal {
+  margin: 0;
+  position: relative;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  white-space: nowrap;
+  -webkit-transition: opacity 300ms linear, transform 300ms linear;
+  -moz-transition: opacity 300ms linear, transform 300ms linear;
+  -o-transition: opacity 300ms linear, transform 300ms linear;
+  -ms-transition: opacity 300ms linear, transform 300ms linear;
+  transition: opacity 300ms linear, transform 300ms linear;
+}
+
+/*           Animations              */
+
+.animation-transition-general,
+.sidebar .sidebar-wrapper>.nav [data-toggle="collapse"]~div>ul>li>a span,
+.sidebar .sidebar-wrapper .user .info [data-toggle="collapse"]~div>ul>li>a span,
+.sidebar .nav p,
+.sidebar .logo a.logo-mini,
+.sidebar .logo a.logo-normal,
+.sidebar .user .photo,
+.sidebar .user a,
+.sidebar .user .info>a>span,
+.login-page .card-login,
+.lock-page .card-profile {
+  -webkit-transition: all 300ms linear;
+  -moz-transition: all 300ms linear;
+  -o-transition: all 300ms linear;
+  -ms-transition: all 300ms linear;
+  transition: all 300ms linear;
+}
+
+.animation-transition-slow {
+  -webkit-transition: all 370ms linear;
+  -moz-transition: all 370ms linear;
+  -o-transition: all 370ms linear;
+  -ms-transition: all 370ms linear;
+  transition: all 370ms linear;
+}
+
+.animation-transition-fast,
+.bootstrap-datetimepicker-widget table td>div,
+.bootstrap-datetimepicker-widget table th>div,
+.bootstrap-datetimepicker-widget table th,
+.bootstrap-datetimepicker-widget table td span,
+.panel .panel-heading i,
+.navbar {
+  -webkit-transition: all 150ms ease 0s;
+  -moz-transition: all 150ms ease 0s;
+  -o-transition: all 150ms ease 0s;
+  -ms-transition: all 150ms ease 0s;
+  transition: all 150ms ease 0s;
+}
+
+@media (min-width: 992px) {
+  .sidebar-mini .sidebar .logo-img img, .sidebar-mini .off-canvas-sidebar .logo-img img{
+    width: 60px;
+    -webkit-transition: all 150ms ease 0s;
+    -moz-transition: all 150ms ease 0s;
+    -o-transition: all 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: all 150ms ease 0s;
+  }
+  .sidebar-mini .sidebar:hover .logo-img img{
+    width: 70px;
+    -webkit-transition: all 150ms ease 0s;
+    -moz-transition: all 150ms ease 0s;
+    -o-transition: all 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: all 150ms ease 0s; 
+  }
+
+  .sidebar-mini .visible-on-sidebar-regular {
+    display: none !important;
+  }
+  .sidebar-mini .visible-on-sidebar-mini {
+    display: inline-block !important;
+  }
+  .sidebar-mini .sidebar,
+  .sidebar-mini .sidebar .sidebar-wrapper {
+    width: 80px;
+  }
+  .sidebar-mini .main-panel {
+    width: calc(100% - 80px);
+  }
+  .sidebar-mini .sidebar {
+    display: block;
+    font-weight: 200;
+    z-index: 9999;
+  }
+  .sidebar-mini .sidebar .logo a.logo-normal {
+    opacity: 0;
+    -webkit-transform: translate3d(-25px, 0, 0);
+    -moz-transform: translate3d(-25px, 0, 0);
+    -o-transform: translate3d(-25px, 0, 0);
+    -ms-transform: translate3d(-25px, 0, 0);
+    transform: translate3d(-25px, 0, 0);
+  }
+  .sidebar-mini .sidebar .sidebar-wrapper>.nav [data-toggle="collapse"]~div>ul>li>a .sidebar-normal,
+  .sidebar-mini .sidebar .sidebar-wrapper .user .info [data-toggle="collapse"]~div>ul>li>a .sidebar-normal,
+  .sidebar-mini .sidebar .sidebar-wrapper .user .info>a>span,
+  .sidebar-mini .sidebar .sidebar-wrapper>.nav li>a p {
+    -webkit-transform: translate3d(-25px, 0, 0);
+    -moz-transform: translate3d(-25px, 0, 0);
+    -o-transform: translate3d(-25px, 0, 0);
+    -ms-transform: translate3d(-25px, 0, 0);
+    transform: translate3d(-25px, 0, 0);
+    opacity: 0;
+  }
+  .sidebar-mini .sidebar:hover {
+    width: 260px;
+  }
+  .sidebar-mini .sidebar:hover .logo a.logo-normal {
+    opacity: 1;
+    -webkit-transform: translate3d(0px, 0, 0);
+    -moz-transform: translate3d(0px, 0, 0);
+    -o-transform: translate3d(0px, 0, 0);
+    -ms-transform: translate3d(0px, 0, 0);
+    transform: translate3d(0px, 0, 0);
+  }
+  .sidebar-mini .sidebar:hover .sidebar-wrapper {
+    width: 260px;
+  }
+  .sidebar-mini .sidebar:hover .sidebar-wrapper>.nav li>a p,
+  .sidebar-mini .sidebar:hover .sidebar-wrapper>.nav [data-toggle="collapse"]~div>ul>li>a .sidebar-normal,
+  .sidebar-mini .sidebar:hover .sidebar-wrapper .user .info [data-toggle="collapse"]~div>ul>li>a .sidebar-normal,
+  .sidebar-mini .sidebar:hover .sidebar-wrapper .user .info>a>span {
+    -webkit-transform: translate3d(0px, 0, 0);
+    -moz-transform: translate3d(0px, 0, 0);
+    -o-transform: translate3d(0px, 0, 0);
+    -ms-transform: translate3d(0px, 0, 0);
+    transform: translate3d(0px, 0, 0);
+    opacity: 1;
+  }
+}

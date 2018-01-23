@@ -67,4 +67,9 @@ export class NavbarComponent implements OnInit {
       }
       return 'Dashboard';
     }
+
+    sidebarCollapse(){
+        const body = document.getElementsByTagName('body')[0];
+        body.classList.toggle('sidebar-mini');
+    }
 }
