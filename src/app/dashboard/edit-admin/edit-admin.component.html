@@ -670,8 +670,16 @@
                                                         <mat-radio-button value="contentWriter" class="col-md-6 col-sm-6 col-xs-12">Content Writer</mat-radio-button>
                                                         <mat-radio-button value="businessUser" class="col-md-6 col-sm-6 col-xs-12">Business User</mat-radio-button>
                                                         <mat-radio-button value="sectionAdministrator" class="col-md-6 col-sm-6 col-xs-12">Section Adminstatator</mat-radio-button>
+
                                                     </mat-radio-group>
-                                            
+                                                    <p  *ngIf="showRadioButtonError" style="color: red">
+                                                       role is <strong>required</strong>
+                                                    </p>
+                                                    <mat-error   *ngIf="complexForm.controls['role'].hasError('required') && complexForm.controls['role'].touched">
+                                                       role is <strong>required</strong>
+                                                    </mat-error>
+                                             
+                                                   
                                             </div>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                 <label class="form-group col-md-12" >Name of section:</label>
@@ -779,7 +787,8 @@
                             </div>
                         </div>
                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn custom-btn" [disabled]="!complexForm.valid || emailConfirmationMsg==true" (click)="onRegister()"> Submit </button>
+                            <!-- <button class="btn custom-btn" [disabled]="!complexForm.valid || emailConfirmationMsg==true" (click)="onRegister()"> Submit </button> -->
+                            <button class="btn custom-btn" (click)="onRegister()"> Submit </button>
                         </div>
 
                     </div>

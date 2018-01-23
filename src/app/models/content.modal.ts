@@ -8,6 +8,7 @@ export class AddContentRequest {
     subCategoryId:string;
     subCategoryName:string;
     headline:string;
+    slug:string
     tagline:string;
     tags:any;
     tag:any

@@ -162,6 +162,14 @@ export class AddContentComponent implements OnInit {
     saveFlag2:boolean
     stringResource:StringResource=new  StringResource()
     contentId
+    showLanguageError:boolean=false;
+    showSectionIdError:boolean=false;
+    showHeadlineError:boolean=false;
+    showTagLineError:boolean=false;
+    showTypeOfUsersError:boolean=false;
+    showStateError:boolean=false;
+    showSuggestedError:boolean=false;
+    showSlugError:boolean=false
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -224,7 +232,8 @@ export class AddContentComponent implements OnInit {
 		        private adminService:AdminService, 
             private translationService:TranslationService,
 		        private contentService:ContentService) {
-		
+		       this.toastr.setRootViewContainerRef(vcr);
+
 		this.ckeditorContent = null
 				this.addContentRequest.tags=[]
 				/*tinymce.init({
@@ -260,6 +269,7 @@ export class AddContentComponent implements OnInit {
 								'subCategoryName':[null],
 								'subCategoryId':[null],
 								'headline':[null , Validators.compose([Validators.required, Validators.maxLength(200)])],
+                'slug':[null , Validators.compose([Validators.required, Validators.maxLength(500)])],
 								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(500)])],
 								'tags':[null],
 								'dateOfCreation':[null],
@@ -1693,6 +1703,9 @@ onDeleteBody(){
 	            })
 	}
 	getCategory(){
+    if (this.showSectionIdError==true) {
+       this.showSectionIdError=false;
+    }
 		 this.waitLoader = true;
 		 this.subCategory=[]
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
@@ -1744,6 +1757,9 @@ onDeleteBody(){
     //     };
     //     var control = new google.elements.transliteration.TransliterationControl(options);
     //     control.makeTransliteratable(['headline','tagline','tags']);
+    if (this.showLanguageError==true) {
+      this.showLanguageError=false
+    }
     this.appProvider.current.currentLanguage=lang;
    	if (this.sectionsData && this.sectionsData.length>0) {
          //this.subCategory=this.subCategoryData.filter(arg=>arg.language==this.addContentRequest.language);;
@@ -1778,6 +1794,9 @@ onDeleteBody(){
         }
    }
      getUserList(role:any){
+       if (this.showTypeOfUsersError==true) {
+         this.showTypeOfUsersError=false;
+       }
      	 this.waitLoader = true;
          this.adminService.onGetUserOnBasisOfROle(role)
             .subscribe(data =>{
@@ -1853,6 +1872,58 @@ onDeleteBody(){
   	this.localAdminList[j].check='active'
   }
   openDialog(flag): void {
+       if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
         let dialogRef = this.dialog.open(DragDropComponent, {
             width: '400px',
             data:{flag:flag}
@@ -1883,6 +1954,59 @@ onDeleteBody(){
     }
     
    contentView(): void {
+
+           if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
    	       this.forContent=this.addContentRequest
             if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
@@ -1941,6 +2065,58 @@ onDeleteBody(){
         });
     }
     listView(): void {
+       if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
         let ListViewFormat:any;
     	  this.forContent=this.addContentRequest
            if (this.listOne.length>0) {
@@ -2182,6 +2358,59 @@ onDeleteBody(){
         }
     }
     publish(){
+       if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
     	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
               if (this.listOne.length>0) {
@@ -2529,6 +2758,59 @@ onDeleteBody(){
 
     }
     submitForReview(){
+       if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+
     	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
              if (this.listOne.length>0) {
@@ -2703,6 +2985,58 @@ onDeleteBody(){
 
     }
 	submitForRevision(){
+     if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
 		this.waitLoader = true;
 		if (this.appProvider.current.actionFlag=="editContent") {
              if (this.listOne.length>0) {
@@ -2877,6 +3211,58 @@ onDeleteBody(){
 
 	}
 	reject(){
+     if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
 		this.waitLoader = true;
 		if (this.appProvider.current.actionFlag=="editContent") {
            if (this.listOne.length>0) {
@@ -3900,6 +4286,10 @@ onDeleteBody(){
     	
     
   }
+
+  clearSlag(){
+    this.showSlugError=false
+  }
  //  onTransliteration(value,tag){
  //     if (value==' ') {
  //       return 
@@ -3950,6 +4340,13 @@ onDeleteBody(){
 
 
    onTransliteration(value,event,tag){
+     if (this.showTagLineError==true ) {
+       this.showTagLineError=false;
+       
+     }
+     if(this.showHeadlineError==true){
+       this.showHeadlineError=false;
+     }
    var myEl=event.target
     this.currentInputTag=tag
    this.elementRefrence=event
@@ -4161,5 +4558,17 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
    }else{
      return false
    }
+  }
+
+  onStateSelection(){
+    if (this.showStateError==true) {
+      this.showStateError=false;
+    }
+  }
+
+  onSuggestedArticleChange(){
+    if (this.showSuggestedError==true) {
+     this.showSuggestedError=false;
+    }
   }
 }

@@ -82,6 +82,7 @@ export class EditAdminComponent implements AfterViewInit {
     inputStringLength:number
     outputStringLength:number
     currentInputTag:any;
+    showRadioButtonError:boolean=false
     //s//tringResource:StringResource
 
     public get imageToDisplay() {
@@ -278,6 +279,23 @@ export class EditAdminComponent implements AfterViewInit {
         // control.makeTransliteratable(['firstName','lastname']);
     }
     onRegister() {
+       
+       if(!this.register.role || !this.register.firstName || !this.register.lastName || !this.register.email || !this.register.alternativeEmail || !this.register.password || !this.register.contactNo){
+           if (!this.register.role) {
+               // code...
+              this.showRadioButtonError=true;
+           }else{
+               this.showRadioButtonError=false;
+           }
+          console.log('returning');
+          return
+       } 
+       
+       // if(!this.register.role){
+       //     this.showRadioButtonError=true;
+       //     return;
+       // }
+
         let languageArray=this.getLanguage()
         this.waitLoader = true;
        // console.log(JSON.stringify(this.options))
@@ -1131,6 +1149,7 @@ confirmEmail(){
       }
 }
 onRoleChange(role){
+    this.showRadioButtonError=false
     if (role=='superAdmin') {
         this.register.administratorManagement=true;
         this.register.viewEditAdministrator=true;

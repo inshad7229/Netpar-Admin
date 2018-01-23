@@ -44,6 +44,10 @@
                                                 <mat-error  *ngIf="addContentForm.controls['language'].hasError('required') && addContentForm.controls['language'].touched">
                                                 Language is <strong>required</strong>
                                                 </mat-error>
+                                                <p  *ngIf="showLanguageError" style="color: red">
+                                                    Language  is  <strong>required</strong>
+                                                </p>                                        
+
                                                <!--  <mat-error  *ngIf="addContentForm.controls['language'].hasError('pattern')">
                                                 only alphabets are acceptable 
                                                 </mat-error> -->
@@ -71,6 +75,9 @@
                                                 max length is 30
                                                 </mat-error> -->
                                             </mat-form-field>
+                                            <p  *ngIf="showSectionIdError" style="color: red">
+                                                Name Of Section is  <strong>required</strong>
+                                            </p> 
                                         </div>
                                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                         <mat-form-field>
@@ -78,6 +85,7 @@
                                                 <mat-option *ngFor="let category of categories"  [value]="category._id" > {{category.categoryName}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
+
                                         </div>
                                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
                                             <mat-form-field>
@@ -88,12 +96,13 @@
                                                     <mat-option value="4"> Sub-category4 </mat-option> -->
                                                 </mat-select>
                                             </mat-form-field>
+                                            
                                         </div>
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
                                                 <input matInput placeholder="Add headline *" type="text" name="headline" id="headline" #headlinInput [matAutocomplete]="headline"   [formControl]="addContentForm.controls['headline']" [(ngModel)]="addContentRequest.headline" (input)="onTransliteration(addContentRequest.headline,headlinInput,'headline')"  (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
-                                                <mat-error  *ngIf="addContentForm.controls['headline'].hasError('required') && addContentForm.controls['headline'].touched">
+                                                <mat-error  *ngIf="addContentForm.controls['headline'].hasError('required') && addContentForm.controls['headline'].touched && !showHeadlineError">
                                                 Headline is <strong>required</strong>
                                                 </mat-error>
                                                <!--  <mat-error  *ngIf="addContentForm.controls['headline'].hasError('pattern')">
@@ -110,6 +119,23 @@
                                                     </mat-option>
                                                 </mat-autocomplete>
                                             </mat-form-field>
+                                            <p  *ngIf="showHeadlineError" style="color: red">
+                                               Headline is  <strong>required</strong>
+                                            </p> 
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Add Slug *" type="text" name="slug" id="slug"   [formControl]="addContentForm.controls['slug']" [(ngModel)]="addContentRequest.slug" (input)="clearSlag()">
+                                                <mat-error  *ngIf="addContentForm.controls['slug'].hasError('required') && addContentForm.controls['slug'].touched && !showHeadlineError">
+                                                Slug is <strong>required</strong>
+                                                </mat-error>
+                                                <mat-error  *ngIf="addContentForm.controls['slug'].hasError('maxlength')">
+                                                max length is 200
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <p  *ngIf="showHeadlineError" style="color: red">
+                                               Slug is  <strong>required</strong>
+                                            </p> 
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field>
@@ -128,6 +154,9 @@
                                                     </mat-option>
                                                 </mat-autocomplete>
                                             </mat-form-field>
+                                            <p  *ngIf="showTagLineError" style="color: red">
+                                              TagLine is  <strong>required</strong>
+                                            </p>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <mat-form-field class="demo-chip-list">
@@ -174,6 +203,9 @@
                                                 max length is 500
                                                 </mat-error>
                                             </mat-form-field>
+                                            <p  *ngIf="showTypeOfUsersError" style="color: red">
+                                              Type of user is  <strong>required</strong>
+                                            </p>
                                         </div>  
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="localAdminList">
                                             <mat-form-field>
@@ -2529,11 +2561,14 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                                <mat-radio-group  name="suggestedArticle"  [formControl]="addContentForm.controls['suggestedArticle']" [(ngModel)]="addContentRequest.suggestedArticle" >
+                                                <mat-radio-group  name="suggestedArticle"  [formControl]="addContentForm.controls['suggestedArticle']" [(ngModel)]="addContentRequest.suggestedArticle" (change)="onSuggestedArticleChange()" >
                                                     <mat-radio-button value="true" class="col-md-2 col-sm-2 col-xs-12">Yes</mat-radio-button>
                                                     <mat-radio-button value="false" class="col-md-2 col-sm-2 col-xs-12">No</mat-radio-button>
                                                 </mat-radio-group>
-
+                                                 
+                                                <p  *ngIf="showSuggestedError" style="color: red">
+                                                    Add suggested articles selection is  <strong>required</strong>
+                                                </p> 
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12" *ngIf="addContentRequest.suggestedArticle=='true'">
@@ -2736,7 +2771,7 @@
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <label> This content is applicable for: </label>
                                             <mat-form-field>
-                                                <mat-select placeholder="Select State *" multiple  name="applicableStateLists" [formControl]="addContentForm.controls['applicableStateLists']" [(ngModel)]="addContentRequest.applicableStateLists">
+                                                <mat-select placeholder="Select State *" multiple  name="applicableStateLists" [formControl]="addContentForm.controls['applicableStateLists']" [(ngModel)]="addContentRequest.applicableStateLists" (change)="onStateSelection()">
                                                     <mat-option *ngFor="let state of stringResource.stateList" [value]="state.stateName"> {{state.stateName}}</mat-option>
                                                     <!-- <mat-option value="2"> State2 </mat-option>
                                                     <mat-option value="3"> State3 </mat-option>
@@ -2752,6 +2787,9 @@
                                                 max length is 100
                                                 </mat-error> -->
                                             </mat-form-field>
+                                            <p  *ngIf="showStateError" style="color: red">
+                                              State is <strong>required</strong>
+                                            </p>
                                         </div>
 
 
@@ -2759,16 +2797,18 @@
                                             <legend>Preview:</legend>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <button class="btn custom-btn" (click)="contentView()" [disabled]="!addContentForm.valid"> Content View </button>
-                                            <button class="btn custom-btn" (click)="listView()" [disabled]="!addContentForm.valid"> Listing View </button>
+                                           <!--  <button class="btn custom-btn" (click)="contentView()" [disabled]="!addContentForm.valid"> Content View </button>
+                                            <button class="btn custom-btn" (click)="listView()" [disabled]="!addContentForm.valid"> Listing View </button> -->
+                                            <button class="btn custom-btn" (click)="contentView()" > Content View </button>
+                                            <button class="btn custom-btn" (click)="listView()" > Listing View </button>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn btn-warning" (click)="saveAsDraft()" > Save as draft </button>
-                                            <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser'"  (click)="submitForReview()" [disabled]="!addContentForm.valid"> Submit for review </button>
-                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" [disabled]="!addContentForm.valid" (click)="publish('Publish')" > Publish Now</button>
-                                            <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" [disabled]="!addContentForm.valid"> Publish later </button>
-                                            <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" [disabled]="!addContentForm.valid"> Send for revision </button>
-                                            <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" [disabled]="!addContentForm.valid"> Reject </button>
+                                            <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser'"  (click)="submitForReview()" > Submit for review </button>
+                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'"  (click)="publish('Publish')" > Publish Now</button>
+                                            <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" > Publish later </button>
+                                            <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" > Send for revision </button>
+                                            <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" > Reject </button>
                                              <!-- <button class="btn btn-danger"  (click)="onupload()" > Reject </button> -->
                                         </div>
                                     </form>
