@@ -4521,6 +4521,7 @@ onKeyUp(event){
     let a=this.addContentRequest.tag.replace(",", "")
     if (a.length>0) {
       this.onAddTags(a)
+   this.addContentForm.controls['tags'].reset()
       // code...
     }
   }
