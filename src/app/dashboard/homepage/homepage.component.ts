@@ -312,7 +312,7 @@ onCopyLink(id){
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true )
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   this.waitLoader =false;
@@ -324,7 +324,7 @@ onCopyLink(id){
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true )
                     if (data.response.length==0) {
                       this.toastr.info('This section do not have any category')
                       // code...
@@ -341,7 +341,7 @@ onCopyLink(id){
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true )
                     if (data.response.length==0) {
                       this.toastr.info('This category do not have any subcategory')
                       // code...

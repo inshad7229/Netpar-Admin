@@ -1,8 +1,10 @@
 <div class="logo">
-    <a routerLink="/admin" class="simple-text">
+    <a routerLink="/admin" class="simple-text logo-mini">
         <div class="logo-img">
             <img src="./assets/img/logo.png"/>
         </div>
+    </a>
+    <a routerLink="/admin" class="simple-text logo-normal">
         Netpar
     </a>
 </div>
@@ -44,201 +46,199 @@
                         </li> -->
                     </ul>
                 </div>
-                </div>
             </div>
-      
-
-        <div class="nav-container">
-            <ul class="nav">
-               
-                <li>
-                    <a data-toggle="collapse" href="#Components" aria-expanded="false">
-                        <i class="material-icons">account_circle</i>
-                        <p>Administrator<b class="caret"></b></p>
-                    </a>
-                    <div class="collapse {{adminPath}}" id="Components" aria-expanded="true">
-                        <ul class="nav">
-                            <li routerLinkActive="active" class="{{homeLink}}">
-                                <a href="javascript:void(0)" (click)="onHomeTemp()">
-                                    <span class="sidebar-mini">VE</span>
-                                    <span class="sidebar-normal">View/Edit</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{addAdminLink}}">
-                                <a href="javascript:void(0)"  (click)="goToAddAdmin()">
-                                    <span class="sidebar-mini">A</span>
-                                    <span class="sidebar-normal">Add</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <a data-toggle="collapse" href="#template" aria-expanded="false">
-                        <i class="material-icons">dashboard</i>
-                        <p>Templates<b class="caret"></b></p>
-                    </a>
-                    <div class="collapse {{template}}" id="template" aria-expanded="false">
-                        <ul class="nav">
-                            <li routerLinkActive="active" class="{{secTempLink}}">
-                                <a href="javascript:void(0)" (click)="onSecTemp()">
-                                    <span class="sidebar-mini">ST</span>
-                                    <span class="sidebar-normal">Section Templates</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{catTempLink}}">
-                                <a href="javascript:void(0)" (click)="onCatTemp()">
-                                    <span class="sidebar-mini">CT</span>
-                                    <span class="sidebar-normal">Category Templates</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{SubCatTempLink}}">
-                                <a href="javascript:void(0)" (click)="onListingTemp()">
-                                    <span class="sidebar-mini">LT</span>
-                                    <span class="sidebar-normal">Listing View Templates</span>
-                                </a>
-                            </li>
-                            <!-- <li routerLinkActive="active" >
-                                <a routerLink="/homepage-templates">
-                                    <span class="sidebar-mini">HT</span>
-                                    <span class="sidebar-normal">Homepage Templates</span>
-                                </a>
-                            </li> -->
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a data-toggle="collapse" href="#section" aria-expanded="false">
-                        <i class="material-icons">apps</i>
-                        <p>Section<b class="caret"></b></p>
-                    </a>
-                    <div class="collapse {{sectionPath}}" id="section" aria-expanded="false">
-                        <ul class="nav">
-                            <li routerLinkActive="active" class="{{viewSecLink}}" (click)="onViewSecAction()">
-                                <a href="javascript:void(0)">
-                                    <span class="sidebar-mini">VS</span>
-                                    <span class="sidebar-normal">View Section</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{addSecLink}}">
-                                <a href="javascript:void(0)" (click)="onAddSecAction()">
-                                    <span class="sidebar-mini">AS</span>
-                                    <span class="sidebar-normal" >Add Section</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{addCatLink}}" (click)="onAddCatAction()">
-                                <a href="javascript:void(0)">
-                                    <span class="sidebar-mini">AC</span>
-                                    <span class="sidebar-normal" >Add Category</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{addSubCatLink}}" (click)="onAddSubcatAction()">
-                                <a href="javascript:void(0)">
-                                    <span class="sidebar-mini">ASC</span>
-                                    <span class="sidebar-normal" >Add Subcategory</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                
-                <li>
-                    <a data-toggle="collapse" href="#description" aria-expanded="false" (click)="onAction()">
-                        <i class="material-icons">description</i>
-                        <p>Content<b class="caret"></b></p>
-                    </a>
-                    <div class="collapse {{content}}" id="description" aria-expanded="false">
-                        <ul class="nav">
-                            <li routerLinkActive="active" class="{{viewContLink}}">
-                                <a href="javascript:void(0)" (click)="onViewContent()">
-                                    <span class="sidebar-mini">VC</span>
-                                    <span class="sidebar-normal">View Content</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{addContLink}}" (click)="onAddContent()">
-                                <a href="javascript:void(0)">
-                                    <span class="sidebar-mini">AC</span>
-                                    <span class="sidebar-normal">Add Content</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{commentContLink}}">
-                                <a href="javascript:void(0)" (click)="onComment()">
-                                    <span class="sidebar-mini">CM</span>
-                                    <span class="sidebar-normal">Comment Management</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </li>
-                <li routerLinkActive="active" class="{{userContriLink}}">
-                    <a href="javascript:void(0)" (click)="onUserContribution()">
-                        <i class="material-icons">group</i>
-                        <p>User contribution</p>
-                    </a>
-                </li>
-                <li routerLinkActive="active" class="{{homePageLink}}">
-                    <a href="javascript:void(0)" (click)="onHomePage()">
-                        <i class="material-icons">home</i>
-                        <p>Homepage</p>
-                    </a>
-                </li>
-                <li routerLinkActive="active" class="{{userLink}}">
-                    <a href="javascript:void(0)" (click)="onUser()">
-                        <i class="material-icons">person</i>
-                        <p>User</p>
-                    </a>
-                </li>
-                <li>
-                    <a data-toggle="collapse" href="#analytics" aria-expanded="false">
-                        <i class="material-icons">show_chart</i>
-                        <p>Platform Analytics<b class="caret"></b></p>
-                    </a>
-                    <div class="collapse {{analaytics}}" id="analytics" aria-expanded="false">
-                        <ul class="nav">
-                            <li routerLinkActive="active" class="{{secAnalLink}}">
-                                <a href="javascript:void(0)" (click)="onSectionAnalytics()">
-                                    <span class="sidebar-mini">SA</span>
-                                    <span class="sidebar-normal">Section Analytics</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{artiAnalLink}}">
-                                <a href="javascript:void(0)" (click)="onArticleAnalytics()">
-                                    <span class="sidebar-mini">AA</span>
-                                    <span class="sidebar-normal">Article Analytics</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{elemAnalLink}}">
-                                <a href="javascript:void(0)" (click)="onElemaentAnalytics()">
-                                    <span class="sidebar-mini">EA</span>
-                                    <span class="sidebar-normal">Element Analytics</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" class="{{tempAnalLink}}">
-                                <a href="javascript:void(0)" (click)="onTemplateAnalytics()">
-                                    <span class="sidebar-mini">CT</span>
-                                    <span class="sidebar-normal">Templates Analytics</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" >
-                                <a href="javascript:void(0)" (click)="onGoogle()">
-                                    <span class="sidebar-mini">GA</span>
-                                    <span class="sidebar-normal">Google Analytics</span>
-                                </a>
-                            </li>
-                            <li routerLinkActive="active" >
-                                <a href="javascript:void(0)" (click)="onFlurry()">
-                                    <span class="sidebar-mini">FA</span>
-                                    <span class="sidebar-normal">Flurry Analytics</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </li>
-
-
-            </ul>
         </div>
+
+        <ul class="nav">
+           
+            <li>
+                <a data-toggle="collapse" href="#Components" aria-expanded="false">
+                    <i class="material-icons">account_circle</i>
+                    <p>Administrator<b class="caret"></b></p>
+                </a>
+                <div class="collapse {{adminPath}}" id="Components" aria-expanded="true">
+                    <ul class="nav">
+                        <li routerLinkActive="active" class="{{homeLink}}">
+                            <a href="javascript:void(0)" (click)="onHomeTemp()">
+                                <span class="sidebar-mini">VE</span>
+                                <span class="sidebar-normal">View/Edit</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{addAdminLink}}">
+                            <a href="javascript:void(0)"  (click)="goToAddAdmin()">
+                                <span class="sidebar-mini">A</span>
+                                <span class="sidebar-normal">Add</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a data-toggle="collapse" href="#template" aria-expanded="false">
+                    <i class="material-icons">dashboard</i>
+                    <p>Templates<b class="caret"></b></p>
+                </a>
+                <div class="collapse {{template}}" id="template" aria-expanded="false">
+                    <ul class="nav">
+                        <li routerLinkActive="active" class="{{secTempLink}}">
+                            <a href="javascript:void(0)" (click)="onSecTemp()">
+                                <span class="sidebar-mini">ST</span>
+                                <span class="sidebar-normal">Section Templates</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{catTempLink}}">
+                            <a href="javascript:void(0)" (click)="onCatTemp()">
+                                <span class="sidebar-mini">CT</span>
+                                <span class="sidebar-normal">Category Templates</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{SubCatTempLink}}">
+                            <a href="javascript:void(0)" (click)="onListingTemp()">
+                                <span class="sidebar-mini">LT</span>
+                                <span class="sidebar-normal">Listing View Templates</span>
+                            </a>
+                        </li>
+                        <!-- <li routerLinkActive="active" >
+                            <a routerLink="/homepage-templates">
+                                <span class="sidebar-mini">HT</span>
+                                <span class="sidebar-normal">Homepage Templates</span>
+                            </a>
+                        </li> -->
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a data-toggle="collapse" href="#section" aria-expanded="false">
+                    <i class="material-icons">apps</i>
+                    <p>Section<b class="caret"></b></p>
+                </a>
+                <div class="collapse {{sectionPath}}" id="section" aria-expanded="false">
+                    <ul class="nav">
+                        <li routerLinkActive="active" class="{{viewSecLink}}" (click)="onViewSecAction()">
+                            <a href="javascript:void(0)">
+                                <span class="sidebar-mini">VS</span>
+                                <span class="sidebar-normal">View Section</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{addSecLink}}">
+                            <a href="javascript:void(0)" (click)="onAddSecAction()">
+                                <span class="sidebar-mini">AS</span>
+                                <span class="sidebar-normal" >Add Section</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{addCatLink}}" (click)="onAddCatAction()">
+                            <a href="javascript:void(0)">
+                                <span class="sidebar-mini">AC</span>
+                                <span class="sidebar-normal" >Add Category</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{addSubCatLink}}" (click)="onAddSubcatAction()">
+                            <a href="javascript:void(0)">
+                                <span class="sidebar-mini">ASC</span>
+                                <span class="sidebar-normal" >Add Subcategory</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            
+            <li>
+                <a data-toggle="collapse" href="#description" aria-expanded="false" (click)="onAction()">
+                    <i class="material-icons">description</i>
+                    <p>Content<b class="caret"></b></p>
+                </a>
+                <div class="collapse {{content}}" id="description" aria-expanded="false">
+                    <ul class="nav">
+                        <li routerLinkActive="active" class="{{viewContLink}}">
+                            <a href="javascript:void(0)" (click)="onViewContent()">
+                                <span class="sidebar-mini">VC</span>
+                                <span class="sidebar-normal">View Content</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{addContLink}}" (click)="onAddContent()">
+                            <a href="javascript:void(0)">
+                                <span class="sidebar-mini">AC</span>
+                                <span class="sidebar-normal">Add Content</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{commentContLink}}">
+                            <a href="javascript:void(0)" (click)="onComment()">
+                                <span class="sidebar-mini">CM</span>
+                                <span class="sidebar-normal">Comment Management</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+            <li routerLinkActive="active" class="{{userContriLink}}">
+                <a href="javascript:void(0)" (click)="onUserContribution()">
+                    <i class="material-icons">group</i>
+                    <p>User contribution</p>
+                </a>
+            </li>
+            <li routerLinkActive="active" class="{{homePageLink}}">
+                <a href="javascript:void(0)" (click)="onHomePage()">
+                    <i class="material-icons">home</i>
+                    <p>Homepage</p>
+                </a>
+            </li>
+            <li routerLinkActive="active" class="{{userLink}}">
+                <a href="javascript:void(0)" (click)="onUser()">
+                    <i class="material-icons">person</i>
+                    <p>User</p>
+                </a>
+            </li>
+            <li>
+                <a data-toggle="collapse" href="#analytics" aria-expanded="false">
+                    <i class="material-icons">show_chart</i>
+                    <p>Platform Analytics<b class="caret"></b></p>
+                </a>
+                <div class="collapse {{analaytics}}" id="analytics" aria-expanded="false">
+                    <ul class="nav">
+                        <li routerLinkActive="active" class="{{secAnalLink}}">
+                            <a href="javascript:void(0)" (click)="onSectionAnalytics()">
+                                <span class="sidebar-mini">SA</span>
+                                <span class="sidebar-normal">Section Analytics</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{artiAnalLink}}">
+                            <a href="javascript:void(0)" (click)="onArticleAnalytics()">
+                                <span class="sidebar-mini">AA</span>
+                                <span class="sidebar-normal">Article Analytics</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{elemAnalLink}}">
+                            <a href="javascript:void(0)" (click)="onElemaentAnalytics()">
+                                <span class="sidebar-mini">EA</span>
+                                <span class="sidebar-normal">Element Analytics</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" class="{{tempAnalLink}}">
+                            <a href="javascript:void(0)" (click)="onTemplateAnalytics()">
+                                <span class="sidebar-mini">CT</span>
+                                <span class="sidebar-normal">Templates Analytics</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" >
+                            <a href="javascript:void(0)" (click)="onGoogle()">
+                                <span class="sidebar-mini">GA</span>
+                                <span class="sidebar-normal">Google Analytics</span>
+                            </a>
+                        </li>
+                        <li routerLinkActive="active" >
+                            <a href="javascript:void(0)" (click)="onFlurry()">
+                                <span class="sidebar-mini">FA</span>
+                                <span class="sidebar-normal">Flurry Analytics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+
+
+        </ul>
+
     </div>

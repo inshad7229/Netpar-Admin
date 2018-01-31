@@ -53,6 +53,14 @@ export class AddCategoryComponent implements OnInit {
     categoryTempId:any
     addCategoryRequest:AddCategoryRequest=new AddCategoryRequest()
     stringResource:StringResource=new  StringResource()
+    showLanguageError:boolean=false;
+    showSectionIdError:boolean=false;
+    showCategoryNameError:boolean=false;
+    showCategoryViewError:boolean=false;
+    showSubCategoryViewError:boolean=false;
+    showListViewError:boolean=false;
+    showContributionError:boolean=false;
+
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -188,6 +196,7 @@ export class AddCategoryComponent implements OnInit {
        //  };
        //  var control = new google.elements.transliteration.TransliterationControl(options);
        //  control.makeTransliteratable(['categoryName']);
+        this.showLanguageError=false;
         this.appProvider.current.currentLanguage=language;
         this.sections=this.sectionsData.filter(arg=>arg.language==language);;
   }
@@ -268,6 +277,54 @@ export class AddCategoryComponent implements OnInit {
         fr.readAsDataURL(file);
     }
      onAddCategory(){
+
+        if (!this.addCategoryRequest.language|| !this.addCategoryRequest.sectionId || !this.addCategoryRequest.categoryName || !this.addCategoryRequest.categoryView || !this.addCategoryRequest.subCategoryView || !this.addCategoryRequest.listView || !this.addCategoryRequest.contributionForm) {
+            // ************for language***************
+            if (!this.addCategoryRequest.language) {
+                this.showLanguageError=true
+            }else{
+                this.showLanguageError=false;
+            }
+            // ************for sectionName***************
+            if (!this.addCategoryRequest.sectionId) {
+                this.showSectionIdError=true
+            }else{
+                this.showSectionIdError=false;
+            }
+            // ************for categoryName***************
+            if(!this.addCategoryRequest.categoryName){
+                this.showCategoryNameError=true;
+            }else{
+                this.showCategoryNameError=false;
+            }
+             // ************for categoryView***************
+            if(!this.addCategoryRequest.categoryView){
+                this.showCategoryViewError=true;
+            }else{
+                this.showCategoryViewError=false;
+            }
+             // ************for subCategoryView***************
+            if(!this.addCategoryRequest.subCategoryView){
+                this.showSubCategoryViewError=true;
+            }else{
+                this.showSubCategoryViewError=false;
+            }
+            // *********************for listView****************
+            if(!this.addCategoryRequest.listView){
+                this.showListViewError=true;
+            }else{
+                this.showListViewError=false;
+            }
+            // *********************for contributionForm********
+            if(!this.addCategoryRequest.contributionForm){
+                this.showContributionError=true;
+            }else{
+                this.showContributionError=false;
+            }
+           console.log("returning");
+           return;
+        }
+
       this.waitLoader =true;
       if (this.addCategoryRequest._id) {
                  let date=new Date().toISOString()
@@ -354,6 +411,7 @@ export class AddCategoryComponent implements OnInit {
                          this.addCategoryRequest.templatesevenlistingendDate=date
                      }
                 }
+
                  this.sectionService.onEditCategory(this.addCategoryRequest)
                         .subscribe(data => {
                             this.waitLoader = false;
@@ -470,14 +528,13 @@ export class AddCategoryComponent implements OnInit {
          
         }
   getSectionList(){
-          this.waitLoader =true;
+         this.waitLoader =true;
          this.sectionService.onGetSection()
                 .subscribe(data => {
                     this.waitLoader = false;
                     this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);
                     if (this.addCategoryRequest.language) {
                          this.sections=data.filter(arg=>arg.language==this.addCategoryRequest.language);;
-
                     }
                     if (this.sections && this.addCategoryRequest.sectionId) {
                              let secData=this.sections.filter(arg=>arg._id==this.addCategoryRequest.sectionId);
@@ -596,6 +653,9 @@ onClickListTemp(j){
 //   console.log(output)
 //  }
   onTransliteration(value,event,tag){
+      if (this.showCategoryNameError==true) {
+        this.showCategoryNameError=false;
+    }
    var myEl=event.target
    this.elementRefrence=event
    this.currentInputTag=tag
@@ -773,6 +833,10 @@ updateCateTemp(sectionName,cateName){
  }
  onsectionChange(id){
     // alert('hy')
+    if (this.showSectionIdError==true) {
+        this.showSectionIdError=false;
+    }
+
      let secData=this.sections.filter(arg=>arg._id==id);
      console.log(JSON.stringify(secData))
                             if (secData.length>0) {
@@ -786,6 +850,9 @@ updateCateTemp(sectionName,cateName){
                             }
  }
  onUserChange(value){
+     if (this.showContributionError==true) {
+         this.showContributionError=false;
+     }
    // alert(value)
                                 if (value=='no' || value=='No') {
                                   this.addCategoryForm.controls['titleForm'].disable()
@@ -798,5 +865,30 @@ updateCateTemp(sectionName,cateName){
                                 }
                                 // code...
                             }
- }
+
+
+    // --------------------------mukul 17-1-2018----------------------
+
+    onCategoryViewSelection(){
+        if (this.showCategoryViewError==true) {
+            this.showCategoryViewError=false;
+        }
+    }
+
+    onSubCategoryViewChange(){
+        if (this.showSubCategoryViewError==true) {
+            this.showSubCategoryViewError=false;
+        }
+    }
+
+    onListingViewChange(){
+        if (this.showListViewError==true) {
+            this.showListViewError=false;
+        }
+    }
+
+    onSectionSelection(sectionData){
+       this.addCategoryRequest.sectionItemId=sectionData.itemId
+    }
 }
+

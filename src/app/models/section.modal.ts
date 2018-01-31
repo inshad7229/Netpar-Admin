@@ -81,6 +81,8 @@ export class AddCategoryRequest {
 	 templatesevenlistingStartDate:string;
 	 templatesevenlistingendDate:string;
 
+	 // ----------17-1-2018 requested by gagan Sir----
+	 sectionItemId:string
 }
 
 export class AddSubCategoryRequest {
@@ -111,5 +113,7 @@ export class AddSubCategoryRequest {
 	enableDisableDate:string;
 	publishUnbuplishDate:string;
 	language:string;
-
+	// ---------17-1-2018----------
+	categoryItemId:string;
+	sectionItemId:string;
 }

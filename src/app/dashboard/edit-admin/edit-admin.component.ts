@@ -82,6 +82,7 @@ export class EditAdminComponent implements AfterViewInit {
     inputStringLength:number
     outputStringLength:number
     currentInputTag:any;
+    showRadioButtonError:boolean=false
     //s//tringResource:StringResource
 
     public get imageToDisplay() {
@@ -214,6 +215,7 @@ export class EditAdminComponent implements AfterViewInit {
         if (this.appProvider.current.adminPageFlag == "allEdit") {
             this.register = this.appProvider.current.adminData;
             this.options = this.appProvider.current.adminData.sectionName;
+            this.onRole(this.register.role)
             console.log(JSON.stringify('on get'))
             console.log(JSON.stringify(this.register))
             this.currentImage = this.appProvider.current.adminData.image
@@ -277,6 +279,23 @@ export class EditAdminComponent implements AfterViewInit {
         // control.makeTransliteratable(['firstName','lastname']);
     }
     onRegister() {
+       
+       if(!this.register.role || !this.register.firstName || !this.register.lastName || !this.register.email || !this.register.alternativeEmail || !this.register.password || !this.register.contactNo){
+           if (!this.register.role) {
+               // code...
+              this.showRadioButtonError=true;
+           }else{
+               this.showRadioButtonError=false;
+           }
+          console.log('returning');
+          return
+       } 
+       
+       // if(!this.register.role){
+       //     this.showRadioButtonError=true;
+       //     return;
+       // }
+
         let languageArray=this.getLanguage()
         this.waitLoader = true;
        // console.log(JSON.stringify(this.options))
@@ -1129,6 +1148,412 @@ confirmEmail(){
           this.emailConfirmationMsg=false
       }
 }
+onRoleChange(role){
+    this.showRadioButtonError=false
+    if (role=='superAdmin') {
+        this.register.administratorManagement=true;
+        this.register.viewEditAdministrator=true;
+        this.register.addAdministrator=true;
+        this.register.templateManagement=true;
+        this.register.sectionTemplate = true;
+        this.register.categoryTemplate = true;
+        this.register.listingView = true;
+        this.register.homepageTemplate = true;
+        this.register.addSection = true;
+        this.register.addcategory = true;
+        this.register.addSubcategory = true;
+        this.register.viewEditSection = true;
+        this.register.sectionManagement= true;
+        this.register.addContentManagement=true
+        this.register.manageContentItem=true
+        this.register.commentManagement=true
+        this.register.contentManagement=true
+        this.register.userContributionManagement=true
+        this.register.homepageManagement=true
+        this.register.userManagement=true
+        this.register.sectionAnalytics=true
+        this.register.articleAnalytics=true
+        this.register.elementAnalytics=true
+        this.register.templateAnalytics=true
+        this.register.googleAnalytics=true
+        this.register.flurryAnalytics=true
 
+        this.complexForm.controls['sectionManagement'].enable()
+        this.complexForm.controls['addSection'].enable()
+        this.complexForm.controls['addcategory'].enable()
+        this.complexForm.controls['addSubcategory'].enable()
+        this.complexForm.controls['viewEditSection'].enable()
+        this.complexForm.controls['templateManagement'].enable()
+        this.complexForm.controls['sectionTemplate'].enable()
+        this.complexForm.controls['categoryTemplate'].enable()
+        this.complexForm.controls['listingView'].enable()
+        this.complexForm.controls['homepageTemplate'].enable()
+        this.complexForm.controls['administratorManagement'].enable()
+        this.complexForm.controls['viewEditAdministrator'].enable()
+        this.complexForm.controls['addAdministrator'].enable()
+        this.complexForm.controls['contentManagement'].enable()
+        this.complexForm.controls['addContentManagement'].enable()
+        this.complexForm.controls['manageContentItem'].enable()
+        this.complexForm.controls['commentManagement'].enable()
+        this.complexForm.controls['userContributionManagement'].enable()
+        this.complexForm.controls['homepageManagement'].enable()
+        this.complexForm.controls['userManagement'].enable()
+
+
+
+
+    }else if (role=='contentWriter') {
+        this.register.administratorManagement=false;
+        this.register.viewEditAdministrator=false;
+        this.register.addAdministrator=false;
+        this.register.templateManagement=false;
+        this.register.sectionTemplate = false;
+        this.register.categoryTemplate = false;
+        this.register.listingView = false;
+        this.register.homepageTemplate = false;
+        this.register.addSection = false;
+        this.register.addcategory = false;
+        this.register.addSubcategory = false;
+        this.register.viewEditSection = false;
+        this.register.sectionManagement= false;
+        this.register.addContentManagement=true
+        this.register.manageContentItem=true
+        this.register.commentManagement=true
+        this.register.contentManagement=true
+        this.register.userContributionManagement=true
+        this.register.homepageManagement=false
+        this.register.userManagement=false
+        this.register.sectionAnalytics=false
+        this.register.articleAnalytics=false
+        this.register.elementAnalytics=false
+        this.register.templateAnalytics=false
+        this.register.googleAnalytics=false
+        this.register.flurryAnalytics=false
+
+        this.complexForm.controls['sectionManagement'].disable()
+        this.complexForm.controls['addSection'].disable()
+        this.complexForm.controls['addcategory'].disable()
+        this.complexForm.controls['addSubcategory'].disable()
+        this.complexForm.controls['viewEditSection'].disable()
+        this.complexForm.controls['templateManagement'].disable()
+        this.complexForm.controls['sectionTemplate'].disable()
+        this.complexForm.controls['categoryTemplate'].disable()
+        this.complexForm.controls['listingView'].disable()
+        this.complexForm.controls['homepageTemplate'].disable()
+        this.complexForm.controls['administratorManagement'].disable()
+        this.complexForm.controls['viewEditAdministrator'].disable()
+        this.complexForm.controls['addAdministrator'].disable()
+        this.complexForm.controls['contentManagement'].enable()
+        this.complexForm.controls['addContentManagement'].enable()
+        this.complexForm.controls['manageContentItem'].enable()
+        this.complexForm.controls['commentManagement'].enable()
+        this.complexForm.controls['userContributionManagement'].enable()
+        this.complexForm.controls['homepageManagement'].disable()
+        this.complexForm.controls['userManagement'].disable()
+    }
+    else if (role=='businessUser') {
+        this.register.administratorManagement=false;
+        this.register.viewEditAdministrator=false;
+        this.register.addAdministrator=false;
+        this.register.templateManagement=false;
+        this.register.sectionTemplate = false;
+        this.register.categoryTemplate = false;
+        this.register.listingView = false;
+        this.register.homepageTemplate = false;
+        this.register.addSection = false;
+        this.register.addcategory = false;
+        this.register.addSubcategory = false;
+        this.register.viewEditSection = false;
+        this.register.sectionManagement= false;
+        this.register.addContentManagement=true
+        this.register.manageContentItem=true
+        this.register.commentManagement=true
+        this.register.contentManagement=true
+        this.register.userContributionManagement=false
+        this.register.homepageManagement=false
+        this.register.userManagement=false
+        this.register.sectionAnalytics=false
+        this.register.articleAnalytics=false
+        this.register.elementAnalytics=false
+        this.register.templateAnalytics=false
+        this.register.googleAnalytics=false
+        this.register.flurryAnalytics=false
+
+        this.complexForm.controls['sectionManagement'].disable()
+        this.complexForm.controls['addSection'].disable()
+        this.complexForm.controls['addcategory'].disable()
+        this.complexForm.controls['addSubcategory'].disable()
+        this.complexForm.controls['viewEditSection'].disable()
+        this.complexForm.controls['templateManagement'].disable()
+        this.complexForm.controls['sectionTemplate'].disable()
+        this.complexForm.controls['categoryTemplate'].disable()
+        this.complexForm.controls['listingView'].disable()
+        this.complexForm.controls['homepageTemplate'].disable()
+        this.complexForm.controls['administratorManagement'].disable()
+        this.complexForm.controls['viewEditAdministrator'].disable()
+        this.complexForm.controls['addAdministrator'].disable()
+        this.complexForm.controls['contentManagement'].enable()
+        this.complexForm.controls['addContentManagement'].enable()
+        this.complexForm.controls['manageContentItem'].enable()
+        this.complexForm.controls['commentManagement'].enable()
+        this.complexForm.controls['userContributionManagement'].disable()
+        this.complexForm.controls['homepageManagement'].disable()
+        this.complexForm.controls['userManagement'].disable()
+    }
+    else if (role=='sectionAdministrator') {
+        this.register.administratorManagement=false;
+        this.register.viewEditAdministrator=false;
+        this.register.addAdministrator=false;
+        this.register.templateManagement=true;
+        this.register.sectionTemplate = true;
+        this.register.categoryTemplate = true;
+        this.register.listingView = true;
+        this.register.homepageTemplate = true;
+        this.register.addSection = true;
+        this.register.addcategory = true;
+        this.register.addSubcategory = true;
+        this.register.viewEditSection = true;
+        this.register.sectionManagement= true;
+        this.register.addContentManagement=true
+        this.register.manageContentItem=true
+        this.register.commentManagement=true
+        this.register.contentManagement=true
+        this.register.userContributionManagement=true
+        this.register.homepageManagement=true
+        this.register.userManagement=false
+        this.register.sectionAnalytics=false
+        this.register.articleAnalytics=false
+        this.register.elementAnalytics=false
+        this.register.templateAnalytics=false
+        this.register.googleAnalytics=false
+        this.register.flurryAnalytics=false
+
+        this.complexForm.controls['sectionManagement'].enable()
+        this.complexForm.controls['addSection'].enable()
+        this.complexForm.controls['addcategory'].enable()
+        this.complexForm.controls['addSubcategory'].enable()
+        this.complexForm.controls['viewEditSection'].enable()
+        this.complexForm.controls['templateManagement'].enable()
+        this.complexForm.controls['sectionTemplate'].enable()
+        this.complexForm.controls['categoryTemplate'].enable()
+        this.complexForm.controls['listingView'].enable()
+        this.complexForm.controls['homepageTemplate'].enable()
+        this.complexForm.controls['administratorManagement'].disable()
+        this.complexForm.controls['viewEditAdministrator'].disable()
+        this.complexForm.controls['addAdministrator'].disable()
+        this.complexForm.controls['contentManagement'].enable()
+        this.complexForm.controls['addContentManagement'].enable()
+        this.complexForm.controls['manageContentItem'].enable()
+        this.complexForm.controls['commentManagement'].enable()
+        this.complexForm.controls['userContributionManagement'].enable()
+        this.complexForm.controls['homepageManagement'].enable()
+        this.complexForm.controls['userManagement'].disable()
+    }
+
+}
+
+
+onRole(role){
+    if (role=='superAdmin') {
+        // this.register.administratorManagement=true;
+        // this.register.viewEditAdministrator=true;
+        // this.register.addAdministrator=true;
+        // this.register.templateManagement=true;
+        // this.register.sectionTemplate = true;
+        // this.register.categoryTemplate = true;
+        // this.register.listingView = true;
+        // this.register.homepageTemplate = true;
+        // this.register.addSection = true;
+        // this.register.addcategory = true;
+        // this.register.addSubcategory = true;
+        // this.register.viewEditSection = true;
+        // this.register.sectionManagement= true;
+        // this.register.addContentManagement=true
+        // this.register.manageContentItem=true
+        // this.register.commentManagement=true
+        // this.register.contentManagement=true
+        // this.register.userContributionManagement=true
+        // this.register.homepageManagement=true
+        // this.register.userManagement=true
+        // this.register.sectionAnalytics=true
+        // this.register.articleAnalytics=true
+        // this.register.elementAnalytics=true
+        // this.register.templateAnalytics=true
+        // this.register.googleAnalytics=true
+        // this.register.flurryAnalytics=true
+
+        this.complexForm.controls['sectionManagement'].enable()
+        this.complexForm.controls['addSection'].enable()
+        this.complexForm.controls['addcategory'].enable()
+        this.complexForm.controls['addSubcategory'].enable()
+        this.complexForm.controls['viewEditSection'].enable()
+        this.complexForm.controls['templateManagement'].enable()
+        this.complexForm.controls['sectionTemplate'].enable()
+        this.complexForm.controls['categoryTemplate'].enable()
+        this.complexForm.controls['listingView'].enable()
+        this.complexForm.controls['homepageTemplate'].enable()
+        this.complexForm.controls['administratorManagement'].enable()
+        this.complexForm.controls['viewEditAdministrator'].enable()
+        this.complexForm.controls['addAdministrator'].enable()
+        this.complexForm.controls['contentManagement'].enable()
+        this.complexForm.controls['addContentManagement'].enable()
+        this.complexForm.controls['manageContentItem'].enable()
+        this.complexForm.controls['commentManagement'].enable()
+        this.complexForm.controls['userContributionManagement'].enable()
+        this.complexForm.controls['homepageManagement'].enable()
+        this.complexForm.controls['userManagement'].enable()
+
+
+
+
+    }else if (role=='contentWriter') {
+        // this.register.administratorManagement=false;
+        // this.register.viewEditAdministrator=false;
+        // this.register.addAdministrator=false;
+        // this.register.templateManagement=false;
+        // this.register.sectionTemplate = false;
+        // this.register.categoryTemplate = false;
+        // this.register.listingView = false;
+        // this.register.homepageTemplate = false;
+        // this.register.addSection = false;
+        // this.register.addcategory = false;
+        // this.register.addSubcategory = false;
+        // this.register.viewEditSection = false;
+        // this.register.sectionManagement= false;
+        // this.register.addContentManagement=true
+        // this.register.manageContentItem=true
+        // this.register.commentManagement=true
+        // this.register.contentManagement=true
+        // this.register.userContributionManagement=true
+        // this.register.homepageManagement=false
+        // this.register.userManagement=false
+        // this.register.sectionAnalytics=false
+        // this.register.articleAnalytics=false
+        // this.register.elementAnalytics=false
+        // this.register.templateAnalytics=false
+        // this.register.googleAnalytics=false
+        // this.register.flurryAnalytics=false
+
+        this.complexForm.controls['sectionManagement'].disable()
+        this.complexForm.controls['addSection'].disable()
+        this.complexForm.controls['addcategory'].disable()
+        this.complexForm.controls['addSubcategory'].disable()
+        this.complexForm.controls['viewEditSection'].disable()
+        this.complexForm.controls['templateManagement'].disable()
+        this.complexForm.controls['sectionTemplate'].disable()
+        this.complexForm.controls['categoryTemplate'].disable()
+        this.complexForm.controls['listingView'].disable()
+        this.complexForm.controls['homepageTemplate'].disable()
+        this.complexForm.controls['administratorManagement'].disable()
+        this.complexForm.controls['viewEditAdministrator'].disable()
+        this.complexForm.controls['addAdministrator'].disable()
+        this.complexForm.controls['contentManagement'].enable()
+        this.complexForm.controls['addContentManagement'].enable()
+        this.complexForm.controls['manageContentItem'].enable()
+        this.complexForm.controls['commentManagement'].enable()
+        this.complexForm.controls['userContributionManagement'].enable()
+        this.complexForm.controls['homepageManagement'].disable()
+        this.complexForm.controls['userManagement'].disable()
+    }
+    else if (role=='businessUser') {
+        // this.register.administratorManagement=false;
+        // this.register.viewEditAdministrator=false;
+        // this.register.addAdministrator=false;
+        // this.register.templateManagement=false;
+        // this.register.sectionTemplate = false;
+        // this.register.categoryTemplate = false;
+        // this.register.listingView = false;
+        // this.register.homepageTemplate = false;
+        // this.register.addSection = false;
+        // this.register.addcategory = false;
+        // this.register.addSubcategory = false;
+        // this.register.viewEditSection = false;
+        // this.register.sectionManagement= false;
+        // this.register.addContentManagement=true
+        // this.register.manageContentItem=true
+        // this.register.commentManagement=true
+        // this.register.contentManagement=true
+        // this.register.userContributionManagement=false
+        // this.register.homepageManagement=false
+        // this.register.userManagement=false
+        // this.register.sectionAnalytics=false
+        // this.register.articleAnalytics=false
+        // this.register.elementAnalytics=false
+        // this.register.templateAnalytics=false
+        // this.register.googleAnalytics=false
+        // this.register.flurryAnalytics=false
+
+        this.complexForm.controls['sectionManagement'].disable()
+        this.complexForm.controls['addSection'].disable()
+        this.complexForm.controls['addcategory'].disable()
+        this.complexForm.controls['addSubcategory'].disable()
+        this.complexForm.controls['viewEditSection'].disable()
+        this.complexForm.controls['templateManagement'].disable()
+        this.complexForm.controls['sectionTemplate'].disable()
+        this.complexForm.controls['categoryTemplate'].disable()
+        this.complexForm.controls['listingView'].disable()
+        this.complexForm.controls['homepageTemplate'].disable()
+        this.complexForm.controls['administratorManagement'].disable()
+        this.complexForm.controls['viewEditAdministrator'].disable()
+        this.complexForm.controls['addAdministrator'].disable()
+        this.complexForm.controls['contentManagement'].enable()
+        this.complexForm.controls['addContentManagement'].enable()
+        this.complexForm.controls['manageContentItem'].enable()
+        this.complexForm.controls['commentManagement'].enable()
+        this.complexForm.controls['userContributionManagement'].disable()
+        this.complexForm.controls['homepageManagement'].disable()
+        this.complexForm.controls['userManagement'].disable()
+    }
+    else if (role=='sectionAdministrator') {
+        // this.register.administratorManagement=false;
+        // this.register.viewEditAdministrator=false;
+        // this.register.addAdministrator=false;
+        // this.register.templateManagement=true;
+        // this.register.sectionTemplate = true;
+        // this.register.categoryTemplate = true;
+        // this.register.listingView = true;
+        // this.register.homepageTemplate = true;
+        // this.register.addSection = true;
+        // this.register.addcategory = true;
+        // this.register.addSubcategory = true;
+        // this.register.viewEditSection = true;
+        // this.register.sectionManagement= true;
+        // this.register.addContentManagement=true
+        // this.register.manageContentItem=true
+        // this.register.commentManagement=true
+        // this.register.contentManagement=true
+        // this.register.userContributionManagement=true
+        // this.register.homepageManagement=true
+        // this.register.userManagement=false
+        // this.register.sectionAnalytics=false
+        // this.register.articleAnalytics=false
+        // this.register.elementAnalytics=false
+        // this.register.templateAnalytics=false
+        // this.register.googleAnalytics=false
+        // this.register.flurryAnalytics=false
+
+        this.complexForm.controls['sectionManagement'].enable()
+        this.complexForm.controls['addSection'].enable()
+        this.complexForm.controls['addcategory'].enable()
+        this.complexForm.controls['addSubcategory'].enable()
+        this.complexForm.controls['viewEditSection'].enable()
+        this.complexForm.controls['templateManagement'].enable()
+        this.complexForm.controls['sectionTemplate'].enable()
+        this.complexForm.controls['categoryTemplate'].enable()
+        this.complexForm.controls['listingView'].enable()
+        this.complexForm.controls['homepageTemplate'].enable()
+        this.complexForm.controls['administratorManagement'].disable()
+        this.complexForm.controls['viewEditAdministrator'].disable()
+        this.complexForm.controls['addAdministrator'].disable()
+        this.complexForm.controls['contentManagement'].enable()
+        this.complexForm.controls['addContentManagement'].enable()
+        this.complexForm.controls['manageContentItem'].enable()
+        this.complexForm.controls['commentManagement'].enable()
+        this.complexForm.controls['userContributionManagement'].enable()
+        this.complexForm.controls['homepageManagement'].enable()
+        this.complexForm.controls['userManagement'].disable()
+    }
+
+}
 }
 

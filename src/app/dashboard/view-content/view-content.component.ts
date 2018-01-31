@@ -68,7 +68,7 @@ export class ViewContentComponent implements OnInit {
     selectedId=[]
     status=[
       {
-        _id:"मुकुल",
+        _id:"saveAsDraftStatus",
         value:"Draft",
         check:false
 
@@ -221,7 +221,7 @@ export class ViewContentComponent implements OnInit {
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );;
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   this.waitLoader =false;
@@ -233,7 +233,7 @@ export class ViewContentComponent implements OnInit {
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );;
                     if (data.response.length==0) {
                       this.toastr.info('This section do not have any category')
                       // code...
@@ -250,7 +250,7 @@ export class ViewContentComponent implements OnInit {
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );;
                     if (data.response.length==0) {
                       this.toastr.info('This category do not have any subcategory')
                       // code...
@@ -701,7 +701,23 @@ export class ViewContentComponent implements OnInit {
                this.status[i].check=false
             }
         }
-
+closedFilter(){
+  for (let i=0;i<this.stringResource.language.length;i++) {
+               this.stringResource.language[i].check=false
+            }
+            for (let i=0;i<this.sections.length;i++) {
+               this.sections[i].check=false
+            }
+            for (let i=0;i<this.categories.length;i++) {
+               this.categories[i].check=false
+            }
+            for (let i=0;i<this.subCategory.length;i++) {
+               this.subCategory[i].check=false
+            }
+            for (let i=0;i<this.status.length;i++) {
+               this.status[i].check=false
+            }
+}
 onselectSate(state){
  // alert(state)
   let filterData=[]

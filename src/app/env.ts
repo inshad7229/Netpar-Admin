@@ -18,7 +18,7 @@ export const LOCAL: Environment = {
 };
 
 export const DEV: Environment = {
-    mainApi: 'http://52.15.178.19:3001/api/',
+    mainApi: 'http://18.217.230.32:3001/api/',
     timeout: HTTP_TIMEOUT,
     debug: true,
     bypass: false,
@@ -28,11 +28,11 @@ export const DEV: Environment = {
 
 
 export const PROD: Environment = {
-    mainApi: 'http://52.15.178.19:3001/api/',
+    mainApi: 'http://18.217.230.32:3001/api/',
     timeout: HTTP_TIMEOUT,
     debug: false,
     bypass: false,
     angularProd: false
 };
 
-export const ENV: Environment =DEV;
+export const ENV: Environment =PROD;

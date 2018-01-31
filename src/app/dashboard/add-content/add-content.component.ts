@@ -162,6 +162,15 @@ export class AddContentComponent implements OnInit {
     saveFlag2:boolean
     stringResource:StringResource=new  StringResource()
     contentId
+    showLanguageError:boolean=false;
+    showSectionIdError:boolean=false;
+    showHeadlineError:boolean=false;
+    showTagLineError:boolean=false;
+    showTypeOfUsersError:boolean=false;
+    showStateError:boolean=false;
+    showSuggestedError:boolean=false;
+    showSlugError:boolean=false
+    showUserSelectError:boolean=false
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -224,7 +233,8 @@ export class AddContentComponent implements OnInit {
 		        private adminService:AdminService, 
             private translationService:TranslationService,
 		        private contentService:ContentService) {
-		
+		       this.toastr.setRootViewContainerRef(vcr);
+
 		this.ckeditorContent = null
 				this.addContentRequest.tags=[]
 				/*tinymce.init({
@@ -260,6 +270,7 @@ export class AddContentComponent implements OnInit {
 								'subCategoryName':[null],
 								'subCategoryId':[null],
 								'headline':[null , Validators.compose([Validators.required, Validators.maxLength(200)])],
+                'slug':[null , Validators.compose([Validators.required, Validators.maxLength(500)])],
 								'tagline':[null, Validators.compose([Validators.required, Validators.maxLength(500)])],
 								'tags':[null],
 								'dateOfCreation':[null],
@@ -443,6 +454,7 @@ export class AddContentComponent implements OnInit {
 		    $(this).closest('.fileinput').find('.fileinput-noexists').show();
 		});
 		//alert(this.appProvider.current.actionFlag)
+    // this.addContentRequest.suggestedArticle='false';
 		if (this.appProvider.current.actionFlag=="editContent") {
              this.addContentRequest=this.appProvider.current.currentContentData
              if (this.addContentRequest.suggestedArticle==false) {
@@ -504,6 +516,7 @@ export class AddContentComponent implements OnInit {
         console.log('add'+tags)
         this.addContentRequest.tags.push({name:tags.trim()})
         this.addContentRequest.tag=''
+        this.addContentForm.controls['tags'].reset()
          //console.log('add',b)
        // this.addContentForm.controls['tags'].setValue(event)
         //this.addContentForm.controls['tags'].updateValueAndValidity()
@@ -1681,7 +1694,7 @@ onDeleteBody(){
 	              this.sectionService.onGetSection()
 	            .subscribe(data => {
 	                this.waitLoader = false;
-	                this.sectionsData=data.filter(arg=>arg.deleteStatus!=true);;
+	                this.sectionsData=data.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );;
 	                if (this.addContentRequest.language) {
 	                     this.sections=data.filter(arg=>arg.language==this.addContentRequest.language);;
 	                }
@@ -1692,12 +1705,15 @@ onDeleteBody(){
 	            })
 	}
 	getCategory(){
+    if (this.showSectionIdError==true) {
+       this.showSectionIdError=false;
+    }
 		 this.waitLoader = true;
 		 this.subCategory=[]
          this.sectionService.onGetCategory(this.addContentRequest.sectionId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true);
+                    this.categoriesData=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );
                      if (this.addContentRequest.language) {
 	                     this.categories=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }
@@ -1713,7 +1729,7 @@ onDeleteBody(){
    	this.sectionService.onGetSubCategory(this.addContentRequest.sectionId,this.addContentRequest.categoryId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryData=data.response.filter(arg=>arg.deleteStatus!=true);
+                    this.subCategoryData=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );
                      if (this.addContentRequest.language) {
 	                     this.subCategory=data.response.filter(arg=>arg.language==this.addContentRequest.language && arg.deleteStatus!=true);;
 	                }
@@ -1743,6 +1759,9 @@ onDeleteBody(){
     //     };
     //     var control = new google.elements.transliteration.TransliterationControl(options);
     //     control.makeTransliteratable(['headline','tagline','tags']);
+    if (this.showLanguageError==true) {
+      this.showLanguageError=false
+    }
     this.appProvider.current.currentLanguage=lang;
    	if (this.sectionsData && this.sectionsData.length>0) {
          //this.subCategory=this.subCategoryData.filter(arg=>arg.language==this.addContentRequest.language);;
@@ -1777,6 +1796,9 @@ onDeleteBody(){
         }
    }
      getUserList(role:any){
+       if (this.showTypeOfUsersError==true) {
+         this.showTypeOfUsersError=false;
+       }
      	 this.waitLoader = true;
          this.adminService.onGetUserOnBasisOfROle(role)
             .subscribe(data =>{
@@ -1852,6 +1874,74 @@ onDeleteBody(){
   	this.localAdminList[j].check='active'
   }
   openDialog(flag): void {
+       if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+            if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
         let dialogRef = this.dialog.open(DragDropComponent, {
             width: '400px',
             data:{flag:flag}
@@ -1882,6 +1972,75 @@ onDeleteBody(){
     }
     
    contentView(): void {
+
+           if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+           if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
    	       this.forContent=this.addContentRequest
             if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
@@ -1940,6 +2099,75 @@ onDeleteBody(){
         });
     }
     listView(): void {
+       if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+
+          if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
         let ListViewFormat:any;
     	  this.forContent=this.addContentRequest
            if (this.listOne.length>0) {
@@ -2181,6 +2409,77 @@ onDeleteBody(){
         }
     }
     publish(){
+       if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+
+            if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
+
     	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
               if (this.listOne.length>0) {
@@ -2354,6 +2653,75 @@ onDeleteBody(){
          }
     }
     publishLater(result){
+      if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+
+            if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
     	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
               if (this.listOne.length>0) {
@@ -2528,6 +2896,76 @@ onDeleteBody(){
 
     }
     submitForReview(){
+       if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+
+            if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
+
     	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
              if (this.listOne.length>0) {
@@ -2702,6 +3140,74 @@ onDeleteBody(){
 
     }
 	submitForRevision(){
+     if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+              if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
 		this.waitLoader = true;
 		if (this.appProvider.current.actionFlag=="editContent") {
              if (this.listOne.length>0) {
@@ -2876,6 +3382,74 @@ onDeleteBody(){
 
 	}
 	reject(){
+     if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+              if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
 		this.waitLoader = true;
 		if (this.appProvider.current.actionFlag=="editContent") {
            if (this.listOne.length>0) {
@@ -3899,6 +4473,10 @@ onDeleteBody(){
     	
     
   }
+
+  clearSlag(){
+    this.showSlugError=false
+  }
  //  onTransliteration(value,tag){
  //     if (value==' ') {
  //       return 
@@ -3949,6 +4527,13 @@ onDeleteBody(){
 
 
    onTransliteration(value,event,tag){
+     if (this.showTagLineError==true ) {
+       this.showTagLineError=false;
+       
+     }
+     if(this.showHeadlineError==true){
+       this.showHeadlineError=false;
+     }
    var myEl=event.target
     this.currentInputTag=tag
    this.elementRefrence=event
@@ -4030,7 +4615,7 @@ onKeyUp(event){
              }else if (this.currentInputTag=='tag') {
                this.addContentRequest.tag=output
              }else if (this.currentInputTag=='searchUser') {
-               this.searchUser=output
+                this.onsearchuser(this.searchUser)
              }else if (this.currentInputTag=='title') {
                this.rightPan.title=output
                this.onTitleChange()
@@ -4087,8 +4672,10 @@ onKeyUp(event){
            this.addContentRequest.tagline=output
          }else if (this.currentInputTag=='tag') {
            this.addContentRequest.tag=output
+           this.addContentForm.controls['tags'].reset()
          }else if (this.currentInputTag=='searchUser') {
-           this.searchUser=output
+           this.searchUser=this.currentString
+           this.onsearchuser(this.searchUser)
          }else if (this.currentInputTag=='title') {
            this.rightPan.title=output
            this.onTitleChange()
@@ -4122,8 +4709,11 @@ onKeyUp(event){
     let a=this.addContentRequest.tag.replace(",", "")
     if (a.length>0) {
       this.onAddTags(a)
+   this.addContentForm.controls['tags'].reset()
       // code...
     }
+  }else if (!this.selectedValue && event.keyCode==13) {
+    this.onsearchuser(this.searchUser)
   }
 
 }
@@ -4159,5 +4749,17 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
    }else{
      return false
    }
+  }
+
+  onStateSelection(){
+    if (this.showStateError==true) {
+      this.showStateError=false;
+    }
+  }
+
+  onSuggestedArticleChange(){
+    if (this.showSuggestedError==true) {
+     this.showSuggestedError=false;
+    }
   }
 }

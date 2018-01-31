@@ -167,8 +167,8 @@ export class ArticleAnalyticsComponent implements OnInit {
                       this.contentData=results[0].response;
                       this.contentBackup=results[0].response;
                       this.dataForSorting=results[0].response
-                      this.sectionData=results[1]
-                      this.sectionsBack=results[1]
+                      this.sectionData=results[1].filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true )
+                      this.sectionsBack=results[1].filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true )
                       this.sections=this.sections.concat(this.sectionsBack)
                     }
                     
@@ -184,7 +184,7 @@ export class ArticleAnalyticsComponent implements OnInit {
                 this.sectionService.onGetSection()
               .subscribe(data => {
                   this.waitLoader = false;
-                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true);;
+                  this.sectionsBack=data.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true );;
                   this.sections=this.sections.concat(this.sectionsBack)
               },error=>{
                   this.waitLoader =false;
@@ -196,7 +196,7 @@ export class ArticleAnalyticsComponent implements OnInit {
          this.sectionService.onGetCategory(secId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    this.categoriesBack=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true )
                     this.categories=this.categories.concat(this.categoriesBack)
                    // console.log(JSON.stringify(data))
                 },error=>{
@@ -209,7 +209,7 @@ export class ArticleAnalyticsComponent implements OnInit {
      this.sectionService.onGetSubCategory(secId,catId)
                 .subscribe(data => {
                     this.waitLoader = false;
-                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true);;
+                    this.subCategoryBack=data.response.filter(arg=>arg.deleteStatus!=true && arg.status==true && arg.publishStatus==true )
                     this.subCategory=this.subCategory.concat(this.subCategoryBack)
                    // console.log(JSON.stringify(data))
                 },error=>{

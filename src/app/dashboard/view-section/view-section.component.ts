@@ -174,7 +174,7 @@ export class ViewSectionComponent implements OnInit {
                   }else if (flag=='Subcategory') {
                       this.deleteSubCategoryConfirmation(data)
                   }
-               }else if (flag=='status') {
+               }else if (action=='status') {
                    if (flag=='Section') {
                      this.enableDisableSectionYes(data)
                   }else if (flag=='Category') {

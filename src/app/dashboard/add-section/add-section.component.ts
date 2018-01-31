@@ -46,6 +46,9 @@ export class AddSectionComponent implements OnInit {
     saveFlag1:boolean
     saveFlag2:boolean
     oldSectionView:string;
+    showCategoryViewError:boolean=false;
+    showSelectLanguageError:boolean=false;
+    showNameofSectionError:boolean=false;
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -176,6 +179,7 @@ export class AddSectionComponent implements OnInit {
    }
   }
   onLanguageChange(language){
+       this.showSelectLanguageError=false
        this.appProvider.current.currentLanguage=language;
        // let selectedLang
        // if(language=="Hindi"){
@@ -272,7 +276,30 @@ export class AddSectionComponent implements OnInit {
         };
         fr.readAsDataURL(file);
     }
+
   onAddSection(){
+    if (!this.addSectionModel.language || !this.addSectionModel.sectionName || !this.addSectionModel.categoryView ) {
+     if (!this.addSectionModel.categoryView) {
+       this.showCategoryViewError=true;
+     }else{
+       this.showCategoryViewError=false;
+     }
+
+     if (!this.addSectionModel.language) {
+       this.showSelectLanguageError=true
+     }else{
+         this.showSelectLanguageError=false;
+     }
+
+     if (!this.addSectionModel.sectionName) {
+       this.showNameofSectionError=true;
+     }else{
+       this.showNameofSectionError=false;
+     }
+      console.log("returning")
+      return;
+    }
+
      this.waitLoader = true;
 
    //   if(this.app)
@@ -313,7 +340,7 @@ export class AddSectionComponent implements OnInit {
             alert(error)
             }) 
    }else{
-          let date=new Date().toISOString()
+      let date=new Date().toISOString()
       console.log(date.split('T')[0])
       console.log(date)
      this.addSectionModel.createdDate=date.split('T')[0];
@@ -361,6 +388,9 @@ export class AddSectionComponent implements OnInit {
 }
 
  onTransliteration(value,event){
+   if (this.showNameofSectionError==true) {
+     this.showNameofSectionError=false
+   }
    var myEl=event.target
    this.elementRefrence=event
    let post =this.getCaretPos(event)
@@ -471,4 +501,7 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
     }
   }
 
+    onCategoryViewChange(){
+      this.showCategoryViewError=false;
+    }
 }

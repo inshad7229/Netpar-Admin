@@ -50,6 +50,11 @@ export class AddSubcategoryComponent implements OnInit {
     saveFlag2:boolean
     addSubCategoryRequest: AddSubCategoryRequest=new  AddSubCategoryRequest()
     stringResource:StringResource=new  StringResource()
+    showLanguageError:boolean=false;
+    showSectionIdError:boolean=false;
+    showCategoryIdError:boolean=false;
+    subCategoryNameError:boolean=false;
+    showSubCategoryViewError:boolean=false;
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -173,6 +178,10 @@ export class AddSubcategoryComponent implements OnInit {
        //  };
        //  var control = new google.elements.transliteration.TransliterationControl(options);
        //  control.makeTransliteratable(['subCategoryName']);
+       if (this.showLanguageError==true) {
+
+         this.showLanguageError=false;
+       }
         this.appProvider.current.currentLanguage=language;
         this.sections=this.sectionsData.filter(arg=>arg.language==language);
         this.categories=this.categoriesData.filter(arg=>arg.language==language);
@@ -256,6 +265,9 @@ export class AddSubcategoryComponent implements OnInit {
     }
 
     getCategory(){
+      if(this.showSectionIdError==true){
+        this.showSectionIdError=false;
+      }
          this.waitLoader = true;
          this.sectionService.onGetCategory(this.addSubCategoryRequest.sectionId)
                 .subscribe(data => {
@@ -285,6 +297,9 @@ export class AddSubcategoryComponent implements OnInit {
 
      onCategoryChange(id){
     // alert('hy')
+    if (this.showCategoryIdError==true) {
+      this.showCategoryIdError=false;
+    }
      let secData=this.categories.filter(arg=>arg._id==id);
      console.log(JSON.stringify(secData))
                             if (secData.length>0) {
@@ -298,6 +313,41 @@ export class AddSubcategoryComponent implements OnInit {
                             }
  }
     onAddSubcategory(){
+
+      if (!this.addSubCategoryRequest.language || !this.addSubCategoryRequest.sectionId || !this.addSubCategoryRequest.categoryId || !this.addSubCategoryRequest.subCategoryName || !this.addSubCategoryRequest.subCategoryView) {
+           // ************for language***************
+            if (!this.addSubCategoryRequest.language) {
+                this.showLanguageError=true
+            }else{
+                this.showLanguageError=false;
+            }
+            // ************for sectionName***************
+            if (!this.addSubCategoryRequest.sectionId) {
+                this.showSectionIdError=true
+            }else{
+                this.showSectionIdError=false;
+            }
+            // ************for categoryName***************
+            if(!this.addSubCategoryRequest.categoryId){
+                this.showCategoryIdError=true;
+            }else{
+                this.showCategoryIdError=false;
+            }
+             // ************for subCategoryName***************
+            if(!this.addSubCategoryRequest.subCategoryName){
+                this.subCategoryNameError=true;
+            }else{
+                this.subCategoryNameError=false;
+            }
+             // ************for subCategoryView***************
+            if(!this.addSubCategoryRequest.subCategoryView){
+                this.showSubCategoryViewError=true;
+            }else{
+                this.showSubCategoryViewError=false;
+            }
+            console.log("returning");
+            return;
+      }
 
         this.waitLoader = true;
         if (this.addSubCategoryRequest._id) {
@@ -431,6 +481,9 @@ export class AddSubcategoryComponent implements OnInit {
 
 
   onTransliteration(value,event){
+    if (this.subCategoryNameError==true) {
+      this.subCategoryNameError=false
+    }
    var myEl=event.target
    this.elementRefrence=event
    let post =this.getCaretPos(event)
@@ -539,5 +592,19 @@ setSelectionRangeCustome(input, selectionStart, selectionEnd) {
       range.moveStart('character', selectionStart);
       range.select();
     }
+  }
+
+  onSubCategoryViewChange(){
+    if(this.showSubCategoryViewError==true){
+      this.showSubCategoryViewError=false;
+    }
+  }
+
+  onCategorySelection(categoryData){
+    this.addSubCategoryRequest.categoryItemId=categoryData.itemId;
+  }
+
+  onSectionSelection(sectionData){
+    this.addSubCategoryRequest.sectionItemId=sectionData.itemId
   }
 }
