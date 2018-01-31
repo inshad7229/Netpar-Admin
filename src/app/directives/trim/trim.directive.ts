@@ -12,7 +12,7 @@ export class TrimDirective {
 
  private trimPipe : TrimPipe ;
     lang
-    constructor(private ngControl: NgControl,private http: Http,private appProvider:AppProvider) {
+    constructor(private ngControl: NgControl,private http: Http,public appProvider:AppProvider) {
         this.trimPipe = new TrimPipe ();
     }
 

@@ -7,7 +7,7 @@ import {AppProvider} from '../../providers/app.provider'
 })
 export class ProfileComponent implements OnInit {
 
-  constructor( private appProvider: AppProvider) { }
+  constructor( public appProvider: AppProvider) { }
 
   ngOnInit() {
   }

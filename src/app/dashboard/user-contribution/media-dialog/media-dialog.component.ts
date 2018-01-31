@@ -14,7 +14,7 @@ import {AppProvider} from '../../../providers/app.provider'
 export class MediaDialogComponent implements OnInit {
   media
   constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<MediaDialogComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any,private sanitizer: DomSanitizer,private userProvider:UserService,private appProvider:AppProvider) {
+  @Inject(MAT_DIALOG_DATA) public data: any,private sanitizer: DomSanitizer,private userProvider:UserService,public appProvider:AppProvider) {
     this.media=data
    }
 

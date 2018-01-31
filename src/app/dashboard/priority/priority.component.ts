@@ -129,7 +129,7 @@ filterSection=[]
                         private router: Router,
                       private http: Http,
                       private sectionService:SectionService,
-                      private appProvider: AppProvider,
+                      public appProvider: AppProvider,
                       private adminService:AdminService,
                       private contentService:ContentService,
                       vcr: ViewContainerRef,

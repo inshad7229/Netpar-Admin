@@ -124,7 +124,7 @@ export class ElementAnalyticsComponent implements OnInit {
     arrangedData=[]
     limitedFilter 
   constructor(private sectionService:SectionService,
-            private appProvider: AppProvider,
+            public appProvider: AppProvider,
             private adminService:AdminService,
             private contentService:ContentService) {
             this.filterValue={}

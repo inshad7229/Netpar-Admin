@@ -19,7 +19,7 @@ callToActionButton=[]
   constructor(private dialog: MatDialog, 
               public dialogRef: MatDialogRef<DialogComponent>,
               private adminService:AdminService,
-              private appProvider:AppProvider,
+              public appProvider:AppProvider,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {

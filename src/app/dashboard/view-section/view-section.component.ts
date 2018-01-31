@@ -51,7 +51,7 @@ export class ViewSectionComponent implements OnInit {
         public toastr: ToastsManager,
         private http: Http,
         private sectionService: SectionService,
-        private appProvider: AppProvider) {}
+        public appProvider: AppProvider) {}
 
     ngOnInit() {
         $('.filter-plugin > a').on('click', function () {

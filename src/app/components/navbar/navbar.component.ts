@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
     private sidebarVisible: boolean;
 
     constructor(location: Location,  private element: ElementRef,
-      private appProvider:AppProvider) {
+      public appProvider:AppProvider) {
       this.location = location;
           this.sidebarVisible = false;
     }

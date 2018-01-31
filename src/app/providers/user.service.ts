@@ -15,7 +15,7 @@ import  {ENV} from '../env'
 export class UserService {
 
 
-    constructor(private http: Http,private appProvider:AppProvider)
+    constructor(private http: Http,public appProvider:AppProvider)
     { }
 
 

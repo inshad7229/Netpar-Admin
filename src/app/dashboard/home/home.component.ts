@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     constructor(private router: Router,
         private adminService: AdminService,
         private editadminService: EditAdminService,
-        private appProvider: AppProvider,
+        public appProvider: AppProvider,
         public dialog: MatDialog,
          vcr: ViewContainerRef,
         public toastr: ToastsManager, ) {
@@ -160,7 +160,7 @@ export class AdminConfirmation {
         private router: Router,
         private adminService: AdminService,
         private editadminService: EditAdminService,
-        private appProvider: AppProvider,
+        public appProvider: AppProvider,
         public dialog: MatDialog) {
        }
 

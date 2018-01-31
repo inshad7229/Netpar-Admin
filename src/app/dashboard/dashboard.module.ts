@@ -18,7 +18,7 @@ import {DndModule} from 'ng2-dnd';
 import {ColorPickerModule} from 'ngx-color-picker';
 import { CKEditorModule } from 'ng2-ckeditor';
 // import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-import { DateTimePickerModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { ClipboardModule } from 'ngx-clipboard';
 
 
@@ -36,7 +36,6 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
 import { AddContentComponent } from './add-content/add-content.component';
 import { ViewContentComponent,ContentConfirmation,downloadContentConfirmation } from './view-content/view-content.component';
-import { ViewDialogComponent } from './view-content/view-dialog/view-dialog.component';
 import { AdminConfirmation} from './home/home.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HomeDialogComponent } from './homepage/home-dialog/home-dialog.component';
@@ -102,7 +101,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatListModule,
         ColorPickerModule,
         CKEditorModule,
-        DateTimePickerModule,
+        OwlDateTimeModule, 
+        OwlNativeDateTimeModule,
         DndModule.forRoot(),
         // ClipboardModule
         // FroalaEditorModule.forRoot(), 
@@ -122,7 +122,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
              AddSubcategoryComponent,
              AddContentComponent,
              ViewContentComponent,
-             ViewDialogComponent,
              HomepageComponent,
              HomeDialogComponent,
              PriorityComponent,
@@ -161,7 +160,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
            ],
 
 entryComponents: [DialogComponent,AdminConfirmation,
- ViewDialogComponent, HomeDialogComponent, 
+  HomeDialogComponent, 
  PriorityDialogComponent, 
  UserDialogComponent ,
  LanguageDialogComponent,

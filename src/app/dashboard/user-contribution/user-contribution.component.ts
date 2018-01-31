@@ -88,7 +88,7 @@ filterApplyStatus:boolean=false
   	constructor(private userProvider:UserService,private sectionService:SectionService,private dialog: MatDialog,
       vcr: ViewContainerRef,
                       public toastr: ToastsManager,
-                      private appProvider: AppProvider,
+                      public appProvider: AppProvider,
                       ) {
                           this.toastr.setRootViewContainerRef(vcr);
   		        this.filterValue={}

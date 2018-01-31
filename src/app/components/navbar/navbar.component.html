@@ -22,14 +22,14 @@
                 <li>
                     <a routerLink="/home" class="btn btn-white">
                         <i class="material-icons">account_box</i>
-                        <span class="" *ngIf="this.appProvider.current.loginData">Hi {{this.appProvider.current.loginData.firstName}}</span>
+                        <span class="" *ngIf="appProvider.current.loginData">Hi {{appProvider.current.loginData.firstName}}</span>
                         <div class="ripple-container"></div>
                     </a>
                 </li>
                 <li class="cus-list">
                     <a routerLink="/home" class="btn btn-yellow">
                         <i class="material-icons" >email</i>
-                        <span class="" *ngIf="this.appProvider.current.loginData">  {{this.appProvider.current.loginData.email}}</span>
+                        <span class="" *ngIf="appProvider.current.loginData">  {{appProvider.current.loginData.email}}</span>
                         <div class="ripple-container"></div>
                     </a>
                      <a routerLink="/login" class="btn btn-black">

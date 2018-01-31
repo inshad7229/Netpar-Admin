@@ -106,7 +106,7 @@ export class AddSectionComponent implements OnInit {
         public toastr: ToastsManager,
         private http: Http,
         private sectionService:SectionService,
-        private appProvider: AppProvider,
+        public appProvider: AppProvider,
         private translationService:TranslationService
       ) {   this.addSectionForm = fb.group({
             'sectionName': [null, Validators.compose([Validators.required, Validators.maxLength(30)])],

@@ -127,7 +127,7 @@ export class ArticleAnalyticsComponent implements OnInit {
     dataForSorting
     filterApplyStatus:boolean=false
   constructor(private sectionService:SectionService,
-            private appProvider: AppProvider,
+            public appProvider: AppProvider,
             private adminService:AdminService,
             private contentService:ContentService) {
             this.filterValue={}

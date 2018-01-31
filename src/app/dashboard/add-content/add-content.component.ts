@@ -229,7 +229,7 @@ export class AddContentComponent implements OnInit {
 		        public toastr: ToastsManager,
 		        private http: Http,
 		        private sectionService:SectionService,
-		        private appProvider: AppProvider,
+		        public appProvider: AppProvider,
 		        private adminService:AdminService, 
             private translationService:TranslationService,
 		        private contentService:ContentService) {

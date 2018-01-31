@@ -55,8 +55,9 @@ artiAnalLink=' '
 elemAnalLink=' '
 tempAnalLink=' '
 netparUser
+config
   constructor(private route:Router,
-             private activeLink:RouterLinkActive,private appProvider:AppProvider,public dialog: MatDialog,) { }
+             private activeLink:RouterLinkActive,public appProvider:AppProvider,public dialog: MatDialog,) { }
 
   ngOnInit() {
      this.netparUser=JSON.parse(localStorage['netparUser'])
@@ -854,7 +855,7 @@ export class SideBarConfirmation {
     public dialogRef: MatDialogRef<SideBarConfirmation>,
     @Inject(MAT_DIALOG_DATA) public data: any,
         private router: Router,
-        private appProvider: AppProvider,
+        public appProvider: AppProvider,
         public dialog: MatDialog) {
        }
 

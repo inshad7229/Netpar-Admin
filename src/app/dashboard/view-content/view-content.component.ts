@@ -11,7 +11,6 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 // import {ColorPickerService} from 'angular4-color-picker';
 
 import { NgxCroppieComponent } from 'ngx-croppie';
-import { ViewDialogComponent } from './view-dialog/view-dialog.component';
 import { ContentViewDialogComponent } from './content-view-dialog/content-view-dialog.component';
 
 import {MatSort} from '@angular/material';
@@ -126,7 +125,7 @@ export class ViewContentComponent implements OnInit {
             public toastr: ToastsManager,
             private http: Http,
             private sectionService:SectionService,
-            private appProvider: AppProvider,
+            public appProvider: AppProvider,
             private adminService:AdminService,
             private contentService:ContentService,
             private userProvider:UserService,
@@ -173,16 +172,6 @@ export class ViewContentComponent implements OnInit {
        // this.dataSource = new ExampleDataSourceSort(this.exampleDatabase, this.sort);
         this.getList()
         this.getSectionList()
-    }
-
-    openDialog(): void {
-        let dialogRef = this.dialog.open(ViewDialogComponent, {
-            width: '400px',
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-          
-        });
     }
     getList(){
       this.waitLoader = true;
@@ -1173,7 +1162,7 @@ export class ContentConfirmation {
     public dialogRef: MatDialogRef<ContentConfirmation>,
     @Inject(MAT_DIALOG_DATA) public data: any,
         private router: Router,
-        private appProvider: AppProvider,
+        public appProvider: AppProvider,
         public dialog: MatDialog) {
          if(this.data.flag=='sortlistForHomepage'){
            this.msg='Shortlist to homepage'
@@ -1220,7 +1209,7 @@ export class downloadContentConfirmation {
     public dialogRef: MatDialogRef<downloadContentConfirmation>,
     @Inject(MAT_DIALOG_DATA) public data: any,
         private router: Router,
-        private appProvider: AppProvider,
+        public appProvider: AppProvider,
         public dialog: MatDialog) {
       
        }

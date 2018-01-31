@@ -9,7 +9,7 @@ export class WelcomeComponent implements OnInit {
 
   constructor(
 
-      private appProvider:AppProvider) { 
+      public appProvider:AppProvider) { 
         //window.history.go(-1);
 }
 

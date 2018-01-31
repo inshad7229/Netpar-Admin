@@ -47,7 +47,7 @@ export class EditorComponent implements OnInit {
      private http: Http,
      private translationService:TranslationService,
     public dialogRef: MatDialogRef<EditorComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any, private appProvider: AppProvider) { 
+  @Inject(MAT_DIALOG_DATA) public data: any, public appProvider: AppProvider) { 
     this.ckeditorContent=this.data.text;
     // let selectedLang
     // let lang=data.lang

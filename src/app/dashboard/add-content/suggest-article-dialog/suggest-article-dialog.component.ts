@@ -33,7 +33,7 @@ export class SuggestArticleDialogComponent implements OnInit {
   constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<SuggestArticleDialogComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any,
             private sectionService:SectionService,
-            private appProvider: AppProvider,
+            public appProvider: AppProvider,
             private contentProvider:ContentService,
             private translationService:TranslationService) { 
       this.addContentRequest={}

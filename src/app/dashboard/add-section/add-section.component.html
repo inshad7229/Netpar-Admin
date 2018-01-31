@@ -49,7 +49,7 @@
 
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                 <mat-form-field>
-                                                    <input matInput placeholder="Name of Section *" type="text" [matAutocomplete]="sectionName" #sectionNameInput [formControl]="addSectionForm.controls['sectionName']" name="sectionName" id="sectionName"  [(ngModel)]="addSectionModel.sectionName" (input)="onTransliteration(addSectionModel.sectionName,sectionNameInput)" (keyup)="onKeyUp($event,sectionName)" (click)="clearSuggstion()">
+                                                    <input matInput placeholder="Name of Section *" type="text" [matAutocomplete]="sectionName" #sectionNameInput [formControl]="addSectionForm.controls['sectionName']" name="sectionName" id="sectionName"  [(ngModel)]="addSectionModel.sectionName" (input)="onTransliteration(addSectionModel.sectionName,sectionNameInput)" (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
                                                       <mat-error  *ngIf="addSectionForm.controls['sectionName'].hasError('required') && addSectionForm.controls['sectionName'].touched && !showNameofSectionError">
                                                        Section Name is <strong>required</strong>
                                                      </mat-error>
@@ -84,7 +84,7 @@
                                                     </div>
                                                     <p *ngIf="saveFlag1">your changes have been saved, click on submit to apply</p>
                                                     <div class="fileinput-preview fileinput-exists" style="display:none;">
-                                                         <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieThumbnail(myForm)">
+                                                         <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieThumbnail()">
                                                         Save
                                                         <div class="ripple-container"></div>
                                                         </span>    
@@ -113,7 +113,7 @@
                                                     </div>
                                                     <p *ngIf="saveFlag2">your changes have been saved, click on submit to apply</p>
                                                     <div class="fileinput-preview fileinput-exists" style="display:none;">
-                                                        <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieHorigontal(myForm)">
+                                                        <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieHorigontal()">
                                                         Save
                                                             <div class="ripple-container"></div>
                                                         </span>    

@@ -117,7 +117,7 @@ export class EditAdminComponent implements AfterViewInit {
         public toastr: ToastsManager,
         private adminService: AdminService,
         private http: Http,
-        private appProvider: AppProvider,
+        public appProvider: AppProvider,
         private sectionService:SectionService,
         private translationService:TranslationService,
 

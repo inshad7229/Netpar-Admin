@@ -96,7 +96,7 @@ export class CommentComponent implements OnInit {
             public toastr: ToastsManager,
             private http: Http,
             private sectionService:SectionService,
-            private appProvider: AppProvider,
+            public appProvider: AppProvider,
             private adminService:AdminService,
             private commentService:CommentService) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -635,7 +635,7 @@ export class CommentConfirmation {
     @Inject(MAT_DIALOG_DATA) public data: any,
         private router: Router,
         private sectionService:SectionService,
-        private appProvider: AppProvider,
+        public appProvider: AppProvider,
         private adminService:AdminService,
         private commentService:CommentService,
         public dialog: MatDialog) {

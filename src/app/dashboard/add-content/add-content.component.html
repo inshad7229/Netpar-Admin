@@ -182,7 +182,7 @@
 
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12 grayClass">
                                             <mat-form-field style="color: #afafaf;" >
-                                                <input matInput [matDatepicker]="picker" placeholder="Date of creation" name="adc"  readonly="true" [formControl]="addContentForm.controls['dateOfCreation']" [(ngModel)]="addContentRequest.dateOfCreation">
+                                                <input matInput  placeholder="Date of creation" name="adc"  readonly="true" [formControl]="addContentForm.controls['dateOfCreation']" [(ngModel)]="addContentRequest.dateOfCreation">
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -2602,7 +2602,7 @@
                                                     <img alt="..."  [src]="imageToDisplayThumbnail">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists" style="display:none;" >
-                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieThumbnail(myForm)">
+                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieThumbnail()">
                                                     Save
                                                     <div class="ripple-container"></div>
                                                     </span>    
@@ -2628,7 +2628,7 @@
                                                     <img alt="..."  [src]="imageToDisplayHorigontal">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists" style="display:none;">
-                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieHorigontal(myForm)">
+                                                     <span class="btn custom-btn btn-round btn-file" (click)="saveImageFromCroppieHorigontal()">
                                                     Save
                                                     <div class="ripple-container"></div>
                                                     </span>    

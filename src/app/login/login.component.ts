@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
          private loginService:LoginService,
          public toastr: ToastsManager, 
          vcr: ViewContainerRef,
-         private appProvider:AppProvider
+         public appProvider:AppProvider
        ) {
         this.complexForm = fb.group({
             'loginAs': [null, Validators.compose([Validators.required])],

@@ -36,7 +36,7 @@ export class ImageResizerComponent implements OnInit {
      private http: Http,
      private translationService:TranslationService,
     public dialogRef: MatDialogRef<ImageResizerComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any, private appProvider: AppProvider) { 
+  @Inject(MAT_DIALOG_DATA) public data: any, public appProvider: AppProvider) { 
       this.item=this.data.item
       this.x = this.item.x
       this.y = this.item.y
