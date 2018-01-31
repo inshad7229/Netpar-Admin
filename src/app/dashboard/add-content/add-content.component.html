@@ -239,98 +239,11 @@
                                                         <p *ngIf="addContentRequest.typeOfUser=='platformUser'">{{user.mobileNumber}}  </p>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="users-box" (click)="toggleHighlight(1)" [ngClass]="{'active': highlightedDiv === 1 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div>
-                                                <div class="users-box" (click)="toggleHighlight(2)" [ngClass]="{'active': highlightedDiv === 2 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div>
-                                                <div class="users-box" (click)="toggleHighlight(3)" [ngClass]="{'active': highlightedDiv === 3 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div>
-                                                <div class="users-box" (click)="toggleHighlight(4)" [ngClass]="{'active': highlightedDiv === 4 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div>
-                                                <div class="users-box" (click)="toggleHighlight(5)" [ngClass]="{'active': highlightedDiv === 5 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div>
-                                                <div class="users-box" (click)="toggleHighlight(6)" [ngClass]="{'active': highlightedDiv === 6 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div>
-                                                <div class="users-box" (click)="toggleHighlight(7)" [ngClass]="{'active': highlightedDiv === 7 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div>
-                                                <div class="users-box" (click)="toggleHighlight(8)" [ngClass]="{'active': highlightedDiv === 8 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div>
-                                                <div class="users-box" (click)="toggleHighlight(9)" [ngClass]="{'active': highlightedDiv === 9 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div>
-                                                <div class="users-box" (click)="toggleHighlight(10)" [ngClass]="{'active': highlightedDiv === 10 }">
-                                                    <div class="cont-img dp">
-                                                        <img src="./assets/img/profile_user.jpg" class="img-responsive" />
-                                                    </div>
-                                                    <div class="dis-inlblk">
-                                                        <p> Jay Sinha </p>
-                                                        <p> 9874563210 </p>
-                                                    </div>
-                                                </div> -->
                                                 
                                             </div>
+                                            <p  *ngIf="showUserSelectError && localAdminList" style="color: red">
+                                             User Selection is  <strong>required</strong>
+                                            </p>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12 p-0">
                                             <div id="email-builder">

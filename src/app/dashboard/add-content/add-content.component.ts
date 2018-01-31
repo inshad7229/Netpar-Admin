@@ -170,6 +170,7 @@ export class AddContentComponent implements OnInit {
     showStateError:boolean=false;
     showSuggestedError:boolean=false;
     showSlugError:boolean=false
+    showUserSelectError:boolean=false
     public get imageToDisplayHorigontal() {
         if (this.currentImageHorigontal) {
             return this.currentImageHorigontal;
@@ -1908,6 +1909,13 @@ onDeleteBody(){
                 this.showTypeOfUsersError=true;
               }else{
                 this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
               }
 
               if (!this.addContentRequest.applicableStateLists) {
@@ -1925,6 +1933,15 @@ onDeleteBody(){
                console.log("returning");
                return;
            }
+            if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
         let dialogRef = this.dialog.open(DragDropComponent, {
             width: '400px',
             data:{flag:flag}
@@ -1991,6 +2008,13 @@ onDeleteBody(){
                 this.showTypeOfUsersError=true;
               }else{
                 this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
               }
 
               if (!this.addContentRequest.applicableStateLists) {
@@ -2008,6 +2032,15 @@ onDeleteBody(){
                console.log("returning");
                return;
            }
+           if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
    	       this.forContent=this.addContentRequest
             if (this.listOne.length>0) {
 		   	 for (let i=0;i<this.listOne.length;i++) {
@@ -2101,6 +2134,13 @@ onDeleteBody(){
                 this.showTypeOfUsersError=true;
               }else{
                 this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
               }
 
               if (!this.addContentRequest.applicableStateLists) {
@@ -2118,6 +2158,16 @@ onDeleteBody(){
                console.log("returning");
                return;
            }
+
+          if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
         let ListViewFormat:any;
     	  this.forContent=this.addContentRequest
            if (this.listOne.length>0) {
@@ -2395,6 +2445,13 @@ onDeleteBody(){
                 this.showTypeOfUsersError=true;
               }else{
                 this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
               }
 
               if (!this.addContentRequest.applicableStateLists) {
@@ -2412,6 +2469,17 @@ onDeleteBody(){
                console.log("returning");
                return;
            }
+
+            if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
+
     	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
               if (this.listOne.length>0) {
@@ -2585,6 +2653,75 @@ onDeleteBody(){
          }
     }
     publishLater(result){
+      if (!this.addContentRequest.language || !this.addContentRequest.sectionId || !this.addContentRequest.headline || !this.addContentRequest.tagline || !this.addContentRequest.typeOfUser || !this.addContentRequest.applicableStateLists || !this.addContentRequest.suggestedArticle) {
+              if (!this.addContentRequest.language) {
+                this.showLanguageError=true
+              }else{
+                  this.showLanguageError=false;
+              }
+              // ************for sectionName***************
+              if (!this.addContentRequest.sectionId) {
+                  this.showSectionIdError=true
+              }else{
+                  this.showSectionIdError=false;
+              }
+              // ************for HEADLINE***************
+              if(!this.addContentRequest.headline){
+                  this.showHeadlineError=true;
+              }else{
+                  this.showHeadlineError=false;
+              }
+              ///// for slug///
+              if(!this.addContentRequest.slug){
+                  this.showSlugError=true;
+              }else{
+                  this.showSlugError=false;
+              }
+              // *********for tagLine***********
+              if (!this.addContentRequest.tagline) {
+                this.showTagLineError=true;
+              }else{
+                  this.showTagLineError=false;
+              }
+              // *********for typeOfUsers***********
+              if (!this.addContentRequest.typeOfUser) {
+                this.showTypeOfUsersError=true;
+              }else{
+                this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
+              }
+
+              if (!this.addContentRequest.applicableStateLists) {
+                this.showStateError=true;
+              }else{
+                this.showStateError=false;
+              }
+
+              if (!this.addContentRequest.suggestedArticle) {
+                this.showSuggestedError=true
+              }else{
+                this.showSuggestedError=false;
+              }
+
+               console.log("returning");
+               return;
+           }
+
+            if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
     	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
               if (this.listOne.length>0) {
@@ -2794,6 +2931,13 @@ onDeleteBody(){
                 this.showTypeOfUsersError=true;
               }else{
                 this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
               }
 
               if (!this.addContentRequest.applicableStateLists) {
@@ -2811,6 +2955,16 @@ onDeleteBody(){
                console.log("returning");
                return;
            }
+
+            if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
 
     	this.waitLoader = true;
     	if (this.appProvider.current.actionFlag=="editContent") {
@@ -3021,6 +3175,13 @@ onDeleteBody(){
                 this.showTypeOfUsersError=true;
               }else{
                 this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
               }
 
               if (!this.addContentRequest.applicableStateLists) {
@@ -3038,6 +3199,15 @@ onDeleteBody(){
                console.log("returning");
                return;
            }
+              if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
 		this.waitLoader = true;
 		if (this.appProvider.current.actionFlag=="editContent") {
              if (this.listOne.length>0) {
@@ -3247,6 +3417,13 @@ onDeleteBody(){
                 this.showTypeOfUsersError=true;
               }else{
                 this.showTypeOfUsersError=false;
+                let userList=this.localAdminList.filter(arg=>arg.check=='active')
+                  if (userList.length<1) {
+                     this.showUserSelectError=true
+                     return
+                  }else{
+                   this.showUserSelectError=false 
+                  }
               }
 
               if (!this.addContentRequest.applicableStateLists) {
@@ -3264,6 +3441,15 @@ onDeleteBody(){
                console.log("returning");
                return;
            }
+              if (this.addContentRequest.typeOfUser) {
+            let userList=this.localAdminList.filter(arg=>arg.check=='active')
+            if (userList.length<1) {
+               this.showUserSelectError=true
+               return
+            }else{
+             this.showUserSelectError=false 
+            }
+          }
 		this.waitLoader = true;
 		if (this.appProvider.current.actionFlag=="editContent") {
            if (this.listOne.length>0) {
