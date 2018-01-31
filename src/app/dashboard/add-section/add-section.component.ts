@@ -278,7 +278,7 @@ export class AddSectionComponent implements OnInit {
     }
 
   onAddSection(){
-    if (!this.addSectionModel.language || !this.addSectionModel.sectionName || !this.addSectionModel.categoryView || !this.addSectionModel.orderNo) {
+    if (!this.addSectionModel.language || !this.addSectionModel.sectionName || !this.addSectionModel.categoryView ) {
      if (!this.addSectionModel.categoryView) {
        this.showCategoryViewError=true;
      }else{

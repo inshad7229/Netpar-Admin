@@ -453,6 +453,7 @@ export class AddContentComponent implements OnInit {
 		    $(this).closest('.fileinput').find('.fileinput-noexists').show();
 		});
 		//alert(this.appProvider.current.actionFlag)
+    // this.addContentRequest.suggestedArticle='false';
 		if (this.appProvider.current.actionFlag=="editContent") {
              this.addContentRequest=this.appProvider.current.currentContentData
              if (this.addContentRequest.suggestedArticle==false) {
@@ -4428,7 +4429,7 @@ onKeyUp(event){
              }else if (this.currentInputTag=='tag') {
                this.addContentRequest.tag=output
              }else if (this.currentInputTag=='searchUser') {
-               this.searchUser=output
+                this.onsearchuser(this.searchUser)
              }else if (this.currentInputTag=='title') {
                this.rightPan.title=output
                this.onTitleChange()
@@ -4487,7 +4488,8 @@ onKeyUp(event){
            this.addContentRequest.tag=output
            this.addContentForm.controls['tags'].reset()
          }else if (this.currentInputTag=='searchUser') {
-           this.searchUser=output
+           this.searchUser=this.currentString
+           this.onsearchuser(this.searchUser)
          }else if (this.currentInputTag=='title') {
            this.rightPan.title=output
            this.onTitleChange()
@@ -4524,6 +4526,8 @@ onKeyUp(event){
    this.addContentForm.controls['tags'].reset()
       // code...
     }
+  }else if (!this.selectedValue && event.keyCode==13) {
+    this.onsearchuser(this.searchUser)
   }
 
 }

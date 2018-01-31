@@ -2557,7 +2557,7 @@
                                         <iframe *ngIf="googleFromatata.formURL" [src]="googleFromatata.formURL" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <legend>Add suggested articles *:</legend>
+                                            <legend>Add suggested articles * :</legend>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -2797,18 +2797,18 @@
                                             <legend>Preview:</legend>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                           <!--  <button class="btn custom-btn" (click)="contentView()" [disabled]="!addContentForm.valid"> Content View </button>
-                                            <button class="btn custom-btn" (click)="listView()" [disabled]="!addContentForm.valid"> Listing View </button> -->
-                                            <button class="btn custom-btn" (click)="contentView()" > Content View </button>
-                                            <button class="btn custom-btn" (click)="listView()" > Listing View </button>
+                                            <button type="button" class="btn custom-btn" (click)="contentView()" > Content View </button>
+                                            <button type="button" class="btn custom-btn" (click)="listView()"> Listing View </button>
+                                         <!--    <button class="btn custom-btn" (click)="contentView()" > Content View </button>
+                                            <button class="btn custom-btn" (click)="listView()" > Listing View </button> -->
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <button class="btn btn-warning" (click)="saveAsDraft()" > Save as draft </button>
-                                            <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser'"  (click)="submitForReview()" > Submit for review </button>
-                                            <button class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'"  (click)="publish('Publish')" > Publish Now</button>
-                                            <button class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')" > Publish later </button>
-                                            <button class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" > Send for revision </button>
-                                            <button class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()" > Reject </button>
+                                            <button type="button" class="btn btn-warning" (click)="saveAsDraft()" > Save as draft </button>
+                                            <button type="button" class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='contentWriter' || appProvider.current.loginData.role=='businessUser'"  (click)="submitForReview()" > Submit for review </button>
+                                            <button type="button" class="btn btn-danger"  *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'"  (click)="publish('Publish')" > Publish Now</button>
+                                            <button type="button" class="btn btn-warning" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="openDialog('Publishlater')"  > Publish later </button>
+                                            <button type="button" class="btn btn-success" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="submitForRevision()" > Send for revision </button>
+                                            <button type="button" class="btn btn-danger" *ngIf="appProvider.current.loginData.role=='superAdmin' || appProvider.current.loginData.role=='sectionAdministrator'" (click)="reject()"  > Reject </button>
                                              <!-- <button class="btn btn-danger"  (click)="onupload()" > Reject </button> -->
                                         </div>
                                     </form>
