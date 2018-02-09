@@ -18,7 +18,7 @@ export const LOCAL: Environment = {
 };
 
 export const DEV: Environment = {
-    mainApi: 'http://18.217.230.32:3001/api/',
+    mainApi: 'https://www.netpar.in:3001/api/',
     timeout: HTTP_TIMEOUT,
     debug: true,
     bypass: false,
@@ -28,7 +28,7 @@ export const DEV: Environment = {
 
 
 export const PROD: Environment = {
-    mainApi: 'http://18.217.230.32:3001/api/',
+    mainApi: 'https://www.netpar.in:3001/api/',
     timeout: HTTP_TIMEOUT,
     debug: false,
     bypass: false,
